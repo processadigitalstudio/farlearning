@@ -3,786 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 2: Accidents — Interactive English II</title>
+<title>farlearning — Interactive English II</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --red:       #C0392B;
-    --red-light: #FDECEA;
-    --red-dark:  #7B241C;
-    --teal:      #1D9E75;
-    --teal-light:#E1F5EE;
-    --teal-dark: #085041;
-    --blue:      #185FA5;
-    --blue-light:#E6F1FB;
-    --blue-dark: #0C447C;
-    --amber:     #854F0B;
-    --amber-light:#FFF3E0;
-    --purple:    #534AB7;
-    --purple-light:#EEEDFE;
-    --gray:      #f5f5f3;
-    --border:    #e0e0dc;
-    --text:      #1a1a18;
-    --muted:     #6b6b68;
-    --radius:    10px;
-    --font:      'Segoe UI', system-ui, sans-serif;
-  }
-  body { font-family: var(--font); background: #fafaf8; color: var(--text); min-height: 100vh; }
-
-  header { background: var(--red); color: white; padding: 1.5rem 2rem; }
-  header h1 { font-size: 1.5rem; font-weight: 600; }
-  header p  { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
-
-  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
-
-  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
-  .tab  { padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 30px;
-          background: white; font-size: 0.85rem; cursor: pointer; color: var(--muted);
-          font-family: var(--font); transition: all 0.15s; }
-  .tab:hover  { border-color: var(--red); color: var(--red); }
-  .tab.active { background: var(--red); border-color: var(--red); color: white; font-weight: 600; }
-
-  .section        { display: none; }
-  .section.active { display: block; }
-
-  .card    { background: white; border: 1px solid var(--border); border-radius: var(--radius);
-             padding: 1.25rem; margin-bottom: 1rem; }
-  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .badge   { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
-             font-weight: 600; margin-bottom: 10px; }
-  .badge-vocab   { background: var(--blue-light);   color: var(--blue-dark); }
-  .badge-grammar { background: var(--teal-light);   color: var(--teal-dark); }
-  .badge-warn    { background: var(--red-light);    color: var(--red-dark); }
-  .badge-speaking{ background: var(--amber-light);  color: var(--amber); }
-  .sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
-
-  /* VOCAB CARDS */
-  .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap:10px; margin-top:0.5rem; }
-  .wcard { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px;
-           cursor: pointer; transition: all 0.18s; background: white; }
-  .wcard:hover { border-color: var(--red); }
-  .wcard.flipped { border-color: var(--red); background: var(--red-light); }
-  .wcard .en      { font-size: 0.95rem; font-weight: 600; }
-  .wcard .pos     { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-  .wcard .hint    { font-size: 0.75rem; color: var(--muted); margin-top: 4px; font-style: italic; }
-  .wcard .es      { font-size: 0.85rem; color: var(--red-dark); font-weight: 600; margin-top: 6px; display: none; }
-  .wcard .example { font-size: 0.75rem; color: var(--muted); margin-top: 4px; display: none; font-style: italic; }
-  .wcard.flipped .es, .wcard.flipped .example { display: block; }
-
-  /* MATCH */
-  .match-row  { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-  .match-word { font-size: 0.9rem; font-weight: 600; min-width: 150px; }
-  .match-sel  { flex: 1; min-width: 200px; padding: 8px 10px; border: 1.5px solid var(--border);
-                border-radius: 8px; font-family: var(--font); font-size: 0.85rem; background: white; cursor: pointer; }
-  .match-sel.ok   { border-color: var(--teal); background: var(--teal-light); }
-  .match-sel.fail { border-color: var(--red);  background: var(--red-light); }
-
-  /* GRAMMAR */
-  .gram-nav  { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
-  .gram-pill { padding: 5px 14px; border-radius: 20px; border: 1.5px solid var(--border);
-               font-size: 0.8rem; cursor: pointer; font-family: var(--font); background: white; color: var(--muted); }
-  .gram-pill.on { background: var(--teal); border-color: var(--teal); color: white; font-weight: 600; }
-  .gram-panel { display: none; }
-  .gram-panel.on { display: block; }
-  .formula-box { font-family: 'Courier New', monospace; font-size: 0.88rem; color: var(--blue-dark);
-                 background: var(--blue-light); border-radius: 8px; padding: 10px 14px;
-                 margin: 8px 0; border-left: 3px solid var(--blue); }
-  .example-line { font-size: 0.88rem; color: var(--muted); margin: 6px 0; padding-left: 12px; line-height: 1.55; }
-  .example-line strong { color: var(--teal-dark); font-weight: 700; }
-  .tip-box { background: var(--amber-light); border-left: 3px solid #EF9F27; border-radius: 8px;
-             padding: 10px 14px; margin-top: 1rem; font-size: 0.85rem; color: var(--amber); line-height: 1.55; }
-  .gram-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 1rem; }
-  .gram-table th, .gram-table td { padding: 9px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
-  .gram-table th { background: var(--gray); font-weight: 600; }
-  .gram-table tr:nth-child(even) td { background: #fafafa; }
-
-  /* WARNINGS */
-  .warn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 10px; margin-top:0.75rem; }
-  .warn-card { border-radius: var(--radius); padding: 14px; border: 1.5px solid var(--border); background: white; }
-  .warn-card .phrase { font-size: 1rem; font-weight: 700; color: var(--red); }
-  .warn-card .usage  { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
-  .warn-card .esp    { font-size: 0.82rem; color: var(--red-dark); margin-top: 6px; font-style: italic; }
-
-  /* QUIZ */
-  .score-wrap  { margin-bottom: 1.25rem; }
-  .score-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
-  .score-bar   { height: 7px; background: var(--gray); border-radius: 4px; overflow: hidden; }
-  .score-fill  { height: 100%; background: var(--red); border-radius: 4px; transition: width 0.4s ease; }
-  .quiz-item   { margin-bottom: 1rem; }
-  .quiz-item p { font-size: 0.9rem; margin-bottom: 8px; font-weight: 500; line-height: 1.5; }
-  .options     { display: flex; flex-direction: column; gap: 6px; }
-  .opt { text-align: left; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 8px;
-         font-size: 0.85rem; cursor: pointer; font-family: var(--font); background: white; color: var(--text); transition: all 0.15s; }
-  .opt:hover:not(:disabled) { border-color: var(--red); background: var(--red-light); }
-  .opt.correct { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 600; }
-  .opt.wrong   { background: var(--red-light);  border-color: var(--red);  color: var(--red-dark); }
-  .feedback    { font-size: 0.8rem; margin-top: 6px; padding: 7px 12px; border-radius: 8px; line-height: 1.5; }
-  .feedback.ok { background: var(--teal-light); color: var(--teal-dark); }
-  .feedback.no { background: var(--red-light);  color: var(--red-dark); }
-  .reset-btn   { padding: 8px 20px; border: 1.5px solid var(--border); border-radius: 8px;
-                 background: white; font-family: var(--font); font-size: 0.85rem; cursor: pointer;
-                 margin-top: 1rem; color: var(--muted); }
-  .reset-btn:hover { border-color: var(--red); color: var(--red); }
-
-  /* ROLEPLAY */
-  .rp-box    { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1rem; }
-  .rp-header { background: var(--gray); padding: 8px 14px; font-size: 0.78rem; color: var(--muted);
-               font-weight: 600; border-bottom: 1px solid var(--border); }
-  .rp-body   { padding: 1rem; }
-  .rp-turn   { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
-  .av        { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center;
-               justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
-  .av-a      { background: var(--red-light); color: var(--red-dark); }
-  .av-b      { background: var(--blue-light); color: var(--blue-dark); }
-  .rp-name   { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
-  .rp-text   { background: var(--gray); border-radius: 0 10px 10px 10px; padding: 8px 12px; font-size: 0.88rem; line-height: 1.55; }
-  .rp-text.right { background: var(--blue-light); border-radius: 10px 0 10px 10px; }
-  .rp-text strong { color: var(--red-dark); }
-
-  /* FILL */
-  .fill-box  { background: var(--gray); border-radius: var(--radius); padding: 1rem; margin-top: 0.75rem; }
-  .fill-box p { font-size: 0.88rem; line-height: 2.4; }
-  .blank-in  { border: none; border-bottom: 2px solid var(--red); background: transparent;
-               font-family: var(--font); font-size: 0.88rem; color: var(--text);
-               width: 130px; outline: none; text-align: center; }
-  .check-btn { margin-top: 0.75rem; padding: 8px 20px; background: var(--red); color: white;
-               border: none; border-radius: 8px; font-family: var(--font); font-size: 0.85rem;
-               cursor: pointer; font-weight: 600; }
-  .check-btn:hover { background: var(--red-dark); }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .chip  { font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; }
-  .chip-r { background: var(--red-light);    color: var(--red-dark); }
-  .chip-t { background: var(--teal-light);   color: var(--teal-dark); }
-  .chip-b { background: var(--blue-light);   color: var(--blue-dark); }
-  .chip-a { background: var(--amber-light);  color: var(--amber); }
-  .divider { height: 1px; background: var(--border); margin: 1rem 0; }
-
-  footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: var(--muted);
-           border-top: 1px solid var(--border); background: white; margin-top: 2rem; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fafaf8; color: #1a1a18; min-height: 100vh; }
+  header { background: #1a2e45; color: white; padding: 2rem; text-align: center; }
+  header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
+  header p  { font-size: 0.9rem; opacity: 0.7; margin-top: 6px; }
+  .main { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+       color: #6b6b68; margin-bottom: 1rem; margin-top: 2rem; }
+  .unit-card { display: flex; align-items: center; gap: 1rem; background: white;
+               border: 1px solid #e0e0dc; border-radius: 12px; padding: 1rem 1.25rem;
+               margin-bottom: 0.75rem; text-decoration: none; color: inherit; transition: all 0.15s; }
+  .unit-card:hover { border-color: #888; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
+  .unit-num { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center;
+              justify-content: center; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+  .unit-info h3 { font-size: 1rem; font-weight: 600; }
+  .unit-info p  { font-size: 0.8rem; color: #6b6b68; margin-top: 3px; }
+  .badge { display: inline-block; font-size: 0.68rem; padding: 2px 8px; border-radius: 20px;
+           font-weight: 600; margin-top: 5px; }
+  .soon { opacity: 0.45; pointer-events: none; }
+  .badge-soon { background: #f0f0ee; color: #999; }
 </style>
 </head>
 <body>
-
 <header>
-  <h1>Unit 2: Accidents</h1>
-  <p>Interactive English II &nbsp;·&nbsp; Intermediate 3 &nbsp;·&nbsp; Tweetalig / English Discoveries</p>
+  <h1>farlearning</h1>
+  <p>Interactive English II &nbsp;·&nbsp; Tweetalig / English Discoveries &nbsp;·&nbsp; Intermediate 3</p>
 </header>
 
 <div class="main">
+  <h2>Course Units / Unidades del curso</h2>
 
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('vocab',this)">📋 Vocabulary</button>
-    <button class="tab" onclick="switchTab('warnings',this)">⚠️ Warnings</button>
-    <button class="tab" onclick="switchTab('grammar',this)">⚙ Grammar</button>
-    <button class="tab" onclick="switchTab('quiz',this)">✏ Quiz</button>
-    <button class="tab" onclick="switchTab('practice',this)">💬 Role-play</button>
-  </div>
-
-  <!-- ═══════════════════════════════════ VOCABULARY ═══════════════════════════════════ -->
-  <div id="vocab" class="section active">
-
-    <div class="card">
-      <span class="badge badge-vocab">Accidents Vocabulary</span>
-      <h3>Types of accidents — tap to reveal / Tipos de accidentes — toca para revelar</h3>
-      <p class="sub">Haz clic en cada tarjeta para ver la traducción al español y un ejemplo.</p>
-      <div class="word-grid" id="accidentGrid"></div>
+  <a class="unit-card" href="./unit1/">
+    <div class="unit-num" style="background:#E6F1FB;color:#0C447C;">1</div>
+    <div class="unit-info">
+      <h3>Unit 1: Buying A Car</h3>
+      <p>Real Conditionals &nbsp;·&nbsp; Cars vocabulary</p>
+      <span class="badge" style="background:#E6F1FB;color:#0C447C;">Available</span>
     </div>
+  </a>
 
-    <div class="card">
-      <span class="badge badge-vocab">Body & Injury Vocabulary</span>
-      <h3>Parts of the body and injuries / Partes del cuerpo y lesiones</h3>
-      <p class="sub">Vocabulario esencial para hablar sobre accidentes y sus consecuencias.</p>
-      <div class="word-grid" id="injuryGrid"></div>
+  <a class="unit-card" href="./unit2/">
+    <div class="unit-num" style="background:#FDECEA;color:#7B241C;">2</div>
+    <div class="unit-info">
+      <h3>Unit 2: Accidents</h3>
+      <p>Past Perfect Simple &amp; Progressive &nbsp;·&nbsp; Warning language</p>
+      <span class="badge" style="background:#FDECEA;color:#7B241C;">Available</span>
     </div>
+  </a>
 
-    <div class="card">
-      <span class="badge badge-vocab">Context Vocabulary</span>
-      <h3>Key words from the unit stories / Palabras clave de los textos de la unidad</h3>
-      <p class="sub">Cliff Terror · Be Careful! · Look Out!</p>
-      <div class="word-grid" id="contextGrid"></div>
+  <a class="unit-card" href="./unit3/">
+    <div class="unit-num" style="background:#E8F5E9;color:#1B5E20;">3</div>
+    <div class="unit-info">
+      <h3>Unit 3: Helping Out</h3>
+      <p>Reported Speech &nbsp;·&nbsp; Asking for help &nbsp;·&nbsp; Home Repairs</p>
+      <span class="badge" style="background:#E8F5E9;color:#1B5E20;">Available</span>
     </div>
+  </a>
 
-    <div class="card">
-      <span class="badge badge-vocab">Match the definition / Relaciona la definición</span>
-      <h3>Select the correct definition for each word</h3>
-      <p class="sub">Selecciona la definición correcta para cada palabra.</p>
-      <div id="matchGame"></div>
+  <a class="unit-card soon" href="#">
+    <div class="unit-num" style="background:#f0f0ee;color:#999;">4</div>
+    <div class="unit-info">
+      <h3>Unit 4: Dreams and Ambitions</h3>
+      <p>Unreal Conditionals &nbsp;·&nbsp; Adjectives</p>
+      <span class="badge badge-soon">Coming soon</span>
     </div>
+  </a>
 
-  </div>
-
-  <!-- ═══════════════════════════════════ WARNINGS ═══════════════════════════════════ -->
-  <div id="warnings" class="section">
-
-    <div class="card">
-      <span class="badge badge-warn">Warning Language / Lenguaje de advertencia</span>
-      <h3>Expressions for giving spoken warnings</h3>
-      <p class="sub">Expresiones para dar advertencias orales — directas e indirectas. Usadas en los diálogos "Look Out!" y "Be Careful!".</p>
-      <div class="warn-grid" id="warnGrid"></div>
+  <a class="unit-card soon" href="#">
+    <div class="unit-num" style="background:#f0f0ee;color:#999;">5</div>
+    <div class="unit-info">
+      <h3>Unit 5: Politics</h3>
+      <p>Reported Speech Review &nbsp;·&nbsp; Time Aspects</p>
+      <span class="badge badge-soon">Coming soon</span>
     </div>
+  </a>
 
-    <div class="card">
-      <span class="badge badge-warn">Ignoring a warning / Ignorar una advertencia</span>
-      <h3>How to respond when you disagree with a warning</h3>
-      <p class="sub">Frases para ignorar o rechazar una advertencia de forma educada — del diálogo "Look Out!"</p>
-      <div class="warn-grid" id="ignoreGrid"></div>
+  <a class="unit-card soon" href="#">
+    <div class="unit-num" style="background:#f0f0ee;color:#999;">6</div>
+    <div class="unit-info">
+      <h3>Unit 6: Instructions</h3>
+      <p>Causatives &amp; Permissives &nbsp;·&nbsp; Crime vocabulary</p>
+      <span class="badge badge-soon">Coming soon</span>
     </div>
+  </a>
 
-    <div class="card">
-      <span class="badge badge-warn">Written warnings / Advertencias escritas</span>
-      <h3>Signs and notices — from the Cliff Terror lesson</h3>
-      <p class="sub">Letreros y avisos — Cliff Terror · Be Careful! · Look Out!</p>
-      <div class="word-grid" id="signGrid"></div>
+  <a class="unit-card soon" href="#">
+    <div class="unit-num" style="background:#f0f0ee;color:#999;">7</div>
+    <div class="unit-info">
+      <h3>Unit 7: Recycling</h3>
+      <p>Prefixes &amp; Suffixes &nbsp;·&nbsp; Cause and Effect</p>
+      <span class="badge badge-soon">Coming soon</span>
     </div>
+  </a>
 
-    <div class="card">
-      <span class="badge badge-speaking">Practice: What would YOU say?</span>
-      <h3>Read the situation and choose the best warning</h3>
-      <p class="sub">Lee la situación y elige la mejor advertencia.</p>
-      <div id="situationGame"></div>
+  <a class="unit-card soon" href="#">
+    <div class="unit-num" style="background:#f0f0ee;color:#999;">8</div>
+    <div class="unit-info">
+      <h3>Unit 8: Movie Making</h3>
+      <p>Past Simple &amp; Progressive &nbsp;·&nbsp; Film vocabulary</p>
+      <span class="badge badge-soon">Coming soon</span>
     </div>
+  </a>
 
-  </div>
-
-  <!-- ═══════════════════════════════════ GRAMMAR ═══════════════════════════════════ -->
-  <div id="grammar" class="section">
-    <div class="gram-nav">
-      <button class="gram-pill on" onclick="showGram(0,this)">Past Perfect Simple</button>
-      <button class="gram-pill"    onclick="showGram(1,this)">Past Perfect Progressive</button>
-      <button class="gram-pill"    onclick="showGram(2,this)">Simple vs Progressive</button>
-      <button class="gram-pill"    onclick="showGram(3,this)">Summary Table</button>
-    </div>
-    <div id="gramPanels"></div>
-  </div>
-
-  <!-- ═══════════════════════════════════ QUIZ ═══════════════════════════════════ -->
-  <div id="quiz" class="section">
-    <div class="score-wrap">
-      <div class="score-label" id="scoreLabel">Score / Puntaje: 0 / 10</div>
-      <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
-    </div>
-    <div id="quizItems"></div>
-    <button class="reset-btn" onclick="resetQuiz()">↺ Restart / Reiniciar</button>
-  </div>
-
-  <!-- ═══════════════════════════════════ ROLEPLAY ═══════════════════════════════════ -->
-  <div id="practice" class="section">
-
-    <div class="card">
-      <span class="badge badge-speaking">Dialogue Model / Modelo de diálogo</span>
-      <h3>Situation: A dangerous situation — giving and ignoring a warning</h3>
-      <p class="sub">Situación: Alguien está en una situación peligrosa. Una persona da una advertencia; la otra la ignora. Observa las estructuras resaltadas.</p>
-      <div class="rp-box">
-        <div class="rp-header">Look Out! — Warning dialogue · Past Perfect structures highlighted</div>
-        <div class="rp-body" id="rpBody"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="badge badge-grammar">Fill in the blanks / Completa los espacios</span>
-      <h3>Past Perfect Simple and Progressive in context</h3>
-      <p class="sub">Complete las oraciones con la forma correcta del verbo. Usa Past Perfect Simple o Progressive.</p>
-      <div class="fill-box">
-        <p>1. When the rescuers arrived, Susan and Ellen <input class="blank-in" id="b1" placeholder="________"> on the cliff for two hours. <em>(wait — PProg)</em></p>
-        <p>2. The father hurt his back because he <input class="blank-in" id="b2" placeholder="________"> a heavy gramophone. <em>(lift — PProg)</em></p>
-        <p>3. They were exhausted because they <input class="blank-in" id="b3" placeholder="________"> all morning. <em>(hike — PProg)</em></p>
-        <p>4. The woman didn't listen to the warning. She <input class="blank-in" id="b4" placeholder="________"> it. <em>(ignore — PPS)</em></p>
-        <p>5. By the time the ambulance came, the doctor <input class="blank-in" id="b5" placeholder="________"> the patient for ten minutes. <em>(treat — PProg)</em></p>
-      </div>
-      <button class="check-btn" onclick="checkBlanks()">Check / Verificar</button>
-      <div id="blankFeedback" style="margin-top:10px;font-size:0.85rem;line-height:1.5;"></div>
-    </div>
-
-    <div class="card">
-      <span class="badge badge-speaking">Your turn / Tu turno</span>
-      <h3>Speaking task / Tarea oral</h3>
-      <p style="font-size:0.88rem;color:var(--muted);line-height:1.65;">
-        With a partner, role-play one of these situations. One person is in a dangerous situation; the other gives a warning. The first person ignores it at first, then accepts it. Use <strong>at least 2 warning phrases</strong>, <strong>1 phrase to ignore</strong>, and <strong>1 Past Perfect Progressive sentence</strong> to explain what had been happening.<br><br>
-        <em>Con un/a compañero/a, hagan un juego de rol. Una persona está en una situación peligrosa; la otra da una advertencia. La primera persona la ignora al principio, luego la acepta. Usen al menos 2 frases de advertencia, 1 frase para ignorarla, y 1 oración en Past Perfect Progressive para explicar qué había estado pasando.</em>
-      </p>
-      <div class="divider"></div>
-      <p style="font-size:0.82rem;font-weight:600;color:var(--red);margin-bottom:8px;">Choose a scenario / Elige un escenario:</p>
-      <div class="chips">
-        <span class="chip chip-r">🚵 Someone cycling dangerously on a sidewalk</span>
-        <span class="chip chip-r">🏋️ Someone lifting a very heavy object alone</span>
-        <span class="chip chip-r">🧗 Someone climbing without proper equipment</span>
-        <span class="chip chip-r">📱 Someone texting while crossing the street</span>
-      </div>
-      <div class="divider"></div>
-      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;">Useful phrases to explain with Past Perfect Progressive:</p>
-      <div class="chips">
-        <span class="chip chip-b">I had been cycling for an hour when…</span>
-        <span class="chip chip-b">She had been working all day so…</span>
-        <span class="chip chip-t">He had been training for weeks before…</span>
-        <span class="chip chip-t">They had been waiting for hours when…</span>
-        <span class="chip chip-a">I hadn't been paying attention because…</span>
-      </div>
-    </div>
-
-  </div>
-
-</div><!-- /main -->
-
-<footer>Interactive English II · Unit 2: Accidents · English Discoveries / Tweetalig · © Edusoft 1990-2026</footer>
-
-<script>
-// ══════════════════════════════════ DATA ══════════════════════════════════
-
-const accidentWords = [
-  {en:'sprain',        pos:'verb/noun', hint:'twist a joint — not break it',          es:'torcer / esguince',        ex:'She sprained her ankle when she fell off her bike.'},
-  {en:'bruise',        pos:'noun/verb', hint:'dark mark on skin after a hit',          es:'moretón / moretonearse',   ex:'He had a big bruise on his arm after the accident.'},
-  {en:'fracture',      pos:'noun/verb', hint:'a crack or break in a bone',             es:'fractura / fracturarse',   ex:'The climber suffered a fracture in her wrist.'},
-  {en:'spill',         pos:'verb/noun', hint:'accidentally pour liquid onto something', es:'derramar / derrame',       ex:'He spilled hot coffee on himself and burned his hand.'},
-  {en:'slip',          pos:'verb/noun', hint:'lose your footing suddenly',             es:'resbalarse / resbalón',    ex:'She slipped on the wet floor near the pool.'},
-  {en:'crash',         pos:'verb/noun', hint:'violent collision between vehicles',     es:'chocar / choque',          ex:'Two cars crashed at the intersection.'},
-  {en:'burn',          pos:'verb/noun', hint:'injury from fire or heat',               es:'quemarse / quemadura',     ex:'He burned his hand on the stove.'},
-  {en:'fall',          pos:'verb/noun', hint:'move downward unexpectedly',             es:'caerse / caída',           ex:'She had a bad fall while hiking in Canyon Park.'},
-  {en:'accident-prone',pos:'adjective', hint:'having more accidents than normal',      es:'propenso/a a accidentes',  ex:'He is accident-prone — this is his third injury this month!'},
-  {en:'freak accident', pos:'noun',     hint:'a very unusual, unexpected accident',    es:'accidente insólito',       ex:'Being struck by lightning is a freak accident.'},
-  {en:'cut',           pos:'verb/noun', hint:'break the skin with something sharp',    es:'cortarse / corte',         ex:'She cut her finger while chopping vegetables.'},
-  {en:'bump into',     pos:'phrasal v', hint:'accidentally hit someone or something',  es:'chocar con / tropezar con', ex:'He wasn\'t looking and bumped into a glass door.'},
-];
-
-const injuryWords = [
-  {en:'back',      pos:'noun', hint:'the rear part of your torso', es:'espalda',      ex:'He hurt his back trying to lift the gramophone.'},
-  {en:'ankle',     pos:'noun', hint:'joint connecting leg and foot', es:'tobillo',    ex:'She sprained her ankle on the hiking trail.'},
-  {en:'wrist',     pos:'noun', hint:'joint between hand and arm',   es:'muñeca',      ex:'He fractured his wrist when he fell.'},
-  {en:'shoulder',  pos:'noun', hint:'joint connecting arm to body', es:'hombro',      ex:'She dislocated her shoulder in the crash.'},
-  {en:'knee',      pos:'noun', hint:'joint in the middle of the leg', es:'rodilla',   ex:'He bruised his knee badly when he fell off his bike.'},
-  {en:'twist',     pos:'verb', hint:'turn sharply and injure',      es:'torcer',      ex:'She twisted her ankle stepping off the curb.'},
-  {en:'dislocate', pos:'verb', hint:'a bone moves out of its joint', es:'dislocar',   ex:'He dislocated his shoulder carrying heavy boxes.'},
-  {en:'swell',     pos:'verb', hint:'become larger due to injury',  es:'hincharse',   ex:'His ankle swelled up after the fall.'},
-  {en:'treat',     pos:'verb', hint:'give medical care for an injury', es:'tratar',   ex:'The doctor treated the wound immediately.'},
-  {en:'recover',   pos:'verb', hint:'return to normal health',       es:'recuperarse', ex:'She recovered quickly from the sprained ankle.'},
-];
-
-const contextWords = [
-  {en:'cliff',        pos:'noun',    hint:'a steep, high rock face — Cliff Terror', es:'acantilado / precipicio',  ex:'Susan and Ellen found themselves on the edge of a cliff.'},
-  {en:'hiking group', pos:'noun',    hint:'people walking together in nature',      es:'grupo de senderismo',      ex:'They got separated from their hiking group in Canyon Park.'},
-  {en:'gramophone',   pos:'noun',    hint:'an old music player — Be Careful!',      es:'gramófono / tocadiscos',   ex:'He hurt his back trying to carry the heavy gramophone.'},
-  {en:'warn',         pos:'verb',    hint:'tell someone about a possible danger',   es:'advertir / avisar',        ex:'His daughter warned him not to lift the heavy object.'},
-  {en:'insist',       pos:'verb',    hint:'keep saying something firmly',           es:'insistir',                 ex:'He insisted on lifting it by himself despite the warning.'},
-  {en:'separated',    pos:'adjective',hint:'no longer with the group',             es:'separado/a / perdido/a',   ex:'They got separated from the group and couldn\'t find their way back.'},
-  {en:'rescue',       pos:'verb/noun',hint:'save someone from danger',             es:'rescatar / rescate',        ex:'Mountain rescue teams were called to help the hikers.'},
-  {en:'steep',        pos:'adjective',hint:'a sharp slope — very difficult to climb',es:'empinado/a',            ex:'The path became too steep for inexperienced hikers.'},
-  {en:'exhausted',    pos:'adjective',hint:'extremely tired',                      es:'agotado/a',                ex:'They were exhausted after hiking all morning.'},
-  {en:'manage',       pos:'verb',    hint:'succeed in doing something difficult',   es:'lograr / arreglárselas',   ex:'He thought he could manage the weight alone.'},
-];
-
-const matchData = [
-  {word:'accident-prone',def:'A person who has more accidents than average / Propenso/a a tener accidentes'},
-  {word:'Past Perfect Progressive',def:'Used for a continuous action that happened before another past event / Acción continua que ocurrió antes de otro evento pasado'},
-  {word:'warn',def:'To tell someone about a possible danger before it happens / Advertir sobre un peligro'},
-  {word:'freak accident',def:'A very strange or unusual accident that is hard to predict / Accidente insólito'},
-  {word:'exhausted',def:'Extremely tired, usually after physical effort / Completamente agotado'},
-  {word:'rescue',def:'To save someone from a dangerous situation / Salvar a alguien de una situación peligrosa'},
-];
-
-const warningPhrases = [
-  {phrase:'Look out!',       usage:'Immediate danger — shout it quickly',       esp:'¡Cuidado! / ¡Aguas!'},
-  {phrase:'Watch out!',      usage:'Similar to "look out" — sudden danger',     esp:'¡Cuidado! / ¡Ojo!'},
-  {phrase:'Be careful!',     usage:'General warning — less urgent',             esp:'¡Ten cuidado!'},
-  {phrase:"Don't…!",         usage:'Direct negative command to prevent danger', esp:'¡No hagas…!'},
-  {phrase:'You could hurt someone.',usage:'Consequence warning — polite but firm',esp:'Podrías lastimar a alguien.'},
-  {phrase:"You mustn't ride so fast.",usage:'Obligation — telling someone to stop',esp:'No debes ir tan rápido.'},
-  {phrase:'It\'s dangerous!', usage:'State the danger clearly',                esp:'¡Es peligroso!'},
-  {phrase:'Something might happen.',usage:'Possibility — warning about a risk', esp:'Algo podría pasar.'},
-];
-
-const ignorePhrases = [
-  {phrase:"Nonsense! It's perfectly safe.", usage:'Dismiss the warning completely',         esp:'¡Tonterías! Está perfectamente seguro.'},
-  {phrase:"Don't worry, it won't happen.",  usage:'Reassure the other person',             esp:'No te preocupes, no va a pasar.'},
-  {phrase:'I can manage by myself.',        usage:'Refuse help, insist on independence',   esp:'Puedo solo/a.'},
-  {phrase:"It's fine — I've done this before.", usage:'Use experience to dismiss concern', esp:'Está bien — ya lo he hecho antes.'},
-  {phrase:'Stop worrying — I know what I\'m doing.', usage:'Assert confidence',           esp:'Deja de preocuparte — sé lo que hago.'},
-  {phrase:"You're overreacting.",           usage:'Say the warning is too extreme',        esp:'Estás exagerando.'},
-];
-
-const signWords = [
-  {en:'Keep out!',            pos:'warning sign', hint:'do not enter this area',              es:'¡Prohibido el paso!',         ex:'"Keep out!" was written on the fence near the cliff.'},
-  {en:'Danger ahead',         pos:'warning sign', hint:'there is a risk further along',       es:'Peligro más adelante',         ex:'"Danger ahead" warned hikers about the steep path.'},
-  {en:'Slippery surface',     pos:'warning sign', hint:'the floor or ground is slippery',    es:'Superficie resbaladiza',       ex:'The sign said "Slippery surface" but he ignored it.'},
-  {en:'No entry',             pos:'warning sign', hint:'you are not allowed to go in',        es:'Prohibida la entrada',         ex:'"No entry" was marked at the beginning of the trail.'},
-  {en:'Caution',              pos:'warning sign', hint:'be careful — used on signs and labels',es:'Precaución / Atención',      ex:'"Caution: Falling rocks" was posted on the path.'},
-  {en:'Keep away from the edge',pos:'warning sign',hint:'do not go close to a cliff or drop', es:'Manténgase alejado del borde', ex:'The sign at the cliff read: "Keep away from the edge."'},
-];
-
-const grammarPanels = [
-  {
-    title:'Past Perfect Simple — had + past participle',
-    desc:'Used to show that one past action was completed <strong>before</strong> another past action or point in time.<br><em>Se usa para mostrar que una acción pasada se completó <strong>antes</strong> de otra acción o punto en el pasado.</em>',
-    formulas:['had + past participle (V3)'],
-    examples:[
-      'By the time help arrived, the father <strong>had hurt</strong> his back.',
-      'Fran <strong>had warned</strong> him not to lift the gramophone, but he didn\'t listen.',
-      'They <strong>had never hiked</strong> alone before the accident.',
-      'The woman <strong>had been riding</strong> too fast — she <strong>had ignored</strong> all the signs.',
-      'When the rescuers reached the cliff, the hikers <strong>had already found</strong> a safe spot.',
-    ],
-    tip:'Timeline: Event A (had + V3) happened FIRST → then Event B (Past Simple). / Línea de tiempo: El evento A ocurrió PRIMERO → luego el evento B.'
-  },
-  {
-    title:'Past Perfect Progressive — had been + verb-ing',
-    desc:'Used for a <strong>continuous action</strong> that was happening over time and continued up to a certain point in the past.<br><em>Se usa para una <strong>acción continua</strong> que ocurría en el tiempo y continuó hasta cierto punto en el pasado.</em>',
-    formulas:['had + been + verb-ing'],
-    examples:[
-      'We stopped to rest because we <strong>had been hiking</strong> all morning.',
-      'He hurt his back because he <strong>had been lifting</strong> heavy boxes for hours.',
-      'Susan and Ellen <strong>had been climbing</strong> for two hours when they got lost.',
-      'She <strong>had been cycling</strong> too fast when the older woman warned her.',
-      'He <strong>had been working</strong> on the TV for three hours when Betty called.',
-    ],
-    tip:'Key: the action was CONTINUOUS and ONGOING before it stopped. Often explains WHY something happened. / Clave: la acción era CONTINUA hasta que paró. Con frecuencia explica POR QUÉ algo ocurrió.'
-  },
-  {
-    title:'Simple vs Progressive — which to use?',
-    desc:'Both use "had" — the difference is whether the past action was a <strong>single completed event</strong> (Simple) or an <strong>ongoing process</strong> (Progressive).<br><em>Ambos usan "had" — la diferencia es si la acción fue un <strong>evento puntual</strong> (Simple) o un <strong>proceso continuo</strong> (Progressive).</em>',
-    formulas:[
-      'PP Simple:      had + V3             → completed action',
-      'PP Progressive: had + been + V-ing   → ongoing / continuous action',
-    ],
-    examples:[
-      '<strong>Simple:</strong> She <strong>had warned</strong> him once. (one completed warning)',
-      '<strong>Progressive:</strong> She <strong>had been warning</strong> him for weeks. (repeated, ongoing)',
-      '<strong>Simple:</strong> He <strong>had hurt</strong> his back. (completed injury)',
-      '<strong>Progressive:</strong> He <strong>had been carrying</strong> heavy things. (ongoing action that led to the injury)',
-      '<strong>Simple:</strong> They <strong>had got</strong> separated from the group. (completed)',
-      '<strong>Progressive:</strong> They <strong>had been hiking</strong> for hours when they got lost. (ongoing)',
-    ],
-    tip:'Ask yourself: Was it a single moment or something that lasted over time? / Pregúntate: ¿Fue un momento único o algo que duró un tiempo?'
-  },
-  {
-    title:'Summary Table / Tabla resumen',
-    desc:'All Past Perfect structures at a glance. / Todas las estructuras en un vistazo.',
-    table:[
-      ['Structure','Form','Use / Uso','Example'],
-      ['Past Perfect Simple','had + V3','Single completed action before another past event','She had warned him before he got hurt.'],
-      ['Past Perfect Progressive','had + been + V-ing','Ongoing action up to a point in the past','He had been lifting boxes for hours when he hurt his back.'],
-      ['Negative PP Simple','had + not + V3','Something was not completed before another event','They hadn\'t hiked alone before.'],
-      ['Negative PP Prog.','had + not + been + V-ing','Ongoing action was absent','She hadn\'t been paying attention.'],
-      ['Question PP Simple','Had + subject + V3…?','Ask if something was completed before','Had she warned him?'],
-      ['Question PP Prog.','Had + subject + been + V-ing…?','Ask about an ongoing past action','How long had they been hiking?'],
-    ]
-  }
-];
-
-const quizData = [
-  {q:'By the time help arrived, they ___ on the cliff for three hours.',
-   opts:['had been waiting','were waiting','waited','have been waiting'],
-   ans:'had been waiting',
-   fb:'Past Perfect Progressive: action that was ongoing up to a point in the past. / Acción continua hasta un punto en el pasado.'},
-  {q:'He hurt his back because he ___ a heavy gramophone.',
-   opts:['had been lifting','lifted','was lifting','has been lifting'],
-   ans:'had been lifting',
-   fb:'The ongoing action (lifting) explains why the result (back injury) happened. / La acción continua explica el resultado.'},
-  {q:'Which sentence is CORRECT Past Perfect Simple?',
-   opts:['She had warn him.','She had warned him.','She has warned him.','She warned him already.'],
-   ans:'She had warned him.',
-   fb:'Past Perfect Simple = had + past participle (warned). / had + participio pasado.'},
-  {q:'"___ they ever hiked alone before the accident?"',
-   opts:['Did','Had','Were','Have'],
-   ans:'Had',
-   fb:'Questions in Past Perfect start with "Had". / Las preguntas en Past Perfect empiezan con "Had".'},
-  {q:'She was exhausted because she ___ all morning.',
-   opts:['had been hiking','hiked','was hiking','has hiked'],
-   ans:'had been hiking',
-   fb:'The continuous action (hiking all morning) explains the result (exhaustion). / La acción continua explica el resultado.'},
-  {q:'Which is the BEST warning for someone cycling on a sidewalk?',
-   opts:['Nonsense!','Look out! You could hurt someone!','Don\'t worry.','It\'s perfectly safe.'],
-   ans:'Look out! You could hurt someone!',
-   fb:'"Look out!" expresses immediate danger + a consequence warning. / Expresa peligro inmediato + consecuencia.'},
-  {q:'The father ___ the gramophone when his back gave out.',
-   opts:['has been carrying','had been carrying','carried','was carry'],
-   ans:'had been carrying',
-   fb:'Past Perfect Progressive: continuous action that led to the moment of injury. / Acción continua que llevó al momento de la lesión.'},
-  {q:'By 3 pm, the rescue team ___ the hikers.',
-   opts:['found','had found','had been finding','were finding'],
-   ans:'had found',
-   fb:'A single completed action before a specific time in the past → Past Perfect Simple. / Acción completada antes de un punto en el pasado.'},
-  {q:'Which phrase IGNORES a warning?',
-   opts:['"Look out!"','"Be careful!"','"Nonsense! It\'s perfectly safe."','"You could get hurt!"'],
-   ans:'"Nonsense! It\'s perfectly safe."',
-   fb:'"Nonsense! It\'s perfectly safe." dismisses the concern — it ignores the warning. / Descarta la preocupación — ignora la advertencia.'},
-  {q:'She ___ her ankle on the steep path, which is why she needed help.',
-   opts:['had been spraining','has sprained','had sprained','was spraining'],
-   ans:'had sprained',
-   fb:'A completed past action (sprained) that explains the current situation → Past Perfect Simple. / Acción completada que explica la situación.'},
-];
-
-const dialogue = [
-  {who:'A', name:'Older woman', text:'<strong>Look out!</strong> You mustn\'t ride so fast on the sidewalk!'},
-  {who:'B', name:'Cyclist',     text:'<strong>Nonsense! It\'s perfectly safe.</strong> I\'ve been cycling here for years.'},
-  {who:'A', name:'Older woman', text:'You could hurt someone! There\'s a child just ahead. <strong>Be careful!</strong>'},
-  {who:'B', name:'Cyclist',     text:"<strong>Don't worry</strong> — I know what I'm doing. Stop overreacting."},
-  {who:'A', name:'Older woman', text:'I\'m serious. <strong>Watch out!</strong> That child is right in front of you!'},
-  {who:'B', name:'Cyclist',     text:'Oh! [brakes suddenly] I\'m sorry — I <strong>hadn\'t been paying</strong> attention. You were right. I could have hurt her.'},
-  {who:'A', name:'Older woman', text:'Exactly. It\'s dangerous. Please ride on the road next time.'},
-  {who:'B', name:'Cyclist',     text:'I will. I <strong>had been riding</strong> too fast. I didn\'t realise. Thank you.'},
-];
-
-const situations = [
-  {
-    context:'Your friend is about to pick up a very heavy box alone.',
-    opts:['Look out!','Be careful — you could hurt your back!','Nonsense!','Don\'t worry.'],
-    ans:'Be careful — you could hurt your back!',
-    fb:'"Be careful" + consequence = perfect here. A gentle but clear warning. / "Be careful" + consecuencia = ideal aquí.'
-  },
-  {
-    context:'Someone is texting while walking toward a step they haven\'t seen.',
-    opts:['It\'s fine.','Watch out! There\'s a step!','I can manage.','Don\'t overreact.'],
-    ans:'Watch out! There\'s a step!',
-    fb:'"Watch out!" is used for sudden, immediate danger. / "Watch out!" se usa para peligro repentino e inmediato.'
-  },
-  {
-    context:'A hiker is getting too close to the edge of a cliff.',
-    opts:['Nonsense!','Stop overreacting.','Keep away from the edge — it\'s dangerous!','You\'ve done this before.'],
-    ans:'Keep away from the edge — it\'s dangerous!',
-    fb:'Direct warning + reason = most effective and appropriate here. / Advertencia directa + razón = más efectiva aquí.'
-  },
-];
-
-// ══════════════════════════════════ BUILD FUNCTIONS ══════════════════════════════════
-
-function buildWordGrid(words, id){
-  const g = document.getElementById(id);
-  words.forEach(w => {
-    const d = document.createElement('div');
-    d.className = 'wcard';
-    d.innerHTML = `<div class="en">${w.en}</div><div class="pos">${w.pos}</div><div class="hint">${w.hint}</div><div class="es">🇪🇸 ${w.es}</div><div class="example">"${w.ex}"</div>`;
-    d.onclick = () => d.classList.toggle('flipped');
-    g.appendChild(d);
-  });
-}
-
-function buildMatch(){
-  const box = document.getElementById('matchGame');
-  matchData.forEach(m => {
-    const row = document.createElement('div');
-    row.className = 'match-row';
-    const lbl = document.createElement('span');
-    lbl.className = 'match-word';
-    lbl.textContent = m.word;
-    const sel = document.createElement('select');
-    sel.className = 'match-sel';
-    sel.dataset.answer = m.def;
-    const blank = document.createElement('option');
-    blank.textContent = '— select / selecciona —'; blank.value = '';
-    sel.appendChild(blank);
-    [...matchData].sort(() => Math.random() - 0.5).forEach(d => {
-      const o = document.createElement('option');
-      o.textContent = d.def.length > 60 ? d.def.slice(0,57)+'…' : d.def;
-      o.value = d.def;
-      sel.appendChild(o);
-    });
-    sel.onchange = function(){
-      this.classList.remove('ok','fail');
-      if(this.value === this.dataset.answer) this.classList.add('ok');
-      else if(this.value) this.classList.add('fail');
-    };
-    row.appendChild(lbl); row.appendChild(sel); box.appendChild(row);
-  });
-}
-
-function buildWarnGrid(){
-  const g = document.getElementById('warnGrid');
-  warningPhrases.forEach(w => {
-    const d = document.createElement('div');
-    d.className = 'warn-card';
-    d.innerHTML = `<div class="phrase">${w.phrase}</div><div class="usage">${w.usage}</div><div class="esp">🇪🇸 ${w.esp}</div>`;
-    g.appendChild(d);
-  });
-  const ig = document.getElementById('ignoreGrid');
-  ignorePhrases.forEach(w => {
-    const d = document.createElement('div');
-    d.className = 'warn-card';
-    d.style.borderColor = '#CCCCCC';
-    d.innerHTML = `<div class="phrase" style="color:var(--muted)">${w.phrase}</div><div class="usage">${w.usage}</div><div class="esp">🇪🇸 ${w.esp}</div>`;
-    ig.appendChild(d);
-  });
-}
-
-function buildSituations(){
-  const box = document.getElementById('situationGame');
-  situations.forEach((sit, i) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.style.marginBottom = '0.5rem';
-    let html = `<p style="font-size:0.9rem;font-weight:600;margin-bottom:10px;">${i+1}. ${sit.context}</p><div class="options">`;
-    sit.opts.forEach(o => {
-      html += `<button class="opt" onclick="checkSit(this,'${o.replace(/'/g,"\\'")}','${sit.ans.replace(/'/g,"\\'")}','${sit.fb.replace(/'/g,"\\'")}',${i})">${o}</button>`;
-    });
-    html += `</div><div class="feedback" id="sitfb${i}" style="display:none;"></div>`;
-    div.innerHTML = html;
-    box.appendChild(div);
-  });
-}
-
-const sitAnswered = {};
-function checkSit(btn, chosen, ans, fb, i){
-  if(sitAnswered[i]) return;
-  sitAnswered[i] = true;
-  btn.parentElement.querySelectorAll('.opt').forEach(b => b.disabled = true);
-  if(chosen === ans) btn.classList.add('correct');
-  else {
-    btn.classList.add('wrong');
-    btn.parentElement.querySelectorAll('.opt').forEach(b => { if(b.textContent === ans) b.classList.add('correct'); });
-  }
-  const fb_el = document.getElementById('sitfb'+i);
-  fb_el.style.display = 'block';
-  fb_el.className = 'feedback ' + (chosen===ans?'ok':'no');
-  fb_el.textContent = fb;
-}
-
-function buildGrammar(){
-  const box = document.getElementById('gramPanels');
-  grammarPanels.forEach((g,i) => {
-    const panel = document.createElement('div');
-    panel.className = 'gram-panel card' + (i===0?' on':'');
-    let html = `<span class="badge badge-grammar">${g.title}</span>`;
-    html += `<p class="sub">${g.desc}</p>`;
-    if(g.formulas){
-      g.formulas.forEach(f => { html += `<div class="formula-box">${f}</div>`; });
-      html += `<p style="font-size:0.8rem;color:var(--muted);margin:10px 0 6px;">Examples / Ejemplos:</p>`;
-      g.examples.forEach(e => { html += `<div class="example-line">→ ${e}</div>`; });
-    }
-    if(g.tip) html += `<div class="tip-box">💡 ${g.tip}</div>`;
-    if(g.table){
-      html += `<div style="overflow-x:auto;"><table class="gram-table">`;
-      g.table.forEach((row,ri) => {
-        html += '<tr>';
-        row.forEach(cell => { const tag = ri===0?'th':'td'; html += `<${tag}>${cell}</${tag}>`; });
-        html += '</tr>';
-      });
-      html += '</table></div>';
-    }
-    panel.innerHTML = html;
-    box.appendChild(panel);
-  });
-}
-
-function showGram(idx, btn){
-  document.querySelectorAll('.gram-panel').forEach((p,i) => p.classList.toggle('on', i===idx));
-  document.querySelectorAll('.gram-pill').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-}
-
-function buildDialogue(){
-  const rp = document.getElementById('rpBody');
-  dialogue.forEach(turn => {
-    const div = document.createElement('div');
-    div.className = 'rp-turn';
-    const isB = turn.who === 'B';
-    div.style.flexDirection = isB ? 'row-reverse' : 'row';
-    div.innerHTML = `
-      <div class="av ${isB?'av-b':'av-a'}">${turn.name[0]}</div>
-      <div>
-        <div class="rp-name" style="text-align:${isB?'right':'left'}">${turn.name}</div>
-        <div class="rp-text ${isB?'right':''}">${turn.text}</div>
-      </div>`;
-    rp.appendChild(div);
-  });
-}
-
-let score = 0;
-const answered = {};
-
-function buildQuiz(){
-  const box = document.getElementById('quizItems');
-  quizData.forEach((q,qi) => {
-    const div = document.createElement('div');
-    div.className = 'quiz-item card';
-    let html = `<p>${qi+1}. ${q.q}</p><div class="options">`;
-    q.opts.forEach(o => {
-      html += `<button class="opt" onclick="checkQ(this,'${o.replace(/'/g,"\\'")}','${q.ans.replace(/'/g,"\\'")}','${q.fb.replace(/'/g,"\\'")}',${qi})">${o}</button>`;
-    });
-    html += `</div><div class="feedback" id="fb${qi}" style="display:none;"></div>`;
-    div.innerHTML = html;
-    box.appendChild(div);
-  });
-}
-
-function checkQ(btn, chosen, ans, fb, qi){
-  if(answered[qi]) return;
-  answered[qi] = true;
-  btn.parentElement.querySelectorAll('.opt').forEach(b => b.disabled = true);
-  if(chosen === ans){ btn.classList.add('correct'); score++; }
-  else {
-    btn.classList.add('wrong');
-    btn.parentElement.querySelectorAll('.opt').forEach(b => { if(b.textContent===ans) b.classList.add('correct'); });
-  }
-  const el = document.getElementById('fb'+qi);
-  el.style.display = 'block';
-  el.className = 'feedback ' + (chosen===ans?'ok':'no');
-  el.textContent = fb;
-  updateScore();
-}
-
-function updateScore(){
-  document.getElementById('scoreLabel').textContent = `Score / Puntaje: ${score} / ${quizData.length}`;
-  document.getElementById('scoreFill').style.width = Math.round(score/quizData.length*100)+'%';
-}
-
-function resetQuiz(){
-  score = 0;
-  Object.keys(answered).forEach(k => delete answered[k]);
-  document.getElementById('quizItems').innerHTML = '';
-  updateScore();
-  buildQuiz();
-}
-
-const blankAnswers = {
-  b1: ['had been waiting'],
-  b2: ['had been lifting'],
-  b3: ['had been hiking'],
-  b4: ['had ignored'],
-  b5: ['had been treating'],
-};
-const blankHints = [
-  'had been waiting',
-  'had been lifting',
-  'had been hiking',
-  'had ignored',
-  'had been treating',
-];
-
-function checkBlanks(){
-  let correct = 0;
-  ['b1','b2','b3','b4','b5'].forEach((id,i) => {
-    const val = document.getElementById(id).value.trim().toLowerCase();
-    const ok = blankAnswers[id].includes(val);
-    document.getElementById(id).style.borderBottomColor = ok ? 'var(--teal)' : 'var(--red)';
-    if(ok) correct++;
-  });
-  const fb = document.getElementById('blankFeedback');
-  if(correct === 5){
-    fb.style.color = 'var(--teal-dark)';
-    fb.innerHTML = '✓ All correct! / ¡Todo correcto!';
-  } else {
-    fb.style.color = 'var(--red-dark)';
-    fb.innerHTML = `${correct}/5 correct. Hints / Pistas: ${blankHints.join(' | ')}`;
-  }
-}
-
-function switchTab(id, btn){
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-buildWordGrid(accidentWords, 'accidentGrid');
-buildWordGrid(injuryWords,   'injuryGrid');
-buildWordGrid(contextWords,  'contextGrid');
-buildWordGrid(signWords,     'signGrid');
-buildMatch();
-buildWarnGrid();
-buildSituations();
-buildGrammar();
-buildDialogue();
-buildQuiz();
-updateScore();
-</script>
+</div>
 </body>
 </html>
