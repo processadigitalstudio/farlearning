@@ -256,12 +256,21 @@
   <!-- ═══ ROLE-PLAY ═══ -->
   <div id="practice" class="section">
     <div class="card">
-      <span class="badge badge-speaking">Dialogue Model / Modelo de diálogo</span>
-      <h3>Situation: Asking for and agreeing to help — Let's Go</h3>
-      <p class="sub">Situación: Una estudiante pide ayuda a un compañero en la biblioteca. Observa las expresiones de pedir ayuda, hacer sugerencias y el Reported Speech resaltados.</p>
+      <span class="badge badge-speaking">Platform Dialogue / Diálogo de la plataforma</span>
+      <h3>Let's Go — Dialogue 1: she gets help</h3>
+      <p class="sub">Del diálogo original de la plataforma English Discoveries. Observa las expresiones resaltadas.</p>
       <div class="rp-box">
-        <div class="rp-header">Let's Go — Dialogue · Key expressions highlighted in green</div>
+        <div class="rp-header">Let's Go — Dialogue 1 · Key expressions highlighted</div>
         <div class="rp-body" id="rpBody"></div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="badge badge-speaking">Platform Dialogue / Diálogo de la plataforma</span>
+      <h3>Let's Go — Dialogue 2: he suggests someone else</h3>
+      <p class="sub">La misma situación, resultado diferente — Steve sugiere a otra persona.</p>
+      <div class="rp-box">
+        <div class="rp-header">Let's Go — Dialogue 2 · Making a counter-suggestion</div>
+        <div class="rp-body" id="rpBody2"></div>
       </div>
     </div>
     <div class="card">
@@ -282,8 +291,8 @@
       <span class="badge badge-speaking">Your turn / Tu turno</span>
       <h3>Speaking task / Tarea oral</h3>
       <p style="font-size:0.88rem;color:var(--muted);line-height:1.65;">
-        With a partner, create a dialogue where Student A asks for help in one of the situations below. Student B must respond — agree, make a counter-suggestion, or politely decline. Then report what happened to a third student using Reported Speech.<br><br>
-        <em>Con un/a compañero/a, creen un diálogo donde el Estudiante A pide ayuda en una de las situaciones. El Estudiante B responde — acepta, hace una contra-sugerencia o declina educadamente. Luego repórtenle a un tercer estudiante qué pasó usando Estilo Indirecto.</em>
+        In pairs: Student A asks for help in one of the situations below. Student B responds — agree, make a counter-suggestion, or politely decline. At the end, each student reports to the class what their partner said using Reported Speech.<br><br>
+        <em>En parejas: el Estudiante A pide ayuda en una de las situaciones. El Estudiante B responde — acepta, hace una contra-sugerencia o declina educadamente. Al final, cada estudiante le reporta a la clase lo que su pareja dijo usando Estilo Indirecto.</em>
       </p>
       <div class="divider"></div>
       <p style="font-size:0.82rem;font-weight:600;color:var(--green);margin-bottom:8px;">Choose a situation / Elige una situación:</p>
@@ -572,14 +581,24 @@ const quizData = [
   },
 ];
 
+// Dialogue 1 — from the platform (Let's Go)
 const dialogue = [
-  {who:'A', name:'Girl (Sarah)', text:'Hi Steve. <strong>Would you mind helping me</strong> with the geography assignment?'},
-  {who:'B', name:'Steve',        text:"<strong>Sure, if I'm able to.</strong> What's the problem?"},
-  {who:'A', name:'Girl (Sarah)', text:"Thanks! I don't like studying in the library. It's so noisy here."},
-  {who:'B', name:'Steve',        text:"You're right. It is too noisy. <strong>How about</strong> studying somewhere else?"},
-  {who:'A', name:'Girl (Sarah)', text:"<strong>That's a great idea.</strong> We could study in my room — it's quiet there."},
-  {who:'B', name:'Steve',        text:"My room is even quieter. <strong>Let's go there.</strong>"},
-  {who:'A', name:'Girl (Sarah)', text:'Perfect! She later told her friend that Steve <strong>had agreed to help</strong> her and that they <strong>had gone</strong> to study in his room.'},
+  {who:'A', name:'Girl',  text:'Hi, Steve. <strong>Would you mind helping me</strong> with the geography assignment?'},
+  {who:'B', name:'Steve', text:"<strong>Sure, if I'm able to.</strong>"},
+  {who:'A', name:'Girl',  text:"Thanks. I don't like studying in the library. It's so noisy."},
+  {who:'B', name:'Steve', text:"You're right. It is too noisy here. Where can we study?"},
+  {who:'A', name:'Girl',  text:"<strong>Well… we could study in my room…</strong> It's quiet there."},
+  {who:'B', name:'Steve', text:"My room is even quieter. <strong>Let's go there.</strong>"},
+];
+
+// Dialogue 2 — also from the platform (Let's Go — alternative ending)
+const dialogue2 = [
+  {who:'A', name:'Girl',  text:'Hi, Steve. <strong>Would you mind helping me</strong> with the geography assignment?'},
+  {who:'B', name:'Steve', text:"I'm working on my history paper. Maybe later."},
+  {who:'A', name:'Girl',  text:"Oh, please. <strong>I really need your help.</strong>"},
+  {who:'B', name:'Steve', text:"<strong>You could ask Peter</strong> to help you. He's also studying geography."},
+  {who:'A', name:'Girl',  text:"Peter? I don't like Peter."},
+  {who:'B', name:'Steve', text:"But he's an excellent student."},
 ];
 
 // ═══════════════════════════ BUILD FUNCTIONS ═══════════════════════════
@@ -859,6 +878,24 @@ function switchTab(id, btn) {
   btn.classList.add('active');
 }
 
+function buildDialogue2() {
+  const rp = document.getElementById('rpBody2');
+  if(!rp) return;
+  dialogue2.forEach(turn => {
+    const div = document.createElement('div');
+    div.className = 'rp-turn';
+    const isB = turn.who === 'B';
+    div.style.flexDirection = isB ? 'row-reverse' : 'row';
+    div.innerHTML = `
+      <div class="av ${isB?'av-b':'av-a'}">${turn.name[0]}</div>
+      <div>
+        <div class="rp-name" style="text-align:${isB?'right':'left'}">${turn.name}</div>
+        <div class="rp-text ${isB?'right':''}">${turn.text}</div>
+      </div>`;
+    rp.appendChild(div);
+  });
+}
+
 // ── INIT ─────────────────────────────────────────────────────────────────────
 buildWordGrid(helpWords,   'helpGrid');
 buildWordGrid(repairWords, 'repairGrid');
@@ -868,6 +905,7 @@ buildPhraseGrids();
 buildPhraseQuiz();
 buildGrammar();
 buildDialogue();
+buildDialogue2();
 buildQuiz();
 updateScore();
 </script>
