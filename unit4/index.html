@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4: Dreams & Ambitions — Interactive English II</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple:       #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-dark:  #3C3489;
+    --teal:         #1D9E75;
+    --teal-light:   #E1F5EE;
+    --teal-dark:    #085041;
+    --blue:         #185FA5;
+    --blue-light:   #E6F1FB;
+    --blue-dark:    #0C447C;
+    --amber:        #854F0B;
+    --amber-light:  #FFF3E0;
+    --rose:         #C2185B;
+    --rose-light:   #FCE4EC;
+    --gray:         #f5f5f3;
+    --border:       #e0e0dc;
+    --text:         #1a1a18;
+    --muted:        #6b6b68;
+    --radius:       10px;
+    --font:         'Segoe UI', system-ui, sans-serif;
+  }
+  body { font-family: var(--font); background: #fafaf8; color: var(--text); min-height: 100vh; }
+  header { background: var(--purple); color: white; padding: 1.5rem 2rem; }
+  header h1 { font-size: 1.5rem; font-weight: 600; }
+  header p  { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .tab  { padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 30px;
+          background: white; font-size: 0.85rem; cursor: pointer; color: var(--muted);
+          font-family: var(--font); transition: all 0.15s; }
+  .tab:hover  { border-color: var(--purple); color: var(--purple); }
+  .tab.active { background: var(--purple); border-color: var(--purple); color: white; font-weight: 600; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .card    { background: white; border: 1px solid var(--border); border-radius: var(--radius);
+             padding: 1.25rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .badge   { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
+             font-weight: 600; margin-bottom: 10px; }
+  .badge-vocab   { background: var(--blue-light);   color: var(--blue-dark); }
+  .badge-grammar { background: var(--teal-light);   color: var(--teal-dark); }
+  .badge-purple  { background: var(--purple-light); color: var(--purple-dark); }
+  .badge-speaking{ background: var(--amber-light);  color: var(--amber); }
+  .badge-rose    { background: var(--rose-light);   color: var(--rose); }
+  .sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+
+  /* VOCAB CARDS */
+  .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 10px; margin-top: 0.5rem; }
+  .wcard { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px;
+           cursor: pointer; transition: all 0.18s; background: white; user-select: none; }
+  .wcard:hover   { border-color: var(--purple); }
+  .wcard.flipped { border-color: var(--purple); background: var(--purple-light); }
+  .wcard .en     { font-size: 0.95rem; font-weight: 600; }
+  .wcard .pos    { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .wcard .hint   { font-size: 0.75rem; color: var(--muted); margin-top: 4px; font-style: italic; }
+  .wcard .es     { font-size: 0.85rem; color: var(--purple-dark); font-weight: 600; margin-top: 6px; display: none; }
+  .wcard .example{ font-size: 0.75rem; color: var(--muted); margin-top: 4px; display: none; font-style: italic; }
+  .wcard.flipped .es, .wcard.flipped .example { display: block; }
+
+  /* MATCH */
+  .match-row  { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .match-word { font-size: 0.9rem; font-weight: 600; min-width: 160px; }
+  .match-sel  { flex: 1; min-width: 200px; padding: 8px 10px; border: 1.5px solid var(--border);
+                border-radius: 8px; font-family: var(--font); font-size: 0.85rem; background: white; cursor: pointer; }
+  .match-sel.ok   { border-color: var(--teal); background: var(--teal-light); }
+  .match-sel.fail { border-color: #E24B4A; background: #FCEBEB; }
+
+  /* GRAMMAR */
+  .gram-nav  { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .gram-pill { padding: 5px 14px; border-radius: 20px; border: 1.5px solid var(--border);
+               font-size: 0.8rem; cursor: pointer; font-family: var(--font); background: white; color: var(--muted); }
+  .gram-pill.on { background: var(--teal); border-color: var(--teal); color: white; font-weight: 600; }
+  .gram-panel   { display: none; }
+  .gram-panel.on{ display: block; }
+  .formula-box  { font-family: 'Courier New', monospace; font-size: 0.88rem; color: var(--blue-dark);
+                  background: var(--blue-light); border-radius: 8px; padding: 10px 14px;
+                  margin: 8px 0; border-left: 3px solid var(--blue); }
+  .example-line { font-size: 0.88rem; color: var(--muted); margin: 6px 0; padding-left: 12px; line-height: 1.55; }
+  .example-line strong { color: var(--teal-dark); font-weight: 700; }
+  .tip-box { background: var(--amber-light); border-left: 3px solid #EF9F27; border-radius: 8px;
+             padding: 10px 14px; margin-top: 1rem; font-size: 0.85rem; color: var(--amber); line-height: 1.55; }
+  .gram-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 1rem; }
+  .gram-table th, .gram-table td { padding: 9px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .gram-table th { background: var(--gray); font-weight: 600; }
+  .gram-table tr:nth-child(even) td { background: #fafafa; }
+
+  /* QUIZ */
+  .score-wrap  { margin-bottom: 1.25rem; }
+  .score-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+  .score-bar   { height: 7px; background: var(--gray); border-radius: 4px; overflow: hidden; }
+  .score-fill  { height: 100%; background: var(--purple); border-radius: 4px; transition: width 0.4s; }
+  .quiz-item   { margin-bottom: 1rem; }
+  .quiz-item p { font-size: 0.9rem; margin-bottom: 8px; font-weight: 500; line-height: 1.5; }
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .opt { text-align: left; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+         font-size: 0.85rem; cursor: pointer; font-family: var(--font); background: white;
+         color: var(--text); transition: all 0.15s; }
+  .opt:hover:not([disabled]) { border-color: var(--purple); background: var(--purple-light); }
+  .opt.correct { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 600; }
+  .opt.wrong   { background: #FCEBEB; border-color: #E24B4A; color: #7B241C; }
+  .feedback    { font-size: 0.8rem; margin-top: 6px; padding: 7px 12px; border-radius: 8px; line-height: 1.5; display: none; }
+  .feedback.ok { background: var(--teal-light); color: var(--teal-dark); }
+  .feedback.no { background: #FCEBEB; color: #7B241C; }
+  .reset-btn   { padding: 8px 20px; border: 1.5px solid var(--border); border-radius: 8px;
+                 background: white; font-family: var(--font); font-size: 0.85rem; cursor: pointer;
+                 margin-top: 1rem; color: var(--muted); }
+  .reset-btn:hover { border-color: var(--purple); color: var(--purple); }
+
+  /* DIALOGUE */
+  .rp-box    { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1rem; }
+  .rp-header { background: var(--gray); padding: 8px 14px; font-size: 0.78rem; color: var(--muted);
+               font-weight: 600; border-bottom: 1px solid var(--border); }
+  .rp-body   { padding: 1rem; }
+  .rp-turn   { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .av    { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center;
+           justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .av-a  { background: var(--purple-light); color: var(--purple-dark); }
+  .av-b  { background: var(--blue-light);   color: var(--blue-dark); }
+  .rp-name { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
+  .rp-text  { background: var(--gray); border-radius: 0 10px 10px 10px; padding: 8px 12px; font-size: 0.88rem; line-height: 1.55; }
+  .rp-text.right { background: var(--blue-light); border-radius: 10px 0 10px 10px; }
+  .rp-text strong { color: var(--purple-dark); }
+
+  /* FILL */
+  .fill-box  { background: var(--gray); border-radius: var(--radius); padding: 1.1rem; margin-top: 0.75rem; }
+  .fill-box p { font-size: 0.88rem; line-height: 2.5; }
+  .blank-in  { border: none; border-bottom: 2px solid var(--purple); background: transparent;
+               font-family: var(--font); font-size: 0.88rem; color: var(--text); width: 140px; outline: none; text-align: center; }
+  .check-btn { margin-top: 0.75rem; padding: 8px 20px; background: var(--purple); color: white;
+               border: none; border-radius: 8px; font-family: var(--font); font-size: 0.85rem;
+               cursor: pointer; font-weight: 600; }
+  .check-btn:hover { background: var(--purple-dark); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip  { font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; }
+  .chip-p { background: var(--purple-light); color: var(--purple-dark); }
+  .chip-t { background: var(--teal-light);   color: var(--teal-dark); }
+  .chip-b { background: var(--blue-light);   color: var(--blue-dark); }
+  .chip-a { background: var(--amber-light);  color: var(--amber); }
+  .chip-r { background: var(--rose-light);   color: var(--rose); }
+  .divider { height: 1px; background: var(--border); margin: 1rem 0; }
+
+  /* CONDITIONAL BUILDER */
+  .cond-builder { background: var(--gray); border-radius: var(--radius); padding: 1.1rem; }
+  .cond-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .cond-row label { font-size: 0.85rem; font-weight: 600; color: var(--purple-dark); min-width: 60px; }
+  .cond-sel { padding: 7px 10px; border: 1.5px solid var(--border); border-radius: 8px;
+              font-family: var(--font); font-size: 0.85rem; background: white; cursor: pointer; flex: 1; min-width: 160px; }
+  .cond-result { background: var(--purple-light); border-radius: 8px; padding: 10px 14px;
+                 font-size: 0.9rem; color: var(--purple-dark); font-style: italic; margin-top: 8px;
+                 min-height: 42px; border-left: 3px solid var(--purple); }
+
+  footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: var(--muted);
+           border-top: 1px solid var(--border); background: white; margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Unit 4: Dreams &amp; Ambitions</h1>
+  <p>Interactive English II &nbsp;·&nbsp; Intermediate 3 &nbsp;·&nbsp; Tweetalig / English Discoveries</p>
+</header>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('vocab',this)">📋 Vocabulary</button>
+    <button class="tab" onclick="switchTab('grammar',this)">⚙ Grammar</button>
+    <button class="tab" onclick="switchTab('builder',this)">🔧 Sentence Builder</button>
+    <button class="tab" onclick="switchTab('quiz',this)">✏ Quiz</button>
+    <button class="tab" onclick="switchTab('practice',this)">💬 Role-play</button>
+  </div>
+
+  <!-- ═══ VOCABULARY ═══ -->
+  <div id="vocab" class="section active">
+    <div class="card">
+      <span class="badge badge-vocab">Dreams &amp; Ambitions Vocabulary</span>
+      <h3>Key words from the unit — tap to reveal / Toca para revelar</h3>
+      <p class="sub">Vocabulario de The Promotion, The Singer, y Assignments. Haz clic para ver la traducción y un ejemplo.</p>
+      <div class="word-grid" id="dreamGrid"></div>
+    </div>
+    <div class="card">
+      <span class="badge badge-vocab">Adjectives 4 — Emotions &amp; Descriptions</span>
+      <h3>Adjectives from the stories / Adjetivos de los textos</h3>
+      <p class="sub">Adjetivos descriptivos y emocionales de The Singer y The Promotion. Fundamentales para expresar opiniones.</p>
+      <div class="word-grid" id="adjGrid"></div>
+    </div>
+    <div class="card">
+      <span class="badge badge-vocab">Expressions for asking &amp; giving / Pedir y dar</span>
+      <h3>From the Assignments dialogue — asking for something politely</h3>
+      <p class="sub">Del diálogo "Assignments": expresiones para pedir y dar cosas de forma educada.</p>
+      <div class="word-grid" id="askGrid"></div>
+    </div>
+    <div class="card">
+      <span class="badge badge-vocab">Match the definition / Relaciona la definición</span>
+      <h3>Select the correct definition for each word</h3>
+      <p class="sub">Selecciona la definición correcta para cada palabra.</p>
+      <div id="matchGame"></div>
+    </div>
+  </div>
+
+  <!-- ═══ GRAMMAR ═══ -->
+  <div id="grammar" class="section">
+    <div class="gram-nav">
+      <button class="gram-pill on" onclick="showGram(0,this)">Unreal Conditional</button>
+      <button class="gram-pill"    onclick="showGram(1,this)">Structure &amp; Form</button>
+      <button class="gram-pill"    onclick="showGram(2,this)">Real vs Unreal</button>
+      <button class="gram-pill"    onclick="showGram(3,this)">Special cases</button>
+      <button class="gram-pill"    onclick="showGram(4,this)">Summary Table</button>
+    </div>
+    <div id="gramPanels"></div>
+  </div>
+
+  <!-- ═══ SENTENCE BUILDER ═══ -->
+  <div id="builder" class="section">
+    <div class="card">
+      <span class="badge badge-purple">Interactive Sentence Builder / Constructor de oraciones</span>
+      <h3>Build your own Unreal Conditional / Construye tu propio condicional irreal</h3>
+      <p class="sub">Select parts to build a complete Unreal Conditional sentence. / Selecciona las partes para construir una oración completa.</p>
+      <div class="cond-builder">
+        <div class="cond-row">
+          <label>If…</label>
+          <select class="cond-sel" id="ifPart" onchange="updateBuilder()">
+            <option value="">— choose a condition —</option>
+            <option value="I had more money">I had more money</option>
+            <option value="I could live anywhere">I could live anywhere</option>
+            <option value="I were famous">I were famous</option>
+            <option value="I had a car">I had a car</option>
+            <option value="I won the lottery">I won the lottery</option>
+            <option value="I had more free time">I had more free time</option>
+            <option value="I were the president">I were the president</option>
+            <option value="I lost my job">I lost my job</option>
+            <option value="I could choose any career">I could choose any career</option>
+            <option value="I were Cindy">I were Cindy (from The Singer)</option>
+            <option value="Jeremy offered me the promotion">Jeremy offered me the promotion</option>
+          </select>
+        </div>
+        <div class="cond-row">
+          <label>I would…</label>
+          <select class="cond-sel" id="wouldPart" onchange="updateBuilder()">
+            <option value="">— choose a result —</option>
+            <option value="travel around the world">travel around the world</option>
+            <option value="study music">study music</option>
+            <option value="buy a house">buy a house</option>
+            <option value="help more people">help more people</option>
+            <option value="move to another city">move to another city</option>
+            <option value="be very nervous">be very nervous</option>
+            <option value="try out for the concert">try out for the concert</option>
+            <option value="accept it immediately">accept it immediately</option>
+            <option value="feel embarrassed">feel embarrassed</option>
+            <option value="be very grateful">be very grateful</option>
+            <option value="change many things">change many things</option>
+          </select>
+        </div>
+        <div class="cond-result" id="builderResult">Your sentence will appear here…</div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="badge badge-purple">Practice: Is it real or unreal? / ¿Es real o irreal?</span>
+      <h3>Identify the type of conditional / Identifica el tipo de condicional</h3>
+      <p class="sub">Read each sentence and decide: Real Conditional (possible) or Unreal Conditional (imaginary)? / Lee cada oración y decide: ¿Real o Irreal?</p>
+      <div id="realOrUnreal"></div>
+    </div>
+  </div>
+
+  <!-- ═══ QUIZ ═══ -->
+  <div id="quiz" class="section">
+    <div class="score-wrap">
+      <div class="score-label" id="scoreLabel">Score / Puntaje: 0 / 10</div>
+      <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
+    </div>
+    <div id="quizItems"></div>
+    <button class="reset-btn" onclick="resetQuiz()">↺ Restart / Reiniciar</button>
+  </div>
+
+  <!-- ═══ ROLE-PLAY ═══ -->
+  <div id="practice" class="section">
+    <div class="card">
+      <span class="badge badge-speaking">Platform Dialogue / Diálogo de la plataforma</span>
+      <h3>Assignments — asking for and giving something</h3>
+      <p class="sub">Del diálogo "Assignments" en English Discoveries. Una chica pide la tarea de historia al chico. Observa las expresiones resaltadas.</p>
+      <div class="rp-box">
+        <div class="rp-header">Assignments — Dialogue · asking for and giving highlighted in purple</div>
+        <div class="rp-body" id="rpBody"></div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="badge badge-grammar">Unreal Conditional in context / Condicional irreal en contexto</span>
+      <h3>Complete with the correct form / Completa con la forma correcta</h3>
+      <p class="sub">Use Unreal Conditional structures. / Usa estructuras del condicional irreal.</p>
+      <div class="fill-box">
+        <p>1. If Cindy <input class="blank-in" id="b1" placeholder="________"> more confidence, she would sing in public. <em>(have)</em></p>
+        <p>2. If I <input class="blank-in" id="b2" placeholder="________"> the lottery, I would travel to Brazil. <em>(win)</em></p>
+        <p>3. What would you do if you <input class="blank-in" id="b3" placeholder="________"> your job tomorrow? <em>(lose)</em></p>
+        <p>4. If Jeremy <input class="blank-in" id="b4" placeholder="________"> the promotion, he wouldn't move to Brazil. <em>(not get)</em></p>
+        <p>5. If I <input class="blank-in" id="b5" placeholder="________"> president, I would change many things. <em>(be)</em></p>
+      </div>
+      <button class="check-btn" onclick="checkBlanks()">Check / Verificar</button>
+      <div id="blankFeedback" style="margin-top:10px;font-size:0.85rem;line-height:1.5;"></div>
+    </div>
+    <div class="card">
+      <span class="badge badge-speaking">Your turn / Tu turno</span>
+      <h3>Speaking task: If I could… / Si pudiera…</h3>
+      <p style="font-size:0.88rem;color:var(--muted);line-height:1.65;">
+        With a partner, ask and answer unreal conditional questions about dreams and ambitions. Use at least <strong>3 unreal conditional sentences</strong> and <strong>3 adjectives from the unit</strong>. Each person speaks for at least 3 minutes.<br><br>
+        <em>Con un/a compañero/a, pregunta y responde preguntas de condicional irreal sobre sueños y ambiciones. Usa al menos 3 condicionales irreales y 3 adjetivos de la unidad.</em>
+      </p>
+      <div class="divider"></div>
+      <p style="font-size:0.82rem;font-weight:600;color:var(--purple);margin-bottom:8px;">Starter questions / Preguntas de inicio:</p>
+      <div class="chips">
+        <span class="chip chip-p">If you could have any job, what would it be?</span>
+        <span class="chip chip-p">If you won the lottery, what would you do first?</span>
+        <span class="chip chip-p">If you were famous, how would your life change?</span>
+        <span class="chip chip-b">If you could live anywhere, where would you go?</span>
+        <span class="chip chip-b">If you could change one thing about your life, what would it be?</span>
+        <span class="chip chip-t">If you had Jeremy's promotion, would you move to Brazil?</span>
+        <span class="chip chip-a">If you were Cindy, would you dare to try out for the concert?</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Interactive English II · Unit 4: Dreams & Ambitions · English Discoveries / Tweetalig · © Edusoft 1990-2026</footer>
+
+<script>
+// ════════════════════════════ DATA ════════════════════════════
+
+const dreamWords = [
+  {en:'promotion',      pos:'noun',    hint:'moving to a higher job position',          es:'ascenso / promoción',     ex:"Jeremy gets a promotion and has to move to Brazil."},
+  {en:'ambition',       pos:'noun',    hint:'strong desire to achieve something',       es:'ambición',                ex:"Cindy's ambition is to sing in the school concert."},
+  {en:'dream',          pos:'noun/verb',hint:'something you deeply want to achieve',   es:'sueño / soñar con',       ex:"Her dream was to be a professional singer."},
+  {en:'self-confidence',pos:'noun',    hint:'belief in your own abilities',             es:'confianza en sí mismo/a', ex:"Cindy didn't have much self-confidence at first."},
+  {en:'tryout',         pos:'noun/verb',hint:'an audition — test to get a part',       es:'audición / prueba',       ex:"Her mother encouraged her to go to the tryout every year."},
+  {en:'auditorium',     pos:'noun',    hint:'large room/building for performances',     es:'auditorio',               ex:"The students gathered in the auditorium for the concert tryouts."},
+  {en:'insist',         pos:'verb',    hint:'keep saying something very firmly',        es:'insistir',                ex:"Her mother insisted that she try out this year."},
+  {en:'assume',         pos:'verb',    hint:'believe something without checking',       es:'asumir / suponer',        ex:"She assumed she wasn't good enough, but she was wrong."},
+  {en:'encourage',      pos:'verb',    hint:'give support and confidence to someone',   es:'animar / alentar',        ex:"Peter encouraged Jeremy to accept the promotion."},
+  {en:'accept',         pos:'verb',    hint:'say yes to something offered to you',      es:'aceptar',                 ex:"Jeremy decided to accept the promotion and move to Brazil."},
+  {en:'I might as well',pos:'expression',hint:"do something because there's no reason not to", es:'igual lo intento / no pierdo nada', ex:"I might as well try — I don't care if I'm not accepted!"},
+  {en:'make a dream come true', pos:'expression', hint:'achieve what you always wanted', es:'hacer un sueño realidad', ex:"She finally made her dream come true when she sang on stage."},
+];
+
+const adjWords = [
+  {en:'embarrassed',  pos:'adjective', hint:'feeling ashamed or awkward',             es:'avergonzado/a',           ex:"Cindy felt embarrassed singing in front of the audience."},
+  {en:'nervous',      pos:'adjective', hint:'anxious, worried about something coming', es:'nervioso/a',              ex:"She was very nervous before the tryout."},
+  {en:'determined',   pos:'adjective', hint:'having a strong, firm purpose',           es:'decidido/a / determinado/a', ex:"Despite her fear, she was determined to try."},
+  {en:'disappointed', pos:'adjective', hint:'sad because something was not as expected',es:'decepcionado/a',         ex:"Peter looked disappointed when he heard the news about Brazil."},
+  {en:'grateful',     pos:'adjective', hint:'feeling thankful',                        es:'agradecido/a',            ex:"She was grateful for her mother's encouragement."},
+  {en:'deserted',     pos:'adjective', hint:'empty of people',                         es:'desierto/a / vacío/a',    ex:"The auditorium was deserted at first."},
+  {en:'spell',        pos:'noun',      hint:'a magical effect that captures attention', es:'hechizo / encanto',      ex:"The audience seemed as if under a spell when she sang."},
+  {en:'tiny',         pos:'adjective', hint:'very small',                               es:'diminuto/a / pequeñísimo/a', ex:"Cindy took a tiny step toward the stage."},
+  {en:'powerful',     pos:'adjective', hint:'very strong or effective',                 es:'poderoso/a / potente',   ex:"She sang powerfully and the whole room went silent."},
+  {en:'cautious',     pos:'adjective', hint:'careful, avoiding risks',                  es:'cauteloso/a / prudente', ex:"He was cautious about spending all his savings."},
+  {en:'generous',     pos:'adjective', hint:'happy to give more than expected',         es:'generoso/a',             ex:"She was generous with her time and always helped others."},
+  {en:'careless',     pos:'adjective', hint:'not giving enough attention or care',      es:'descuidado/a',           ex:"Being careless with money can lead to serious problems."},
+];
+
+const askWords = [
+  {en:'Do you have…?',        pos:'expression', hint:'ask if someone has something for you', es:'¿Tienes…?', ex:'"Do you have that history assignment from last week?"'},
+  {en:'Could I please have…?',pos:'expression', hint:'polite way to ask for something',      es:'¿Podría tener…? / ¿Me darías…?', ex:'"Could I please have a student card?"'},
+  {en:'Here you are.',        pos:'expression', hint:'what you say when handing something',  es:'Aquí tienes. / Toma.',            ex:'"Here you are — the form you need."'},
+  {en:'Here it is.',          pos:'expression', hint:'pointing out what was asked for',      es:'Aquí está.',                      ex:'"Here it is — I found it!"'},
+  {en:'Is this what you need?',pos:'expression',hint:'checking if the object matches',       es:'¿Es esto lo que necesitas?',      ex:'"Is this what you need? I think I gave you the wrong one."'},
+  {en:'I\'ll get you one.',   pos:'expression', hint:'offer to provide something shortly',   es:'Te consigo uno/una.',             ex:'"I\'ll get you one — give me a minute."'},
+];
+
+const matchData = [
+  {word:'unreal conditional',   def:'A structure used for impossible or unlikely situations: If + Past Simple + would. / Estructura para situaciones imposibles o hipotéticas.'},
+  {word:'tryout',               def:'An audition — a test to see if you are good enough to be part of something. / Audición para ver si eres suficientemente bueno/a.'},
+  {word:'self-confidence',      def:'Belief in your own skills and abilities. / Confianza en tus propias habilidades.'},
+  {word:'I might as well',      def:'Doing something because there is no strong reason not to. / Hacerlo porque no hay razón para no intentarlo.'},
+  {word:'promotion',            def:'Moving to a higher, better job position. / Ascenso a un puesto de trabajo superior.'},
+  {word:'determined',           def:'Having a firm, strong intention to do something. / Con una intención firme y decidida de hacer algo.'},
+];
+
+const grammarPanels = [
+  {
+    title: 'Unreal Conditional — What is it? / ¿Qué es?',
+    desc:  'Used to talk about <strong>imaginary, impossible, or unlikely situations</strong> in the present or future. The situation is NOT real — it is hypothetical.<br><em>Se usa para hablar de situaciones <strong>imaginarias, imposibles o poco probables</strong> en el presente o futuro. La situación NO es real — es hipotética.</em>',
+    formulas: ['If + Past Simple  →  would / could + base verb'],
+    examples: [
+      'If I <strong>had</strong> more confidence, I <strong>would</strong> try out for the concert. (I don\'t have confidence right now)',
+      'If Jeremy <strong>got</strong> a promotion, he <strong>would</strong> move to Brazil. (imagining the possibility)',
+      'If I <strong>won</strong> the lottery, I <strong>would</strong> travel around the world.',
+      'If you <strong>could</strong> choose any career, what <strong>would</strong> you choose?',
+      'If I <strong>were</strong> president, I <strong>would</strong> change many things.',
+    ],
+    tip: 'The situation in the IF clause is NOT true right now. The verb looks like Past Simple, but it describes the present or future. / La situación en la cláusula IF NO es verdad ahora. El verbo parece pasado, pero describe el presente o futuro.'
+  },
+  {
+    title: 'Structure & Form / Estructura y forma',
+    desc:  'The Unreal Conditional has two parts. The order can be reversed — same meaning. / El condicional irreal tiene dos partes. El orden puede invertirse — mismo significado.',
+    formulas: [
+      'IF clause:   If + subject + Past Simple verb',
+      'Main clause: subject + would/could + base verb',
+      'Reversed:    Subject + would/could + base verb + if + Past Simple',
+    ],
+    examples: [
+      '<strong>Normal:</strong>   If I <strong>had</strong> more time, I <strong>would see</strong> my friends more often.',
+      '<strong>Reversed:</strong> I <strong>would see</strong> my friends more often if I <strong>had</strong> more time.',
+      '<strong>With "were":</strong> If I <strong>were</strong> famous, my life <strong>would change</strong> completely.',
+      '<strong>Negative:</strong>  If she <strong>didn\'t</strong> feel nervous, she <strong>would sing</strong> in public.',
+      '<strong>Question:</strong>  What <strong>would</strong> you do if you <strong>lost</strong> your job?',
+    ],
+    tip: "'Were' is used for ALL subjects with the verb 'to be' in formal Unreal Conditionals: 'If I were…', 'If she were…', 'If he were…' / 'Were' se usa con TODOS los sujetos con el verbo 'to be' en los condicionales irreales formales."
+  },
+  {
+    title: 'Real vs Unreal Conditional / Real vs Irreal',
+    desc:  'The <strong>Real Conditional</strong> (Unit 1) talks about possible situations. The <strong>Unreal Conditional</strong> talks about impossible or unlikely ones. / El <strong>Condicional Real</strong> habla de situaciones posibles. El <strong>Irreal</strong> habla de imposibles o poco probables.',
+    formulas: [
+      'Real:   If + Present Simple  →  will / can + base verb',
+      'Unreal: If + Past Simple     →  would / could + base verb',
+    ],
+    examples: [
+      '<strong>Real:</strong>   If I <strong>save</strong> enough, I <strong>will buy</strong> a car. (I am saving — possible)',
+      '<strong>Unreal:</strong> If I <strong>had</strong> a car, I <strong>would drive</strong> to work. (I don\'t have a car — imaginary)',
+      '<strong>Real:</strong>   If she <strong>practices</strong>, she <strong>will get</strong> better. (she can practice)',
+      '<strong>Unreal:</strong> If she <strong>had</strong> a better voice, she <strong>would win</strong>. (she can\'t change her voice)',
+      '<strong>Real:</strong>   If it <strong>rains</strong>, I <strong>will take</strong> an umbrella.',
+      '<strong>Unreal:</strong> If I <strong>were</strong> a bird, I <strong>would fly</strong> to Brazil.',
+    ],
+    tip: 'Quick test: Is the situation possible? → Real Conditional. Is it imaginary / impossible / unlikely? → Unreal Conditional. / ¿Es posible? → Real. ¿Es imaginario/imposible? → Irreal.'
+  },
+  {
+    title: 'Special cases / Casos especiales',
+    desc:  'A few important variations to know. / Algunas variaciones importantes.',
+    formulas: [
+      'could instead of would → less certain / más posible',
+      'might instead of would → even less certain',
+      'I wish + Past Simple   → expressing a wish about now',
+    ],
+    examples: [
+      'If I had more time, I <strong>could</strong> practice every day. (possibility, not certainty)',
+      'If she tried harder, she <strong>might</strong> get the part. (very uncertain)',
+      'I <strong>wish</strong> I <strong>had</strong> more confidence. = If only I had more confidence.',
+      'I <strong>wish</strong> I <strong>were</strong> taller. (same as: If I were taller, I would…)',
+      '"If I <strong>had</strong> a bicycle, I <strong>wouldn\'t ask</strong> you for one!" (John to Bill — from the platform)',
+    ],
+    tip: "'I wish + Past Simple' expresses a desire about the present. It uses the same tense as the Unreal Conditional IF clause. / 'I wish + Pasado Simple' expresa un deseo sobre el presente. Usa el mismo tiempo que la cláusula IF del Condicional Irreal."
+  },
+  {
+    title: 'Summary Table / Tabla resumen',
+    desc:  'All Unreal Conditional patterns. / Todos los patrones del Condicional Irreal.',
+    table: [
+      ['Pattern','Form','Example'],
+      ['Affirmative','If + V-past, would + V-base','If I had more money, I would travel.'],
+      ['Negative IF','If + didn\'t + V-base, would + V-base','If she didn\'t feel nervous, she would sing.'],
+      ['Negative WOULD','If + V-past, wouldn\'t + V-base','If he got a promotion, he wouldn\'t stay here.'],
+      ['Question','What/How + would + subj + V-base if + V-past?','What would you do if you lost your job?'],
+      ['With "were"','If + were + (adj/noun), would + V-base','If I were famous, I would be embarrassed.'],
+      ['With "could"','If + V-past, could + V-base','If I had more time, I could practice every day.'],
+      ['I wish','wish + subject + V-past','I wish I had more self-confidence.'],
+    ]
+  }
+];
+
+const quizData = [
+  {
+    q: 'If Cindy ___ more self-confidence, she would try out every year.',
+    opts: ['has', 'had', 'will have', 'have'],
+    ans: 'had',
+    fb: "Unreal Conditional IF clause → Past Simple 'had'. The situation is imaginary (she doesn't have confidence). / La cláusula IF del Condicional Irreal usa Pasado Simple."
+  },
+  {
+    q: 'What ___ you do if you won the lottery?',
+    opts: ['will', 'would', 'do', 'could'],
+    ans: 'would',
+    fb: "In Unreal Conditionals, the main clause uses 'would + base verb'. / En los Condicionales Irreales, la cláusula principal usa 'would + verbo base'."
+  },
+  {
+    q: 'Which is an UNREAL conditional (not real)?',
+    opts: [
+      'If I save money, I will buy a car.',
+      'If it rains, I will stay home.',
+      'If I were the president, I would change things.',
+      'If she practices, she will get better.'
+    ],
+    ans: 'If I were the president, I would change things.',
+    fb: "'If I were the president' is imaginary — I am not the president. The others are real possibilities. / 'Si fuera el presidente' es imaginario — no soy el presidente. Los demás son posibilidades reales."
+  },
+  {
+    q: '"If I ___ a bicycle, I wouldn\'t ask you for one!" — What does this tell us?',
+    opts: [
+      'He has a bicycle.',
+      'He doesn\'t have a bicycle.',
+      'He will get a bicycle.',
+      'He borrowed a bicycle.'
+    ],
+    ans: 'He doesn\'t have a bicycle.',
+    fb: "Unreal Conditional = the opposite is true. 'If I had one' means he DOESN'T have one. / Condicional Irreal = lo contrario es verdad. 'If I had one' significa que NO tiene una."
+  },
+  {
+    q: 'I wish I ___ more time to practice singing.',
+    opts: ['have', 'had', 'will have', 'am having'],
+    ans: 'had',
+    fb: "'I wish + Past Simple' expresses a desire about the present. Same form as the Unreal Conditional IF clause. / 'I wish + Pasado Simple' expresa un deseo sobre el presente."
+  },
+  {
+    q: 'Jeremy told Peter that if they ___ enough money, he could go to France.',
+    opts: ['have', 'had', 'will have', 'has'],
+    ans: 'had',
+    fb: "From the platform: the father says 'if we had enough money' — they don't have enough. Unreal Conditional. / Del diálogo de la plataforma: condicional irreal, no tienen dinero suficiente."
+  },
+  {
+    q: 'Which sentence uses the CORRECT structure?',
+    opts: [
+      'If I would have more time, I travel.',
+      'If I had more time, I would travel.',
+      'If I have more time, I would travel.',
+      'If I had more time, I will travel.'
+    ],
+    ans: 'If I had more time, I would travel.',
+    fb: "Correct Unreal Conditional: If + Past Simple → would + base verb. / Correcto: If + Pasado Simple → would + verbo base."
+  },
+  {
+    q: 'Cindy said she ___ embarrassed if people didn\'t like her singing.',
+    opts: ['is', 'will be', 'would be', 'were'],
+    ans: 'would be',
+    fb: "Unreal Conditional main clause: would + base verb (be). / Cláusula principal del Condicional Irreal: would + verbo base."
+  },
+  {
+    q: 'Which adjective from the unit means "very small"?',
+    opts: ['determined', 'cautious', 'tiny', 'powerful'],
+    ans: 'tiny',
+    fb: "'Tiny' means very small. Used in The Singer: 'She took a tiny step toward the stage.' / 'Tiny' significa muy pequeño. Usado en The Singer."
+  },
+  {
+    q: '"Is this what you need?" — What function does this phrase have?',
+    opts: ['Asking for something', 'Giving something and checking', 'Refusing a request', 'Making a suggestion'],
+    ans: 'Giving something and checking',
+    fb: "From 'Assignments': the boy gives the girl the assignment and checks if it's right. / De 'Assignments': el chico da la tarea y verifica si es la correcta."
+  },
+];
+
+const dialogue = [
+  {who:'A', name:'Girl',  text:'Hi. <strong>Do you have that history assignment from last week?</strong>'},
+  {who:'B', name:'Boy',   text:'The history assignment? Just a minute… <strong>Here it is.</strong> Oh wait, that\'s the wrong one. <strong>Is this what you need?</strong>'},
+  {who:'A', name:'Girl',  text:"Yes, that's it! Thanks. I didn't know you liked history."},
+  {who:'B', name:'Boy',   text:"I don't. I hate writing assignments. I want to be a writer, but not for school."},
+  {who:'A', name:'Girl',  text:'A writer? But that means you like writing!'},
+  {who:'B', name:'Boy',   text:"I like writing — just not assignments. If I could write anything I wanted, I would write stories. Not homework."},
+];
+
+const realOrUnrealData = [
+  {sent:"If it rains tomorrow, I will stay home.", type:"Real",   fb:"'If it rains' uses Present Simple → Real Conditional. Rain is possible. / 'If it rains' usa Presente Simple → Condicional Real."},
+  {sent:"If I were famous, I would feel very embarrassed.", type:"Unreal", fb:"'If I were' is Past Simple with 'be' → Unreal. The person is not famous. / 'If I were' es Pasado Simple → Irreal. La persona no es famosa."},
+  {sent:"If she practices, she will get the part.", type:"Real",   fb:"Present Simple + will → Real Conditional. Practicing is possible. / Presente Simple + will → Condicional Real."},
+  {sent:"If I had Jeremy's promotion, I would move to Brazil.", type:"Unreal", fb:"'If I had' = Past Simple → Unreal. The person doesn't have the promotion. / 'If I had' = Pasado Simple → Irreal."},
+  {sent:"If you save enough, you can buy a car.", type:"Real",   fb:"Present Simple + can → Real Conditional. Saving is possible. / Presente Simple + can → Condicional Real."},
+  {sent:"If I could choose any career, I would be a musician.", type:"Unreal", fb:"'If I could' = Unreal. The person can't freely choose right now. / 'If I could' = Irreal."},
+];
+
+// ════════════════════════════ BUILD ════════════════════════════
+
+function buildWordGrid(words, id) {
+  const g = document.getElementById(id);
+  if(!g) return;
+  words.forEach(w => {
+    const d = document.createElement('div');
+    d.className = 'wcard';
+    d.innerHTML = `<div class="en">${w.en}</div><div class="pos">${w.pos}</div><div class="hint">${w.hint}</div><div class="es">🇪🇸 ${w.es}</div><div class="example">"${w.ex}"</div>`;
+    d.addEventListener('click', () => d.classList.toggle('flipped'));
+    g.appendChild(d);
+  });
+}
+
+function buildMatch() {
+  const box = document.getElementById('matchGame');
+  matchData.forEach(m => {
+    const row = document.createElement('div');
+    row.className = 'match-row';
+    const lbl = document.createElement('span');
+    lbl.className = 'match-word';
+    lbl.textContent = m.word;
+    const sel = document.createElement('select');
+    sel.className = 'match-sel';
+    sel.dataset.answer = m.def;
+    const blank = document.createElement('option');
+    blank.textContent = '— select / selecciona —'; blank.value = '';
+    sel.appendChild(blank);
+    [...matchData].sort(() => Math.random() - 0.5).forEach(d => {
+      const o = document.createElement('option');
+      o.textContent = d.def.length > 65 ? d.def.slice(0,62)+'…' : d.def;
+      o.value = d.def;
+      sel.appendChild(o);
+    });
+    sel.addEventListener('change', function() {
+      this.classList.remove('ok','fail');
+      if(this.value === this.dataset.answer) this.classList.add('ok');
+      else if(this.value) this.classList.add('fail');
+    });
+    row.appendChild(lbl); row.appendChild(sel); box.appendChild(row);
+  });
+}
+
+function updateBuilder() {
+  const ifP  = document.getElementById('ifPart').value;
+  const wP   = document.getElementById('wouldPart').value;
+  const res  = document.getElementById('builderResult');
+  if(ifP && wP) {
+    res.textContent = `If ${ifP}, I would ${wP}.`;
+    res.style.color = 'var(--purple-dark)';
+  } else {
+    res.textContent = 'Your sentence will appear here…';
+    res.style.color = 'var(--muted)';
+  }
+}
+
+function buildRealOrUnreal() {
+  const box = document.getElementById('realOrUnreal');
+  const answered = {};
+  realOrUnrealData.forEach((item, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'quiz-item card';
+    wrap.style.marginBottom = '0.5rem';
+    const qp = document.createElement('p');
+    qp.textContent = `${i+1}. "${item.sent}"`;
+    wrap.appendChild(qp);
+    const opts = document.createElement('div');
+    opts.className = 'options';
+    ['Real','Unreal'].forEach(o => {
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = o;
+      btn.dataset.ans = item.type;
+      btn.dataset.fb  = item.fb;
+      btn.dataset.i   = i;
+      btn.addEventListener('click', function() {
+        if(answered[i]) return;
+        answered[i] = true;
+        opts.querySelectorAll('.opt').forEach(b => b.disabled = true);
+        const correct = this.textContent === this.dataset.ans;
+        this.classList.add(correct ? 'correct' : 'wrong');
+        if(!correct) opts.querySelectorAll('.opt').forEach(b => { if(b.textContent === this.dataset.ans) b.classList.add('correct'); });
+        const fbEl = document.getElementById(`rou${i}`);
+        fbEl.className = 'feedback ' + (correct ? 'ok' : 'no');
+        fbEl.style.display = 'block';
+        fbEl.textContent = this.dataset.fb;
+      });
+      opts.appendChild(btn);
+    });
+    wrap.appendChild(opts);
+    const fb = document.createElement('div');
+    fb.className = 'feedback'; fb.id = `rou${i}`;
+    wrap.appendChild(fb);
+    box.appendChild(wrap);
+  });
+}
+
+function buildGrammar() {
+  const box = document.getElementById('gramPanels');
+  grammarPanels.forEach((g, i) => {
+    const panel = document.createElement('div');
+    panel.className = 'gram-panel card' + (i===0?' on':'');
+    let html = `<span class="badge badge-grammar">${g.title}</span>`;
+    html += `<p class="sub">${g.desc}</p>`;
+    if(g.formulas) {
+      g.formulas.forEach(f => { html += `<div class="formula-box">${f}</div>`; });
+      html += `<p style="font-size:0.8rem;color:var(--muted);margin:10px 0 6px;">Examples / Ejemplos:</p>`;
+      g.examples.forEach(e => { html += `<div class="example-line">→ ${e}</div>`; });
+    }
+    if(g.tip) html += `<div class="tip-box">💡 ${g.tip}</div>`;
+    if(g.table) {
+      html += `<div style="overflow-x:auto;"><table class="gram-table">`;
+      g.table.forEach((row,ri) => {
+        html += '<tr>';
+        row.forEach(cell => { const tag = ri===0?'th':'td'; html += `<${tag}>${cell}</${tag}>`; });
+        html += '</tr>';
+      });
+      html += '</table></div>';
+    }
+    panel.innerHTML = html;
+    box.appendChild(panel);
+  });
+}
+
+function showGram(idx, btn) {
+  document.querySelectorAll('.gram-panel').forEach((p,i) => p.classList.toggle('on', i===idx));
+  document.querySelectorAll('.gram-pill').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+let score = 0;
+const answered = {};
+
+function buildQuiz() {
+  const box = document.getElementById('quizItems');
+  quizData.forEach((q, qi) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'quiz-item card';
+    const qp = document.createElement('p');
+    qp.textContent = `${qi+1}. ${q.q}`;
+    wrap.appendChild(qp);
+    const opts = document.createElement('div');
+    opts.className = 'options';
+    q.opts.forEach(o => {
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = o;
+      btn.dataset.ans = q.ans;
+      btn.dataset.fb  = q.fb;
+      btn.dataset.qi  = qi;
+      btn.addEventListener('click', handleQuiz);
+      opts.appendChild(btn);
+    });
+    wrap.appendChild(opts);
+    const fb = document.createElement('div');
+    fb.className = 'feedback'; fb.id = `fb${qi}`;
+    wrap.appendChild(fb);
+    box.appendChild(wrap);
+  });
+}
+
+function handleQuiz(e) {
+  const btn = e.currentTarget;
+  const qi  = parseInt(btn.dataset.qi);
+  if(answered[qi]) return;
+  answered[qi] = true;
+  btn.closest('.options').querySelectorAll('.opt').forEach(b => b.disabled = true);
+  if(btn.textContent === btn.dataset.ans) { btn.classList.add('correct'); score++; }
+  else {
+    btn.classList.add('wrong');
+    btn.closest('.options').querySelectorAll('.opt').forEach(b => { if(b.textContent === btn.dataset.ans) b.classList.add('correct'); });
+  }
+  const fbEl = document.getElementById(`fb${qi}`);
+  fbEl.className = 'feedback ' + (btn.textContent === btn.dataset.ans ? 'ok' : 'no');
+  fbEl.style.display = 'block';
+  fbEl.textContent = btn.dataset.fb;
+  updateScore();
+}
+
+function updateScore() {
+  document.getElementById('scoreLabel').textContent = `Score / Puntaje: ${score} / ${quizData.length}`;
+  document.getElementById('scoreFill').style.width = Math.round(score/quizData.length*100)+'%';
+}
+
+function resetQuiz() {
+  score = 0;
+  Object.keys(answered).forEach(k => delete answered[k]);
+  document.getElementById('quizItems').innerHTML = '';
+  updateScore();
+  buildQuiz();
+}
+
+function buildDialogue() {
+  const rp = document.getElementById('rpBody');
+  dialogue.forEach(turn => {
+    const div = document.createElement('div');
+    div.className = 'rp-turn';
+    const isB = turn.who === 'B';
+    div.style.flexDirection = isB ? 'row-reverse' : 'row';
+    div.innerHTML = `
+      <div class="av ${isB?'av-b':'av-a'}">${turn.name[0]}</div>
+      <div>
+        <div class="rp-name" style="text-align:${isB?'right':'left'}">${turn.name}</div>
+        <div class="rp-text ${isB?'right':''}">${turn.text}</div>
+      </div>`;
+    rp.appendChild(div);
+  });
+}
+
+const blankAnswers = {
+  b1: ['had'],
+  b2: ['won'],
+  b3: ['lost'],
+  b4: ["didn't get", "did not get"],
+  b5: ['were', 'was'],
+};
+const blankHints = ['had', 'won', 'lost', "didn't get", 'were'];
+
+function checkBlanks() {
+  let correct = 0;
+  ['b1','b2','b3','b4','b5'].forEach((id, i) => {
+    const val = document.getElementById(id).value.trim().toLowerCase();
+    const ok  = blankAnswers[id].includes(val);
+    document.getElementById(id).style.borderBottomColor = ok ? 'var(--teal)' : '#E24B4A';
+    if(ok) correct++;
+  });
+  const fb = document.getElementById('blankFeedback');
+  if(correct === 5) {
+    fb.style.color = 'var(--teal-dark)';
+    fb.textContent = '✓ All correct! / ¡Todo correcto!';
+  } else {
+    fb.style.color = '#7B241C';
+    fb.textContent = `${correct}/5 correct. Hints / Pistas: ${blankHints.join(' | ')}`;
+  }
+}
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// INIT
+buildWordGrid(dreamWords, 'dreamGrid');
+buildWordGrid(adjWords,   'adjGrid');
+buildWordGrid(askWords,   'askGrid');
+buildMatch();
+buildGrammar();
+buildRealOrUnreal();
+buildDialogue();
+buildQuiz();
+updateScore();
+</script>
+</body>
+</html>
