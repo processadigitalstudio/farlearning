@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 4: Speaking Exercise — Dreams & Ambitions</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --purple:       #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-dark:  #3C3489;
+    --rose:         #C2185B;
+    --rose-light:   #FCE4EC;
+    --rose-dark:    #880E4F;
+    --teal:         #1D9E75;
+    --teal-light:   #E1F5EE;
+    --teal-dark:    #085041;
+    --blue:         #185FA5;
+    --blue-light:   #E6F1FB;
+    --blue-dark:    #0C447C;
+    --amber:        #854F0B;
+    --amber-light:  #FFF3E0;
+    --gray:         #f5f5f3;
+    --border:       #e0e0dc;
+    --text:         #1a1a18;
+    --muted:        #6b6b68;
+    --radius:       10px;
+    --font:         'Segoe UI', system-ui, sans-serif;
+  }
+  body { font-family: var(--font); background: #fafaf8; color: var(--text); min-height: 100vh; }
+
+  header { background: var(--purple); color: white; padding: 1.5rem 2rem; }
+  header h1 { font-size: 1.5rem; font-weight: 600; }
+  header p  { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem;
+               color: rgba(255,255,255,0.8); text-decoration: none; margin-bottom: 8px; }
+  .back-link:hover { color: white; }
+
+  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+
+  /* OPTION SELECTOR */
+  .option-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 2rem; }
+  .option-btn { border: 2px solid var(--border); border-radius: var(--radius); padding: 1.25rem;
+                cursor: pointer; background: white; text-align: left; font-family: var(--font);
+                transition: all 0.18s; }
+  .option-btn:hover { border-color: var(--purple); }
+  .option-btn.active-a { border-color: var(--purple); background: var(--purple-light); }
+  .option-btn.active-b { border-color: var(--rose);   background: var(--rose-light); }
+  .option-btn .opt-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+                            letter-spacing: 0.5px; margin-bottom: 6px; }
+  .option-btn .opt-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+  .option-btn .opt-sub   { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+  .opt-tag { display: inline-block; font-size: 0.72rem; padding: 2px 8px; border-radius: 20px;
+             font-weight: 600; margin-top: 8px; }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* CARDS */
+  .card { background: white; border: 1px solid var(--border); border-radius: var(--radius);
+          padding: 1.25rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .badge { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
+           font-weight: 600; margin-bottom: 10px; }
+  .badge-purple { background: var(--purple-light); color: var(--purple-dark); }
+  .badge-rose   { background: var(--rose-light);   color: var(--rose-dark); }
+  .badge-teal   { background: var(--teal-light);   color: var(--teal-dark); }
+  .badge-blue   { background: var(--blue-light);   color: var(--blue-dark); }
+  .badge-amber  { background: var(--amber-light);  color: var(--amber); }
+  .sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+
+  /* STEP BOXES */
+  .step { border-radius: var(--radius); padding: 1.1rem; margin-bottom: 0.75rem; border: 1px solid var(--border); }
+  .step-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.75rem; }
+  .step-num { font-size: 1.2rem; font-weight: 700; }
+  .step-title { font-size: 1rem; font-weight: 600; }
+  .step-time  { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } .option-selector { grid-template-columns: 1fr; } }
+
+  .col-label { font-size: 0.82rem; font-weight: 700; margin-bottom: 8px; }
+  ul.plain { list-style: none; padding: 0; }
+  ul.plain li { font-size: 0.88rem; padding: 5px 0 5px 18px; position: relative; line-height: 1.5; }
+  ul.plain li::before { content: '→'; position: absolute; left: 0; color: var(--muted); }
+  ol.num { padding-left: 1.2rem; }
+  ol.num li { font-size: 0.88rem; padding: 5px 0; line-height: 1.55; }
+
+  /* GRAMMAR BOX */
+  .grammar-box { background: var(--teal-light); border-radius: var(--radius);
+                 padding: 1rem; margin-bottom: 1rem; border-left: 3px solid var(--teal); }
+  .formula { font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--blue-dark);
+             background: white; border-radius: 6px; padding: 6px 12px; margin: 6px 0; display: block; }
+
+  /* QUESTION CARDS */
+  .q-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 10px; margin-top: 0.75rem; }
+  .q-card { border-radius: var(--radius); padding: 12px 14px; border: 1.5px solid var(--border);
+            background: white; font-size: 0.88rem; line-height: 1.55; cursor: pointer; transition: all 0.15s;
+            position: relative; user-select: none; }
+  .q-card:hover { border-color: var(--purple); }
+  .q-card.selected-fun  { border-color: var(--purple); background: var(--purple-light); }
+  .q-card.selected-deep { border-color: var(--blue);   background: var(--blue-light); }
+  .q-card.selected-phil { border-color: var(--rose);   background: var(--rose-light); }
+  .q-card .q-num { font-size: 0.72rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .q-card .check { position: absolute; top: 10px; right: 10px; font-size: 1rem; display: none; }
+  .q-card.selected-fun .check,
+  .q-card.selected-deep .check,
+  .q-card.selected-phil .check { display: block; }
+
+  /* MY CHOICES */
+  .choice-display { background: var(--gray); border-radius: var(--radius); padding: 1rem; margin-top: 0.75rem; }
+  .choice-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0;
+                border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+  .choice-row:last-child { border-bottom: none; }
+  .choice-tag { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 20px;
+                white-space: nowrap; margin-top: 2px; flex-shrink: 0; }
+  .choice-text { color: var(--muted); font-style: italic; }
+  .choice-text.set { color: var(--text); font-style: normal; font-weight: 500; }
+
+  /* MODEL */
+  .model-box { background: var(--gray); border-radius: var(--radius); padding: 1rem; }
+  .speaker { font-weight: 700; font-size: 0.82rem; margin-bottom: 4px; }
+  .speech  { font-size: 0.88rem; line-height: 1.65; font-style: italic; padding: 10px 14px;
+             border-radius: 0 10px 10px 10px; }
+  .speech.purple { background: var(--purple-light); border-radius: 10px 0 10px 10px; margin-bottom: 10px; }
+  .speech.blue   { background: var(--blue-light); margin-bottom: 10px; }
+  .speech.rose   { background: var(--rose-light); }
+
+  /* CHECKLIST */
+  .checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  @media(max-width:500px){ .checklist { grid-template-columns: 1fr; } }
+  .check-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem;
+                padding: 8px 10px; border-radius: 8px; background: var(--gray); line-height: 1.4; }
+  .check-item input { margin-top: 2px; flex-shrink: 0; accent-color: var(--purple); }
+
+  /* RUBRIC */
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 0.75rem; overflow-x: auto; display: block; }
+  .rubric-table th, .rubric-table td { padding: 8px 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .rubric-table th { font-weight: 600; white-space: nowrap; }
+  .rubric-table tr:nth-child(even) td { background: #fafafa; }
+  .score-input { border: none; border-bottom: 2px solid var(--border); width: 36px; text-align: center;
+                 font-family: var(--font); font-size: 0.85rem; background: transparent; outline: none; }
+
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+  .notice { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: var(--muted);
+           border-top: 1px solid var(--border); background: white; margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../">← Back to all units / Volver a todas las unidades</a>
+  <h1>Unit 4: Speaking Exercise ✨</h1>
+  <p>Dreams &amp; Ambitions &nbsp;·&nbsp; Choose your format below</p>
+</header>
+
+<div class="main">
+
+  <!-- OPTION SELECTOR -->
+  <div class="option-selector">
+    <button class="option-btn" id="btnA" onclick="selectOption('A')">
+      <div class="opt-label" style="color:var(--purple)">Option A</div>
+      <div class="opt-title">Make Your Dream Come True</div>
+      <div class="opt-sub">A structured conversation about real and imaginary dreams and ambitions.</div>
+      <span class="opt-tag" style="background:var(--purple-light);color:var(--purple-dark);">👥 Pairs — 2 students max</span>
+    </button>
+    <button class="option-btn" id="btnB" onclick="selectOption('B')">
+      <div class="opt-label" style="color:var(--rose)">Option B</div>
+      <div class="opt-title">What Would You Do?</div>
+      <div class="opt-sub">Choose 3 questions — fun, deep, and philosophical — and present your answers.</div>
+      <span class="opt-tag" style="background:var(--rose-light);color:var(--rose-dark);">🎤 Solo — individual presentation</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════ OPTION A ═══════════════════════ -->
+  <div id="panelA" class="panel">
+
+    <div class="card">
+      <span class="badge badge-purple">Option A — Pairs / Parejas</span>
+      <h3>Make Your Dream Come True</h3>
+      <p class="sub">You and your partner share your real and imaginary dreams. Ask and answer questions, use the Unreal Conditional to explore hypothetical situations, and use adjectives from the unit to describe how you would feel.<br><br>
+      <em>Tú y tu compañero/a comparten sus sueños reales e imaginarios. Usen el Condicional Irreal para explorar situaciones hipotéticas y adjetivos de la unidad para describir cómo se sentirían.</em></p>
+    </div>
+
+    <div class="card grammar-box" style="border-radius:var(--radius);">
+      <div class="col-label" style="color:var(--teal-dark);">Grammar reminder / Recordatorio</div>
+      <div class="two-col" style="margin-top:8px;">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--teal-dark);margin-bottom:6px;">Unreal Conditional:</div>
+          <code class="formula">If + Past Simple → would + base verb</code>
+          <ul class="plain">
+            <li>"If I had more confidence, I <em>would</em> audition."</li>
+            <li>"If I were Cindy, I <em>would be</em> terrified."</li>
+            <li>"What would you do if you lost your job?"</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--teal-dark);margin-bottom:6px;">I wish:</div>
+          <code class="formula">I wish + Past Simple</code>
+          <ul class="plain">
+            <li>"I wish I had more self-confidence."</li>
+            <li>"I wish I could sing like Cindy."</li>
+            <li>"I wish I were more determined."</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEPS -->
+    <div class="step" style="background:var(--purple-light);border-color:var(--purple);">
+      <div class="step-header">
+        <span class="step-num" style="color:var(--purple);">Step 1</span>
+        <span class="step-title">Past dreams — when you were a child</span>
+        <span class="step-time">~2 min</span>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="col-label" style="color:var(--purple-dark);">Ask your partner:</div>
+          <ul class="plain">
+            <li>What was your dream when you were a child?</li>
+            <li>Did your dream come true? Why or why not?</li>
+            <li>Were you determined? Or did you give up?</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label" style="color:var(--teal-dark);">Sentence starters:</div>
+          <ul class="plain">
+            <li>When I was a child, I dreamed about…</li>
+            <li>My dream was to… but I assumed that…</li>
+            <li>I hoped that I would… / I wanted to…</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" style="background:var(--purple-light);border-color:var(--purple);">
+      <div class="step-header">
+        <span class="step-num" style="color:var(--purple);">Step 2</span>
+        <span class="step-title">Present ambitions — right now</span>
+        <span class="step-time">~2 min</span>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="col-label" style="color:var(--purple-dark);">Ask your partner:</div>
+          <ul class="plain">
+            <li>What is your ambition for the future?</li>
+            <li>What are you doing NOW to make it come true?</li>
+            <li>Do you feel confident? Nervous? Determined?</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label" style="color:var(--teal-dark);">Sentence starters:</div>
+          <ul class="plain">
+            <li>My ambition is to… / My dream is to…</li>
+            <li>I'm studying / practicing / working because…</li>
+            <li>I know that I will… / I don't know if I…</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" style="background:#EDE7F6;border-color:#7E57C2;">
+      <div class="step-header">
+        <span class="step-num" style="color:#512DA8;">Step 3</span>
+        <span class="step-title">Imaginary situations — Unreal Conditional</span>
+        <span class="step-time">~3 min · <strong>REQUIRED — at least 3 conditionals</strong></span>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="col-label" style="color:#512DA8;">Ask your partner:</div>
+          <ul class="plain">
+            <li>If you could have any career, what would it be?</li>
+            <li>If you won the lottery tomorrow, what would you do first?</li>
+            <li>If you were Cindy, would you dare to try out?</li>
+            <li>If you could go back and change one decision, what would it be?</li>
+            <li>If you lost your job today, how would you feel?</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label" style="color:var(--teal-dark);">How to answer:</div>
+          <ul class="plain">
+            <li>If I could…, I would… because…</li>
+            <li>I would feel [adjective] if I…</li>
+            <li>I wish I could… but in reality…</li>
+            <li>If I were [character], I would probably…</li>
+            <li>Honestly, if that happened, I would…</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="step" style="background:var(--purple-light);border-color:var(--purple);">
+      <div class="step-header">
+        <span class="step-num" style="color:var(--purple);">Step 4</span>
+        <span class="step-title">What makes a dream come true?</span>
+        <span class="step-time">~1 min each</span>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="col-label" style="color:var(--purple-dark);">Discuss:</div>
+          <ul class="plain">
+            <li>Talent / Self-confidence</li>
+            <li>Hard work / Practice</li>
+            <li>Support from family</li>
+            <li>Being determined — not giving up</li>
+            <li>A bit of luck</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label" style="color:var(--teal-dark);">Useful phrases:</div>
+          <ul class="plain">
+            <li>I think the most important thing is…</li>
+            <li>Without [X], I don't think you can…</li>
+            <li>If you are determined, you will…</li>
+            <li>Like Cindy in the story, if you…</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL A -->
+    <div class="card">
+      <span class="badge badge-purple">Model example / Ejemplo — Step 3</span>
+      <div class="model-box">
+        <div class="speaker" style="color:var(--purple);">Student A:</div>
+        <div class="speech purple">"If you could have any career, what would it be?"</div>
+        <div class="speaker" style="color:var(--blue);">Student B:</div>
+        <div class="speech blue">"If I could choose freely, I would be a musician. I wish I had studied music when I was younger. I think if I had been more <strong>determined</strong> as a child, I would have done it."</div>
+        <div class="speaker" style="color:var(--purple);">Student A:</div>
+        <div class="speech purple">"If you won the lottery, would you quit your studies and just do music?"</div>
+        <div class="speaker" style="color:var(--blue);">Student B:</div>
+        <div class="speech blue">"Honestly, if I won a lot of money, I would feel both <strong>excited</strong> and <strong>nervous</strong>. I would keep studying — but I would also record my own music. If I were Cindy, I would have been too <strong>embarrassed</strong> to try out. She was really brave."</div>
+        <div class="speaker" style="color:var(--purple);">Student A:</div>
+        <div class="speech purple">"I agree. If I were in her place, I would feel <strong>determined</strong> but <strong>terrified</strong> at the same time."</div>
+      </div>
+      <p class="notice">Notice: 5 Unreal Conditionals · I wish · adjectives: determined, excited, nervous, embarrassed, terrified · natural conversation</p>
+    </div>
+
+    <!-- CHECKLIST A -->
+    <div class="card">
+      <span class="badge badge-teal">Self-check before you speak</span>
+      <div class="checklist" style="margin-top:8px;">
+        <label class="check-item"><input type="checkbox"> I have a past dream ready to share.</label>
+        <label class="check-item"><input type="checkbox"> I have a present ambition ready.</label>
+        <label class="check-item"><input type="checkbox"> I have 3 Unreal Conditional sentences prepared.</label>
+        <label class="check-item"><input type="checkbox"> I know how to use "I wish + Past Simple".</label>
+        <label class="check-item"><input type="checkbox"> I am NOT reading from a script.</label>
+        <label class="check-item"><input type="checkbox"> I have 3 adjectives from the unit ready.</label>
+        <label class="check-item"><input type="checkbox"> I have 2 follow-up questions to ask.</label>
+        <label class="check-item"><input type="checkbox"> I can speak for at least 3 minutes.</label>
+      </div>
+    </div>
+
+    <!-- RUBRIC A -->
+    <div class="card">
+      <span class="badge badge-purple">Rubric / Rúbrica — out of 20</span>
+      <table class="rubric-table">
+        <thead>
+          <tr style="background:var(--purple-light);">
+            <th>Criterion</th><th>4 – Excellent</th><th>3 – Good</th><th>2 – Developing</th><th>1 – Needs Work</th><th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Fluency & delivery</strong></td><td>Natural, full time, no reading</td><td>Mostly smooth, minor pauses</td><td>Frequent hesitation</td><td>Very limited</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>Unreal Conditional</strong></td><td>3+ correct, natural</td><td>2 correct, minor errors</td><td>1 attempt</td><td>None used</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>"I wish" + adjectives</strong></td><td>Both used, 3+ adjectives</td><td>One or the other, 2 adjectives</td><td>1–2 adjectives only</td><td>None used</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>Content & ideas</strong></td><td>Developed, specific, personal</td><td>Mostly clear ideas</td><td>Vague or brief</td><td>Minimal content</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>Interaction</strong></td><td>Asks follow-up Qs, listens, responds</td><td>Mostly responsive</td><td>Limited response</td><td>No real interaction</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.85rem;font-weight:700;margin-top:10px;">Total: <input class="score-input" style="width:50px;font-size:1rem;font-weight:700;"> / 20</p>
+    </div>
+
+  </div><!-- /panelA -->
+
+  <!-- ═══════════════════════ OPTION B ═══════════════════════ -->
+  <div id="panelB" class="panel">
+
+    <div class="card">
+      <span class="badge badge-rose">Option B — Individual / Solo</span>
+      <h3>What Would You Do?</h3>
+      <p class="sub">Choose 3 questions — one fun, one deep, one philosophical. Prepare your answers at home. Each answer should last 60–90 seconds and must use the Unreal Conditional.<br><br>
+      <em>Escoge 3 preguntas — una divertida, una profunda y una filosófica. Prepara tus respuestas en casa. Cada respuesta debe durar 60–90 segundos y usar el Condicional Irreal.</em></p>
+    </div>
+
+    <div class="card grammar-box" style="border-radius:var(--radius);">
+      <div class="col-label" style="color:var(--teal-dark);">For EVERY answer / Para CADA respuesta:</div>
+      <ul class="plain" style="margin-top:8px;">
+        <li>"If [condition], I would [result] because…"</li>
+        <li>"I wish I could/were/had… because in reality…"</li>
+        <li>"I would feel [adjective] if… because…"</li>
+        <li>"If this happened to me, I think I would… but I also might…"</li>
+      </ul>
+    </div>
+
+    <!-- QUESTION PICKER -->
+    <div class="card">
+      <span class="badge" style="background:#F3E5F5;color:#6A1B9A;">😄 Fun questions — choose 1</span>
+      <h3>Select one question / Selecciona una pregunta</h3>
+      <div class="q-grid" id="funGrid"></div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-blue">💭 Deep questions — choose 1</span>
+      <h3>Select one question / Selecciona una pregunta</h3>
+      <div class="q-grid" id="deepGrid"></div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-rose">🌌 Philosophical questions — choose 1</span>
+      <h3>Select one question / Selecciona una pregunta</h3>
+      <div class="q-grid" id="philGrid"></div>
+    </div>
+
+    <!-- MY CHOICES -->
+    <div class="card">
+      <span class="badge badge-teal">My 3 choices / Mis 3 preguntas elegidas</span>
+      <div class="choice-display">
+        <div class="choice-row">
+          <span class="choice-tag" style="background:#F3E5F5;color:#6A1B9A;">😄 Fun</span>
+          <span class="choice-text" id="choice-fun">No question selected yet / Ninguna pregunta seleccionada</span>
+        </div>
+        <div class="choice-row">
+          <span class="choice-tag" style="background:var(--blue-light);color:var(--blue-dark);">💭 Deep</span>
+          <span class="choice-text" id="choice-deep">No question selected yet / Ninguna pregunta seleccionada</span>
+        </div>
+        <div class="choice-row">
+          <span class="choice-tag" style="background:var(--rose-light);color:var(--rose-dark);">🌌 Phil</span>
+          <span class="choice-text" id="choice-phil">No question selected yet / Ninguna pregunta seleccionada</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRUCTURE -->
+    <div class="card">
+      <span class="badge badge-rose">Structure for each answer / Estructura para cada respuesta</span>
+      <p class="sub">Use this for every question. Each answer: 60–90 seconds.</p>
+      <ol class="num">
+        <li>State your answer clearly using an <strong>Unreal Conditional</strong>.</li>
+        <li>Explain <strong>WHY</strong> — give at least one specific reason.</li>
+        <li>Describe how you would <strong>feel</strong> — use an adjective from the unit.</li>
+        <li>Add a consequence: <em>"and if that happened, I would also…"</em></li>
+        <li>End with: <em>"I wish…"</em> or <em>"In reality, I think that…"</em></li>
+      </ol>
+    </div>
+
+    <!-- MODEL B -->
+    <div class="card">
+      <span class="badge badge-rose">Model example / Ejemplo</span>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">Question chosen: Fun #2 — "If you woke up tomorrow with a superpower…"</p>
+      <div class="model-box">
+        <div class="speech rose">
+          "If I woke up tomorrow with a superpower, I would choose the ability to speak any language fluently. I know it might sound boring compared to flying or invisibility, but I think it would be the most powerful thing in the world. If I could speak every language, I would travel everywhere without feeling <strong>embarrassed</strong>. I would talk to anyone — a farmer in Japan, a scientist in Ethiopia, a child in a village in Colombia. I wish I could do that right now. I think I would feel <strong>overwhelmed</strong> at first — almost <strong>nervous</strong> — because suddenly the whole world would be open to me. But I would be <strong>determined</strong> to use it well. If I had that power, I would probably become a journalist or a diplomat. I wouldn't waste it on anything small."
+        </div>
+      </div>
+      <p class="notice">Notice: 5 Unreal Conditionals · I wish · adjectives: embarrassed, overwhelmed, nervous, determined · clear 5-step structure</p>
+    </div>
+
+    <!-- CHECKLIST B -->
+    <div class="card">
+      <span class="badge badge-teal">Self-check before you speak</span>
+      <div class="checklist" style="margin-top:8px;">
+        <label class="check-item"><input type="checkbox"> I have chosen 3 questions (1 fun, 1 deep, 1 philosophical).</label>
+        <label class="check-item"><input type="checkbox"> Each answer starts with an Unreal Conditional.</label>
+        <label class="check-item"><input type="checkbox"> I use at least 1 adjective from the unit per answer.</label>
+        <label class="check-item"><input type="checkbox"> I use "I wish" at least once.</label>
+        <label class="check-item"><input type="checkbox"> I am NOT reading from a script.</label>
+        <label class="check-item"><input type="checkbox"> Each answer is 60–90 seconds.</label>
+        <label class="check-item"><input type="checkbox"> I give reasons, not just one sentence per answer.</label>
+        <label class="check-item"><input type="checkbox"> Total presentation is 4–5 minutes.</label>
+      </div>
+    </div>
+
+    <!-- RUBRIC B -->
+    <div class="card">
+      <span class="badge badge-rose">Rubric / Rúbrica — out of 20</span>
+      <table class="rubric-table">
+        <thead>
+          <tr style="background:var(--rose-light);">
+            <th>Criterion</th><th>4 – Excellent</th><th>3 – Good</th><th>2 – Developing</th><th>1 – Needs Work</th><th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Fluency & delivery</strong></td><td>Natural, 4–5 min, no reading</td><td>Mostly smooth, ~3 min</td><td>Frequent pauses, short</td><td>Very limited</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>Unreal Conditional</strong></td><td>3+ per answer, natural</td><td>2 per answer, minor errors</td><td>1 per answer</td><td>None used</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>Adjectives from unit</strong></td><td>3+ unit adjectives used</td><td>2 adjectives</td><td>1 adjective</td><td>None used</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>Content depth</strong></td><td>Developed, specific, reasoned</td><td>Mostly clear</td><td>Vague or brief</td><td>Minimal content</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+          <tr><td><strong>"I wish" structure</strong></td><td>Used correctly, natural</td><td>1 use, minor error</td><td>1 attempt</td><td>None used</td><td><input class="score-input" type="number" min="1" max="4"></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.85rem;font-weight:700;margin-top:10px;">Total: <input class="score-input" style="width:50px;font-size:1rem;font-weight:700;"> / 20</p>
+    </div>
+
+  </div><!-- /panelB -->
+
+</div><!-- /main -->
+
+<footer>Interactive English II · Unit 4: Dreams & Ambitions · English Discoveries / Tweetalig · © Edusoft 1990-2026</footer>
+
+<script>
+// ── QUESTIONS DATA ────────────────────────────────────────────
+const funQuestions = [
+  "If you could have dinner with any famous person (alive or dead), who would it be and what would you ask them?",
+  "If you woke up tomorrow with a superpower, what would it be and what would you do first?",
+  "If you could swap lives with any character from a movie, TV show, or book for one week, who would you choose and why?",
+  "If money didn't exist, how would your daily life change? What would you do differently?",
+  "If you could only eat one food for the rest of your life, what would it be? How would that affect your life?",
+  "If you could be an Olympic athlete in any sport, which sport would you choose and why?",
+];
+
+const deepQuestions = [
+  "If you could go back and change one decision in your life, what would it be? Would you really change it?",
+  "If you knew you would succeed no matter what, what would you do with your life?",
+  "If you had to describe your biggest dream to someone who doesn't know you at all, what would you say?",
+  "If you could give your younger self one piece of advice, what would it be and why?",
+  "If you had only 6 months to live, how would your priorities change? What would you stop doing? What would you start?",
+  "If you could eliminate one fear from your life, which one would you choose and how would your life be different?",
+];
+
+const philQuestions = [
+  "If you could design the perfect society, what three rules would you make? What would you eliminate?",
+  "If you could know the exact date of your death, would you want to know? How would it change how you live?",
+  "If happiness and success were opposites — if being truly happy meant never being ambitious — which would you choose?",
+  "If every person in the world had to spend one year living in poverty, do you think the world would be more just? Why?",
+  "If you could live forever but had to watch everyone you love grow old and die, would you choose immortality?",
+  "If you woke up tomorrow in someone else's body and life — a stranger — what would you do? Would you tell anyone?",
+];
+
+// ── BUILD QUESTION GRIDS ──────────────────────────────────────
+const selectedQ = { fun: null, deep: null, phil: null };
+
+function buildGrid(questions, containerId, category, cssClass) {
+  const grid = document.getElementById(containerId);
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `<div class="q-num">Question ${i+1}</div>${q}<span class="check">✓</span>`;
+    card.addEventListener('click', () => {
+      // deselect previous in same category
+      grid.querySelectorAll('.q-card').forEach(c => c.className = 'q-card');
+      // select this one
+      card.classList.add(cssClass);
+      selectedQ[category] = q;
+      updateChoices();
+    });
+    grid.appendChild(card);
+  });
+}
+
+function updateChoices() {
+  const choiceEl = {
+    fun:  document.getElementById('choice-fun'),
+    deep: document.getElementById('choice-deep'),
+    phil: document.getElementById('choice-phil'),
+  };
+  Object.keys(choiceEl).forEach(cat => {
+    if(selectedQ[cat]) {
+      choiceEl[cat].textContent = selectedQ[cat];
+      choiceEl[cat].classList.add('set');
+    }
+  });
+}
+
+// ── OPTION SELECTOR ──────────────────────────────────────────
+function selectOption(opt) {
+  document.getElementById('panelA').classList.toggle('active', opt === 'A');
+  document.getElementById('panelB').classList.toggle('active', opt === 'B');
+  document.getElementById('btnA').classList.toggle('active-a', opt === 'A');
+  document.getElementById('btnB').classList.toggle('active-b', opt === 'B');
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+buildGrid(funQuestions,  'funGrid',  'fun',  'selected-fun');
+buildGrid(deepQuestions, 'deepGrid', 'deep', 'selected-deep');
+buildGrid(philQuestions, 'philGrid', 'phil', 'selected-phil');
+</script>
+</body>
+</html>
