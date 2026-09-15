@@ -18,8 +18,8 @@
     --blue-dark:    #0C447C;
     --amber:        #854F0B;
     --amber-light:  #FFF3E0;
-    --red:          #C0392B;
-    --red-light:    #FDECEA;
+    --red:          #A32D2D;
+    --red-light:    #FCEBEB;
     --gray:         #f5f5f3;
     --border:       #e0e0dc;
     --text:         #1a1a18;
@@ -28,103 +28,52 @@
     --font:         'Segoe UI', system-ui, sans-serif;
   }
   body { font-family: var(--font); background: #fafaf8; color: var(--text); min-height: 100vh; }
-  header { background: var(--navy); color: white; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  header h1 { font-size: 1.35rem; font-weight: 600; }
-  header p  { font-size: 0.82rem; opacity: 0.75; margin-top: 2px; }
-  .header-left { flex: 1; }
-
-  /* PAGE NAV HEADER */
-  .page-nav-bar { background: var(--navy-dark); padding: 0.5rem 2rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .page-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
-  .page-dot.active { background: white; }
-  .page-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-left: 6px; }
-  .page-label span { color: white; font-weight: 600; }
-
-  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 2rem; }
-
-  /* PAGE SYSTEM */
-  .page { display: none; }
-  .page.active { display: block; }
-
-  /* BOTTOM NAV */
-  .bottom-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;
-                padding-top: 1rem; border-top: 1px solid var(--border); }
-  .nav-btn { display: flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 30px;
-             border: 1.5px solid var(--border); background: white; font-family: var(--font);
-             font-size: 0.85rem; cursor: pointer; color: var(--muted); transition: all 0.15s; }
-  .nav-btn:hover { border-color: var(--navy); color: var(--navy); }
-  .nav-btn.primary { background: var(--navy); border-color: var(--navy); color: white; font-weight: 600; }
-  .nav-btn.primary:hover { background: var(--navy-dark); }
-  .nav-btn:disabled { opacity: 0.35; pointer-events: none; }
-  .page-counter { font-size: 0.8rem; color: var(--muted); }
-
-  /* CARDS */
-  .card { background: white; border: 1px solid var(--border); border-radius: var(--radius);
-          padding: 1.25rem; margin-bottom: 1rem; }
+  header { background: var(--navy); color: white; padding: 1.5rem 2rem; }
+  header h1 { font-size: 1.5rem; font-weight: 600; }
+  header p  { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .tab  { padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 30px; background: white; font-size: 0.85rem; cursor: pointer; color: var(--muted); font-family: var(--font); transition: all 0.15s; }
+  .tab:hover  { border-color: var(--navy); color: var(--navy); }
+  .tab.active { background: var(--navy); border-color: var(--navy); color: white; font-weight: 600; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .card    { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
   .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .badge { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
-           font-weight: 600; margin-bottom: 10px; }
+  .badge   { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; margin-bottom: 10px; }
   .badge-vocab   { background: var(--blue-light);  color: var(--blue-dark); }
   .badge-grammar { background: var(--teal-light);  color: var(--teal-dark); }
   .badge-navy    { background: var(--navy-light);  color: var(--navy-dark); }
   .badge-speaking{ background: var(--amber-light); color: var(--amber); }
-  .badge-red     { background: var(--red-light);   color: var(--red); }
   .sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
-  .page-title { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
-  .page-sub   { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-
-  /* VOCAB CARDS */
-  .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(158px,1fr)); gap: 10px; margin-top: 0.5rem; }
-  .wcard { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px;
-           cursor: pointer; transition: all 0.18s; background: white; user-select: none; }
+  .word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 10px; margin-top: 0.5rem; }
+  .wcard { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px; cursor: pointer; transition: all 0.18s; background: white; user-select: none; }
   .wcard:hover   { border-color: var(--navy); }
   .wcard.flipped { border-color: var(--navy); background: var(--navy-light); }
-  .wcard .en     { font-size: 0.95rem; font-weight: 600; }
-  .wcard .pos    { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-  .wcard .hint   { font-size: 0.75rem; color: var(--muted); margin-top: 4px; font-style: italic; }
-  .wcard .es     { font-size: 0.85rem; color: var(--navy); font-weight: 600; margin-top: 6px; display: none; }
-  .wcard .example{ font-size: 0.75rem; color: var(--muted); margin-top: 4px; display: none; font-style: italic; }
+  .wcard .en      { font-size: 0.95rem; font-weight: 600; }
+  .wcard .pos     { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .wcard .hint    { font-size: 0.75rem; color: var(--muted); margin-top: 4px; font-style: italic; }
+  .wcard .es      { font-size: 0.85rem; color: var(--navy-dark); font-weight: 600; margin-top: 6px; display: none; }
+  .wcard .example { font-size: 0.75rem; color: var(--muted); margin-top: 4px; display: none; font-style: italic; }
   .wcard.flipped .es, .wcard.flipped .example { display: block; }
-
-  /* ABC MATCHING */
-  .match-container { margin-top: 0.5rem; }
-  .match-left  { margin-bottom: 1rem; }
-  .match-item  { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-  .match-key   { font-weight: 700; font-size: 0.9rem; color: var(--navy); min-width: 22px; }
-  .match-term  { font-size: 0.88rem; line-height: 1.45; }
-  .def-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 8px; }
-  .def-btn     { display: flex; gap: 8px; align-items: flex-start; padding: 9px 12px;
-                 border: 1.5px solid var(--border); border-radius: 8px; background: white;
-                 cursor: pointer; font-family: var(--font); font-size: 0.85rem; text-align: left;
-                 line-height: 1.4; transition: all 0.15s; }
-  .def-btn:hover:not([disabled]) { border-color: var(--navy); background: var(--navy-light); }
-  .def-btn.correct { border-color: var(--teal); background: var(--teal-light); }
-  .def-btn.wrong   { border-color: var(--red);  background: var(--red-light); }
-  .def-letter { font-weight: 700; color: var(--navy); flex-shrink: 0; }
-  .match-result { font-size: 0.8rem; margin-top: 8px; padding: 6px 12px; border-radius: 8px; display: none; }
-  .match-result.ok { background: var(--teal-light); color: var(--teal-dark); }
-  .match-result.no { background: var(--red-light); color: var(--red); }
-
-  /* GRAMMAR */
+  .match-row  { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .match-word { font-size: 0.9rem; font-weight: 600; min-width: 160px; }
+  .match-sel  { flex: 1; min-width: 200px; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-family: var(--font); font-size: 0.85rem; background: white; cursor: pointer; }
+  .match-sel.ok   { border-color: var(--teal); background: var(--teal-light); }
+  .match-sel.fail { border-color: #E24B4A; background: #FCEBEB; }
   .gram-nav  { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
-  .gram-pill { padding: 5px 14px; border-radius: 20px; border: 1.5px solid var(--border);
-               font-size: 0.8rem; cursor: pointer; font-family: var(--font); background: white; color: var(--muted); }
+  .gram-pill { padding: 5px 14px; border-radius: 20px; border: 1.5px solid var(--border); font-size: 0.8rem; cursor: pointer; font-family: var(--font); background: white; color: var(--muted); }
   .gram-pill.on { background: var(--teal); border-color: var(--teal); color: white; font-weight: 600; }
   .gram-panel   { display: none; }
   .gram-panel.on{ display: block; }
-  .formula-box  { font-family: 'Courier New', monospace; font-size: 0.88rem; color: var(--blue-dark);
-                  background: var(--blue-light); border-radius: 8px; padding: 10px 14px;
-                  margin: 8px 0; border-left: 3px solid var(--blue); }
+  .formula-box  { font-family: 'Courier New', monospace; font-size: 0.88rem; color: var(--blue-dark); background: var(--blue-light); border-radius: 8px; padding: 10px 14px; margin: 8px 0; border-left: 3px solid var(--blue); }
   .example-line { font-size: 0.88rem; color: var(--muted); margin: 6px 0; padding-left: 12px; line-height: 1.55; }
   .example-line strong { color: var(--teal-dark); font-weight: 700; }
-  .tip-box { background: var(--amber-light); border-left: 3px solid #EF9F27; border-radius: 8px;
-             padding: 10px 14px; margin-top: 1rem; font-size: 0.85rem; color: var(--amber); line-height: 1.55; }
+  .tip-box { background: var(--amber-light); border-left: 3px solid #EF9F27; border-radius: 8px; padding: 10px 14px; margin-top: 1rem; font-size: 0.85rem; color: var(--amber); line-height: 1.55; }
   .gram-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 1rem; }
   .gram-table th, .gram-table td { padding: 9px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
   .gram-table th { background: var(--gray); font-weight: 600; }
   .gram-table tr:nth-child(even) td { background: #fafafa; }
-
-  /* QUIZ */
   .score-wrap  { margin-bottom: 1.25rem; }
   .score-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
   .score-bar   { height: 7px; background: var(--gray); border-radius: 4px; overflow: hidden; }
@@ -132,110 +81,86 @@
   .quiz-item   { margin-bottom: 1rem; }
   .quiz-item p { font-size: 0.9rem; margin-bottom: 8px; font-weight: 500; line-height: 1.5; }
   .options { display: flex; flex-direction: column; gap: 6px; }
-  .opt { text-align: left; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 8px;
-         font-size: 0.85rem; cursor: pointer; font-family: var(--font); background: white;
-         color: var(--text); transition: all 0.15s; }
+  .opt { text-align: left; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-family: var(--font); background: white; color: var(--text); transition: all 0.15s; }
   .opt:hover:not([disabled]) { border-color: var(--navy); background: var(--navy-light); }
   .opt.correct { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 600; }
-  .opt.wrong   { background: var(--red-light); border-color: var(--red); color: var(--red); }
+  .opt.wrong   { background: #FCEBEB; border-color: #E24B4A; color: var(--red); }
   .feedback    { font-size: 0.8rem; margin-top: 6px; padding: 7px 12px; border-radius: 8px; line-height: 1.5; display: none; }
   .feedback.ok { background: var(--teal-light); color: var(--teal-dark); }
-  .feedback.no { background: var(--red-light); color: var(--red); }
-  .reset-btn   { padding: 8px 20px; border: 1.5px solid var(--border); border-radius: 8px;
-                 background: white; font-family: var(--font); font-size: 0.85rem; cursor: pointer;
-                 margin-top: 1rem; color: var(--muted); }
+  .feedback.no { background: #FCEBEB; color: var(--red); }
+  .reset-btn   { padding: 8px 20px; border: 1.5px solid var(--border); border-radius: 8px; background: white; font-family: var(--font); font-size: 0.85rem; cursor: pointer; margin-top: 1rem; color: var(--muted); }
   .reset-btn:hover { border-color: var(--navy); color: var(--navy); }
-
-  /* DIALOGUE */
   .rp-box    { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 1rem; }
-  .rp-header { background: var(--gray); padding: 8px 14px; font-size: 0.78rem; color: var(--muted);
-               font-weight: 600; border-bottom: 1px solid var(--border); }
+  .rp-header { background: var(--gray); padding: 8px 14px; font-size: 0.78rem; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); }
   .rp-body   { padding: 1rem; }
   .rp-turn   { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
-  .av  { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center;
-         justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .av  { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
   .av-a { background: var(--navy-light);  color: var(--navy-dark); }
   .av-b { background: var(--blue-light);  color: var(--blue-dark); }
   .rp-name { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
   .rp-text  { background: var(--gray); border-radius: 0 10px 10px 10px; padding: 8px 12px; font-size: 0.88rem; line-height: 1.55; }
   .rp-text.right { background: var(--blue-light); border-radius: 10px 0 10px 10px; }
-  .rp-text strong { color: var(--navy); }
-
-  /* FILL BLANKS */
+  .rp-text strong { color: var(--navy-dark); }
   .fill-box  { background: var(--gray); border-radius: var(--radius); padding: 1.1rem; margin-top: 0.75rem; }
   .fill-box p { font-size: 0.88rem; line-height: 2.5; }
-  .blank-in  { border: none; border-bottom: 2px solid var(--navy); background: transparent;
-               font-family: var(--font); font-size: 0.88rem; color: var(--text); width: 150px; outline: none; text-align: center; }
-  .check-btn { margin-top: 0.75rem; padding: 8px 20px; background: var(--navy); color: white;
-               border: none; border-radius: 8px; font-family: var(--font); font-size: 0.85rem;
-               cursor: pointer; font-weight: 600; }
+  .blank-in  { border: none; border-bottom: 2px solid var(--navy); background: transparent; font-family: var(--font); font-size: 0.88rem; color: var(--text); width: 150px; outline: none; text-align: center; }
+  .check-btn { margin-top: 0.75rem; padding: 8px 20px; background: var(--navy); color: white; border: none; border-radius: 8px; font-family: var(--font); font-size: 0.85rem; cursor: pointer; font-weight: 600; }
   .check-btn:hover { background: var(--navy-dark); }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
   .chip  { font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; }
   .chip-n { background: var(--navy-light); color: var(--navy-dark); }
   .chip-t { background: var(--teal-light); color: var(--teal-dark); }
   .chip-b { background: var(--blue-light); color: var(--blue-dark); }
-  .chip-a { background: var(--amber-light);color: var(--amber); }
-  .chip-r { background: var(--red-light);  color: var(--red); }
+  .chip-a { background: var(--amber-light); color: var(--amber); }
   .divider { height: 1px; background: var(--border); margin: 1rem 0; }
-
-  footer { text-align: center; padding: 1.25rem; font-size: 0.75rem; color: var(--muted);
-           border-top: 1px solid var(--border); background: white; margin-top: 2rem; }
+  footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: var(--muted); border-top: 1px solid var(--border); background: white; margin-top: 2rem; }
 </style>
 </head>
 <body>
-
 <header>
-  <div class="header-left">
-    <h1>Unit 5: Politics</h1>
-    <p>Interactive English II &nbsp;·&nbsp; Intermediate 3 &nbsp;·&nbsp; Tweetalig / English Discoveries</p>
-  </div>
+  <h1>Unit 5: Politics</h1>
+  <p>Interactive English II &nbsp;·&nbsp; Intermediate 3 &nbsp;·&nbsp; Tweetalig / English Discoveries</p>
 </header>
-
-<!-- PAGE NAVIGATION BAR -->
-<div class="page-nav-bar" id="pageNavBar">
-  <!-- dots injected by JS -->
-</div>
-
 <div class="main">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('vocab',this)">📋 Vocabulary</button>
+    <button class="tab" onclick="switchTab('grammar',this)">⚙ Grammar</button>
+    <button class="tab" onclick="switchTab('dialogues',this)">💬 Dialogues</button>
+    <button class="tab" onclick="switchTab('quiz',this)">✏ Quiz</button>
+    <button class="tab" onclick="switchTab('practice',this)">📝 Practice</button>
+    <button class="tab" onclick="window.location.href='./speaking.html'">🎤 Speaking Exercise</button>
+  </div>
 
-  <!-- ══════════════ PAGE 1 — POLITICS VOCABULARY ══════════════ -->
-  <div class="page active" id="page1">
-    <div class="page-title">📋 Politics Vocabulary</div>
-    <div class="page-sub">Key words from the unit — tap a card to reveal the Spanish translation and an example.</div>
-
+  <!-- VOCABULARY -->
+  <div id="vocab" class="section active">
     <div class="card">
       <span class="badge badge-vocab">Elections &amp; Government</span>
-      <h3>Words used in the News and Brown's Campaign lessons</h3>
+      <h3>Words from the News and Brown's Campaign lessons — tap to reveal</h3>
+      <p class="sub">Toca cada tarjeta para ver la traducción al español y un ejemplo.</p>
       <div class="word-grid" id="politicsGrid"></div>
     </div>
-
     <div class="card">
       <span class="badge badge-vocab">Crime &amp; Scandal Vocabulary</span>
       <h3>Words from Brown's Campaign Problems</h3>
+      <p class="sub">Vocabulario de crimen y escándalo — del artículo sobre el candidato Brown.</p>
       <div class="word-grid" id="crimeGrid"></div>
     </div>
-
     <div class="card">
       <span class="badge badge-vocab">Opinions &amp; Displeasure</span>
       <h3>Expressions from the New Manager dialogue</h3>
+      <p class="sub">Expresiones para dar opiniones y expresar disgusto — del diálogo "New Manager".</p>
       <div class="word-grid" id="opinionGrid"></div>
+    </div>
+    <div class="card">
+      <span class="badge badge-vocab">Match the definition / Relaciona la definición</span>
+      <h3>Select the correct definition for each word</h3>
+      <p class="sub">Selecciona la definición correcta para cada palabra.</p>
+      <div id="matchGame"></div>
     </div>
   </div>
 
-  <!-- ══════════════ PAGE 2 — MATCH ACTIVITY ══════════════ -->
-  <div class="page" id="page2">
-    <div class="page-title">🔤 Match the Definition</div>
-    <div class="page-sub">Match each word (1–8) to its correct definition (A–H). Click the letter you think is correct. / Relaciona cada palabra con su definición correcta. Haz clic en la letra.</div>
-
-    <div class="card" id="matchContainer"></div>
-  </div>
-
-  <!-- ══════════════ PAGE 3 — GRAMMAR ══════════════ -->
-  <div class="page" id="page3">
-    <div class="page-title">⚙ Grammar: Reported Speech Review</div>
-    <div class="page-sub">A complete review of reported speech — statements, questions, tense backshift, and time expressions. / Repaso completo del estilo indirecto.</div>
-
+  <!-- GRAMMAR -->
+  <div id="grammar" class="section">
     <div class="gram-nav">
       <button class="gram-pill on" onclick="showGram(0,this)">Reported Statements</button>
       <button class="gram-pill"    onclick="showGram(1,this)">Reported Questions</button>
@@ -246,37 +171,30 @@
     <div id="gramPanels"></div>
   </div>
 
-  <!-- ══════════════ PAGE 4 — PLATFORM DIALOGUES ══════════════ -->
-  <div class="page" id="page4">
-    <div class="page-title">💬 Platform Dialogues</div>
-    <div class="page-sub">The exact dialogues from English Discoveries — key expressions highlighted. / Los diálogos exactos de la plataforma.</div>
-
+  <!-- DIALOGUES -->
+  <div id="dialogues" class="section">
     <div class="card">
-      <span class="badge badge-navy">New Manager — Dialogue from the platform</span>
+      <span class="badge badge-navy">New Manager — Platform dialogue</span>
       <h3>Two colleagues discuss the hiring of a new manager</h3>
-      <p class="sub">Barbara and Paul at work. Observe the opinion phrases and reported speech highlighted.</p>
+      <p class="sub">Barbara y Paul en la oficina. Observa las expresiones de opinión y disgusto resaltadas.</p>
       <div class="rp-box">
         <div class="rp-header">New Manager · Opinion &amp; displeasure expressions highlighted</div>
         <div class="rp-body" id="rpBody1"></div>
       </div>
     </div>
-
     <div class="card">
-      <span class="badge badge-navy">Office Politics — Handout 28 (platform activity)</span>
-      <h3>What Barbara told Paul / What Carol told Stan</h3>
-      <p class="sub">The same office scandal — two different versions. The key: using Reported Speech to describe what happened.</p>
+      <span class="badge badge-navy">Office Politics — Reported Speech in action</span>
+      <h3>The same scandal reported by two different people</h3>
+      <p class="sub">La misma situación de oficina reportada por dos personas distintas — Handout 28.</p>
       <div class="rp-box">
-        <div class="rp-header">Office Politics — Reported Speech in action</div>
+        <div class="rp-header">Office Politics — Barbara/Paul vs Carol/Stan</div>
         <div class="rp-body" id="rpBody2"></div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════════ PAGE 5 — QUIZ ══════════════ -->
-  <div class="page" id="page5">
-    <div class="page-title">✏ Quiz</div>
-    <div class="page-sub">10 questions on vocabulary and grammar from Unit 5. / 10 preguntas de vocabulario y gramática de la Unidad 5.</div>
-
+  <!-- QUIZ -->
+  <div id="quiz" class="section">
     <div class="score-wrap">
       <div class="score-label" id="scoreLabel">Score / Puntaje: 0 / 10</div>
       <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
@@ -285,270 +203,191 @@
     <button class="reset-btn" onclick="resetQuiz()">↺ Restart / Reiniciar</button>
   </div>
 
-  <!-- ══════════════ PAGE 6 — FILL IN THE BLANKS ══════════════ -->
-  <div class="page" id="page6">
-    <div class="page-title">📝 Fill in the Blanks</div>
-    <div class="page-sub">Transform the sentences into reported speech. / Transforma las oraciones en estilo indirecto.</div>
-
+  <!-- PRACTICE -->
+  <div id="practice" class="section">
     <div class="card">
-      <span class="badge badge-grammar">Reported Speech in context — Unit 5 topics</span>
+      <span class="badge badge-grammar">Reported Speech — Fill in the blanks</span>
       <h3>Complete with the correct reported speech form</h3>
+      <p class="sub">Completa con la forma correcta del Estilo Indirecto.</p>
       <div class="fill-box">
-        <p>1. "I <strong>am</strong> not happy about the new manager." → Barbara said she <input class="blank-in" id="b1" placeholder="________"> not happy about the new manager.</p>
+        <p>1. "I <strong>am</strong> not happy about the decision." → Barbara said she <input class="blank-in" id="b1" placeholder="________"> not happy about it.</p>
         <p>2. "We <strong>will fight</strong> for free education." → Brown promised they <input class="blank-in" id="b2" placeholder="________"> for free education.</p>
         <p>3. "Did you <strong>hear</strong> the news?" → She asked if he <input class="blank-in" id="b3" placeholder="________"> the news.</p>
-        <p>4. "The candidate <strong>has won</strong> the election." → They reported that the candidate <input class="blank-in" id="b4" placeholder="________"> the election.</p>
+        <p>4. "The candidate <strong>has won</strong> the election." → They reported the candidate <input class="blank-in" id="b4" placeholder="________"> the election.</p>
         <p>5. "I <strong>cannot</strong> believe he did that." → Paul said he <input class="blank-in" id="b5" placeholder="________"> believe it.</p>
         <p>6. "Someone <strong>tried</strong> to murder me." → Brown claimed someone <input class="blank-in" id="b6" placeholder="________"> to murder him.</p>
       </div>
       <button class="check-btn" onclick="checkBlanks()">Check / Verificar</button>
       <div id="blankFeedback" style="margin-top:10px;font-size:0.85rem;line-height:1.5;"></div>
     </div>
-
     <div class="card">
-      <span class="badge badge-speaking">Speaking practice — Your turn</span>
-      <h3>Report these sentences to a partner / Reporta estas oraciones a tu pareja</h3>
-      <p class="sub">Cover the sentences. Your partner reads them aloud. You report them using Reported Speech. / Cubre las oraciones. Tu pareja las lee. Tú las reportas en estilo indirecto.</p>
+      <span class="badge badge-speaking">Pair practice — Report these sentences</span>
+      <h3>Your partner reads aloud — you report it / Tu pareja lee — tú la reportas</h3>
       <div class="chips">
         <span class="chip chip-n">"I am planning to resign if they hire someone else."</span>
-        <span class="chip chip-n">"The fire started at midnight in Brown's campaign office."</span>
+        <span class="chip chip-n">"The fire started at midnight in Brown's office."</span>
         <span class="chip chip-b">"Are you going to speak to Walker about this?"</span>
         <span class="chip chip-b">"Who won the election?"</span>
         <span class="chip chip-t">"I have never supported a corrupt politician."</span>
         <span class="chip chip-a">"We will announce the winner at 9 pm tonight."</span>
       </div>
     </div>
+    <div class="card">
+      <span class="badge badge-speaking">Speaking task — go to full exercise</span>
+      <h3>Press Conference or News Reporter</h3>
+      <p style="font-size:0.88rem;color:var(--muted);line-height:1.65;margin-bottom:12px;">For scenarios, structure guide, model examples and speaking timer — open the full Speaking Exercise.</p>
+      <a href="./speaking.html" style="display:inline-block;padding:9px 20px;background:var(--navy);color:white;border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:600;">🎤 Open Speaking Exercise →</a>
+    </div>
   </div>
-
-  <!-- BOTTOM NAVIGATION -->
-  <div class="bottom-nav">
-    <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" disabled>← Previous</button>
-    <span class="page-counter" id="pageCounter">Page 1 of 6</span>
-    <button class="nav-btn primary" id="nextBtn" onclick="changePage(1)">Next →</button>
-  </div>
-
-</div><!-- /main -->
-
+</div>
 <footer>Interactive English II · Unit 5: Politics · English Discoveries / Tweetalig · © Edusoft 1990-2026</footer>
 
 <script>
-// ════════════════════ DATA ════════════════════
-
 const politicsWords = [
-  {en:'election',       pos:'noun',    hint:'event where people vote to choose a leader',         es:'elección',              ex:'The local election results were announced last night on the radio.'},
-  {en:'candidate',      pos:'noun',    hint:'person competing in a political election',            es:'candidato/a',           ex:'Both candidates gave speeches about education and health.'},
-  {en:'voter',          pos:'noun',    hint:'person who casts a vote',                            es:'votante / elector/a',   ex:'Millions of voters went to the polls yesterday.'},
-  {en:'political party',pos:'noun',    hint:'organized group with shared political beliefs',       es:'partido político',      ex:'The Liberal Party won the majority of seats.'},
-  {en:'campaign',       pos:'noun/verb',hint:'organized effort to win an election',               es:'campaña',               ex:'Mr. Brown started his election campaign three months ago.'},
-  {en:'city council',   pos:'noun',    hint:'group of people elected to run a city',              es:'concejo municipal',     ex:'She was elected to the city council in the local election.'},
-  {en:'elected',        pos:'adj/verb',hint:'chosen by vote for a position',                      es:'elegido/a',             ex:'Rosa Morales was elected by a large majority.'},
-  {en:'defeated',       pos:'adj/verb',hint:'lost in a competition or vote',                      es:'derrotado/a',           ex:'The Conservative candidate was defeated by a narrow margin.'},
-  {en:'press conference',pos:'noun',  hint:'meeting where a public figure answers reporters',     es:'rueda de prensa',       ex:'The mayor held a press conference to explain the decision.'},
-  {en:'resign',         pos:'verb',   hint:'leave a job or position officially',                  es:'renunciar / dimitir',   ex:'Carol said she would resign if Walker gave the job to someone else.'},
-  {en:'issue',          pos:'noun',   hint:'important topic in a debate or election',             es:'tema / asunto clave',   ex:'Education and crime were the key issues in the election.'},
-  {en:'majority',       pos:'noun',   hint:'more than half — the largest number',                 es:'mayoría',               ex:'The Liberal Party won by a large majority.'},
+  {en:'election',pos:'noun',hint:'event where people vote to choose a leader',es:'elección',ex:'The local election results were announced on the radio last night.'},
+  {en:'candidate',pos:'noun',hint:'person competing in a political election',es:'candidato/a',ex:'Both candidates gave speeches about education and health.'},
+  {en:'voter',pos:'noun',hint:'person who casts a vote',es:'votante / elector/a',ex:'Millions of voters went to the polls yesterday.'},
+  {en:'political party',pos:'noun',hint:'organized group with shared political beliefs',es:'partido político',ex:'The Liberal Party won the majority of seats.'},
+  {en:'campaign',pos:'noun/verb',hint:'organized effort to win an election',es:'campaña',ex:'Mr. Brown started his election campaign three months ago.'},
+  {en:'city council',pos:'noun',hint:'group elected to run a city government',es:'concejo municipal',ex:'She was elected to the city council in the local election.'},
+  {en:'elected',pos:'adj/verb',hint:'chosen by vote for a position',es:'elegido/a',ex:'Rosa Morales was elected by a large majority.'},
+  {en:'defeated',pos:'adj/verb',hint:'lost in a competition or vote',es:'derrotado/a',ex:'The Conservative candidate was defeated by a narrow margin.'},
+  {en:'press conference',pos:'noun',hint:'meeting where a public figure answers reporters',es:'rueda de prensa',ex:'The mayor held a press conference to explain the decision.'},
+  {en:'resign',pos:'verb',hint:'officially leave a job or position',es:'renunciar / dimitir',ex:'Carol said she would resign if Walker gave the job to someone else.'},
+  {en:'issue',pos:'noun',hint:'important topic in a debate or election',es:'tema / asunto clave',ex:'Education and crime were the key issues in the campaign.'},
+  {en:'majority',pos:'noun',hint:'more than half — the largest number of votes',es:'mayoría',ex:'The Liberal Party won by a large majority.'},
 ];
 
 const crimeWords = [
-  {en:'arson',          pos:'noun',   hint:'deliberately setting fire to something',              es:'incendio provocado',    ex:'Police suspected arson after the fire at Brown\'s campaign office.'},
-  {en:'investigate',    pos:'verb',   hint:'look carefully into something to find the truth',     es:'investigar',            ex:'Detectives are investigating the fire at the headquarters.'},
-  {en:'evidence',       pos:'noun',   hint:'information that proves something is true or false',  es:'evidencia / prueba',    ex:'The police found no evidence of arson at the scene.'},
-  {en:'threat',         pos:'noun',   hint:'a warning that harm will come',                       es:'amenaza',               ex:'The candidate said he had received personal threats.'},
-  {en:'murder',         pos:'noun/verb',hint:'the crime of killing someone deliberately',         es:'asesinato / asesinar',  ex:'Brown claimed that someone had tried to murder him.'},
-  {en:'scandal',        pos:'noun',   hint:'shocking event involving dishonest behavior',         es:'escándalo',             ex:'The political scandal led to the candidate\'s resignation.'},
-  {en:'corrupt',        pos:'adjective',hint:'willing to act dishonestly for personal gain',      es:'corrupto/a',            ex:'Ted Simmons was accused of corrupt behavior in his campaign.'},
-  {en:'resign',         pos:'verb',   hint:'officially leave a job because of pressure or scandal',es:'renunciar',            ex:'He resigned from the campaign after the police questioned him.'},
+  {en:'arson',pos:'noun',hint:'deliberately setting fire to something',es:'incendio provocado',ex:"Police suspected arson after the fire at Brown's campaign office."},
+  {en:'investigate',pos:'verb',hint:'look carefully into something to find the truth',es:'investigar',ex:'Detectives are investigating the fire at the headquarters.'},
+  {en:'evidence',pos:'noun',hint:'information that proves something is true or false',es:'evidencia / prueba',ex:'The police found no evidence of arson at the scene.'},
+  {en:'threat',pos:'noun',hint:'a warning that harm will come',es:'amenaza',ex:'The candidate said he had received personal threats.'},
+  {en:'scandal',pos:'noun',hint:'shocking event involving dishonest behavior',es:'escándalo',ex:"The political scandal led to the candidate's resignation."},
+  {en:'corrupt',pos:'adjective',hint:'willing to act dishonestly for personal gain',es:'corrupto/a',ex:'Ted Simmons was accused of corrupt behavior in his campaign.'},
+  {en:'murder',pos:'noun/verb',hint:'the crime of killing someone deliberately',es:'asesinato / asesinar',ex:'Brown claimed that someone had tried to murder him.'},
+  {en:'resign',pos:'verb',hint:'officially leave a job because of pressure or scandal',es:'renunciar',ex:'He resigned from the campaign after the police questioned him.'},
 ];
 
 const opinionWords = [
-  {en:'In my opinion…',       pos:'phrase', hint:'used to give your personal view',           es:'En mi opinión…',          ex:'"In my opinion, Walker made a terrible decision."'},
-  {en:'I think…',             pos:'phrase', hint:'introduces your belief or idea',            es:'Creo que… / Pienso que…', ex:'"I think the new manager will change everything."'},
-  {en:'I\'m not happy about…',pos:'phrase', hint:'expresses displeasure',                    es:'No estoy contento/a con…',ex:'"I\'m not happy about the way this was handled."'},
-  {en:'I\'m surprised that…', pos:'phrase', hint:'expresses unexpected reaction',             es:'Me sorprende que…',       ex:'"I\'m surprised that Walker didn\'t tell us first."'},
-  {en:'I don\'t like the idea of…',pos:'phrase',hint:'expresses objection',                  es:'No me gusta la idea de…', ex:'"I don\'t like the idea of hiring someone from outside."'},
-  {en:'Despite…',             pos:'conjunction',hint:'used to contrast — even though',       es:'A pesar de…',             ex:'"Despite the scandal, he continued his campaign."'},
-  {en:'However…',             pos:'conjunction',hint:'introduces a contrasting idea',        es:'Sin embargo…',            ex:'"The results were close. However, the Liberal Party won."'},
-  {en:'admitted',             pos:'verb',   hint:'said that something bad was true',          es:'admitió / reconoció',     ex:'Brown admitted that he had not been sure he would win.'},
-  {en:'claimed',              pos:'verb',   hint:'said something was true (may not be verified)',es:'afirmó / declaró',      ex:'He claimed that someone had tried to murder him.'},
-  {en:'promised',             pos:'verb',   hint:'gave your word that something would happen', es:'prometió',               ex:'He promised that he would fight for free education.'},
+  {en:'In my opinion…',pos:'phrase',hint:'give your personal view',es:'En mi opinión…',ex:'"In my opinion, Walker made a terrible decision."'},
+  {en:'I think / I believe…',pos:'phrase',hint:'introduce your belief or idea',es:'Creo / Pienso que…',ex:'"I think the new manager will change everything."'},
+  {en:"I'm not happy about…",pos:'phrase',hint:'express displeasure',es:'No estoy contento/a con…',ex:"\"I'm not happy about the way this was handled.\""},
+  {en:"I'm surprised that…",pos:'phrase',hint:'express unexpected reaction',es:'Me sorprende que…',ex:"\"I'm surprised that Walker didn't tell us first.\""},
+  {en:"I don't like the idea of…",pos:'phrase',hint:'express objection to a plan',es:'No me gusta la idea de…',ex:"\"I don't like the idea of hiring someone from outside.\""},
+  {en:'Despite…',pos:'conj.',hint:'contrast — even though',es:'A pesar de…',ex:'"Despite the scandal, he continued his campaign."'},
+  {en:'However…',pos:'conj.',hint:'introduce a contrasting idea',es:'Sin embargo…',ex:'"The results were close. However, the Liberal Party won."'},
+  {en:'admitted',pos:'verb',hint:'said something difficult to confess',es:'admitió / reconoció',ex:'Brown admitted that he had not been sure he would win.'},
+  {en:'claimed',pos:'verb',hint:'said something possibly unverified',es:'afirmó / declaró',ex:'He claimed that someone had tried to murder him.'},
+  {en:'promised',pos:'verb',hint:'gave your word that something would happen',es:'prometió',ex:'He promised that he would fight for free education.'},
 ];
 
-// MATCH DATA — ABC format
-const matchWords = [
-  {term:'candidate',     def:'A person competing in a political election — trying to win a vote'},
-  {term:'arson',         def:'The crime of deliberately setting fire to a building or place'},
-  {term:'press conference', def:'A public meeting where an official answers questions from reporters'},
-  {term:'resign',        def:'To officially leave a job or position, often because of pressure'},
-  {term:'majority',      def:'More than half of the total — the largest group of votes'},
-  {term:'corrupt',       def:'Willing to act dishonestly in exchange for money or power'},
-  {term:'issue',         def:'An important topic or problem discussed in a political campaign'},
-  {term:'claimed',       def:'Said something was true — but it has not been fully proved yet'},
+const matchData = [
+  {word:'candidate',      def:'A person competing in a political election / Persona que compite en unas elecciones políticas'},
+  {word:'arson',          def:'The crime of deliberately setting fire to a building / El crimen de provocar un incendio intencionalmente'},
+  {word:'press conference',def:'A public meeting where an official answers reporters / Reunión pública donde un oficial responde a periodistas'},
+  {word:'resign',         def:'To officially leave a job or position under pressure / Renunciar oficialmente a un cargo'},
+  {word:'majority',       def:'More than half of the total votes / Más de la mitad del total de votos'},
+  {word:'corrupt',        def:'Willing to act dishonestly for money or power / Dispuesto a actuar deshonestamente por dinero o poder'},
 ];
 
 const grammarPanels = [
   {
-    title: 'Reported Statements — said / told + (that)',
-    desc:  'Report what someone <strong>said</strong> without using their exact words. Verb tenses change (backshift).<br><em>Reporta lo que alguien <strong>dijo</strong> sin usar sus palabras exactas. Los tiempos verbales cambian.</em>',
-    formulas: ['subject + said (that) + [backshifted clause]', 'subject + told + person + (that) + [backshifted clause]'],
-    examples: [
+    title:'Reported Statements — said / told + (that)',
+    desc:'Report what someone <strong>said</strong> without using their exact words. Verb tenses change.<br><em>Reporta lo que alguien dijo sin usar sus palabras exactas.</em>',
+    formulas:['subject + said (that) + [backshifted clause]','subject + told + person + (that) + [backshifted clause]'],
+    examples:[
       '"I <strong>am</strong> not happy." → Barbara <strong>said</strong> she <strong>was</strong> not happy.',
       '"We <strong>will</strong> fight for education." → Brown <strong>promised</strong> they <strong>would</strong> fight.',
       '"I <strong>have received</strong> threats." → He <strong>claimed</strong> he <strong>had received</strong> threats.',
       '"The candidate <strong>won</strong>." → They <strong>reported</strong> the candidate <strong>had won</strong>.',
-      '"I <strong>can\'t</strong> believe it." → Paul <strong>said</strong> he <strong>couldn\'t</strong> believe it.',
+      '"I <strong>cannot</strong> believe it." → Paul <strong>said</strong> he <strong>could not</strong> believe it.',
     ],
-    tip: "'Said' does NOT need an object. 'Told' ALWAYS needs a person (told me, told Paul, told us). / 'Said' no necesita objeto. 'Told' SIEMPRE necesita una persona."
+    tip:"'Said' does NOT need an object. 'Told' ALWAYS needs a person (told me, told Paul, told us). / 'Said' no necesita objeto. 'Told' SIEMPRE necesita una persona."
   },
   {
-    title: 'Reported Questions — asked if / asked where / wanted to know',
-    desc:  'Reported questions use <strong>statement word order</strong> — no inversion, no do/did. / Las preguntas indirectas usan <strong>orden declarativo</strong> — sin inversión, sin do/did.',
-    formulas: ['asked + if/whether + subject + verb  (Yes/No questions)', 'asked + wh-word + subject + verb  (Wh- questions)'],
-    examples: [
+    title:'Reported Questions — asked if / wanted to know',
+    desc:'Reported questions use <strong>statement word order</strong> — no inversion, no do/did. / Orden declarativo — sin inversión, sin do/did.',
+    formulas:['asked + if/whether + subject + verb  (Yes/No)','asked + wh-word + subject + verb  (Wh- questions)'],
+    examples:[
       '"Did you hear the news?" → She <strong>asked</strong> if he <strong>had heard</strong> the news.',
       '"Are you going to resign?" → He <strong>asked</strong> if she <strong>was going</strong> to resign.',
       '"Who won the election?" → She <strong>wanted to know</strong> who <strong>had won</strong>.',
       '"What are the key issues?" → He <strong>asked</strong> what the key issues <strong>were</strong>.',
       '"Will you speak to Walker?" → Barbara <strong>asked</strong> if Paul <strong>would speak</strong> to Walker.',
     ],
-    tip: "Do NOT use do/did in reported questions. Statement order only. / No uses do/did en preguntas indirectas. Solo orden declarativo."
+    tip:'No do/did in reported questions. Statement order only. / No uses do/did. Solo orden declarativo.'
   },
   {
-    title: 'Tense Backshift / Retroceso temporal',
-    desc:  'When the reporting verb is in the <strong>past</strong>, verb tenses move one step back. / Cuando el verbo de reporte está en <strong>pasado</strong>, los tiempos verbales retroceden un paso.',
-    formulas: ['Present Simple → Past Simple', 'Past Simple → Past Perfect', 'will → would  ·  can → could  ·  am/is/are → was/were'],
-    examples: [
+    title:'Tense Backshift / Retroceso temporal',
+    desc:'When the reporting verb is in the <strong>past</strong>, verb tenses move one step back. / Los tiempos verbales retroceden un paso.',
+    formulas:['Present Simple → Past Simple','Past Simple → Past Perfect','will → would  ·  can → could  ·  am/is/are → was/were'],
+    examples:[
       '"I <strong>am</strong> running." → She said she <strong>was</strong> running.',
       '"I <strong>saw</strong> him." → She said she <strong>had seen</strong> him.',
       '"I <strong>have won</strong>." → He said he <strong>had won</strong>.',
       '"I <strong>will</strong> fight." → She promised she <strong>would</strong> fight.',
       '"I <strong>can</strong> prove it." → He claimed he <strong>could</strong> prove it.',
     ],
-    tip: "Time expressions also change: today → that day · tomorrow → the next day · here → there · this → that. / Las expresiones de tiempo también cambian."
+    tip:'Time expressions also change: today→that day · tomorrow→the next day · here→there. / Las expresiones de tiempo también cambian.'
   },
   {
-    title: 'Reporting Verbs — say, tell, ask, claim, admit, promise',
-    desc:  'Different verbs carry different meanings when reporting. / Diferentes verbos tienen diferentes significados al reportar.',
-    formulas: [],
-    examples: [
-      '<strong>said / told:</strong>  neutral reporting — "He <strong>said</strong> he was busy."',
-      '<strong>claimed:</strong>      said something (possibly not true) — "She <strong>claimed</strong> she had won."',
-      '<strong>admitted:</strong>     said something difficult to confess — "He <strong>admitted</strong> he had made mistakes."',
-      '<strong>promised:</strong>     gave a commitment — "She <strong>promised</strong> she would fight for education."',
-      '<strong>asked:</strong>        reported a question — "She <strong>asked</strong> if he was going to resign."',
-      '<strong>announced:</strong>    said publicly — "They <strong>announced</strong> that the Liberal Party had won."',
+    title:'Reporting Verbs / Verbos de reporte',
+    desc:'Different verbs carry different meanings. / Diferentes verbos tienen diferentes significados.',
+    formulas:[],
+    examples:[
+      '<strong>said / told:</strong>   neutral — "He <strong>said</strong> he was busy."',
+      '<strong>claimed:</strong>       possibly not true — "She <strong>claimed</strong> she had won."',
+      '<strong>admitted:</strong>      confessed — "He <strong>admitted</strong> he had made mistakes."',
+      '<strong>promised:</strong>      gave a commitment — "She <strong>promised</strong> she would fight for education."',
+      '<strong>announced:</strong>     said publicly — "They <strong>announced</strong> the Liberal Party had won."',
+      '<strong>asked:</strong>         reported a question — "She <strong>asked</strong> if he was going to resign."',
     ],
-    tip: "In the Brown story: 'admitted' (recognised mistakes), 'claimed' (unverified — arson), 'promised' (committed to education). These are the reporting verbs of politics. / Verbos clave en política."
+    tip:"'Claimed' = unconfirmed · 'Admitted' = difficult truth · 'Promised' = commitment. These are the reporting verbs of politics!"
   },
   {
-    title: 'Summary Table / Tabla resumen',
-    desc:  'All changes at a glance. / Todos los cambios de un vistazo.',
-    table: [
+    title:'Summary Table / Tabla resumen',
+    desc:'All changes at a glance. / Todos los cambios de un vistazo.',
+    table:[
       ['Direct Speech','Reported Speech','Example'],
       ['am / is / are','was / were','"I am surprised." → She said she was surprised.'],
       ['was / were','had been','"It was difficult." → He said it had been difficult.'],
-      ['do / does (simple)','did','"I work here." → She said she worked there.'],
+      ['do/does','did','"I work here." → She said she worked there.'],
       ['did','had + V3','"I saw it." → He said he had seen it.'],
       ['have/has + V3','had + V3','"They have decided." → She said they had decided.'],
       ['will','would','"I will resign." → He said he would resign.'],
       ['can','could','"I can prove it." → She said she could prove it.'],
-      ['today / tonight','that day / that night','→ time expression changes'],
+      ['today / tonight','that day / that night','→ time expressions change too'],
     ]
   }
 ];
 
 const quizData = [
-  {q:'"I am not happy about the decision." → She said she ___ not happy.',
-   opts:['is','was','has been','were'], ans:'was',
-   fb:"Present Simple 'am' → Past Simple 'was' in reported speech. / Presente Simple → Pasado Simple."},
-  {q:'"We will announce the winner." → They said they ___ announce the winner.',
-   opts:['will','would','can','could'], ans:'would',
-   fb:"'Will' → 'would' in reported speech. / 'Will' → 'would' en estilo indirecto."},
-  {q:'Barbara ___ Paul that she couldn\'t believe Walker\'s decision. (correct verb)',
-   opts:['said','told','asked','claimed'], ans:'told',
-   fb:"'Told' always needs a person object (told Paul, told me, told us). 'Said' does not. / 'Told' siempre necesita objeto."},
-  {q:'"Did you hear about the fire?" → She asked if he ___ about the fire.',
-   opts:['heard','had heard','hears','has heard'], ans:'had heard',
-   fb:"Past Simple question → Past Perfect in reported speech. No inversion. / Pregunta en pasado → Past Perfect."},
-  {q:'Brown ___ that someone had tried to murder him. (the information was not confirmed)',
-   opts:['promised','admitted','claimed','told'], ans:'claimed',
-   fb:"'Claimed' is used when someone says something that may not be proven. / 'Claimed' se usa cuando algo no está confirmado."},
-  {q:'Which sentence has CORRECT reported speech?',
-   opts:['She said she can help.','She told that she could help.','She said she could help.','She said to she could help.'],
-   ans:'She said she could help.',
-   fb:"'Said' + no object + 'could' (can → could). 'Told' needs a person, not 'that'. / 'Said' sin objeto + 'could'."},
-  {q:'"The fire started at midnight." → She reported the fire ___ at midnight.',
-   opts:['starts','started','had started','has started'], ans:'had started',
-   fb:"Past Simple 'started' → Past Perfect 'had started' in reported speech. / Pasado Simple → Pasado Perfecto."},
-  {q:'Which is a DISPLEASURE expression (from the New Manager lesson)?',
-   opts:["I'm not happy about this.","Let's go!","Of course I can.","Here it is."],
-   ans:"I'm not happy about this.",
-   fb:"'I'm not happy about…' expresses displeasure — one of the key functions in the New Manager dialogue. / Expresa disgusto."},
-  {q:'The crime of deliberately setting fire to a building is called:',
-   opts:['murder','arson','scandal','threat'], ans:'arson',
-   fb:"'Arson' = incendio provocado. This was the suspected crime at Brown's campaign headquarters. / Incendio intencional."},
-  {q:'"I have promised her that job." → He admitted he ___ her that job.',
-   opts:['promised','has promised','had promised','would promise'], ans:'had promised',
-   fb:"'Had promised': Present Perfect 'have promised' → Past Perfect 'had promised' in reported speech. / Present Perfect → Past Perfect."},
+  {q:'"I am not happy about the decision." → She said she ___ not happy.',opts:['is','was','has been','were'],ans:'was',fb:"Present 'am' → Past 'was' in reported speech. / Presente → Pasado Simple."},
+  {q:'"We will announce the winner." → They said they ___ announce the winner.',opts:['will','would','can','could'],ans:'would',fb:"'Will' → 'would'. / 'Will' → 'would' en estilo indirecto."},
+  {q:"Barbara ___ Paul that she couldn't believe Walker's decision.",opts:['said','told','asked','claimed'],ans:'told',fb:"'Told' always needs a person object (told Paul, told me). 'Said' does not."},
+  {q:'"Did you hear about the fire?" → She asked if he ___ about the fire.',opts:['heard','had heard','hears','has heard'],ans:'had heard',fb:"Past Simple question → Past Perfect in reported speech. No inversion."},
+  {q:'Brown ___ that someone had tried to murder him. (unconfirmed)',opts:['promised','admitted','claimed','told'],ans:'claimed',fb:"'Claimed' is used for unconfirmed information. / 'Claimed' = información no confirmada."},
+  {q:'Which sentence has CORRECT reported speech?',opts:['She said she can help.','She told that she could help.','She said she could help.','She said to she could help.'],ans:'She said she could help.',fb:"'Said' + no object + 'could' (can→could). 'Told' needs a person."},
+  {q:'"The fire started at midnight." → She reported the fire ___ at midnight.',opts:['starts','started','had started','has started'],ans:'had started',fb:"Past Simple → Past Perfect in reported speech."},
+  {q:'Which is a DISPLEASURE expression from the New Manager lesson?',opts:["I'm not happy about this.","Let's go!","Of course I can.","Here it is."],ans:"I'm not happy about this.",fb:"'I'm not happy about…' expresses displeasure — key function in New Manager."},
+  {q:'The crime of deliberately setting fire to a building is called:',opts:['murder','arson','scandal','threat'],ans:'arson',fb:"'Arson' = incendio provocado. The suspected crime at Brown's headquarters."},
+  {q:'"I have promised her that job." → He admitted he ___ her that job.',opts:['promised','has promised','had promised','would promise'],ans:'had promised',fb:"Present Perfect 'have promised' → Past Perfect 'had promised'."},
 ];
 
 const dialogue1 = [
-  {who:'A', name:'Barbara', text:'Did you hear? <strong>I\'m not happy about</strong> Walker\'s decision to hire a new manager from outside.'},
-  {who:'B', name:'Paul',    text:'<strong>I know. I\'m surprised that</strong> he would do that without discussing it with us first.'},
-  {who:'A', name:'Barbara', text:'<strong>In my opinion</strong>, Carol deserved that job. Walker promised it to her last year!'},
-  {who:'B', name:'Paul',    text:'<strong>I agree.</strong> But <strong>I don\'t think</strong> speaking to Walker would help. He\'s already made up his mind.'},
-  {who:'A', name:'Barbara', text:'<strong>Despite</strong> what you say, I think Carol should tell him she\'ll resign if he gives it to someone else.'},
-  {who:'B', name:'Paul',    text:'<strong>However</strong>, that might make things worse. <strong>I feel that</strong> we need to be careful about this.'},
+  {who:'A',name:'Barbara',text:"Did you hear? <strong>I'm not happy about</strong> Walker's decision to hire a new manager from outside."},
+  {who:'B',name:'Paul',text:"<strong>I know. I'm surprised that</strong> he would do that without discussing it with us first."},
+  {who:'A',name:'Barbara',text:"<strong>In my opinion</strong>, Carol deserved that job. Walker promised it to her last year!"},
+  {who:'B',name:'Paul',text:"<strong>I agree.</strong> But <strong>I don't think</strong> speaking to Walker would help. He's already decided."},
+  {who:'A',name:'Barbara',text:"<strong>Despite</strong> what you say, I think Carol should tell him she'll resign if he gives it to someone else."},
+  {who:'B',name:'Paul',text:"<strong>However</strong>, that might make things worse. <strong>I feel that</strong> we need to be careful about this."},
 ];
 
 const dialogue2 = [
-  {who:'A', name:'Narrator', text:'Barbara wanted to know if Paul had heard that Walker was hiring a new manager from outside.'},
-  {who:'B', name:'Narrator', text:'Paul told her that he had and that he couldn\'t believe it.'},
-  {who:'A', name:'Narrator', text:'Then Barbara asked Paul if he was planning to speak to Walker about the decision.'},
-  {who:'B', name:'Narrator', text:'Paul said that he wasn\'t, because he didn\'t think it would help.'},
-  {who:'A', name:'Narrator', text:'Meanwhile, Carol told Stan that Walker had promised her that job the year before.'},
-  {who:'B', name:'Narrator', text:'Stan asked Carol if she intended to speak to Walker. Carol said that she certainly did — she was going to tell him she would resign if he gave the job to someone else.'},
+  {who:'A',name:'Version A — Barbara told Paul:',text:"Barbara wanted to know if Paul had heard that Walker was hiring a new manager. Paul told her that he had and that he couldn't believe it. Then Barbara asked Paul if he was planning to speak to Walker. Paul said that he wasn't, because he didn't think it would help."},
+  {who:'B',name:'Version B — Carol told Stan:',text:"Stan wanted to know if Carol had heard that Walker was hiring a new manager. Carol told him that she hadn't and that she was surprised Walker hadn't told her first. She said that he had promised her that job the year before. Stan asked Carol if she intended to speak to Walker. Carol said that she certainly did — she would resign if he gave the job to somebody else."},
 ];
-
-// ════════════════════ PAGE SYSTEM ════════════════════
-
-const totalPages = 6;
-let currentPage = 1;
-
-function buildNavBar() {
-  const bar = document.getElementById('pageNavBar');
-  const labels = ['Vocabulary','Match','Grammar','Dialogues','Quiz','Blanks'];
-  labels.forEach((lbl, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'page-dot' + (i===0?' active':'');
-    dot.id = `dot${i+1}`;
-    dot.onclick = () => goToPage(i+1);
-    dot.title = lbl;
-    bar.appendChild(dot);
-  });
-  const lbl = document.createElement('div');
-  lbl.className = 'page-label';
-  lbl.id = 'navLabel';
-  lbl.innerHTML = 'Page <span>1</span> — Vocabulary';
-  bar.appendChild(lbl);
-}
-
-function goToPage(n) {
-  document.getElementById(`page${currentPage}`).classList.remove('active');
-  document.getElementById(`dot${currentPage}`).classList.remove('active');
-  currentPage = n;
-  document.getElementById(`page${currentPage}`).classList.add('active');
-  document.getElementById(`dot${currentPage}`).classList.add('active');
-  document.getElementById('prevBtn').disabled = currentPage === 1;
-  document.getElementById('nextBtn').disabled = currentPage === totalPages;
-  document.getElementById('pageCounter').textContent = `Page ${currentPage} of ${totalPages}`;
-  const labels = ['Vocabulary','Match','Grammar','Dialogues','Quiz','Blanks'];
-  document.getElementById('navLabel').innerHTML = `Page <span>${currentPage}</span> — ${labels[currentPage-1]}`;
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function changePage(dir) { goToPage(currentPage + dir); }
-
-// ════════════════════ VOCAB ════════════════════
 
 function buildWordGrid(words, id) {
   const g = document.getElementById(id);
@@ -556,128 +395,62 @@ function buildWordGrid(words, id) {
   words.forEach(w => {
     const d = document.createElement('div');
     d.className = 'wcard';
-    d.innerHTML = `<div class="en">${w.en}</div><div class="pos">${w.pos}</div><div class="hint">${w.hint}</div><div class="es">🇪🇸 ${w.es}</div><div class="example">"${w.ex}"</div>`;
-    d.addEventListener('click', () => d.classList.toggle('flipped'));
+    d.innerHTML = '<div class="en">'+w.en+'</div><div class="pos">'+w.pos+'</div><div class="hint">'+w.hint+'</div><div class="es">&#127466;&#127480; '+w.es+'</div><div class="example">"'+w.ex+'"</div>';
+    d.addEventListener('click', function(){ this.classList.toggle('flipped'); });
     g.appendChild(d);
   });
 }
 
-// ════════════════════ ABC MATCH ════════════════════
-
 function buildMatch() {
-  const box = document.getElementById('matchContainer');
-  const letters = 'ABCDEFGH'.split('');
-  // shuffle definitions
-  const defs = [...matchData].map((m,i) => ({def:m.def, origIdx:i}));
-  defs.sort(() => Math.random() - 0.5);
-
-  // Left: numbered words
-  const leftDiv = document.createElement('div');
-  leftDiv.className = 'match-left';
-  const leftTitle = document.createElement('p');
-  leftTitle.style.cssText = 'font-size:0.82rem;font-weight:700;color:var(--navy);margin-bottom:10px;';
-  leftTitle.textContent = 'Words / Palabras — click the letter that matches each word:';
-  leftDiv.appendChild(leftTitle);
-
-  matchData.forEach((m, i) => {
+  const box = document.getElementById('matchGame');
+  matchData.forEach(function(m) {
     const row = document.createElement('div');
-    row.className = 'match-item';
-    row.innerHTML = `<span class="match-key">${i+1}.</span><span class="match-term">${m.term}</span>`;
-
-    // letter buttons for this word
-    const btnRow = document.createElement('div');
-    btnRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;margin-left:32px;margin-top:6px;';
-
-    letters.forEach((letter, li) => {
-      const btn = document.createElement('button');
-      btn.className = 'def-btn';
-      btn.style.padding = '5px 12px';
-      btn.style.minWidth = 'auto';
-      btn.dataset.wordIdx = i;
-      btn.dataset.letter = letter;
-      btn.dataset.defIdx = defs.findIndex(d => letters[defs.indexOf(d)] === letter);
-
-      // find which definition this letter maps to
-      const defObj = defs[li];
-      btn.dataset.correct = (defObj.origIdx === i).toString();
-      btn.dataset.defText = defObj.def;
-
-      btn.innerHTML = `<span class="def-letter">${letter}</span>`;
-      btn.addEventListener('click', handleMatchClick);
-      btnRow.appendChild(btn);
+    row.className = 'match-row';
+    const lbl = document.createElement('span');
+    lbl.className = 'match-word';
+    lbl.textContent = m.word;
+    const sel = document.createElement('select');
+    sel.className = 'match-sel';
+    sel.dataset.answer = m.def;
+    const blank = document.createElement('option');
+    blank.textContent = '— select / selecciona —';
+    blank.value = '';
+    sel.appendChild(blank);
+    const shuffled = matchData.slice().sort(function(){ return Math.random()-0.5; });
+    shuffled.forEach(function(d) {
+      const o = document.createElement('option');
+      o.textContent = d.def.length > 65 ? d.def.slice(0,62)+'...' : d.def;
+      o.value = d.def;
+      sel.appendChild(o);
     });
-
-    const result = document.createElement('div');
-    result.className = 'match-result';
-    result.id = `mr${i}`;
-
-    leftDiv.appendChild(row);
-    leftDiv.appendChild(btnRow);
-    leftDiv.appendChild(result);
-    leftDiv.appendChild(document.createElement('div')).style.height = '8px';
-  });
-
-  // Right: lettered definitions
-  const rightTitle = document.createElement('p');
-  rightTitle.style.cssText = 'font-size:0.82rem;font-weight:700;color:var(--navy);margin:16px 0 10px;border-top:1px solid var(--border);padding-top:16px;';
-  rightTitle.textContent = 'Definitions / Definiciones:';
-  leftDiv.appendChild(rightTitle);
-
-  const defGrid = document.createElement('div');
-  defGrid.className = 'def-grid';
-  defs.forEach((d, li) => {
-    const card = document.createElement('div');
-    card.style.cssText = 'padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:white;font-size:0.85rem;line-height:1.45;';
-    card.innerHTML = `<strong style="color:var(--navy);margin-right:6px;">${letters[li]}.</strong>${d.def}`;
-    defGrid.appendChild(card);
-  });
-  leftDiv.appendChild(defGrid);
-  box.appendChild(leftDiv);
-}
-
-const matchAnswered = {};
-function handleMatchClick(e) {
-  const btn = e.currentTarget;
-  const wordIdx = btn.dataset.wordIdx;
-  if(matchAnswered[wordIdx]) return;
-  const isCorrect = btn.dataset.correct === 'true';
-  // disable all buttons for this word
-  btn.closest('div[style*="flex"]').querySelectorAll('.def-btn').forEach(b => b.disabled = true);
-  btn.classList.add(isCorrect ? 'correct' : 'wrong');
-  if(!isCorrect) {
-    // highlight correct one
-    btn.closest('div[style*="flex"]').querySelectorAll('.def-btn').forEach(b => {
-      if(b.dataset.correct === 'true') b.classList.add('correct');
+    sel.addEventListener('change', function() {
+      this.classList.remove('ok','fail');
+      if(this.value === this.dataset.answer) this.classList.add('ok');
+      else if(this.value) this.classList.add('fail');
     });
-  }
-  matchAnswered[wordIdx] = true;
-  const res = document.getElementById(`mr${wordIdx}`);
-  res.style.display = 'block';
-  res.className = 'match-result ' + (isCorrect ? 'ok' : 'no');
-  res.textContent = isCorrect
-    ? `✓ Correct! ${matchData[wordIdx].term} = ${btn.dataset.defText}`
-    : `✗ The correct definition: ${matchData[wordIdx].def}`;
+    row.appendChild(lbl);
+    row.appendChild(sel);
+    box.appendChild(row);
+  });
 }
-
-// ════════════════════ GRAMMAR ════════════════════
 
 function buildGrammar() {
   const box = document.getElementById('gramPanels');
-  grammarPanels.forEach((g, i) => {
+  grammarPanels.forEach(function(g, i) {
     const panel = document.createElement('div');
-    panel.className = 'gram-panel card' + (i===0?' on':'');
-    let html = `<span class="badge badge-grammar">${g.title}</span><p class="sub">${g.desc}</p>`;
-    if(g.formulas && g.formulas.length) {
-      g.formulas.forEach(f => { html += `<div class="formula-box">${f}</div>`; });
-      html += `<p style="font-size:0.8rem;color:var(--muted);margin:10px 0 6px;">Examples / Ejemplos:</p>`;
+    panel.className = 'gram-panel card' + (i===0 ? ' on' : '');
+    let html = '<span class="badge badge-grammar">'+g.title+'</span><p class="sub">'+g.desc+'</p>';
+    if(g.formulas && g.formulas.length) g.formulas.forEach(function(f){ html += '<div class="formula-box">'+f+'</div>'; });
+    if(g.examples && g.examples.length) {
+      html += '<p style="font-size:0.8rem;color:var(--muted);margin:10px 0 6px;">Examples / Ejemplos:</p>';
+      g.examples.forEach(function(e){ html += '<div class="example-line">&#x2192; '+e+'</div>'; });
     }
-    if(g.examples) g.examples.forEach(e => { html += `<div class="example-line">→ ${e}</div>`; });
-    if(g.tip) html += `<div class="tip-box">💡 ${g.tip}</div>`;
+    if(g.tip) html += '<div class="tip-box">&#128161; '+g.tip+'</div>';
     if(g.table) {
-      html += `<div style="overflow-x:auto;"><table class="gram-table">`;
-      g.table.forEach((row,ri) => {
+      html += '<div style="overflow-x:auto;"><table class="gram-table">';
+      g.table.forEach(function(row, ri) {
         html += '<tr>';
-        row.forEach(cell => { const tag = ri===0?'th':'td'; html += `<${tag}>${cell}</${tag}>`; });
+        row.forEach(function(cell){ var tag = ri===0?'th':'td'; html += '<'+tag+'>'+cell+'</'+tag+'>'; });
         html += '</tr>';
       });
       html += '</table></div>';
@@ -688,47 +461,40 @@ function buildGrammar() {
 }
 
 function showGram(idx, btn) {
-  document.querySelectorAll('.gram-panel').forEach((p,i) => p.classList.toggle('on', i===idx));
-  document.querySelectorAll('.gram-pill').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.gram-panel').forEach(function(p,i){ p.classList.toggle('on', i===idx); });
+  document.querySelectorAll('.gram-pill').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
 }
 
-// ════════════════════ DIALOGUES ════════════════════
-
-function buildDialogue(turns, containerId) {
-  const rp = document.getElementById(containerId);
+function buildDialogue(turns, id) {
+  const rp = document.getElementById(id);
   if(!rp) return;
-  turns.forEach(turn => {
+  turns.forEach(function(turn) {
     const isB = turn.who === 'B';
     const div = document.createElement('div');
     div.className = 'rp-turn';
     div.style.flexDirection = isB ? 'row-reverse' : 'row';
-    div.innerHTML = `
-      <div class="av ${isB?'av-b':'av-a'}">${turn.name[0]}</div>
-      <div>
-        <div class="rp-name" style="text-align:${isB?'right':'left'}">${turn.name}</div>
-        <div class="rp-text ${isB?'right':''}">${turn.text}</div>
-      </div>`;
+    const av = '<div class="av '+(isB?'av-b':'av-a')+'">'+turn.name[0]+'</div>';
+    const bubble = '<div><div class="rp-name" style="text-align:'+(isB?'right':'left')+'">'+turn.name+'</div><div class="rp-text '+(isB?'right':'')+'">'+turn.text+'</div></div>';
+    div.innerHTML = av + bubble;
     rp.appendChild(div);
   });
 }
 
-// ════════════════════ QUIZ ════════════════════
-
-let score = 0;
-const answered = {};
+var score = 0;
+var answered = {};
 
 function buildQuiz() {
   const box = document.getElementById('quizItems');
-  quizData.forEach((q, qi) => {
+  quizData.forEach(function(q, qi) {
     const wrap = document.createElement('div');
     wrap.className = 'quiz-item card';
     const qp = document.createElement('p');
-    qp.textContent = `${qi+1}. ${q.q}`;
+    qp.textContent = (qi+1)+'. '+q.q;
     wrap.appendChild(qp);
     const opts = document.createElement('div');
     opts.className = 'options';
-    q.opts.forEach(o => {
+    q.opts.forEach(function(o) {
       const btn = document.createElement('button');
       btn.className = 'opt';
       btn.textContent = o;
@@ -740,7 +506,8 @@ function buildQuiz() {
     });
     wrap.appendChild(opts);
     const fb = document.createElement('div');
-    fb.className = 'feedback'; fb.id = `fb${qi}`;
+    fb.className = 'feedback';
+    fb.id = 'fb'+qi;
     wrap.appendChild(fb);
     box.appendChild(wrap);
   });
@@ -751,68 +518,63 @@ function handleQuiz(e) {
   const qi  = parseInt(btn.dataset.qi);
   if(answered[qi]) return;
   answered[qi] = true;
-  btn.closest('.options').querySelectorAll('.opt').forEach(b => b.disabled = true);
-  if(btn.textContent === btn.dataset.ans) { btn.classList.add('correct'); score++; }
-  else {
+  btn.closest('.options').querySelectorAll('.opt').forEach(function(b){ b.disabled = true; });
+  if(btn.textContent === btn.dataset.ans) {
+    btn.classList.add('correct');
+    score++;
+  } else {
     btn.classList.add('wrong');
-    btn.closest('.options').querySelectorAll('.opt').forEach(b => { if(b.textContent === btn.dataset.ans) b.classList.add('correct'); });
+    btn.closest('.options').querySelectorAll('.opt').forEach(function(b){
+      if(b.textContent === btn.dataset.ans) b.classList.add('correct');
+    });
   }
-  const fbEl = document.getElementById(`fb${qi}`);
+  const fbEl = document.getElementById('fb'+qi);
   fbEl.className = 'feedback ' + (btn.textContent === btn.dataset.ans ? 'ok' : 'no');
   fbEl.style.display = 'block';
   fbEl.textContent = btn.dataset.fb;
-  document.getElementById('scoreLabel').textContent = `Score / Puntaje: ${score} / ${quizData.length}`;
+  document.getElementById('scoreLabel').textContent = 'Score / Puntaje: '+score+' / '+quizData.length;
   document.getElementById('scoreFill').style.width = Math.round(score/quizData.length*100)+'%';
 }
 
 function resetQuiz() {
   score = 0;
-  Object.keys(answered).forEach(k => delete answered[k]);
+  answered = {};
   document.getElementById('quizItems').innerHTML = '';
   document.getElementById('scoreLabel').textContent = 'Score / Puntaje: 0 / 10';
   document.getElementById('scoreFill').style.width = '0%';
   buildQuiz();
 }
 
-// ════════════════════ BLANKS ════════════════════
-
-const blankAnswers = {
-  b1: ['was'],
-  b2: ['would fight'],
-  b3: ['had heard'],
-  b4: ['had won'],
-  b5: ['could not', 'couldn\'t'],
-  b6: ['had tried'],
-};
-const blankHints = ['was', 'would fight', 'had heard', 'had won', "couldn't / could not", 'had tried'];
+var blankAnswers = {b1:['was'],b2:['would fight'],b3:['had heard'],b4:['had won'],b5:["could not","couldn't"],b6:['had tried']};
+var blankHints = ['was','would fight','had heard','had won',"couldn't / could not",'had tried'];
 
 function checkBlanks() {
-  let correct = 0;
-  ['b1','b2','b3','b4','b5','b6'].forEach((id,i) => {
-    const val = document.getElementById(id).value.trim().toLowerCase().replace("'","'");
-    const ok = blankAnswers[id].includes(val);
-    document.getElementById(id).style.borderBottomColor = ok ? 'var(--teal)' : 'var(--red)';
+  var correct = 0;
+  ['b1','b2','b3','b4','b5','b6'].forEach(function(id, i) {
+    var val = document.getElementById(id).value.trim().toLowerCase().replace('\u2019',"'");
+    var ok = blankAnswers[id].indexOf(val) !== -1;
+    document.getElementById(id).style.borderBottomColor = ok ? 'var(--teal)' : '#E24B4A';
     if(ok) correct++;
   });
-  const fb = document.getElementById('blankFeedback');
-  if(correct === 6) {
-    fb.style.color = 'var(--teal-dark)';
-    fb.textContent = '✓ All correct! / ¡Todo correcto!';
-  } else {
-    fb.style.color = 'var(--red)';
-    fb.textContent = `${correct}/6 correct. Hints / Pistas: ${blankHints.join(' | ')}`;
-  }
+  var fb = document.getElementById('blankFeedback');
+  if(correct === 6) { fb.style.color='var(--teal-dark)'; fb.textContent='✓ All correct! / ¡Todo correcto!'; }
+  else { fb.style.color='#7B241C'; fb.textContent=correct+'/6 correct. Hints: '+blankHints.join(' | '); }
 }
 
-// ════════════════════ INIT ════════════════════
-buildNavBar();
-buildWordGrid(politicsWords, 'politicsGrid');
-buildWordGrid(crimeWords,    'crimeGrid');
-buildWordGrid(opinionWords,  'opinionGrid');
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+buildWordGrid(politicsWords,'politicsGrid');
+buildWordGrid(crimeWords,'crimeGrid');
+buildWordGrid(opinionWords,'opinionGrid');
 buildMatch();
 buildGrammar();
-buildDialogue(dialogue1, 'rpBody1');
-buildDialogue(dialogue2, 'rpBody2');
+buildDialogue(dialogue1,'rpBody1');
+buildDialogue(dialogue2,'rpBody2');
 buildQuiz();
 </script>
 </body>
