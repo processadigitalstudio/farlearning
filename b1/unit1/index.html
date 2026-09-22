@@ -432,6 +432,205 @@ h1 {
   font-style: italic;
   margin-top: 8px;
 }
+/* Media section */
+.media-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.media-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.media-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  background: var(--accent-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.media-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.media-subtitle {
+  font-size: 13px;
+  color: var(--gray);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  background: var(--dark);
+}
+.video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.lyric-box {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 14px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--dark);
+}
+.lyric-box .verse {
+  margin-bottom: 12px;
+}
+.lyric-box .verse:last-child { margin-bottom: 0; }
+.lyric-box strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+.lyric-box .label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 6px;
+}
+.watch-tips {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 14px 0;
+}
+.watch-tips h5 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #92400E;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.watch-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.watch-tips li {
+  font-size: 13px;
+  color: #78350F;
+  margin-bottom: 4px;
+}
+.discussion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.discussion-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.discussion-num {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--white);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 22px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.discussion-q {
+  font-size: 13.5px;
+  color: var(--dark);
+  line-height: 1.5;
+}
+.examples-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+}
+.examples-list li {
+  padding: 10px 14px;
+  border-left: 3px solid var(--accent-light);
+  background: var(--bg);
+  margin-bottom: 8px;
+  border-radius: 0 8px 8px 0;
+  font-size: 13.5px;
+  color: var(--dark);
+}
+.examples-list li strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+.examples-list li em {
+  display: block;
+  font-size: 12px;
+  color: var(--gray);
+  font-style: italic;
+  margin-top: 4px;
+}
+.mini-quiz {
+  margin-top: 12px;
+}
+.mini-q {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.mini-q-text {
+  font-size: 13.5px;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.mini-select {
+  padding: 6px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  background: var(--white);
+  color: var(--dark);
+  cursor: pointer;
+  min-width: 140px;
+}
+.mini-select.correct {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+.mini-select.wrong {
+  background: var(--error-light);
+  border-color: var(--error);
+  color: var(--error);
+}
+.mini-fb {
+  font-size: 12px;
+  margin-top: 6px;
+  display: none;
+}
+.mini-fb.show { display: block; }
+
 /* Speaking tab -> just a big button */
 .speaking-cta {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
@@ -492,6 +691,7 @@ footer {
     <button class="tab" data-panel="dialogues">Dialogues</button>
     <button class="tab" data-panel="quiz">Quiz</button>
     <button class="tab" data-panel="practice">Practice</button>
+    <button class="tab" data-panel="media">🎬 Media</button>
     <button class="tab" data-panel="speaking">🎤 Speaking Exercise</button>
   </div>
 </div>
@@ -598,6 +798,146 @@ footer {
     <h2 class="panel-title">Practice</h2>
     <p class="panel-lead">Choose the correct form for each sentence — Present Perfect vs. Past Simple.</p>
     <div id="practiceContainer"></div>
+  </div>
+
+  <!-- MEDIA -->
+  <div class="panel" id="media">
+    <h2 class="panel-title">🎬 Media</h2>
+    <p class="panel-lead">Watch, listen and connect Unit 1 grammar to real English — a song about growing up and a Friends compilation full of present perfect.</p>
+
+    <!-- SONG BLOCK -->
+    <div class="media-block">
+      <div class="media-header">
+        <span class="media-badge">🎵 SONG</span>
+      </div>
+      <div class="media-title">"7 Years" — Lukas Graham</div>
+      <div class="media-subtitle">A song about life stages, dreams and things you have learned along the way.</div>
+
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/LHCob76kigA" title="7 Years — Lukas Graham" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="watch-tips">
+        <h5>🎧 LISTEN FOR THESE PRESENT PERFECT CONSTRUCTIONS</h5>
+        <ul>
+          <li><em>"I've been learning..."</em> — used to say something started in the past and continues now.</li>
+          <li><em>"I've been dreaming..."</em> — a continuous experience.</li>
+          <li>Notice how the singer talks about his life at ages 7, 11, 20, 30 and 60 — a timeline of experiences.</li>
+        </ul>
+      </div>
+
+      <div class="lyric-box">
+        <span class="label">SAMPLE LYRICS</span>
+        <div class="verse">
+          Once I was seven years old, my mama told me,<br>
+          "Go make yourself some friends or you'll be lonely."<br>
+          Once I was seven years old.
+        </div>
+        <div class="verse">
+          I <strong>was</strong> eleven years old, my daddy told me,<br>
+          "Go get yourself a wife or you'll be lonely."<br>
+          Soon I <strong>will be</strong> sixty years old.
+        </div>
+        <div class="verse">
+          Soon I'll be sixty years old, my daddy got sixty-one,<br>
+          Remember life and then your life becomes a better one.<br>
+          I <strong>made</strong> a man so happy when I wrote a letter once,<br>
+          I hope my children come and visit once or twice a month.
+        </div>
+      </div>
+
+      <div class="media-title" style="font-size:15px; margin-top:20px;">Discussion Questions</div>
+      <div class="discussion-grid">
+        <div class="discussion-card">
+          <span class="discussion-num">1</span>
+          <div class="discussion-q">What have you learned since you were 7 years old?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">2</span>
+          <div class="discussion-q">Have you ever felt lonely? What did you do about it?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">3</span>
+          <div class="discussion-q">What advice has your family given you that you still remember?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">4</span>
+          <div class="discussion-q">What do you hope you will have done by the time you are 60?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TV BLOCK -->
+    <div class="media-block">
+      <div class="media-header">
+        <span class="media-badge">📺 TV COMPILATION</span>
+      </div>
+      <div class="media-title">Friends — Present Perfect Compilation</div>
+      <div class="media-subtitle">Iconic moments from Friends where the characters use the present perfect naturally.</div>
+
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/qbk_dTzcfA0" title="Friends — Present Perfect Compilation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="watch-tips">
+        <h5>🎯 WHAT TO NOTICE WHILE YOU WATCH</h5>
+        <ul>
+          <li>Every time a character uses <em>have/has + past participle</em>, that's present perfect.</li>
+          <li>Pay attention to time markers: <em>ever, never, already, yet, just, for, since</em>.</li>
+          <li>Notice the difference: is the character talking about a life experience or something that just happened?</li>
+        </ul>
+      </div>
+
+      <div class="media-title" style="font-size:15px; margin-top:16px;">Common Examples from Friends</div>
+      <ul class="examples-list">
+        <li><strong>"I've never done this before."</strong> <em>Life experience — first time doing something.</em></li>
+        <li><strong>"Have you ever been in love?"</strong> <em>Asking about a life experience.</em></li>
+        <li><strong>"He hasn't called me yet."</strong> <em>Something expected that hasn't happened.</em></li>
+        <li><strong>"I've just seen him!"</strong> <em>Something that happened moments ago.</em></li>
+        <li><strong>"We've known each other for years."</strong> <em>Started in the past, continues now.</em></li>
+        <li><strong>"She's always been my best friend."</strong> <em>Ongoing state — still true.</em></li>
+      </ul>
+
+      <div class="media-title" style="font-size:15px; margin-top:20px;">Quick Check — Spot the Present Perfect</div>
+      <p style="font-size:13px; color:var(--gray); margin-bottom:8px;">Which of these sentences use the present perfect correctly?</p>
+      <div class="mini-quiz" id="mediaMiniQuiz"></div>
+
+      <div class="media-title" style="font-size:15px; margin-top:20px;">Discussion Questions</div>
+      <div class="discussion-grid">
+        <div class="discussion-card">
+          <span class="discussion-num">1</span>
+          <div class="discussion-q">Have you ever had a friend group like the one in Friends?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">2</span>
+          <div class="discussion-q">Which character have you related to the most? Why?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">3</span>
+          <div class="discussion-q">What TV shows have you watched that helped you learn English?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">4</span>
+          <div class="discussion-q">Have you ever moved to a new city or apartment? How was the experience?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOMEWORK -->
+    <div class="media-block">
+      <div class="media-header">
+        <span class="media-badge">📝 HOMEWORK</span>
+      </div>
+      <div class="media-title">Write your own "7 Years"</div>
+      <div class="media-subtitle">Before next class, write 4 sentences following this pattern:</div>
+      <ul class="examples-list">
+        <li>When I was 7 years old, I <strong>had</strong> _______________</li>
+        <li>Since then, I <strong>have</strong> _______________</li>
+        <li>I <strong>have never</strong> _______________</li>
+        <li>By the time I am 60, I hope I <strong>will have</strong> _______________</li>
+      </ul>
+      <p style="font-size:13px; color:var(--gray); margin-top:12px; font-style:italic;">Bring them to class — you'll share one out loud!</p>
+    </div>
   </div>
 
   <!-- SPEAKING -->
@@ -863,6 +1203,71 @@ document.querySelectorAll('.p-select').forEach(function(sel){
       hintEl.style.color = '#C0392B';
     }
     hintEl.style.display = 'block';
+  });
+});
+
+// ============ MEDIA MINI-QUIZ ============
+var mediaMini = [
+  {
+    q: 'Ross: "I ____ divorced three times."',
+    opts: ['have been', 'am been', 'was been'],
+    ans: 'have been',
+    fb: '"Have + been" = present perfect. Ross is talking about his life experience.'
+  },
+  {
+    q: 'Rachel: "I ____ Ross since I was 15."',
+    opts: ['know', 'have known', 'knew'],
+    ans: 'have known',
+    fb: 'With "since + point in time" → present perfect. She started knowing him at 15 and still does.'
+  },
+  {
+    q: 'Joey: "I ____ pizza in three days!"',
+    opts: ['haven\'t eaten', 'didn\'t eat', 'don\'t eat'],
+    ans: 'haven\'t eaten',
+    fb: 'Negative present perfect with a period of time → he hasn\'t eaten pizza in a while (and still hasn\'t).'
+  },
+  {
+    q: 'Monica: "Chandler ____ arrived yet."',
+    opts: ['isn\'t', 'didn\'t', 'hasn\'t'],
+    ans: 'hasn\'t',
+    fb: '"Yet" in negatives → present perfect. He was expected but hasn\'t come.'
+  }
+];
+var mmQ = document.getElementById('mediaMiniQuiz');
+mediaMini.forEach(function(item, i){
+  var optsHtml = '<option value="">— choose —</option>';
+  item.opts.forEach(function(o){
+    optsHtml += '<option value="' + o + '">' + o + '</option>';
+  });
+  var div = document.createElement('div');
+  div.className = 'mini-q';
+  div.innerHTML =
+    '<div class="mini-q-text">' + item.q + '</div>' +
+    '<select class="mini-select" data-answer="' + item.ans + '" data-fb="' + item.fb.replace(/"/g,'&quot;') + '" data-i="' + i + '">' +
+      optsHtml +
+    '</select>' +
+    '<div class="mini-fb" id="mfb-' + i + '"></div>';
+  mmQ.appendChild(div);
+});
+document.querySelectorAll('.mini-select').forEach(function(sel){
+  sel.addEventListener('change', function(){
+    var val = sel.value;
+    var ans = sel.dataset.answer;
+    var fb = sel.dataset.fb;
+    var i = sel.dataset.i;
+    var fbEl = document.getElementById('mfb-' + i);
+    sel.classList.remove('correct', 'wrong');
+    if (val === '') { fbEl.classList.remove('show'); return; }
+    if (val === ans) {
+      sel.classList.add('correct');
+      fbEl.textContent = '✓ Correct. ' + fb;
+      fbEl.style.color = '#2E7D32';
+    } else {
+      sel.classList.add('wrong');
+      fbEl.textContent = '✗ Not quite. ' + fb;
+      fbEl.style.color = '#C0392B';
+    }
+    fbEl.classList.add('show');
   });
 });
 </script>
