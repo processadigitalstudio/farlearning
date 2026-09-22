@@ -3,110 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>farlearning — Interactive English II</title>
+<title>farlearning — English Courses</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fafaf8; color: #1a1a18; min-height: 100vh; }
-  header { background: #1a2e45; color: white; padding: 2rem; text-align: center; }
-  header h1 { font-size: 1.8rem; font-weight: 700; }
-  header p  { font-size: 0.9rem; opacity: 0.7; margin-top: 6px; }
-  .main { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-  h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
-       color: #6b6b68; margin-bottom: 1rem; margin-top: 2rem; }
-  .unit-card { display: flex; align-items: flex-start; gap: 1rem; background: white;
-               border: 1px solid #e0e0dc; border-radius: 12px; padding: 1rem 1.25rem;
-               margin-bottom: 0.75rem; text-decoration: none; color: inherit; transition: all 0.15s; }
-  .unit-card:hover { border-color: #888; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.07); }
-  .unit-num { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center;
-              justify-content: center; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
-  .unit-info h3 { font-size: 1rem; font-weight: 600; }
-  .unit-info p  { font-size: 0.8rem; color: #6b6b68; margin-top: 3px; }
-  .badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-  .badge { font-size: 0.68rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
-  .soon { opacity: 0.45; pointer-events: none; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #fafaf8;
+    color: #1a1a18;
+    min-height: 100vh;
+  }
+
+  header {
+    background: #1a2e45;
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+  }
+  header .logo {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  header .logo span { color: #5BC0EB; }
+  header p {
+    font-size: 0.88rem;
+    opacity: 0.65;
+    margin-top: 6px;
+  }
+
+  .main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #6b6b68;
+    margin-bottom: 1.1rem;
+  }
+
+  .course-card {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    background: white;
+    border: 1px solid #e0e0dc;
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.18s;
+    position: relative;
+  }
+  .course-card:hover {
+    border-color: #bbb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .course-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .course-info { flex: 1; min-width: 0; }
+  .course-info .level {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 3px;
+  }
+  .course-info h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .course-info p {
+    font-size: 0.8rem;
+    color: #6b6b68;
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 7px;
+  }
+  .badge {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .arrow {
+    font-size: 1.1rem;
+    color: #ccc;
+    flex-shrink: 0;
+  }
+
+  .coming-soon {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: #aaa;
+  }
 </style>
 </head>
 <body>
+
 <header>
-  <h1>farlearning</h1>
-  <p>Interactive English II &nbsp;·&nbsp; Tweetalig / English Discoveries &nbsp;·&nbsp; Intermediate 3</p>
+  <div class="logo">far<span>learning</span></div>
+  <p>Tweetalig &nbsp;·&nbsp; English Discoveries &nbsp;·&nbsp; Interactive learning materials</p>
 </header>
+
 <div class="main">
-  <h2>Course Units / Unidades del curso</h2>
+  <div class="section-label">Choose your course / Elige tu curso</div>
 
-  <a class="unit-card" href="./unit2/">
-    <div class="unit-num" style="background:#FDECEA;color:#7B241C;">2</div>
-    <div class="unit-info">
-      <h3>Unit 2: Accidents</h3>
-      <p>Past Perfect Simple &amp; Progressive &nbsp;·&nbsp; Warning language</p>
+  <a class="course-card" href="./intermediate3/">
+    <div class="course-icon" style="background:#FDECEA;">📘</div>
+    <div class="course-info">
+      <div class="level" style="color:#7B241C;">Intermediate 3</div>
+      <h2>Interactive English II</h2>
+      <p>Past Perfect · Reported Speech · Conditionals · Vocabulary &amp; Speaking</p>
       <div class="badges">
-        <span class="badge" style="background:#FDECEA;color:#7B241C;">Available</span>
+        <span class="badge" style="background:#FDECEA;color:#7B241C;">Units 2–5 available</span>
+        <span class="badge" style="background:#FCE4EC;color:#880E4F;">🎤 Speaking exercises</span>
       </div>
     </div>
+    <div class="arrow">›</div>
   </a>
 
-  <a class="unit-card" href="./unit3/">
-    <div class="unit-num" style="background:#E8F5E9;color:#1B5E20;">3</div>
-    <div class="unit-info">
-      <h3>Unit 3: Helping Out</h3>
-      <p>Reported Speech &nbsp;·&nbsp; Asking for help &nbsp;·&nbsp; Home Repairs</p>
+  <a class="course-card" href="./b2/">
+    <div class="course-icon" style="background:#F5ECD7;">🏙️</div>
+    <div class="course-info">
+      <div class="level" style="color:#8A611F;">B2 · Professional English</div>
+      <h2>Professional English</h2>
+      <p>Past Modals · Relationships · Grammar in professional contexts</p>
       <div class="badges">
-        <span class="badge" style="background:#E8F5E9;color:#1B5E20;">Available</span>
+        <span class="badge" style="background:#F5ECD7;color:#8A611F;">Unit 1 available</span>
+        <span class="badge" style="background:#FCE4EC;color:#880E4F;">🎤 Speaking exercises</span>
       </div>
     </div>
+    <div class="arrow">›</div>
   </a>
 
-  <a class="unit-card" href="./unit4/">
-    <div class="unit-num" style="background:#EEEDFE;color:#3C3489;">4</div>
-    <div class="unit-info">
-      <h3>Unit 4: Dreams &amp; Ambitions</h3>
-      <p>Unreal Conditionals &nbsp;·&nbsp; Adjectives &nbsp;·&nbsp; Dreams vocabulary</p>
+  <a class="course-card coming-soon" href="#">
+    <div class="course-icon" style="background:#f0f0ee;">📗</div>
+    <div class="course-info">
+      <div class="level" style="color:#999;">A2 · Everyday English</div>
+      <h2>Everyday English</h2>
+      <p>Daily life vocabulary, functional language, basic grammar</p>
       <div class="badges">
-        <span class="badge" style="background:#EEEDFE;color:#3C3489;">Available</span>
-        <span class="badge" style="background:#FCE4EC;color:#880E4F;">🎤 Speaking exercise</span>
+        <span class="badge" style="background:#f0f0ee;color:#999;">Coming soon</span>
       </div>
     </div>
-  </a>
-
-  <a class="unit-card" href="./unit5/">
-    <div class="unit-num" style="background:#E8EEF4;color:#0D1B2A;">5</div>
-    <div class="unit-info">
-      <h3>Unit 5: Politics</h3>
-      <p>Reported Speech Review &nbsp;·&nbsp; Elections &nbsp;·&nbsp; Scandals</p>
-      <div class="badges">
-        <span class="badge" style="background:#E8EEF4;color:#0D1B2A;">Available</span>
-        <span class="badge" style="background:#FFF3E0;color:#854F0B;">🎤 Speaking exercise</span>
-      </div>
-    </div>
-  </a>
-
-  <a class="unit-card soon" href="#">
-    <div class="unit-num" style="background:#f0f0ee;color:#999;">6</div>
-    <div class="unit-info">
-      <h3>Unit 6: Instructions</h3>
-      <p>Causatives &amp; Permissives &nbsp;·&nbsp; Crime vocabulary</p>
-      <div class="badges"><span class="badge" style="background:#f0f0ee;color:#999;">Coming soon</span></div>
-    </div>
-  </a>
-
-  <a class="unit-card soon" href="#">
-    <div class="unit-num" style="background:#f0f0ee;color:#999;">7</div>
-    <div class="unit-info">
-      <h3>Unit 7: Recycling</h3>
-      <p>Prefixes &amp; Suffixes &nbsp;·&nbsp; Cause and Effect</p>
-      <div class="badges"><span class="badge" style="background:#f0f0ee;color:#999;">Coming soon</span></div>
-    </div>
-  </a>
-
-  <a class="unit-card soon" href="#">
-    <div class="unit-num" style="background:#f0f0ee;color:#999;">8</div>
-    <div class="unit-info">
-      <h3>Unit 8: Movie Making</h3>
-      <p>Past Simple &amp; Progressive &nbsp;·&nbsp; Film vocabulary</p>
-      <div class="badges"><span class="badge" style="background:#f0f0ee;color:#999;">Coming soon</span></div>
-    </div>
+    <div class="arrow">›</div>
   </a>
 
 </div>
+
+<footer>farlearning &nbsp;·&nbsp; Tweetalig Centro de Idiomas</footer>
+
 </body>
 </html>
