@@ -3,189 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>farlearning — English Courses</title>
+<title>Interactive English I — B1.1 | Tweetalig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: #fafaf8;
-    color: #1a1a18;
-    min-height: 100vh;
-  }
-
-  header {
-    background: #1a2e45;
-    color: white;
-    padding: 2.5rem 2rem 2rem;
-    text-align: center;
-  }
-  header .logo {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-  header .logo span { color: #5BC0EB; }
-  header p {
-    font-size: 0.88rem;
-    opacity: 0.65;
-    margin-top: 6px;
-  }
-
-  .main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 2.5rem 1.25rem 5rem;
-  }
-
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: #6b6b68;
-    margin-bottom: 1.1rem;
-  }
-
-  .course-card {
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    background: white;
-    border: 1px solid #e0e0dc;
-    border-radius: 14px;
-    padding: 1.25rem 1.4rem;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.18s;
-    position: relative;
-  }
-  .course-card:hover {
-    border-color: #bbb;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  }
-
-  .course-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-  }
-
-  .course-info { flex: 1; min-width: 0; }
-  .course-info .level {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 3px;
-  }
-  .course-info h2 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .course-info p {
-    font-size: 0.8rem;
-    color: #6b6b68;
-    margin-top: 3px;
-    line-height: 1.4;
-  }
-
-  .badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 7px;
-  }
-  .badge {
-    font-size: 0.68rem;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 600;
-  }
-
-  .arrow {
-    font-size: 1.1rem;
-    color: #ccc;
-    flex-shrink: 0;
-  }
-
-  .coming-soon {
-    opacity: 0.45;
-    pointer-events: none;
-  }
-
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.75rem;
-    color: #aaa;
-  }
+:root {
+  --accent: #C2185B;
+  --accent-dark: #8E0F42;
+  --accent-light: #FCE4EC;
+  --dark: #1A1A2E;
+  --gray: #5A5A6E;
+  --lgray: #9098A8;
+  --bg: #FAFAFC;
+  --white: #FFFFFF;
+  --border: #E8E8EE;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 24px 32px;
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--accent); }
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 32px 40px;
+}
+.badge {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+h1 .accent { color: var(--accent); }
+.subtitle {
+  font-size: 18px;
+  color: var(--gray);
+  max-width: 640px;
+  margin-bottom: 8px;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0 20px;
+}
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.section-header .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.units {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+.unit-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.unit-card.available:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 28px rgba(194, 24, 91, 0.12);
+}
+.unit-card.available::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.unit-card.available:hover::before { transform: scaleX(1); }
+.unit-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.unit-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.3;
+}
+.unit-desc {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.5;
+  flex: 1;
+}
+.unit-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.chip {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+.unit-card.coming { opacity: 0.55; cursor: not-allowed; }
+.unit-card.coming .unit-num { color: var(--lgray); }
+.unit-card.coming .chip { background: #F0F0F5; color: var(--lgray); }
+.info-strip {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  font-size: 13px;
+  color: var(--gray);
+}
+.info-strip strong { color: var(--dark); font-weight: 600; }
+footer {
+  text-align: center;
+  padding: 32px;
+  color: var(--lgray);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">far<span>learning</span></div>
-  <p>Tweetalig &nbsp;·&nbsp; English Discoveries &nbsp;·&nbsp; Interactive learning materials</p>
-</header>
+<a class="back-link" href="../">← Back to courses</a>
 
-<div class="main">
-  <div class="section-label">Choose your course / Elige tu curso</div>
+<div class="hero">
+  <span class="badge">CEFR B1.1 · Intermediate</span>
+  <h1>Interactive English I<br><span class="accent">B1.1</span></h1>
+  <p class="subtitle">Eight units covering Education, Away From Home, Celebrations, Weather, Arts &amp; Entertainment, Emergency, Banking and Gadgets — with speaking exercises for every session.</p>
+</div>
 
-  <a class="course-card" href="./intermediate3/">
-    <div class="course-icon" style="background:#FDECEA;">📘</div>
-    <div class="course-info">
-      <div class="level" style="color:#7B241C;">Intermediate 3</div>
-      <h2>Interactive English II</h2>
-      <p>Past Perfect · Reported Speech · Conditionals · Vocabulary &amp; Speaking</p>
-      <div class="badges">
-        <span class="badge" style="background:#FDECEA;color:#7B241C;">Units 2–5 available</span>
-        <span class="badge" style="background:#FCE4EC;color:#880E4F;">🎤 Speaking exercises</span>
+<div class="container">
+
+  <div class="info-strip">
+    <div><strong>Level:</strong> B1.1</div>
+    <div><strong>Units:</strong> 8</div>
+    <div><strong>Format:</strong> Interactive HTML</div>
+    <div><strong>Includes:</strong> Vocabulary · Grammar · Dialogues · Quiz · Practice · Speaking</div>
+  </div>
+
+  <div class="section-header">
+    <h2>Units</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="units">
+
+    <a class="unit-card available" href="./unit1/">
+      <div class="unit-num">UNIT 01</div>
+      <div class="unit-title">Education</div>
+      <div class="unit-desc">Talk about school, jobs and things you've done — using the present perfect.</div>
+      <div class="unit-meta">
+        <span class="chip">Present Perfect</span>
+        <span class="chip">Vocab</span>
+        <span class="chip">Speaking</span>
       </div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
+    </a>
 
-  <a class="course-card" href="./b2/">
-    <div class="course-icon" style="background:#F5ECD7;">🏙️</div>
-    <div class="course-info">
-      <div class="level" style="color:#8A611F;">B2 · Professional English</div>
-      <h2>Professional English</h2>
-      <p>Past Modals · Relationships · Grammar in professional contexts</p>
-      <div class="badges">
-        <span class="badge" style="background:#F5ECD7;color:#8A611F;">Unit 1 available</span>
-        <span class="badge" style="background:#FCE4EC;color:#880E4F;">🎤 Speaking exercises</span>
-      </div>
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 02</div>
+      <div class="unit-title">Away From Home</div>
+      <div class="unit-desc">Studying abroad, sending packages, and adjusting to new places.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
     </div>
-    <div class="arrow">›</div>
-  </a>
 
-  <a class="course-card coming-soon" href="#">
-    <div class="course-icon" style="background:#f0f0ee;">📗</div>
-    <div class="course-info">
-      <div class="level" style="color:#999;">A2 · Everyday English</div>
-      <h2>Everyday English</h2>
-      <p>Daily life vocabulary, functional language, basic grammar</p>
-      <div class="badges">
-        <span class="badge" style="background:#f0f0ee;color:#999;">Coming soon</span>
-      </div>
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 03</div>
+      <div class="unit-title">Celebrations</div>
+      <div class="unit-desc">National holidays and celebrations — Passive Voice.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
     </div>
-    <div class="arrow">›</div>
-  </a>
+
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 04</div>
+      <div class="unit-title">Bad Weather</div>
+      <div class="unit-desc">Weather reports and warnings — Relative Clauses.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
+    </div>
+
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 05</div>
+      <div class="unit-title">Arts &amp; Entertainment</div>
+      <div class="unit-desc">Music, exhibits and shows — Passive Voice: Indirect Form.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
+    </div>
+
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 06</div>
+      <div class="unit-title">Emergency</div>
+      <div class="unit-desc">Accidents and emergencies — Noun &amp; Adverbial Clauses.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
+    </div>
+
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 07</div>
+      <div class="unit-title">Banking</div>
+      <div class="unit-desc">Opening accounts and managing money — Modal Verbs.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
+    </div>
+
+    <div class="unit-card coming">
+      <div class="unit-num">UNIT 08</div>
+      <div class="unit-title">Gadgets &amp; Technology</div>
+      <div class="unit-desc">Apps, devices and hackathons — Future Tenses + Linking Words.</div>
+      <div class="unit-meta"><span class="chip">Coming soon</span></div>
+    </div>
+
+  </div>
 
 </div>
 
-<footer>farlearning &nbsp;·&nbsp; Tweetalig Centro de Idiomas</footer>
+<footer>
+  Interactive English I · B1.1 · Tweetalig · farlearning
+</footer>
 
 </body>
 </html>
