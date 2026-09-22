@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1: Education | B1.1 | Tweetalig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C2185B;
+  --accent-dark: #8E0F42;
+  --accent-light: #FCE4EC;
+  --accent-soft: #FDF2F6;
+  --dark: #1A1A2E;
+  --gray: #5A5A6E;
+  --lgray: #9098A8;
+  --bg: #FAFAFC;
+  --white: #FFFFFF;
+  --border: #E8E8EE;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+  --error: #C0392B;
+  --error-light: #FDECEA;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 32px;
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.back-link:hover { color: var(--accent); }
+.header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 24px;
+}
+.unit-num {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  color: var(--gray);
+  font-size: 15px;
+}
+.tabs-wrap {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+}
+.tabs {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  padding: 0 32px;
+  min-width: max-content;
+}
+.tab {
+  background: none;
+  border: none;
+  padding: 16px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--accent); }
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px;
+}
+.panel { display: none; animation: fadeIn 0.3s ease; }
+.panel.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.panel-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.panel-lead {
+  color: var(--gray);
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+/* Vocabulary flip cards */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.flip-card {
+  perspective: 1000px;
+  height: 140px;
+  cursor: pointer;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--border);
+}
+.flip-front {
+  background: var(--white);
+  color: var(--dark);
+}
+.flip-front .word {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.flip-front .pos {
+  font-size: 11px;
+  color: var(--lgray);
+  font-style: italic;
+}
+.flip-front .hint {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  font-size: 10px;
+  color: var(--lgray);
+  letter-spacing: 0.06em;
+}
+.flip-back {
+  background: var(--accent);
+  color: var(--white);
+  transform: rotateY(180deg);
+}
+.flip-back .def {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.flip-back .es {
+  font-size: 12px;
+  opacity: 0.85;
+  font-style: italic;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  padding-top: 6px;
+  margin-top: 6px;
+}
+/* Grammar */
+.grammar-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+.grammar-block h3 {
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.formula {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  margin: 14px 0;
+  border-radius: 6px;
+  font-size: 15px;
+}
+.formula code {
+  background: var(--white);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--accent-dark);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+.examples {
+  list-style: none;
+  margin-top: 12px;
+}
+.examples li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--dark);
+  font-size: 14px;
+}
+.examples li:last-child { border-bottom: none; }
+.examples li strong { color: var(--accent); }
+.examples li em {
+  color: var(--gray);
+  font-size: 13px;
+  font-style: italic;
+  display: block;
+  margin-top: 2px;
+}
+.markers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.marker {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+/* Dialogues */
+.dialogue {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 18px;
+}
+.dialogue-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.dialogue-context {
+  font-size: 13px;
+  color: var(--gray);
+  font-style: italic;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.line {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+.speaker {
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 70px;
+  font-size: 14px;
+}
+.speaker.b { color: var(--dark); }
+.utter {
+  flex: 1;
+  color: var(--dark);
+  font-size: 14px;
+}
+.utter strong { color: var(--accent); font-weight: 700; }
+/* Quiz */
+.quiz-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.q-num {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.q-text {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+.q-opts {
+  display: grid;
+  gap: 8px;
+}
+.q-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--dark);
+  transition: all 0.2s;
+}
+.q-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.q-btn.correct {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+.q-btn.wrong {
+  background: var(--error-light);
+  border-color: var(--error);
+  color: var(--error);
+}
+.q-btn:disabled { cursor: not-allowed; }
+.q-feedback {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: none;
+}
+.q-feedback.show { display: block; }
+.q-feedback.ok { background: var(--success-light); color: var(--success); }
+.q-feedback.no { background: var(--error-light); color: var(--error); }
+.score-box {
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+  display: none;
+}
+.score-box.show { display: block; }
+.score-box .num {
+  font-size: 36px;
+  font-weight: 800;
+}
+.score-box .msg {
+  font-size: 14px;
+  margin-top: 4px;
+  opacity: 0.95;
+}
+/* Practice */
+.practice-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.p-num {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.p-text {
+  font-size: 15px;
+  margin-bottom: 12px;
+  color: var(--dark);
+  line-height: 1.7;
+}
+.p-select {
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--white);
+  color: var(--dark);
+  min-width: 160px;
+  cursor: pointer;
+}
+.p-select.correct {
+  background: var(--success-light);
+  border-color: var(--success);
+  color: var(--success);
+  font-weight: 600;
+}
+.p-select.wrong {
+  background: var(--error-light);
+  border-color: var(--error);
+  color: var(--error);
+}
+.p-hint {
+  font-size: 12px;
+  color: var(--lgray);
+  font-style: italic;
+  margin-top: 8px;
+}
+/* Speaking tab -> just a big button */
+.speaking-cta {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: var(--white);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s;
+  border: none;
+  width: 100%;
+  font-family: inherit;
+}
+.speaking-cta:hover { transform: translateY(-3px); }
+.speaking-cta h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.speaking-cta p {
+  font-size: 14px;
+  opacity: 0.95;
+  margin-bottom: 20px;
+}
+.speaking-cta .go {
+  display: inline-block;
+  background: var(--white);
+  color: var(--accent);
+  padding: 10px 24px;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 14px;
+}
+footer {
+  text-align: center;
+  padding: 32px;
+  color: var(--lgray);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="../">← Back to B1.1 units</a>
+
+<div class="header">
+  <span class="unit-num">UNIT 01 · B1.1</span>
+  <h1>Education</h1>
+  <p class="subtitle">School, jobs, tests and interviews — talk about what you've done using the present perfect.</p>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" data-panel="vocab">Vocabulary</button>
+    <button class="tab" data-panel="grammar">Grammar</button>
+    <button class="tab" data-panel="dialogues">Dialogues</button>
+    <button class="tab" data-panel="quiz">Quiz</button>
+    <button class="tab" data-panel="practice">Practice</button>
+    <button class="tab" data-panel="speaking">🎤 Speaking Exercise</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- VOCABULARY -->
+  <div class="panel active" id="vocab">
+    <h2 class="panel-title">Vocabulary</h2>
+    <p class="panel-lead">Click each card to see the meaning. 12 key words from Unit 1.</p>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+
+  <!-- GRAMMAR -->
+  <div class="panel" id="grammar">
+    <h2 class="panel-title">Grammar: Present Perfect</h2>
+    <p class="panel-lead">Actions that started in the past and are still relevant now — or life experiences.</p>
+
+    <div class="grammar-block">
+      <h3>1. Form — Statements</h3>
+      <div class="formula">Subject + <code>have / has</code> + past participle</div>
+      <ul class="examples">
+        <li>I <strong>have studied</strong> English for three years. <em>Todavía sigo estudiando.</em></li>
+        <li>She <strong>has worked</strong> at that school since 2020.</li>
+        <li>They <strong>have finished</strong> the exam.</li>
+      </ul>
+    </div>
+
+    <div class="grammar-block">
+      <h3>2. Form — Questions &amp; Short Answers</h3>
+      <div class="formula"><code>Have / Has</code> + subject + past participle + …?</div>
+      <ul class="examples">
+        <li><strong>Have</strong> you <strong>taken</strong> the math test? — Yes, I have. / No, I haven't.</li>
+        <li><strong>Has</strong> she <strong>graduated</strong> yet? — Yes, she has.</li>
+        <li>Where <strong>have</strong> you <strong>studied</strong> before?</li>
+      </ul>
+    </div>
+
+    <div class="grammar-block">
+      <h3>3. Present Perfect vs. Past Simple</h3>
+      <ul class="examples">
+        <li><strong>Present Perfect:</strong> connects past to present. No specific time. <em>"I have visited Paris."</em> (at some point in my life)</li>
+        <li><strong>Past Simple:</strong> finished action, specific time. <em>"I visited Paris in 2019."</em> (specific moment)</li>
+      </ul>
+    </div>
+
+    <div class="grammar-block">
+      <h3>4. Time Markers</h3>
+      <div class="markers">
+        <span class="marker">ever</span>
+        <span class="marker">never</span>
+        <span class="marker">already</span>
+        <span class="marker">yet</span>
+        <span class="marker">just</span>
+        <span class="marker">for + period</span>
+        <span class="marker">since + point</span>
+        <span class="marker">so far</span>
+        <span class="marker">recently</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIALOGUES -->
+  <div class="panel" id="dialogues">
+    <h2 class="panel-title">Dialogues</h2>
+    <p class="panel-lead">From the English Discoveries platform — Unit 1 lessons.</p>
+
+    <div class="dialogue">
+      <div class="dialogue-title">Dialogue 1 — Math Test</div>
+      <div class="dialogue-context">Two students are talking about their math test.</div>
+      <div class="line"><span class="speaker">Ann:</span><span class="utter">Hi Bob. <strong>Have</strong> you <strong>taken</strong> the math test yet?</span></div>
+      <div class="line"><span class="speaker b">Bob:</span><span class="utter">Yes, I <strong>have</strong>. I took it yesterday.</span></div>
+      <div class="line"><span class="speaker">Ann:</span><span class="utter">How was it? Was it difficult?</span></div>
+      <div class="line"><span class="speaker b">Bob:</span><span class="utter">Well, I'm not sure. Some questions were easy, but others were really hard.</span></div>
+      <div class="line"><span class="speaker">Ann:</span><span class="utter">Really? I'm nervous. I <strong>haven't studied</strong> enough.</span></div>
+      <div class="line"><span class="speaker b">Bob:</span><span class="utter">Don't worry. You'll do fine — you're a good student.</span></div>
+    </div>
+
+    <div class="dialogue">
+      <div class="dialogue-title">Dialogue 2 — The Job Interview</div>
+      <div class="dialogue-context">Karen is being interviewed for a job in the advertising department.</div>
+      <div class="line"><span class="speaker">Interviewer:</span><span class="utter">So, Karen — tell me, <strong>have</strong> you ever <strong>worked</strong> in advertising before?</span></div>
+      <div class="line"><span class="speaker b">Karen:</span><span class="utter">Yes, I <strong>have</strong>. I worked at a small agency for two years after university.</span></div>
+      <div class="line"><span class="speaker">Interviewer:</span><span class="utter">And what <strong>have</strong> you <strong>done</strong> since then?</span></div>
+      <div class="line"><span class="speaker b">Karen:</span><span class="utter">I <strong>have been</strong> freelancing. I <strong>have designed</strong> campaigns for three different clients.</span></div>
+      <div class="line"><span class="speaker">Interviewer:</span><span class="utter">Interesting. <strong>Have</strong> you ever <strong>managed</strong> a team?</span></div>
+      <div class="line"><span class="speaker b">Karen:</span><span class="utter">Not officially, but I <strong>have led</strong> several projects.</span></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="panel" id="quiz">
+    <h2 class="panel-title">Quiz</h2>
+    <p class="panel-lead">5 multiple-choice questions. Click your answer.</p>
+    <div id="quizContainer"></div>
+    <div class="score-box" id="scoreBox">
+      <div class="num" id="scoreNum">0 / 5</div>
+      <div class="msg" id="scoreMsg"></div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="panel" id="practice">
+    <h2 class="panel-title">Practice</h2>
+    <p class="panel-lead">Choose the correct form for each sentence — Present Perfect vs. Past Simple.</p>
+    <div id="practiceContainer"></div>
+  </div>
+
+  <!-- SPEAKING -->
+  <div class="panel" id="speaking">
+    <button class="speaking-cta" id="speakingBtn">
+      <h2>🎤 Speaking Exercise</h2>
+      <p>Choose between an individual challenge or a fun pair activity.<br>Timer + rubric + checklist included.</p>
+      <span class="go">Open Speaking Exercise →</span>
+    </button>
+  </div>
+
+</div>
+
+<footer>
+  Interactive English I · B1.1 · Unit 1: Education · Tweetalig
+</footer>
+
+<script>
+// ============ TAB SWITCHING ============
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+// ============ SPEAKING BUTTON ============
+document.getElementById('speakingBtn').addEventListener('click', function(){
+  window.location.href = './speaking.html';
+});
+
+// ============ VOCABULARY ============
+var vocab = [
+  { w: 'exam',        pos: 'noun',  def: 'A formal test of knowledge.',                                es: 'examen'                       },
+  { w: 'to graduate', pos: 'verb',  def: 'To finish a course of study and receive a diploma.',        es: 'graduarse'                    },
+  { w: 'degree',      pos: 'noun',  def: 'The qualification you get from a university.',              es: 'título universitario'         },
+  { w: 'subject',     pos: 'noun',  def: 'A topic you study at school (math, history, etc.).',        es: 'materia / asignatura'         },
+  { w: 'pre-school',  pos: 'noun',  def: 'Education for children before primary school.',             es: 'preescolar'                   },
+  { w: 'to major in', pos: 'verb',  def: 'To specialise in a subject at university.',                 es: 'especializarse en'            },
+  { w: 'interview',   pos: 'noun',  def: 'A formal meeting where someone is asked questions.',        es: 'entrevista'                   },
+  { w: 'to apply for',pos: 'verb',  def: 'To formally request a job or a place at a school.',         es: 'postularse a / solicitar'     },
+  { w: 'overtime',    pos: 'noun',  def: 'Extra hours worked beyond your normal schedule.',           es: 'horas extras'                 },
+  { w: 'contract',    pos: 'noun',  def: 'A formal written agreement (e.g., for a job).',             es: 'contrato'                     },
+  { w: 'schedule',    pos: 'noun',  def: 'A plan of activities or classes at specific times.',        es: 'horario'                      },
+  { w: 'motivated',   pos: 'adj',   def: 'Feeling enthusiastic about doing something.',               es: 'motivado/a'                   }
+];
+var grid = document.getElementById('vocabGrid');
+vocab.forEach(function(v){
+  var card = document.createElement('div');
+  card.className = 'flip-card';
+  card.innerHTML =
+    '<div class="flip-inner">' +
+      '<div class="flip-front">' +
+        '<div class="word">' + v.w + '</div>' +
+        '<div class="pos">' + v.pos + '</div>' +
+        '<div class="hint">TAP →</div>' +
+      '</div>' +
+      '<div class="flip-back">' +
+        '<div class="def">' + v.def + '</div>' +
+        '<div class="es">' + v.es + '</div>' +
+      '</div>' +
+    '</div>';
+  card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+  grid.appendChild(card);
+});
+
+// ============ QUIZ ============
+var quiz = [
+  {
+    q: 'Choose the correct sentence:',
+    opts: [
+      "I have finished my degree last year.",
+      "I finished my degree last year.",
+      "I finish my degree last year.",
+      "I am finishing my degree last year."
+    ],
+    ans: 1,
+    fb: '"Last year" is a specific finished time, so we use Past Simple.'
+  },
+  {
+    q: 'Complete: "She ______ in three different cities so far."',
+    opts: [
+      "lived",
+      "is living",
+      "has lived",
+      "was living"
+    ],
+    ans: 2,
+    fb: '"So far" signals a life experience up to now → Present Perfect.'
+  },
+  {
+    q: 'Which is the correct question?',
+    opts: [
+      "Did you ever taken this exam?",
+      "Have you ever took this exam?",
+      "Have you ever taken this exam?",
+      "Do you ever taken this exam?"
+    ],
+    ans: 2,
+    fb: 'Have + subject + past participle (taken). "Ever" fits life experiences.'
+  },
+  {
+    q: 'What is the past participle of "study"?',
+    opts: [
+      "study",
+      "studied",
+      "studying",
+      "studies"
+    ],
+    ans: 1,
+    fb: 'Regular verb: study → studied → studied.'
+  },
+  {
+    q: 'Choose: "I ______ my homework yet."',
+    opts: [
+      "haven't finished",
+      "didn't finish",
+      "don't finish",
+      "not finished"
+    ],
+    ans: 0,
+    fb: '"Yet" in negatives goes with Present Perfect.'
+  }
+];
+var quizC = document.getElementById('quizContainer');
+var answered = 0;
+var correct = 0;
+quiz.forEach(function(item, i){
+  var div = document.createElement('div');
+  div.className = 'quiz-item';
+  var optsHtml = '';
+  item.opts.forEach(function(opt, oi){
+    optsHtml += '<button class="q-btn" data-q="' + i + '" data-ans="' + oi + '">' + opt + '</button>';
+  });
+  div.innerHTML =
+    '<div class="q-num">QUESTION ' + (i+1) + ' / 5</div>' +
+    '<div class="q-text">' + item.q + '</div>' +
+    '<div class="q-opts">' + optsHtml + '</div>' +
+    '<div class="q-feedback" id="fb-' + i + '"></div>';
+  quizC.appendChild(div);
+});
+function handleQuiz(e){
+  var btn = e.currentTarget;
+  var qi = parseInt(btn.dataset.q, 10);
+  var ai = parseInt(btn.dataset.ans, 10);
+  var item = quiz[qi];
+  var parent = btn.parentElement;
+  if (parent.dataset.done === '1') return;
+  parent.dataset.done = '1';
+  var siblings = parent.querySelectorAll('.q-btn');
+  siblings.forEach(function(s){ s.disabled = true; });
+  var fb = document.getElementById('fb-' + qi);
+  if (ai === item.ans) {
+    btn.classList.add('correct');
+    fb.textContent = '✓ Correct. ' + item.fb;
+    fb.className = 'q-feedback ok show';
+    correct++;
+  } else {
+    btn.classList.add('wrong');
+    siblings[item.ans].classList.add('correct');
+    fb.textContent = '✗ Not quite. ' + item.fb;
+    fb.className = 'q-feedback no show';
+  }
+  answered++;
+  if (answered === quiz.length) {
+    var box = document.getElementById('scoreBox');
+    document.getElementById('scoreNum').textContent = correct + ' / ' + quiz.length;
+    var msg;
+    if (correct === 5) msg = 'Perfect! You know your present perfect well.';
+    else if (correct >= 3) msg = 'Good job — review the ones you missed.';
+    else msg = 'Keep practising — go back to the Grammar tab and try again.';
+    document.getElementById('scoreMsg').textContent = msg;
+    box.classList.add('show');
+    box.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+}
+document.querySelectorAll('.q-btn').forEach(function(b){
+  b.addEventListener('click', handleQuiz);
+});
+
+// ============ PRACTICE (dropdowns) ============
+var practice = [
+  {
+    before: 'I ',
+    opts: ['met', 'have met', 'have meeting'],
+    ans: 'met',
+    after: ' her yesterday at the library.',
+    hint: 'Specific past time → Past Simple.'
+  },
+  {
+    before: 'They ',
+    opts: ['finished', 'have finished', 'has finished'],
+    ans: 'have finished',
+    after: ' their homework already.',
+    hint: '"Already" signals Present Perfect.'
+  },
+  {
+    before: 'She ',
+    opts: ['studied', 'has studied', 'have studied'],
+    ans: 'has studied',
+    after: ' English since she was 10 years old.',
+    hint: '"Since + point in time" → Present Perfect.'
+  },
+  {
+    before: 'We ',
+    opts: ['graduated', 'have graduated', 'graduate'],
+    ans: 'graduated',
+    after: ' in 2019.',
+    hint: 'Specific year → Past Simple.'
+  },
+  {
+    before: 'Have you ever ',
+    opts: ['taken', 'took', 'taking'],
+    ans: 'taken',
+    after: ' a job interview in English?',
+    hint: 'Have + past participle (taken).'
+  },
+  {
+    before: 'He ',
+    opts: ["hasn't finished", "didn't finished", "doesn't finish"],
+    ans: "hasn't finished",
+    after: ' his degree yet.',
+    hint: '"Yet" in negatives → Present Perfect.'
+  }
+];
+var pC = document.getElementById('practiceContainer');
+practice.forEach(function(p, i){
+  var optsHtml = '<option value="">— choose —</option>';
+  p.opts.forEach(function(o){
+    optsHtml += '<option value="' + o + '">' + o + '</option>';
+  });
+  var div = document.createElement('div');
+  div.className = 'practice-item';
+  div.innerHTML =
+    '<div class="p-num">SENTENCE ' + (i+1) + '</div>' +
+    '<div class="p-text">' + p.before +
+      '<select class="p-select" data-answer="' + p.ans + '" data-hint="' + p.hint + '" data-i="' + i + '">' +
+        optsHtml +
+      '</select>' +
+      p.after + '</div>' +
+    '<div class="p-hint" id="hint-' + i + '" style="display:none;"></div>';
+  pC.appendChild(div);
+});
+document.querySelectorAll('.p-select').forEach(function(sel){
+  sel.addEventListener('change', function(){
+    var val = sel.value;
+    var ans = sel.dataset.answer;
+    var hint = sel.dataset.hint;
+    var i = sel.dataset.i;
+    var hintEl = document.getElementById('hint-' + i);
+    sel.classList.remove('correct', 'wrong');
+    if (val === '') { hintEl.style.display = 'none'; return; }
+    if (val === ans) {
+      sel.classList.add('correct');
+      hintEl.textContent = '✓ Correct. ' + hint;
+      hintEl.style.color = '#2E7D32';
+    } else {
+      sel.classList.add('wrong');
+      hintEl.textContent = '✗ Try again. Hint: ' + hint;
+      hintEl.style.color = '#C0392B';
+    }
+    hintEl.style.display = 'block';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Exercise · Unit 1 Education | B1.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C2185B;
+  --accent-dark: #8E0F42;
+  --accent-light: #FCE4EC;
+  --accent-soft: #FDF2F6;
+  --dark: #1A1A2E;
+  --gray: #5A5A6E;
+  --lgray: #9098A8;
+  --bg: #FAFAFC;
+  --white: #FFFFFF;
+  --border: #E8E8EE;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+  --warm: #D97706;
+  --warm-light: #FEF3DC;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 32px;
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.back-link:hover { color: var(--accent); }
+.header {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px 24px;
+}
+.tag {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+h1 .accent { color: var(--accent); }
+.subtitle {
+  color: var(--gray);
+  font-size: 15px;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px;
+}
+/* Option picker */
+.picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.opt {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  font-family: inherit;
+}
+.opt:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(194, 24, 91, 0.12);
+}
+.opt.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.opt .icon { font-size: 32px; margin-bottom: 10px; }
+.opt .kind {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.opt .title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--dark);
+}
+.opt .brief {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.opt .duration {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+/* Exercise content */
+.exercise {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.exercise.show { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+.section h3 {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.section h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+.section p { color: var(--dark); font-size: 14px; margin-bottom: 12px; }
+.section p:last-child { margin-bottom: 0; }
+.section ul {
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+.section li {
+  padding: 4px 0;
+  color: var(--dark);
+  font-size: 14px;
+}
+.section li strong { color: var(--accent); }
+/* Example dialogue */
+.example {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 12px 0;
+}
+.example-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.ex-line {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+  align-items: flex-start;
+  font-size: 13.5px;
+}
+.ex-spk {
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 55px;
+}
+.ex-spk.b { color: var(--dark); }
+.ex-txt { flex: 1; color: var(--dark); }
+.ex-txt em { color: var(--accent); font-style: normal; font-weight: 600; }
+/* Cards / prompts */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.prompt-card {
+  background: var(--accent-soft);
+  border: 1px dashed var(--accent);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--dark);
+}
+.prompt-card strong {
+  display: block;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+/* Timer */
+.timer-box {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: var(--white);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.timer-display {
+  font-size: 56px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 12px 0;
+}
+.timer-label {
+  font-size: 12px;
+  opacity: 0.85;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.timer-btn {
+  background: var(--white);
+  color: var(--accent);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.2s;
+}
+.timer-btn:hover { transform: translateY(-2px); }
+.timer-btn.ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.6);
+}
+/* Checklist */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist input {
+  margin-top: 4px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.checklist label {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--dark);
+  flex: 1;
+}
+.checklist input:checked + label {
+  color: var(--lgray);
+  text-decoration: line-through;
+}
+/* Rubric */
+.rubric {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.rubric th {
+  background: var(--accent);
+  color: var(--white);
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+}
+.rubric th.center, .rubric td.center { text-align: center; }
+.rubric td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--dark);
+}
+.rubric tr:last-child td { border-bottom: none; }
+.rubric input[type="number"] {
+  width: 55px;
+  padding: 6px 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  text-align: center;
+}
+.rubric .total-row {
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+.rubric .total-row td { color: var(--accent-dark); }
+.total-display {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--white);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  min-width: 60px;
+  text-align: center;
+}
+footer {
+  text-align: center;
+  padding: 32px;
+  color: var(--lgray);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+@media (max-width: 640px) {
+  .picker { grid-template-columns: 1fr; }
+  .timer-display { font-size: 44px; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="./">← Back to Unit 1</a>
+
+<div class="header">
+  <span class="tag">🎤 SPEAKING EXERCISE · UNIT 01</span>
+  <h1>Life <span class="accent">Highlights</span></h1>
+  <p class="subtitle">Two fun options — choose one and go! Both practise the present perfect and Unit 1 vocabulary.</p>
+</div>
+
+<div class="container">
+
+  <div class="picker">
+    <button class="opt" data-ex="solo" id="soloBtn">
+      <div class="icon">🎯</div>
+      <div class="kind">OPTION A · INDIVIDUAL</div>
+      <div class="title">"Two Truths and a Wish"</div>
+      <div class="brief">Tell the class two real things you have done in your life and one thing you have NEVER done but want to try. Class guesses which is the wish!</div>
+      <span class="duration">⏱ 1 minute · solo</span>
+    </button>
+
+    <button class="opt" data-ex="pair" id="pairBtn">
+      <div class="icon">🎭</div>
+      <div class="kind">OPTION B · PAIRS</div>
+      <div class="title">"The Weirdest Interview Ever"</div>
+      <div class="brief">Role-play a job interview for a ridiculous job (professional taco taster, ghost hunter, etc.). One is the interviewer, one is the candidate.</div>
+      <span class="duration">⏱ 3–4 minutes · 2 students</span>
+    </button>
+  </div>
+
+  <!-- ================= SOLO EXERCISE ================= -->
+  <div class="exercise" id="soloEx">
+
+    <div class="section">
+      <h3>THE TASK</h3>
+      <h4>🎯 Two Truths and a Wish</h4>
+      <p>Stand up and speak to the class for <strong>at least 1 minute</strong>. You will say three sentences using the present perfect:</p>
+      <ul>
+        <li><strong>Two truths</strong> — things you have really done in your life.</li>
+        <li><strong>One wish</strong> — something you have <em>never</em> done but really want to try.</li>
+      </ul>
+      <p>After you speak, the class votes on which one is the wish. If they can't guess, you win a point! 🏆</p>
+    </div>
+
+    <div class="section">
+      <h3>EXAMPLE</h3>
+      <div class="example">
+        <div class="example-label">MARIA — 1 MIN</div>
+        <div class="ex-line"><span class="ex-spk">Maria:</span><span class="ex-txt">"Hi everyone. Today I'm going to share three things about my life — but only two are true. See if you can find the wish!"</span></div>
+        <div class="ex-line"><span class="ex-spk">Maria:</span><span class="ex-txt">"Number one: I <em>have travelled</em> to Mexico three times, and I <em>have eaten</em> real tacos in Guadalajara. The food was amazing."</span></div>
+        <div class="ex-line"><span class="ex-spk">Maria:</span><span class="ex-txt">"Number two: I <em>have graduated</em> from university with a degree in engineering. It took me five long years, but it was worth it."</span></div>
+        <div class="ex-line"><span class="ex-spk">Maria:</span><span class="ex-txt">"Number three: I <em>have jumped</em> out of an airplane! I did it in Cartagena and it was the most exciting day of my life."</span></div>
+        <div class="ex-line"><span class="ex-spk">Maria:</span><span class="ex-txt">"So — which one is the wish? Who thinks it's number one? Number two? Number three? OK, let's see… the answer is number three! I <em>have never jumped</em> from an airplane, but I really want to!"</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>NEED IDEAS? PICK A CATEGORY</h3>
+      <div class="card-grid">
+        <div class="prompt-card"><strong>TRAVEL</strong>Have you visited another country? Slept in a strange place? Met someone famous?</div>
+        <div class="prompt-card"><strong>STUDIES</strong>Have you failed an exam? Studied at 4am? Learned a third language?</div>
+        <div class="prompt-card"><strong>FOOD</strong>Have you eaten insects? Cooked for 20 people? Tried sushi?</div>
+        <div class="prompt-card"><strong>ADVENTURE</strong>Have you gone diving? Climbed a mountain? Ridden a horse?</div>
+        <div class="prompt-card"><strong>WORK</strong>Have you had a weird job? Worked overtime? Been to a job interview?</div>
+        <div class="prompt-card"><strong>SKILLS</strong>Have you played an instrument? Won a competition? Danced on stage?</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>YOUR TIMER</h3>
+      <div class="timer-box">
+        <div class="timer-label">MINIMUM 1 MINUTE</div>
+        <div class="timer-display" id="timerA">01:00</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="startA">▶ Start</button>
+          <button class="timer-btn ghost" id="resetA">↻ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>BEFORE YOU SPEAK — CHECKLIST</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cA1"><label for="cA1">I have 3 sentences ready (2 truths + 1 wish).</label></li>
+        <li><input type="checkbox" id="cA2"><label for="cA2">I used the present perfect: <em>have/has + past participle</em>.</label></li>
+        <li><input type="checkbox" id="cA3"><label for="cA3">I used at least 2 vocabulary words from Unit 1.</label></li>
+        <li><input type="checkbox" id="cA4"><label for="cA4">I can speak for a full minute without reading.</label></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>RUBRIC · /20</h3>
+      <table class="rubric">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="center">/5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Present Perfect</strong> — used correctly in all three sentences</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Vocabulary</strong> — at least 2 Unit 1 words used naturally</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Fluency</strong> — spoke 1 full minute without reading</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Creativity &amp; delivery</strong> — story was interesting and clear</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr class="total-row"><td>TOTAL</td><td class="center"><span class="total-display" id="totalA">0 / 20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ================= PAIR EXERCISE ================= -->
+  <div class="exercise" id="pairEx">
+
+    <div class="section">
+      <h3>THE TASK</h3>
+      <h4>🎭 The Weirdest Interview Ever</h4>
+      <p>In pairs (2 students only). Choose a <strong>ridiculous job</strong> from the list below and role-play a job interview for it. One student is the <strong>interviewer</strong>, the other is the <strong>candidate</strong>.</p>
+      <p>The interviewer must ask at least 3 questions using the present perfect. The candidate must answer with the present perfect, using experience — real or invented — that makes them perfect for this crazy job.</p>
+      <p><strong>Total time:</strong> 3–4 minutes per pair. Have fun with it! 🎉</p>
+    </div>
+
+    <div class="section">
+      <h3>PICK A JOB</h3>
+      <div class="card-grid">
+        <div class="prompt-card"><strong>🌮 TACO TASTER</strong>Professional food critic for a taco chain. Must love spicy food.</div>
+        <div class="prompt-card"><strong>👻 GHOST HUNTER</strong>Investigate haunted houses. Must not be afraid of the dark.</div>
+        <div class="prompt-card"><strong>🐕 DOG PSYCHOLOGIST</strong>Therapy for dogs with emotional problems.</div>
+        <div class="prompt-card"><strong>🎢 THEME PARK SCREAMER</strong>Test rollercoasters. Must scream convincingly.</div>
+        <div class="prompt-card"><strong>🍦 ICE CREAM DESIGNER</strong>Invent new flavors. Must have wild imagination.</div>
+        <div class="prompt-card"><strong>🎂 PROFESSIONAL BIRTHDAY GUEST</strong>Attend parties for people with no friends.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>EXAMPLE — PROFESSIONAL TACO TASTER</h3>
+      <div class="example">
+        <div class="example-label">JULIÁN (INTERVIEWER) &amp; ANDREA (CANDIDATE) — 3 MIN</div>
+        <div class="ex-line"><span class="ex-spk">Julián:</span><span class="ex-txt">Good morning Andrea! So, you <em>have applied</em> for the position of Professional Taco Taster. Tell me — <em>have</em> you ever <em>eaten</em> more than ten tacos in one day?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrea:</span><span class="ex-txt">Yes, I <em>have</em>! Last Tuesday I <em>have eaten</em>… sorry, I <em>ate</em> fifteen tacos in a taco festival. My stomach was very happy.</span></div>
+        <div class="ex-line"><span class="ex-spk">Julián:</span><span class="ex-txt"><em>Have</em> you ever <em>worked</em> with really spicy food? Some of our tacos are extremely hot.</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrea:</span><span class="ex-txt">Oh yes, I <em>have tried</em> the ghost pepper three times, and I <em>haven't cried</em> once. Well… only a little bit.</span></div>
+        <div class="ex-line"><span class="ex-spk">Julián:</span><span class="ex-txt">Interesting. And <em>have</em> you ever <em>graduated</em> from a culinary school?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrea:</span><span class="ex-txt">No, I <em>haven't graduated</em> from a school, but I <em>have studied</em> Mexican food for five years — with my grandmother. She is the best taco chef in the world!</span></div>
+        <div class="ex-line"><span class="ex-spk">Julián:</span><span class="ex-txt">Perfect. One last question: <em>have</em> you ever <em>said</em> "I don't like tacos"?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrea:</span><span class="ex-txt">Never! I <em>have never said</em> that in my whole life. Tacos are life!</span></div>
+        <div class="ex-line"><span class="ex-spk">Julián:</span><span class="ex-txt">You're hired! Welcome to the team. 🌮</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL QUESTIONS FOR THE INTERVIEWER</h3>
+      <ul>
+        <li>Have you ever <strong>worked</strong> in…?</li>
+        <li>Have you ever <strong>done</strong> anything like this before?</li>
+        <li>How long have you <strong>been</strong> interested in…?</li>
+        <li>What experience have you <strong>had</strong> with…?</li>
+        <li>Have you <strong>studied</strong> anything related to…?</li>
+        <li>Have you ever <strong>had</strong> a strange job?</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>YOUR TIMER</h3>
+      <div class="timer-box">
+        <div class="timer-label">3–4 MINUTES TOTAL</div>
+        <div class="timer-display" id="timerB">03:00</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="startB">▶ Start</button>
+          <button class="timer-btn ghost" id="resetB">↻ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>BEFORE YOU START — CHECKLIST</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cB1"><label for="cB1">We chose a ridiculous job together.</label></li>
+        <li><input type="checkbox" id="cB2"><label for="cB2">The interviewer has 3+ questions ready with present perfect.</label></li>
+        <li><input type="checkbox" id="cB3"><label for="cB3">The candidate has 3+ answers ready with present perfect.</label></li>
+        <li><input type="checkbox" id="cB4"><label for="cB4">We're using at least 3 Unit 1 vocabulary words.</label></li>
+        <li><input type="checkbox" id="cB5"><label for="cB5">We can have fun with it and make the class laugh 😄</label></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>RUBRIC · /20</h3>
+      <table class="rubric">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="center">/5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Present Perfect</strong> — used correctly in Q &amp; A</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Vocabulary</strong> — 3+ Unit 1 words used naturally</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Interaction</strong> — real back-and-forth, both students engaged</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Creativity &amp; delivery</strong> — fun, clear, in role</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr class="total-row"><td>TOTAL</td><td class="center"><span class="total-display" id="totalB">0 / 20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  Interactive English I · B1.1 · Unit 1: Education · Speaking Exercise · Tweetalig
+</footer>
+
+<script>
+// ============ OPTION PICKER ============
+var soloBtn = document.getElementById('soloBtn');
+var pairBtn = document.getElementById('pairBtn');
+var soloEx = document.getElementById('soloEx');
+var pairEx = document.getElementById('pairEx');
+
+soloBtn.addEventListener('click', function(){
+  soloBtn.classList.add('active');
+  pairBtn.classList.remove('active');
+  soloEx.classList.add('show');
+  pairEx.classList.remove('show');
+  soloEx.scrollIntoView({behavior:'smooth', block:'start'});
+});
+pairBtn.addEventListener('click', function(){
+  pairBtn.classList.add('active');
+  soloBtn.classList.remove('active');
+  pairEx.classList.add('show');
+  soloEx.classList.remove('show');
+  pairEx.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+// ============ TIMER FACTORY ============
+function makeTimer(displayId, startBtnId, resetBtnId, seconds){
+  var display = document.getElementById(displayId);
+  var startBtn = document.getElementById(startBtnId);
+  var resetBtn = document.getElementById(resetBtnId);
+  var initial = seconds;
+  var remaining = seconds;
+  var interval = null;
+  var running = false;
+
+  function fmt(s){
+    var m = Math.floor(s/60);
+    var sec = s % 60;
+    return (m<10?'0':'') + m + ':' + (sec<10?'0':'') + sec;
+  }
+  function render(){ display.textContent = fmt(remaining); }
+  function tick(){
+    if (remaining <= 0) {
+      clearInterval(interval);
+      running = false;
+      startBtn.textContent = '▶ Start';
+      display.style.color = '#FFEB3B';
+      return;
+    }
+    remaining--;
+    render();
+  }
+  startBtn.addEventListener('click', function(){
+    if (running) {
+      clearInterval(interval);
+      running = false;
+      startBtn.textContent = '▶ Resume';
+    } else {
+      if (remaining <= 0) remaining = initial;
+      display.style.color = '';
+      interval = setInterval(tick, 1000);
+      running = true;
+      startBtn.textContent = '⏸ Pause';
+    }
+  });
+  resetBtn.addEventListener('click', function(){
+    clearInterval(interval);
+    running = false;
+    remaining = initial;
+    display.style.color = '';
+    startBtn.textContent = '▶ Start';
+    render();
+  });
+  render();
+}
+makeTimer('timerA', 'startA', 'resetA', 60);
+makeTimer('timerB', 'startB', 'resetB', 180);
+
+// ============ RUBRIC TOTALS ============
+function updateTotal(cls, totalId){
+  var sum = 0;
+  document.querySelectorAll('.' + cls).forEach(function(inp){
+    var v = parseInt(inp.value, 10);
+    if (!isNaN(v)) sum += Math.max(0, Math.min(5, v));
+  });
+  document.getElementById(totalId).textContent = sum + ' / 20';
+}
+document.querySelectorAll('.rA').forEach(function(inp){
+  inp.addEventListener('input', function(){ updateTotal('rA', 'totalA'); });
+});
+document.querySelectorAll('.rB').forEach(function(inp){
+  inp.addEventListener('input', function(){ updateTotal('rB', 'totalB'); });
+});
+</script>
+</body>
+</html>

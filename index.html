@@ -3,20 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive English I — B1.1 | Tweetalig</title>
+<title>farlearning — English Courses | Tweetalig</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --accent: #C2185B;
-  --accent-dark: #8E0F42;
-  --accent-light: #FCE4EC;
   --dark: #1A1A2E;
   --gray: #5A5A6E;
   --lgray: #9098A8;
   --bg: #FAFAFC;
   --white: #FFFFFF;
   --border: #E8E8EE;
+  --b1: #C2185B;
+  --b1-light: #FCE4EC;
+  --b12: #534AB7;
+  --b12-light: #EEEBFA;
+  --b2: #1A2E45;
+  --b2-light: #DDE4EE;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -26,152 +29,144 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 24px 32px;
-  color: var(--gray);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.back-link:hover { color: var(--accent); }
 .hero {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 32px 40px;
+  padding: 60px 32px 40px;
+  text-align: center;
 }
-.badge {
-  display: inline-block;
-  background: var(--accent-light);
-  color: var(--accent);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
+.brand {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray);
+  letter-spacing: 0.15em;
+  margin-bottom: 20px;
 }
 h1 {
-  font-size: clamp(36px, 5vw, 52px);
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+  font-size: clamp(40px, 6vw, 68px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
 }
-h1 .accent { color: var(--accent); }
 .subtitle {
   font-size: 18px;
   color: var(--gray);
   max-width: 640px;
-  margin-bottom: 8px;
+  margin: 0 auto;
 }
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px 80px;
+  padding: 20px 32px 80px;
 }
-.section-header {
+.section-label {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   margin: 40px 0 20px;
 }
-.section-header h2 {
-  font-size: 20px;
+.section-label span {
+  font-size: 12px;
   font-weight: 700;
-  color: var(--dark);
+  color: var(--gray);
+  letter-spacing: 0.12em;
 }
-.section-header .line {
+.section-label .line {
   flex: 1;
   height: 1px;
   background: var(--border);
 }
-.units {
+.courses {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
-.unit-card {
+.course-card {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 32px;
   text-decoration: none;
   color: inherit;
-  transition: all 0.25s;
+  transition: all 0.3s;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   position: relative;
   overflow: hidden;
 }
-.unit-card.available:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-  box-shadow: 0 12px 28px rgba(194, 24, 91, 0.12);
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
-.unit-card.available::before {
+.course-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s;
+  height: 4px;
+  transition: height 0.3s;
 }
-.unit-card.available:hover::before { transform: scaleX(1); }
-.unit-num {
-  font-size: 12px;
+.course-card:hover::before { height: 6px; }
+.course-card.b1::before { background: var(--b1); }
+.course-card.b12::before { background: var(--b12); }
+.course-card.b2::before { background: var(--b2); }
+.level-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  align-self: flex-start;
 }
-.unit-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--dark);
-  line-height: 1.3;
+.level-chip.b1 { background: var(--b1-light); color: var(--b1); }
+.level-chip.b12 { background: var(--b12-light); color: var(--b12); }
+.level-chip.b2 { background: var(--b2-light); color: var(--b2); }
+.course-title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
-.unit-desc {
-  font-size: 13px;
+.course-title .accent { display: block; margin-top: 2px; }
+.course-title.b1 .accent { color: var(--b1); }
+.course-title.b12 .accent { color: var(--b12); }
+.course-title.b2 .accent { color: var(--b2); }
+.course-desc {
+  font-size: 14px;
   color: var(--gray);
-  line-height: 1.5;
   flex: 1;
 }
-.unit-meta {
+.course-meta {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 8px;
   margin-top: 8px;
 }
-.chip {
+.meta-tag {
   font-size: 11px;
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 12px;
-  background: var(--accent-light);
-  color: var(--accent-dark);
-}
-.unit-card.coming { opacity: 0.55; cursor: not-allowed; }
-.unit-card.coming .unit-num { color: var(--lgray); }
-.unit-card.coming .chip { background: #F0F0F5; color: var(--lgray); }
-.info-strip {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px 20px;
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-  font-size: 13px;
+  background: #F0F0F5;
   color: var(--gray);
 }
-.info-strip strong { color: var(--dark); font-weight: 600; }
+.go-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 10px;
+  transition: gap 0.2s;
+}
+.course-card:hover .go-arrow { gap: 10px; }
+.course-card.b1 .go-arrow { color: var(--b1); }
+.course-card.b12 .go-arrow { color: var(--b12); }
+.course-card.b2 .go-arrow { color: var(--b2); }
 footer {
   text-align: center;
   padding: 32px;
@@ -184,96 +179,63 @@ footer {
 </head>
 <body>
 
-<a class="back-link" href="../">← Back to courses</a>
-
 <div class="hero">
-  <span class="badge">CEFR B1.1 · Intermediate</span>
-  <h1>Interactive English I<br><span class="accent">B1.1</span></h1>
-  <p class="subtitle">Eight units covering Education, Away From Home, Celebrations, Weather, Arts &amp; Entertainment, Emergency, Banking and Gadgets — with speaking exercises for every session.</p>
+  <div class="brand">TWEETALIG · FARLEARNING</div>
+  <h1>Interactive<br>English Courses</h1>
+  <p class="subtitle">Vocabulary, grammar, dialogues and speaking exercises — organised by CEFR level and unit.</p>
 </div>
 
 <div class="container">
 
-  <div class="info-strip">
-    <div><strong>Level:</strong> B1.1</div>
-    <div><strong>Units:</strong> 8</div>
-    <div><strong>Format:</strong> Interactive HTML</div>
-    <div><strong>Includes:</strong> Vocabulary · Grammar · Dialogues · Quiz · Practice · Speaking</div>
-  </div>
-
-  <div class="section-header">
-    <h2>Units</h2>
+  <div class="section-label">
+    <span>SELECT YOUR LEVEL</span>
     <div class="line"></div>
   </div>
 
-  <div class="units">
+  <div class="courses">
 
-    <a class="unit-card available" href="./unit1/">
-      <div class="unit-num">UNIT 01</div>
-      <div class="unit-title">Education</div>
-      <div class="unit-desc">Talk about school, jobs and things you've done — using the present perfect.</div>
-      <div class="unit-meta">
-        <span class="chip">Present Perfect</span>
-        <span class="chip">Vocab</span>
-        <span class="chip">Speaking</span>
+    <a class="course-card b1" href="./b1/">
+      <span class="level-chip b1">B1.1 · INTERMEDIATE</span>
+      <div class="course-title b1">Interactive English I<span class="accent">B1.1</span></div>
+      <div class="course-desc">Eight units — Education, Away From Home, Celebrations, Weather, Arts, Emergency, Banking and Gadgets. Present Perfect, Passive, Modals and more.</div>
+      <div class="course-meta">
+        <span class="meta-tag">8 units</span>
+        <span class="meta-tag">Speaking</span>
+        <span class="meta-tag">Grammar</span>
       </div>
+      <div class="go-arrow">Enter course →</div>
     </a>
 
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 02</div>
-      <div class="unit-title">Away From Home</div>
-      <div class="unit-desc">Studying abroad, sending packages, and adjusting to new places.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
+    <a class="course-card b12" href="./intermediate3/">
+      <span class="level-chip b12">B1.2 · UPPER-INTERMEDIATE</span>
+      <div class="course-title b12">Interactive English II<span class="accent">Intermediate 3</span></div>
+      <div class="course-desc">Units 2, 3 and 4 — deeper vocabulary and grammar practice with pronunciation workshop and a Session 0 speaking activity.</div>
+      <div class="course-meta">
+        <span class="meta-tag">3 units</span>
+        <span class="meta-tag">Speaking</span>
+        <span class="meta-tag">Pronunciation</span>
+      </div>
+      <div class="go-arrow">Enter course →</div>
+    </a>
 
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 03</div>
-      <div class="unit-title">Celebrations</div>
-      <div class="unit-desc">National holidays and celebrations — Passive Voice.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
-
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 04</div>
-      <div class="unit-title">Bad Weather</div>
-      <div class="unit-desc">Weather reports and warnings — Relative Clauses.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
-
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 05</div>
-      <div class="unit-title">Arts &amp; Entertainment</div>
-      <div class="unit-desc">Music, exhibits and shows — Passive Voice: Indirect Form.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
-
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 06</div>
-      <div class="unit-title">Emergency</div>
-      <div class="unit-desc">Accidents and emergencies — Noun &amp; Adverbial Clauses.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
-
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 07</div>
-      <div class="unit-title">Banking</div>
-      <div class="unit-desc">Opening accounts and managing money — Modal Verbs.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
-
-    <div class="unit-card coming">
-      <div class="unit-num">UNIT 08</div>
-      <div class="unit-title">Gadgets &amp; Technology</div>
-      <div class="unit-desc">Apps, devices and hackathons — Future Tenses + Linking Words.</div>
-      <div class="unit-meta"><span class="chip">Coming soon</span></div>
-    </div>
+    <a class="course-card b2" href="./b2/">
+      <span class="level-chip b2">B2 · UPPER-INTERMEDIATE</span>
+      <div class="course-title b2">Professional English<span class="accent">B2</span></div>
+      <div class="course-desc">Units 9–14 — business communication, projects, and negotiations. Includes the 5-session "City Voices" speaking project.</div>
+      <div class="course-meta">
+        <span class="meta-tag">6 units</span>
+        <span class="meta-tag">Project</span>
+        <span class="meta-tag">Business</span>
+      </div>
+      <div class="go-arrow">Enter course →</div>
+    </a>
 
   </div>
 
 </div>
 
 <footer>
-  Interactive English I · B1.1 · Tweetalig · farlearning
+  farlearning · Tweetalig Centro de Idiomas · Cartagena · Barranquilla · Sincelejo
 </footer>
 
 </body>
