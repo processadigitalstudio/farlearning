@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5: Speaking Exercise — Politics</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:         #1A2E45;
+    --navy-light:   #E8EEF4;
+    --navy-dark:    #0D1B2A;
+    --teal:         #1D9E75;
+    --teal-light:   #E1F5EE;
+    --teal-dark:    #085041;
+    --blue:         #185FA5;
+    --blue-light:   #E6F1FB;
+    --blue-dark:    #0C447C;
+    --amber:        #854F0B;
+    --amber-light:  #FFF3E0;
+    --red:          #C0392B;
+    --red-light:    #FDECEA;
+    --gray:         #f5f5f3;
+    --border:       #e0e0dc;
+    --text:         #1a1a18;
+    --muted:        #6b6b68;
+    --radius:       10px;
+    --font:         'Segoe UI', system-ui, sans-serif;
+  }
+  body { font-family: var(--font); background: #fafaf8; color: var(--text); min-height: 100vh; }
+
+  header { background: var(--navy); color: white; padding: 1.25rem 2rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem;
+               color: rgba(255,255,255,0.7); text-decoration: none; margin-bottom: 6px; }
+  .back-link:hover { color: white; }
+  header h1 { font-size: 1.35rem; font-weight: 600; }
+  header p  { font-size: 0.82rem; opacity: 0.75; margin-top: 2px; }
+
+  .page-nav-bar { background: var(--navy-dark); padding: 0.5rem 2rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .page-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.15s; }
+  .page-dot.active { background: white; }
+  .page-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-left: 6px; }
+  .page-label span { color: white; font-weight: 600; }
+
+  .main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 2rem; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .bottom-nav { display: flex; justify-content: space-between; align-items: center;
+                margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .nav-btn { display: flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 30px;
+             border: 1.5px solid var(--border); background: white; font-family: var(--font);
+             font-size: 0.85rem; cursor: pointer; color: var(--muted); transition: all 0.15s; }
+  .nav-btn:hover { border-color: var(--navy); color: var(--navy); }
+  .nav-btn.primary { background: var(--navy); border-color: var(--navy); color: white; font-weight: 600; }
+  .nav-btn.primary:hover { background: var(--navy-dark); }
+  .nav-btn:disabled { opacity: 0.35; pointer-events: none; }
+  .page-counter { font-size: 0.8rem; color: var(--muted); }
+
+  .card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .badge { display: inline-block; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; margin-bottom: 10px; }
+  .badge-navy   { background: var(--navy-light); color: var(--navy-dark); }
+  .badge-teal   { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-amber  { background: var(--amber-light);color: var(--amber); }
+  .badge-red    { background: var(--red-light);  color: var(--red); }
+  .badge-blue   { background: var(--blue-light); color: var(--blue-dark); }
+  .sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+  .page-title { font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+  .page-sub   { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+
+  /* OPTION CARDS */
+  .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1.5rem; }
+  @media(max-width:580px){ .option-grid { grid-template-columns: 1fr; } }
+  .option-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 1.25rem;
+                 cursor: pointer; background: white; transition: all 0.18s; }
+  .option-card:hover { border-color: var(--navy); }
+  .option-card.sel-a { border-color: var(--navy);  background: var(--navy-light); }
+  .option-card.sel-b { border-color: var(--amber); background: var(--amber-light); }
+  .option-card .opt-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .option-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  .option-card p  { font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+  .pill { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-top: 8px; }
+
+  /* ROLE CARDS */
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 0.75rem; }
+  @media(max-width:580px){ .role-grid { grid-template-columns: 1fr; } }
+  .role-card { border-radius: var(--radius); padding: 1rem; border: 1.5px solid var(--border); }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media(max-width:580px){ .two-col { grid-template-columns: 1fr; } }
+  .col-label { font-size: 0.82rem; font-weight: 700; margin-bottom: 8px; }
+  ul.plain { list-style: none; padding: 0; }
+  ul.plain li { font-size: 0.88rem; padding: 5px 0 5px 18px; position: relative; line-height: 1.5; }
+  ul.plain li::before { content: '→'; position: absolute; left: 0; color: var(--muted); }
+  ol.steps { padding-left: 1.2rem; }
+  ol.steps li { font-size: 0.88rem; padding: 6px 0; line-height: 1.55; }
+
+  /* STEP BOX */
+  .step-box { border-radius: var(--radius); padding: 1rem 1.1rem; margin-bottom: 0.75rem; border: 1px solid var(--border); }
+  .step-hdr { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.75rem; flex-wrap: wrap; }
+  .step-num   { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+  .step-title { font-size: 0.95rem; font-weight: 600; }
+  .step-time  { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+
+  /* SCENARIO CARDS */
+  .scenario { border-radius: var(--radius); padding: 1.1rem; margin-bottom: 0.75rem;
+              border: 1.5px solid var(--border); background: white; }
+  .scenario-letter { display: inline-flex; align-items: center; justify-content: center;
+                     width: 30px; height: 30px; border-radius: 50%; font-weight: 700;
+                     font-size: 0.95rem; margin-right: 8px; flex-shrink: 0; }
+  .scenario h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; }
+  .scenario .context { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 10px; }
+
+  /* TIMER */
+  .timer-box { background: var(--navy-light); border-radius: var(--radius); padding: 0.75rem 1rem;
+               display: flex; align-items: center; gap: 12px; margin: 0.75rem 0; flex-wrap: wrap; }
+  .timer-display { font-size: 1.6rem; font-weight: 700; font-family: monospace; color: var(--navy); min-width: 70px; }
+  .timer-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tbtn { padding: 6px 16px; border-radius: 8px; border: 1.5px solid var(--border); background: white;
+          font-family: var(--font); font-size: 0.82rem; cursor: pointer; transition: all 0.15s; }
+  .tbtn:hover { border-color: var(--navy); }
+  .tbtn.go { background: var(--navy); color: white; border-color: var(--navy); font-weight: 600; }
+  .tbtn.go:hover { background: var(--navy-dark); }
+  .timer-label { font-size: 0.78rem; color: var(--muted); }
+
+  /* CHECKLIST */
+  .checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  @media(max-width:500px){ .checklist { grid-template-columns: 1fr; } }
+  .check-item { display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem;
+                padding: 8px 10px; border-radius: 8px; background: var(--gray); line-height: 1.4; }
+  .check-item input { margin-top: 2px; flex-shrink: 0; accent-color: var(--navy); }
+
+  /* MODEL */
+  .model-box { background: var(--gray); border-radius: var(--radius); padding: 1rem; }
+  .speaker { font-weight: 700; font-size: 0.8rem; margin: 8px 0 3px; }
+  .bubble  { font-size: 0.88rem; line-height: 1.65; font-style: italic; padding: 9px 13px;
+             border-radius: 0 10px 10px 10px; margin-bottom: 6px; }
+  .bubble.a  { background: var(--navy-light); }
+  .bubble.b  { background: var(--blue-light); border-radius: 10px 0 10px 10px; }
+  .bubble.solo { background: var(--amber-light); border-radius: 10px; }
+  .notice { font-size: 0.78rem; color: var(--muted); font-style: italic; margin-top: 8px; }
+
+  /* RUBRIC */
+  .rub-wrap { overflow-x: auto; }
+  .rub-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .rub-table th, .rub-table td { padding: 8px 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  .rub-table th { font-weight: 600; white-space: nowrap; }
+  .rub-table tr:nth-child(even) td { background: #fafafa; }
+  .score-in { border: none; border-bottom: 2px solid var(--border); width: 36px; text-align: center;
+              font-family: var(--font); font-size: 0.85rem; background: transparent; outline: none; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip  { font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; }
+  .chip-n { background: var(--navy-light); color: var(--navy-dark); }
+  .chip-t { background: var(--teal-light); color: var(--teal-dark); }
+  .chip-b { background: var(--blue-light); color: var(--blue-dark); }
+  .chip-a { background: var(--amber-light);color: var(--amber); }
+  .divider { height: 1px; background: var(--border); margin: 1rem 0; }
+
+  footer { text-align: center; padding: 1.25rem; font-size: 0.75rem; color: var(--muted);
+           border-top: 1px solid var(--border); background: white; margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="./">← Back to Unit 5 class</a>
+  <h1>Unit 5: Speaking Exercise 🎤</h1>
+  <p>Politics &nbsp;·&nbsp; Reported Speech &nbsp;·&nbsp; Choose your format</p>
+</header>
+
+<div class="page-nav-bar" id="pageNavBar"></div>
+
+<div class="main">
+
+  <!-- ══════════ PAGE 1 — CHOOSE ══════════ -->
+  <div class="page active" id="page1">
+    <div class="page-title">Choose your format / Elige tu formato</div>
+    <div class="page-sub">Both options require at least 1 minute of continuous speaking per participant. / Ambas opciones requieren al menos 1 minuto de habla continua por participante.</div>
+
+    <div class="option-grid">
+      <div class="option-card" id="optA" onclick="selectOpt('A')">
+        <div class="opt-tag" style="color:var(--navy)">Option A</div>
+        <h3>📰 Press Conference</h3>
+        <p>In pairs: one student is a politician, the other is a journalist. Minimum 1 minute each speaking.</p>
+        <span class="pill" style="background:var(--navy-light);color:var(--navy-dark);">👥 Pairs — 2 students</span>
+      </div>
+      <div class="option-card" id="optB" onclick="selectOpt('B')">
+        <div class="opt-tag" style="color:var(--amber)">Option B</div>
+        <h3>📺 The News Reporter</h3>
+        <p>Individual: you are a TV journalist delivering a 1-2 minute news report using Reported Speech.</p>
+        <span class="pill" style="background:var(--amber-light);color:var(--amber);">🎤 Solo — minimum 1 minute</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-teal">Grammar reminder / Recordatorio de gramática</span>
+      <h3>Both options require Reported Speech + Opinion expressions</h3>
+      <div class="two-col" style="margin-top:10px;">
+        <div>
+          <div class="col-label" style="color:var(--teal-dark);">Reporting verbs to use:</div>
+          <ul class="plain">
+            <li>said / told + (that)</li>
+            <li>claimed (unverified)</li>
+            <li>admitted (confessed)</li>
+            <li>promised (committed)</li>
+            <li>announced (public)</li>
+            <li>asked if / wanted to know</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label" style="color:var(--teal-dark);">Opinion expressions:</div>
+          <ul class="plain">
+            <li>In my opinion…</li>
+            <li>I think / I believe…</li>
+            <li>I'm not happy about…</li>
+            <li>I'm surprised that…</li>
+            <li>Despite… / However…</li>
+            <li>I feel that…</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PAGE 2 — OPTION A: PRESS CONFERENCE ══════════ -->
+  <div class="page" id="page2">
+    <div class="page-title">📰 Option A — Press Conference</div>
+    <div class="page-sub">In pairs: one student is a politician at a press conference, the other is a journalist asking questions. Each person speaks for at least 1 minute continuously at some point. / En parejas: un estudiante es el político en rueda de prensa, el otro es el periodista. Cada uno habla al menos 1 minuto continuo.</div>
+
+    <div class="card">
+      <span class="badge badge-navy">Your roles / Tus roles</span>
+      <div class="role-grid">
+        <div class="role-card" style="background:var(--navy-light);border-color:var(--navy);">
+          <div style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-bottom:8px;">🏛 Student A — The Politician</div>
+          <ul class="plain">
+            <li>You are giving a press conference after a scandal</li>
+            <li>Deny, explain, or admit what happened</li>
+            <li>Use opinion expressions to defend yourself</li>
+            <li>Make at least one promise about the future</li>
+            <li><strong>Opening statement: minimum 1 minute</strong></li>
+          </ul>
+        </div>
+        <div class="role-card" style="background:var(--blue-light);border-color:var(--blue);">
+          <div style="font-size:0.82rem;font-weight:700;color:var(--blue-dark);margin-bottom:8px;">🎙 Student B — The Journalist</div>
+          <ul class="plain">
+            <li>You are reporting on a political scandal</li>
+            <li>Ask at least 4 questions to the politician</li>
+            <li>Report what the politician says using Reported Speech</li>
+            <li>Express your own opinion at the end</li>
+            <li><strong>Final report: minimum 1 minute</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-navy">Choose your scenario / Elige tu escenario</span>
+      <h3>Pick ONE scenario — both students read it</h3>
+      <p class="sub">Inspired by the unit stories. / Inspirado en los textos de la unidad.</p>
+
+      <div class="scenario">
+        <h4><span class="scenario-letter" style="background:var(--navy-light);color:var(--navy);">A</span>The Campaign Fire</h4>
+        <div class="context">Inspired by Brown's Campaign Problems. A fire broke out at the politician's headquarters.</div>
+        <div class="two-col">
+          <div>
+            <div class="col-label" style="color:var(--navy);">Politician knows:</div>
+            <ul class="plain">
+              <li>The fire started while you were having lunch</li>
+              <li>Someone has made threats against your campaign</li>
+              <li>You have promised to fight for free education</li>
+              <li>You claim you will NOT resign despite the pressure</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label" style="color:var(--blue-dark);">Journalist asks:</div>
+            <ul class="plain">
+              <li>Where were you when the fire started?</li>
+              <li>Do you think it was arson?</li>
+              <li>Have the police found any evidence?</li>
+              <li>Are you going to resign?</li>
+              <li>What are the key issues in your campaign?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <h4><span class="scenario-letter" style="background:var(--amber-light);color:var(--amber);">B</span>The Election Results</h4>
+        <div class="context">Inspired by the News lesson. The Liberal Party has just won the election.</div>
+        <div class="two-col">
+          <div>
+            <div class="col-label" style="color:var(--navy);">Politician knows:</div>
+            <ul class="plain">
+              <li>You won by a majority — the Conservative Party was defeated</li>
+              <li>Key issues were education, crime, and unemployment</li>
+              <li>You have promised tax reforms and new schools</li>
+              <li>The defeated candidate is calling for a recount</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label" style="color:var(--blue-dark);">Journalist asks:</div>
+            <ul class="plain">
+              <li>How do you feel about the results?</li>
+              <li>What did the other candidate say about the results?</li>
+              <li>What are your priorities for the next 4 years?</li>
+              <li>What do you say to voters who didn't vote for you?</li>
+              <li>Will there be a recount?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <h4><span class="scenario-letter" style="background:var(--teal-light);color:var(--teal-dark);">C</span>The Political Scandal</h4>
+        <div class="context">Inspired by Handout 26. A politician stole money from campaign funds.</div>
+        <div class="two-col">
+          <div>
+            <div class="col-label" style="color:var(--navy);">Politician knows:</div>
+            <ul class="plain">
+              <li>You admit you made mistakes — but not all accusations are true</li>
+              <li>The police have questioned you</li>
+              <li>You claim you were planning to return the money</li>
+              <li>Your party leader has asked you to resign</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label" style="color:var(--blue-dark);">Journalist asks:</div>
+            <ul class="plain">
+              <li>What did the police find in their investigation?</li>
+              <li>Did you steal money from campaign funds?</li>
+              <li>What did your party leader say to you?</li>
+              <li>Are you planning to resign?</li>
+              <li>What do you say to voters who supported you?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PAGE 3 — OPTION A: STRUCTURE + MODEL ══════════ -->
+  <div class="page" id="page3">
+    <div class="page-title">📰 Option A — Structure &amp; Model</div>
+    <div class="page-sub">How to structure the press conference + a model example. / Cómo estructurar la rueda de prensa + un ejemplo modelo.</div>
+
+    <div class="card">
+      <span class="badge badge-navy">Structure guide / Guía de estructura</span>
+
+      <div class="step-box" style="background:var(--navy-light);border-color:var(--navy);">
+        <div class="step-hdr">
+          <span class="step-num">1.</span>
+          <span class="step-title">Journalist opens</span>
+          <span class="step-time">~30 sec</span>
+        </div>
+        <div class="two-col">
+          <ul class="plain">
+            <li>Introduce the news story — who, what, where</li>
+            <li>Announce who you are interviewing</li>
+          </ul>
+          <ul class="plain">
+            <li>"Good evening. I'm reporting from… where…"</li>
+            <li>"With me today is [politician], who…"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-box" style="background:var(--navy-light);border-color:var(--navy);">
+        <div class="step-hdr">
+          <span class="step-num">2.</span>
+          <span class="step-title">Politician's opening statement</span>
+          <span class="step-time">⏱ minimum 1 minute</span>
+        </div>
+        <div class="two-col">
+          <ul class="plain">
+            <li>State your position clearly</li>
+            <li>Explain what happened from your perspective</li>
+            <li>Use at least one opinion expression</li>
+            <li>Make one promise using reported speech form</li>
+          </ul>
+          <ul class="plain">
+            <li>"Thank you. I want to say that in my opinion…"</li>
+            <li>"I have to admit that… however…"</li>
+            <li>"Despite what has been reported, I…"</li>
+            <li>"I want to promise that…"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-box" style="background:var(--navy-light);border-color:var(--navy);">
+        <div class="step-hdr">
+          <span class="step-num">3.</span>
+          <span class="step-title">Q&amp;A — Journalist asks 4 questions</span>
+          <span class="step-time">~3 min</span>
+        </div>
+        <div class="two-col">
+          <ul class="plain">
+            <li>Journalist: ask questions from the scenario card</li>
+            <li>Politician: answer each one in 2-3 sentences</li>
+            <li>Politician: use "I claimed / I admitted / I promised"</li>
+          </ul>
+          <ul class="plain">
+            <li>"Could you tell us what happened when…?"</li>
+            <li>"What do you say to people who claim that…?"</li>
+            <li>"Are you planning to…? And if so, when?"</li>
+            <li>"What did [other politician / party] say about…?"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-box" style="background:var(--navy-light);border-color:var(--navy);">
+        <div class="step-hdr">
+          <span class="step-num">4.</span>
+          <span class="step-title">Journalist's final report — REQUIRED Reported Speech</span>
+          <span class="step-time">⏱ minimum 1 minute</span>
+        </div>
+        <div class="two-col">
+          <ul class="plain">
+            <li>Report what the politician said using Reported Speech</li>
+            <li>Use at least 3 different reporting verbs</li>
+            <li>Express your own opinion at the end</li>
+          </ul>
+          <ul class="plain">
+            <li>"The politician claimed that…"</li>
+            <li>"She admitted that… but also promised…"</li>
+            <li>"When asked about…, he said that…"</li>
+            <li>"In my opinion, the most important thing was…"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-navy">Model example / Ejemplo — Scenario A: The Campaign Fire</span>
+      <div class="model-box">
+        <div class="speaker" style="color:var(--blue-dark);">Journalist (opening):</div>
+        <div class="bubble b">"Good evening. I'm reporting live from the campaign headquarters of Mr. James Brown, where a fire broke out earlier today. With me is Mr. Brown himself, who has called this press conference to address the situation."</div>
+
+        <div class="speaker" style="color:var(--navy);">Politician (opening statement — 1 min+):</div>
+        <div class="bubble a">"Thank you. I want to be completely clear: I was having lunch when the fire started. I had no idea what was happening until my assistant called me. In my opinion, this was not an accident. I have received personal threats over the past few weeks, and I believe someone tried to destroy my campaign. Despite this, I am not going to resign. I have promised the people of this city that I will fight for free education and for safer streets, and I intend to keep that promise. However, I want to say that I am not happy about the way some newspapers have reported this story. They have claimed things that are simply not true."</div>
+
+        <div class="speaker" style="color:var(--blue-dark);">Journalist (question):</div>
+        <div class="bubble b">"Mr. Brown — have the police found any evidence of arson? And are you saying that someone deliberately tried to murder you?"</div>
+
+        <div class="speaker" style="color:var(--navy);">Politician (answer):</div>
+        <div class="bubble a">"The police are investigating. They have not confirmed arson yet, but I believe the evidence will show the truth. I am surprised that anyone would question my word on this. I have dedicated my life to this community."</div>
+
+        <div class="speaker" style="color:var(--blue-dark);">Journalist (final report — 1 min+):</div>
+        <div class="bubble b">"This has been a remarkable press conference. Mr. Brown claimed that he was not present when the fire began — he said he had been having lunch at the time. He admitted that he had received personal threats, and he insisted that this was not an accident. When I asked him if the police had found evidence, he said they were still investigating. He promised that he would not resign and that he would continue to fight for free education. However, he did not answer my question about whether he believed someone had tried to murder him. In my opinion, the most interesting moment was when he said he was not happy about the press coverage. I think there are still many questions that remain unanswered tonight."</div>
+      </div>
+      <p class="notice">Notice: Journalist's final report has 5 reported speech sentences · 3 reporting verbs (claimed, admitted, promised, insisted, said) · 1 opinion expression · over 1 minute speaking</p>
+    </div>
+
+    <!-- TIMER -->
+    <div class="card">
+      <span class="badge badge-teal">Speaking timer / Cronómetro</span>
+      <h3>Use this to time your 1-minute minimum</h3>
+      <div class="timer-box">
+        <div class="timer-display" id="timerDisplay">1:00</div>
+        <div>
+          <div class="timer-label" id="timerLabel">Press START when you begin speaking</div>
+          <div class="timer-btns" style="margin-top:6px;">
+            <button class="tbtn go" onclick="startTimer(60)">▶ Start 1 min</button>
+            <button class="tbtn" onclick="startTimer(90)">▶ 1:30</button>
+            <button class="tbtn" onclick="startTimer(120)">▶ 2 min</button>
+            <button class="tbtn" onclick="resetTimer()">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST A -->
+    <div class="card">
+      <span class="badge badge-teal">Self-check / Autoevaluación</span>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox"> I know my scenario and my role.</label>
+        <label class="check-item"><input type="checkbox"> I have prepared a 1-min+ opening statement (politician) or 1-min+ final report (journalist).</label>
+        <label class="check-item"><input type="checkbox"> I have 3 Reported Speech sentences ready.</label>
+        <label class="check-item"><input type="checkbox"> I have 2 opinion expressions ready.</label>
+        <label class="check-item"><input type="checkbox"> I have 4 questions ready (journalist).</label>
+        <label class="check-item"><input type="checkbox"> I am NOT reading from a script.</label>
+      </div>
+    </div>
+
+    <!-- RUBRIC A -->
+    <div class="card">
+      <span class="badge badge-navy">Rubric / Rúbrica — out of 20</span>
+      <div class="rub-wrap">
+        <table class="rub-table">
+          <thead><tr style="background:var(--navy-light);">
+            <th>Criterion</th><th>4</th><th>3</th><th>2</th><th>1</th><th>Score</th>
+          </tr></thead>
+          <tbody>
+            <tr><td><strong>1-min minimum met</strong></td><td>Both speakers exceed 1 min</td><td>Both reach ~1 min</td><td>One speaker under 1 min</td><td>Neither reaches 1 min</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Reported Speech</strong></td><td>3+ correct, varied verbs</td><td>2 correct, minor errors</td><td>1 attempt</td><td>None used</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Opinion expressions</strong></td><td>2+ expressions, natural</td><td>1–2, minor errors</td><td>1 attempt</td><td>None used</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Vocabulary (unit words)</strong></td><td>4+ political words used</td><td>2–3 words</td><td>1 word</td><td>None used</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Fluency &amp; interaction</strong></td><td>Natural, responsive, builds on answers</td><td>Mostly natural</td><td>Hesitant, brief</td><td>Very limited</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.85rem;font-weight:700;margin-top:10px;">Total: <input class="score-in" style="width:50px;font-size:1rem;font-weight:700;"> / 20</p>
+    </div>
+  </div>
+
+  <!-- ══════════ PAGE 4 — OPTION B: NEWS REPORTER ══════════ -->
+  <div class="page" id="page4">
+    <div class="page-title">📺 Option B — The News Reporter</div>
+    <div class="page-sub">Individual: you are a TV journalist delivering a political news report. Minimum 1 minute of continuous speaking. / Individual: eres un/a periodista de televisión que presenta un reporte de noticias políticas. Mínimo 1 minuto de habla continua.</div>
+
+    <div class="card">
+      <span class="badge badge-amber">What you do / Qué haces</span>
+      <h3>Prepare a 1–2 minute TV news report on a political story</h3>
+      <p class="sub">You choose one of the scenarios below OR use a real news story from your country. You must report what politicians or officials said using Reported Speech, and give your own opinion at the end.</p>
+      <p class="sub"><em>Eliges uno de los escenarios abajo O usas una noticia real de tu país. Debes reportar lo que dijeron políticos o funcionarios usando Estilo Indirecto, y dar tu opinión al final.</em></p>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-amber">Choose a story / Elige una historia</span>
+
+      <div class="scenario">
+        <h4><span class="scenario-letter" style="background:var(--amber-light);color:var(--amber);">1</span>Election Night Results</h4>
+        <div class="context">A local election just ended. Report the results and what the candidates said.</div>
+        <div class="two-col">
+          <div>
+            <div class="col-label" style="color:var(--amber);">Your report must include:</div>
+            <ul class="plain">
+              <li>Who won and who was defeated</li>
+              <li>The key issues of the campaign</li>
+              <li>What the winner said (Reported Speech)</li>
+              <li>What the defeated candidate said (Reported Speech)</li>
+              <li>Your opinion on the results</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label" style="color:var(--teal-dark);">Useful phrases:</div>
+            <ul class="plain">
+              <li>"The Liberal Party candidate announced that…"</li>
+              <li>"The defeated candidate claimed that…"</li>
+              <li>"Voters said they had chosen [name] because…"</li>
+              <li>"The key issues were… and the winner promised…"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <h4><span class="scenario-letter" style="background:var(--red-light);color:var(--red);">2</span>Political Scandal</h4>
+        <div class="context">A politician has been caught in a scandal. Report the story and reactions.</div>
+        <div class="two-col">
+          <div>
+            <div class="col-label" style="color:var(--red);">Your report must include:</div>
+            <ul class="plain">
+              <li>What the politician did (the scandal)</li>
+              <li>What the police or investigators said</li>
+              <li>What the politician admitted or claimed</li>
+              <li>What their party leader said about it</li>
+              <li>Your opinion: should they resign?</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label" style="color:var(--teal-dark);">Useful phrases:</div>
+            <ul class="plain">
+              <li>"Officials announced that…"</li>
+              <li>"The politician admitted that… but also claimed…"</li>
+              <li>"Despite the scandal, [name] promised…"</li>
+              <li>"In my opinion, this situation shows that…"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario">
+        <h4><span class="scenario-letter" style="background:var(--navy-light);color:var(--navy);">3</span>A Real News Story from Colombia</h4>
+        <div class="context">Use a real political event you know about — local, national, or international.</div>
+        <div class="two-col">
+          <div>
+            <div class="col-label" style="color:var(--navy);">Your report must include:</div>
+            <ul class="plain">
+              <li>A clear summary of what happened (who, what, where, when)</li>
+              <li>At least 2 Reported Speech sentences from real quotes</li>
+              <li>The public or political reaction</li>
+              <li>Your personal opinion on the event</li>
+            </ul>
+          </div>
+          <div>
+            <div class="col-label" style="color:var(--teal-dark);">Useful phrases:</div>
+            <ul class="plain">
+              <li>"The president/mayor/candidate said that…"</li>
+              <li>"Officials claimed / admitted / announced that…"</li>
+              <li>"I believe this is important because…"</li>
+              <li>"In my opinion, the government should…"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PAGE 5 — OPTION B: STRUCTURE + MODEL ══════════ -->
+  <div class="page" id="page5">
+    <div class="page-title">📺 Option B — Structure &amp; Model</div>
+    <div class="page-sub">How to structure your 1–2 minute news report + a model example. / Cómo estructurar tu reporte de 1–2 minutos + un ejemplo modelo.</div>
+
+    <div class="card">
+      <span class="badge badge-amber">Structure / Estructura</span>
+      <p class="sub">Use all 5 parts. This structure guarantees you speak for over 1 minute. / Usa las 5 partes. Esta estructura garantiza que hablas más de 1 minuto.</p>
+
+      <div class="step-box" style="background:var(--amber-light);border-color:var(--amber);">
+        <div class="step-hdr"><span class="step-num" style="color:var(--amber);">1.</span><span class="step-title">Opening — who, what, where</span><span class="step-time">~15 sec</span></div>
+        <ul class="plain">
+          <li>"Good evening. This is [your name] reporting for Channel News."</li>
+          <li>"Tonight's top story: [headline — 1 sentence]."</li>
+          <li>"I'm reporting from [place], where [brief summary]."</li>
+        </ul>
+      </div>
+
+      <div class="step-box" style="background:var(--amber-light);border-color:var(--amber);">
+        <div class="step-hdr"><span class="step-num" style="color:var(--amber);">2.</span><span class="step-title">The story — what happened</span><span class="step-time">~20 sec</span></div>
+        <ul class="plain">
+          <li>Explain the background: what happened, when, and why it matters</li>
+          <li>Use Past Simple and Past Perfect to narrate the sequence</li>
+          <li>"Earlier today… / Last night… / Following reports that…"</li>
+        </ul>
+      </div>
+
+      <div class="step-box" style="background:var(--amber-light);border-color:var(--amber);">
+        <div class="step-hdr"><span class="step-num" style="color:var(--amber);">3.</span><span class="step-title">What they said — Reported Speech ⭐ REQUIRED</span><span class="step-time">~20 sec</span></div>
+        <ul class="plain">
+          <li>Report at least 3 things that were said — use different reporting verbs</li>
+          <li>"[Name] claimed that… / admitted that… / promised that…"</li>
+          <li>"When asked about [topic], [name] said that…"</li>
+          <li>"Officials announced that… / The candidate told reporters that…"</li>
+        </ul>
+      </div>
+
+      <div class="step-box" style="background:var(--amber-light);border-color:var(--amber);">
+        <div class="step-hdr"><span class="step-num" style="color:var(--amber);">4.</span><span class="step-title">Reactions — what others said</span><span class="step-time">~10 sec</span></div>
+        <ul class="plain">
+          <li>"Members of the opposition claimed that…"</li>
+          <li>"Citizens expressed surprise, saying they had not expected…"</li>
+          <li>"The party leader told reporters that…"</li>
+        </ul>
+      </div>
+
+      <div class="step-box" style="background:var(--amber-light);border-color:var(--amber);">
+        <div class="step-hdr"><span class="step-num" style="color:var(--amber);">5.</span><span class="step-title">Your opinion + closing</span><span class="step-time">~15 sec</span></div>
+        <ul class="plain">
+          <li>"In my opinion, this story is important because…"</li>
+          <li>"I think / I believe the most significant fact is…"</li>
+          <li>"Despite what officials said, I feel that…"</li>
+          <li>"This is [your name], reporting for Channel News. Good night."</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-amber">Model report / Ejemplo — Scenario 1: Election Night</span>
+      <div class="model-box">
+        <div class="bubble solo">
+          "Good evening. This is María Rodríguez reporting for Channel 5 News. Tonight's top story: the results of the local election are in, and the Liberal Party has won by a large majority. I'm reporting from the Liberal Party's headquarters, where supporters have been celebrating since 9 pm.
+          <br><br>
+          The Liberal candidate, Rosa Morales, won 58% of the vote. The Conservative candidate, Mr. Torres, was defeated with only 34%. The key issues in this campaign were education, crime, and unemployment.
+          <br><br>
+          Following the results, Rosa Morales held a brief press conference. She announced that she was honored by the trust of the voters. She promised that her first priority would be to improve public schools in the city. She also said that she had not expected such a large majority, and that she was surprised and grateful.
+          <br><br>
+          Meanwhile, the defeated candidate, Mr. Torres, told reporters that he accepted the results but claimed that some of the counting had been irregular. He said he was disappointed and that he would speak to his team before making any further comments.
+          <br><br>
+          In my opinion, this result shows that voters in this city care deeply about education. Despite what Mr. Torres claimed about the counting, I believe the result is clear and fair. I think the new city council has a lot of work to do, and I hope they keep their promises.
+          <br><br>
+          This is María Rodríguez, reporting for Channel 5 News. Good night."
+        </div>
+      </div>
+      <p class="notice">Notice: 5 Reported Speech sentences · 4 reporting verbs (announced, promised, said, claimed, told) · 2 opinion expressions · clear 5-part structure · well over 1 minute speaking</p>
+    </div>
+
+    <!-- TIMER -->
+    <div class="card">
+      <span class="badge badge-teal">Speaking timer / Cronómetro</span>
+      <h3>Time yourself — minimum 1 minute</h3>
+      <div class="timer-box">
+        <div class="timer-display" id="timerDisplay2">1:00</div>
+        <div>
+          <div class="timer-label" id="timerLabel2">Press START when you begin speaking</div>
+          <div class="timer-btns" style="margin-top:6px;">
+            <button class="tbtn go" onclick="startTimer2(60)">▶ Start 1 min</button>
+            <button class="tbtn" onclick="startTimer2(90)">▶ 1:30</button>
+            <button class="tbtn" onclick="startTimer2(120)">▶ 2 min</button>
+            <button class="tbtn" onclick="resetTimer2()">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST B -->
+    <div class="card">
+      <span class="badge badge-teal">Self-check / Autoevaluación</span>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox"> I have chosen a scenario and prepared my story.</label>
+        <label class="check-item"><input type="checkbox"> My report is 1–2 minutes when I practice aloud.</label>
+        <label class="check-item"><input type="checkbox"> I have at least 3 Reported Speech sentences.</label>
+        <label class="check-item"><input type="checkbox"> I use at least 2 different reporting verbs.</label>
+        <label class="check-item"><input type="checkbox"> I give my own opinion at the end.</label>
+        <label class="check-item"><input type="checkbox"> I am NOT reading word-for-word — I have key notes only.</label>
+      </div>
+    </div>
+
+    <!-- RUBRIC B -->
+    <div class="card">
+      <span class="badge badge-amber">Rubric / Rúbrica — out of 20</span>
+      <div class="rub-wrap">
+        <table class="rub-table">
+          <thead><tr style="background:var(--amber-light);">
+            <th>Criterion</th><th>4</th><th>3</th><th>2</th><th>1</th><th>Score</th>
+          </tr></thead>
+          <tbody>
+            <tr><td><strong>1-min minimum met</strong></td><td>1:30+ natural delivery</td><td>~1 min, mostly fluent</td><td>Under 1 min OR very halting</td><td>Under 30 sec</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Reported Speech</strong></td><td>3+ correct, varied verbs</td><td>2 correct, minor errors</td><td>1 attempt</td><td>None used</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Reporting verbs variety</strong></td><td>3+ different verbs used</td><td>2 different verbs</td><td>Only "said"</td><td>No reporting verbs</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Opinion expression</strong></td><td>Clear, well-supported opinion</td><td>Opinion present, brief</td><td>Vague opinion</td><td>No opinion given</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+            <tr><td><strong>Structure &amp; content</strong></td><td>All 5 parts clear, no script</td><td>4 parts, minimal notes</td><td>2–3 parts</td><td>No clear structure</td><td><input class="score-in" type="number" min="1" max="4"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.85rem;font-weight:700;margin-top:10px;">Total: <input class="score-in" style="width:50px;font-size:1rem;font-weight:700;"> / 20</p>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" disabled>← Previous</button>
+    <span class="page-counter" id="pageCounter">Page 1 of 5</span>
+    <button class="nav-btn primary" id="nextBtn" onclick="changePage(1)">Next →</button>
+  </div>
+
+</div>
+
+<footer>Interactive English II · Unit 5: Politics · Speaking Exercise · English Discoveries / Tweetalig · © Edusoft 1990-2026</footer>
+
+<script>
+// ── PAGE SYSTEM ──────────────────────────────────────────────
+const totalPages = 5;
+let currentPage = 1;
+const pageLabels = ['Choose format','Option A: Scenarios','Option A: Model','Option B: Scenarios','Option B: Model'];
+
+function buildNav() {
+  const bar = document.getElementById('pageNavBar');
+  pageLabels.forEach((lbl,i) => {
+    const dot = document.createElement('div');
+    dot.className = 'page-dot' + (i===0?' active':'');
+    dot.id = `dot${i+1}`;
+    dot.onclick = () => goToPage(i+1);
+    dot.title = lbl;
+    bar.appendChild(dot);
+  });
+  const lbl = document.createElement('div');
+  lbl.className = 'page-label';
+  lbl.id = 'navLabel';
+  lbl.innerHTML = `Page <span>1</span> — ${pageLabels[0]}`;
+  bar.appendChild(lbl);
+}
+
+function goToPage(n) {
+  document.getElementById(`page${currentPage}`).classList.remove('active');
+  document.getElementById(`dot${currentPage}`).classList.remove('active');
+  currentPage = n;
+  document.getElementById(`page${currentPage}`).classList.add('active');
+  document.getElementById(`dot${currentPage}`).classList.add('active');
+  document.getElementById('prevBtn').disabled = currentPage === 1;
+  document.getElementById('nextBtn').disabled = currentPage === totalPages;
+  document.getElementById('pageCounter').textContent = `Page ${currentPage} of ${totalPages}`;
+  document.getElementById('navLabel').innerHTML = `Page <span>${currentPage}</span> — ${pageLabels[currentPage-1]}`;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function changePage(dir) { goToPage(currentPage + dir); }
+
+// ── OPTION SELECTOR ──────────────────────────────────────────
+function selectOpt(opt) {
+  document.getElementById('optA').classList.toggle('sel-a', opt==='A');
+  document.getElementById('optA').classList.toggle('sel-b', false);
+  document.getElementById('optB').classList.toggle('sel-b', opt==='B');
+  document.getElementById('optB').classList.toggle('sel-a', false);
+  goToPage(opt === 'A' ? 2 : 4);
+}
+
+// ── TIMERS ───────────────────────────────────────────────────
+let timerInterval = null;
+let timerSeconds = 60;
+
+function startTimer(secs) {
+  clearInterval(timerInterval);
+  timerSeconds = secs;
+  updateTimerDisplay('timerDisplay', timerSeconds);
+  document.getElementById('timerLabel').textContent = 'Speaking… keep going!';
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay('timerDisplay', timerSeconds);
+    if(timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      document.getElementById('timerLabel').textContent = '✓ Time reached! Great job.';
+      document.getElementById('timerDisplay').style.color = 'var(--teal)';
+    }
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerSeconds = 60;
+  updateTimerDisplay('timerDisplay', 60);
+  document.getElementById('timerLabel').textContent = 'Press START when you begin speaking';
+  document.getElementById('timerDisplay').style.color = 'var(--navy)';
+}
+
+let timerInterval2 = null;
+let timerSeconds2 = 60;
+
+function startTimer2(secs) {
+  clearInterval(timerInterval2);
+  timerSeconds2 = secs;
+  updateTimerDisplay('timerDisplay2', timerSeconds2);
+  document.getElementById('timerLabel2').textContent = 'Speaking… keep going!';
+  timerInterval2 = setInterval(() => {
+    timerSeconds2--;
+    updateTimerDisplay('timerDisplay2', timerSeconds2);
+    if(timerSeconds2 <= 0) {
+      clearInterval(timerInterval2);
+      document.getElementById('timerLabel2').textContent = '✓ Time reached! Great job.';
+      document.getElementById('timerDisplay2').style.color = 'var(--teal)';
+    }
+  }, 1000);
+}
+
+function resetTimer2() {
+  clearInterval(timerInterval2);
+  timerSeconds2 = 60;
+  updateTimerDisplay('timerDisplay2', 60);
+  document.getElementById('timerLabel2').textContent = 'Press START when you begin speaking';
+  document.getElementById('timerDisplay2').style.color = 'var(--navy)';
+}
+
+function updateTimerDisplay(id, secs) {
+  const m = Math.floor(Math.abs(secs) / 60);
+  const s = Math.abs(secs) % 60;
+  document.getElementById(id).textContent = (secs < 0 ? '+' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+// INIT
+buildNav();
+</script>
+</body>
+</html>

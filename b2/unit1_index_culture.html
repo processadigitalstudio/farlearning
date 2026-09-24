@@ -228,6 +228,145 @@
     .tab-panel { padding: 18px; }
     .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
   }
+
+  /* CULTURE */
+  .culture-section-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--gray); margin: 28px 0 14px;
+    padding-bottom: 6px; border-bottom: 2px solid var(--gold-light);
+  }
+  .song-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius);
+    padding: 18px; margin-bottom: 14px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .song-emoji {
+    width: 52px; height: 52px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+  .song-info { flex: 1; min-width: 0; }
+  .song-info h3 { font-size: 15px; font-weight: 700; color: var(--dark); }
+  .song-info .artist { font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 2px; }
+  .song-info .why { font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+  .song-link {
+    display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700;
+    color: var(--gold-dark); text-decoration: none; border: 1.5px solid var(--gold);
+    border-radius: 6px; padding: 4px 12px; transition: all .2s;
+  }
+  .song-link:hover { background: var(--gold-light); }
+
+  .song-activity {
+    background: var(--gold-light); border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0; padding: 12px 14px; margin-top: 10px;
+  }
+  .song-activity p { font-size: 13px; color: var(--gold-dark); font-weight: 600; margin-bottom: 8px; }
+  .song-q { display: flex; flex-direction: column; gap: 6px; }
+  .song-q-btn {
+    background: #fff; border: 2px solid #ddd; border-radius: 6px;
+    padding: 7px 12px; text-align: left; cursor: pointer; font-size: 12.5px; transition: all .2s;
+  }
+  .song-q-btn:hover { border-color: var(--gold); }
+  .song-q-btn.correct { background: #E8F5E9; border-color: var(--correct); color: var(--correct); font-weight: 600; }
+  .song-q-btn.wrong { background: #FFEBEE; border-color: var(--wrong); color: var(--wrong); }
+
+  .show-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius);
+    overflow: hidden; margin-bottom: 14px;
+  }
+  .show-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+  .show-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .show-info { padding: 18px; }
+  .show-info h3 { font-size: 15px; font-weight: 700; color: var(--dark); }
+  .show-info .show-meta { font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 3px; }
+  .show-info .show-desc { font-size: 13px; color: var(--gray); margin-top: 8px; line-height: 1.5; }
+  .discuss-label {
+    font-size: 12px; font-weight: 700; color: var(--gold-dark);
+    text-transform: uppercase; letter-spacing: .5px; margin-top: 14px; margin-bottom: 8px;
+  }
+  .discuss-q {
+    background: var(--gold-light); border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; color: var(--dark); margin-bottom: 6px; line-height: 1.5;
+  }
+  .discuss-q::before { content: "💬 "; }
+
+  /* CULTURE TAB */
+  .culture-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .6px; color: var(--gold-dark);
+    margin-bottom: 14px; margin-top: 4px;
+  }
+  .song-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; margin-bottom: 8px; }
+  .song-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius);
+    overflow: hidden; transition: all .2s;
+  }
+  .song-card:hover { border-color: var(--gold); box-shadow: 0 4px 12px rgba(176,125,46,.12); }
+  .song-cover {
+    height: 90px; display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .song-body { padding: 12px 14px; }
+  .song-title { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .song-artist { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .song-why { font-size: 12px; color: var(--gray); margin-top: 6px; font-style: italic; line-height: 1.4; }
+  .song-link {
+    display: inline-block; margin-top: 10px;
+    background: var(--gold); color: #fff;
+    border-radius: 20px; padding: 4px 14px;
+    font-size: 12px; font-weight: 700; text-decoration: none;
+    transition: background .2s;
+  }
+  .song-link:hover { background: var(--gold-dark); }
+  .song-activity {
+    background: var(--gold-light); border-radius: 0 0 var(--radius) var(--radius);
+    padding: 10px 14px; border-top: 1px solid #e8d8b0;
+  }
+  .song-activity-label { font-size: 11px; font-weight: 700; color: var(--gold-dark); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; }
+  .song-q { font-size: 12px; color: var(--dark); margin-bottom: 6px; font-weight: 600; }
+  .song-opts { display: flex; flex-direction: column; gap: 4px; }
+  .song-opt {
+    background: #fff; border: 1.5px solid #ddd; border-radius: 6px;
+    padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: left;
+    transition: all .18s; display: flex; align-items: center; gap: 6px;
+  }
+  .song-opt .sopt-lbl { background: var(--gold); color: #fff; border-radius: 3px; padding: 0 5px; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .song-opt:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); }
+  .song-opt.correct { background: #E8F5E9; border-color: var(--correct); }
+  .song-opt.correct .sopt-lbl { background: var(--correct); }
+  .song-opt.wrong { background: #FFEBEE; border-color: var(--wrong); }
+  .song-opt.wrong .sopt-lbl { background: var(--wrong); }
+  .song-opt:disabled { cursor: default; }
+  .song-fb { font-size: 11px; margin-top: 5px; font-weight: 600; }
+  .song-fb.ok { color: var(--correct); }
+  .song-fb.bad { color: var(--wrong); }
+
+  /* SHOW */
+  .show-card { background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+  .show-meta { padding: 18px 20px 14px; }
+  .show-badge { display: inline-block; background: var(--gold-light); color: var(--gold-dark); border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .show-title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .show-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .show-embed { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .show-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .discuss-box { padding: 16px 20px; background: var(--gold-light); border-top: 1px solid #e8d8b0; }
+  .discuss-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--gold-dark); margin-bottom: 10px; }
+  .discuss-q { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; font-size: 13px; color: var(--dark); line-height: 1.5; }
+  .dq-num { background: var(--gold); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* EP VOCAB GRID */
+  .ep-vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .ep-vocab-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; transition: all .2s;
+  }
+  .ep-vocab-card:hover { border-color: var(--gold); }
+  .ep-vocab-card.flipped { background: var(--gold-light); border-color: var(--gold); }
+  .ep-word { font-size: 14px; font-weight: 700; color: var(--gold-dark); }
+  .ep-def { font-size: 12px; color: var(--gray); margin-top: 4px; display: none; }
+  .ep-vocab-card.flipped .ep-def { display: block; }
+  .ep-es { font-size: 11px; color: var(--gold-dark); font-style: italic; margin-top: 3px; display: none; }
+  .ep-vocab-card.flipped .ep-es { display: block; }
+
 </style>
 </head>
 <body>
@@ -246,6 +385,7 @@
   <button class="tab-btn" data-tab="dialogues">Dialogues</button>
   <button class="tab-btn" data-tab="quiz">Quiz</button>
   <button class="tab-btn" data-tab="practice">Practice</button>
+  <button class="tab-btn" data-tab="culture">🎵 Culture</button>
   <button class="tab-btn" data-tab="speaking">🎤 Speaking</button>
 </nav>
 
@@ -474,6 +614,49 @@
   <h2 class="section-title">Practice – Choose the correct option</h2>
   <p class="section-desc">Select A, B, or C to complete each sentence correctly. / Selecciona la opcion correcta.</p>
   <div id="practiceContainer"></div>
+</section>
+
+<!-- CULTURE -->
+<section class="tab-panel" id="tab-culture">
+  <h2 class="section-title">&#127925; Music &amp; Shows &mdash; Unit 1</h2>
+  <p class="section-desc">Explore songs and a TV episode connected to the theme of relationships. Listen, watch, and answer!</p>
+
+  <div class="culture-label">&#127911; Songs about relationships</div>
+  <div class="song-grid" id="songGrid"></div>
+
+  <div class="culture-label" style="margin-top:32px;">&#128250; Watch &amp; Discuss &mdash; Friends</div>
+
+  <div class="show-card">
+    <div class="show-meta">
+      <div class="show-badge">Friends &middot; Season 4 &middot; Episode 1</div>
+      <h3 class="show-title">"The One with the Jellyfish"</h3>
+      <p class="show-desc">
+        Ross and Rachel get back together &mdash; but only if Ross accepts all the blame for their breakup.
+        He agrees without reading her 18-page letter. When he finally reads it, they argue again and break up for the second time.
+        The episode is packed with relationship vocabulary:
+        <em>fault, blame, apologize, forgive, ultimatum, get back together, admit, argument, on a break, ex.</em>
+      </p>
+    </div>
+    <div class="show-embed">
+      <iframe
+        src="https://www.youtube.com/embed/ueN_q4VzffA"
+        title="Friends S4E1 - The One with the Jellyfish"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="discuss-box">
+      <div class="discuss-label">&#128172; Discuss with a partner</div>
+      <div class="discuss-q"><span class="dq-num">1</span><span>Ross agreed without reading the letter. What <strong>should he have done</strong> differently?</span></div>
+      <div class="discuss-q"><span class="dq-num">2</span><span>Rachel gave him an ultimatum. Do you think she <strong>could have handled</strong> it better? How?</span></div>
+      <div class="discuss-q"><span class="dq-num">3</span><span>Were they really "on a break"? Who is more at <strong>fault</strong>? Use past modals to explain.</span></div>
+    </div>
+  </div>
+
+  <div class="culture-label" style="margin-top:28px;">&#128216; Vocabulary from the episode</div>
+  <div class="ep-vocab-grid" id="epVocabGrid"></div>
+
 </section>
 
 <!-- SPEAKING -->
@@ -767,6 +950,148 @@ document.querySelectorAll(".abc-btn").forEach(function(btn) {
     });
   });
 });
+
+
+// ── CULTURE TAB ──
+var songData = [
+  {
+    emoji: "🖤",
+    bg: "#1a1a1a",
+    title: "Someone Like You",
+    artist: "Adele",
+    why: "A woman runs into her ex after he has moved on. Pure heartbreak and acceptance.",
+    url: "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+    q: "What past modal best describes how Adele feels?",
+    opts: [
+      { l: "A", text: "She should have forgotten him.", correct: false },
+      { l: "B", text: "She must have loved him deeply.", correct: true },
+      { l: "C", text: "She could have called him.", correct: false }
+    ],
+    fb: "Must have loved — it expresses a strong deduction based on her emotional reaction."
+  },
+  {
+    emoji: "🎄",
+    bg: "#1B5E20",
+    title: "Back to December",
+    artist: "Taylor Swift",
+    why: "Taylor regrets ending a relationship and wishes she could go back. Perfect for should have / could have.",
+    url: "https://www.youtube.com/watch?v=8zlDP9MBUBs",
+    q: "Which line best matches the grammar of this unit?",
+    opts: [
+      { l: "A", text: "I should have been more careful with your heart.", correct: true },
+      { l: "B", text: "I must be more careful next time.", correct: false },
+      { l: "C", text: "I could be a better person.", correct: false }
+    ],
+    fb: "Should have + past participle = regret about a past action. That is exactly what the song is about."
+  },
+  {
+    emoji: "💔",
+    bg: "#880E4F",
+    title: "Too Good at Goodbyes",
+    artist: "Sam Smith",
+    why: "Someone who has been hurt so many times they have built emotional walls. Breakup vocabulary throughout.",
+    url: "https://www.youtube.com/watch?v=J_ub7Etch2A",
+    q: "Sam Smith says he pushes people away. What might explain this?",
+    opts: [
+      { l: "A", text: "He might have been hurt many times before.", correct: true },
+      { l: "B", text: "He should have a new relationship.", correct: false },
+      { l: "C", text: "He must have a new partner already.", correct: false }
+    ],
+    fb: "Might have + past participle expresses a possible past cause we are not 100% sure about."
+  },
+  {
+    emoji: "🕯️",
+    bg: "#37474F",
+    title: "Someone You Loved",
+    artist: "Lewis Capaldi",
+    why: "The pain of losing someone you depended on. Strong vocabulary: rely on, fall apart, get through.",
+    url: "https://www.youtube.com/watch?v=zABZFnzaXQI",
+    q: "The singer says he used to rely on her. What does RELY ON mean?",
+    opts: [
+      { l: "A", text: "To break up with someone.", correct: false },
+      { l: "B", text: "To depend on someone for support.", correct: true },
+      { l: "C", text: "To fall in love quickly.", correct: false }
+    ],
+    fb: "Rely on = depend on someone. It connects to commitment and support in this unit."
+  }
+];
+
+var epVocabData = [
+  { word: "fault", es: "culpa", def: "responsibility for a mistake" },
+  { word: "blame", es: "culpar", def: "to say someone is responsible for something bad" },
+  { word: "apologize", es: "disculparse", def: "to say you are sorry" },
+  { word: "forgive", es: "perdonar", def: "to stop being angry at someone" },
+  { word: "ultimatum", es: "ultimatum", def: "a final demand with consequences" },
+  { word: "get back together", es: "volver", def: "to restart a relationship" },
+  { word: "admit", es: "admitir", def: "to accept that something is true" },
+  { word: "argument", es: "discusion", def: "an angry disagreement" },
+  { word: "on a break", es: "en pausa", def: "temporarily separated from a partner" },
+  { word: "letter", es: "carta", def: "a written message (here: 18 pages!)" },
+  { word: "ex", es: "ex pareja", def: "a former romantic partner" },
+  { word: "furious", es: "furioso/a", def: "extremely angry" }
+];
+
+var songGrid = document.getElementById("songGrid");
+if (songGrid) {
+  songData.forEach(function(s, si) {
+    var optsHtml = "";
+    s.opts.forEach(function(o) {
+      optsHtml += "<button class="song-opt" data-si="" + si + "" data-correct="" + o.correct + "">" +
+        "<span class="sopt-lbl">" + o.l + "</span>" + o.text + "</button>";
+    });
+    var card = document.createElement("div");
+    card.className = "song-card";
+    card.innerHTML =
+      "<div class="song-cover" style="background:" + s.bg + "">" + s.emoji + "</div>" +
+      "<div class="song-body">" +
+        "<div class="song-title">" + s.title + "</div>" +
+        "<div class="song-artist">" + s.artist + "</div>" +
+        "<div class="song-why">" + s.why + "</div>" +
+        "<a class="song-link" href="" + s.url + "" target="_blank">Listen on YouTube</a>" +
+      "</div>" +
+      "<div class="song-activity">" +
+        "<div class="song-activity-label">Activity</div>" +
+        "<div class="song-q">" + s.q + "</div>" +
+        "<div class="song-opts">" + optsHtml + "</div>" +
+        "<div class="song-fb" id="sfb-" + si + ""></div>" +
+      "</div>";
+    songGrid.appendChild(card);
+  });
+
+  document.querySelectorAll(".song-opt").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var si = this.dataset.si;
+      var siblings = document.querySelectorAll(".song-opt[data-si="" + si + ""]");
+      siblings.forEach(function(s) { s.disabled = true; });
+      var fb = document.getElementById("sfb-" + si);
+      if (this.dataset.correct === "true") {
+        this.classList.add("correct");
+        fb.className = "song-fb ok";
+        fb.textContent = "Correct! " + songData[si].fb;
+      } else {
+        this.classList.add("wrong");
+        fb.className = "song-fb bad";
+        fb.textContent = "Not quite. " + songData[si].fb;
+        siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+      }
+    });
+  });
+}
+
+var epVocabGrid = document.getElementById("epVocabGrid");
+if (epVocabGrid) {
+  epVocabData.forEach(function(v) {
+    var card = document.createElement("div");
+    card.className = "ep-vocab-card";
+    card.innerHTML =
+      "<div class="ep-word">" + v.word + "</div>" +
+      "<div class="ep-def">" + v.def + "</div>" +
+      "<div class="ep-es">&#127466;&#127480; " + v.es + "</div>";
+    card.addEventListener("click", function() { this.classList.toggle("flipped"); });
+    epVocabGrid.appendChild(card);
+  });
+}
+
 </script>
 </body>
 </html>
