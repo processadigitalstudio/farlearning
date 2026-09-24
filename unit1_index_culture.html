@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 – Couples | Professional English</title>
+<style>
+  :root {
+    --gold: #B07D2E;
+    --gold-light: #F5ECD7;
+    --gold-dark: #8A611F;
+    --white: #ffffff;
+    --gray-light: #f4f4f4;
+    --gray: #666;
+    --dark: #222;
+    --correct: #2E7D32;
+    --wrong: #C0392B;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #fafafa; color: var(--dark); }
+
+  .site-header {
+    background: var(--gold); color: var(--white);
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .site-header .back-link { color: var(--white); text-decoration: none; font-size: 14px; opacity: .85; }
+  .site-header .back-link:hover { opacity: 1; }
+  .site-header h1 { font-size: 22px; }
+  .site-header .subtitle { font-size: 13px; opacity: .85; }
+
+  .tab-bar { display: flex; background: var(--gold-dark); overflow-x: auto; }
+  .tab-btn {
+    background: none; border: none; color: rgba(255,255,255,.75);
+    padding: 13px 22px; cursor: pointer; font-size: 14px; font-weight: 600;
+    white-space: nowrap; border-bottom: 3px solid transparent; transition: all .2s;
+  }
+  .tab-btn:hover { color: #fff; }
+  .tab-btn.active { color: #fff; border-bottom-color: #fff; background: rgba(255,255,255,.1); }
+
+  .tab-panel { display: none; padding: 28px; max-width: 960px; margin: 0 auto; }
+  .tab-panel.active { display: block; }
+
+  .section-title { font-size: 20px; color: var(--gold-dark); margin-bottom: 6px; font-weight: 700; }
+  .section-desc { font-size: 14px; color: var(--gray); margin-bottom: 22px; }
+
+  /* VOCAB */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .vocab-card { height: 130px; perspective: 700px; cursor: pointer; }
+  .card-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform .5s; transform-style: preserve-3d;
+  }
+  .vocab-card.flipped .card-inner { transform: rotateY(180deg); }
+  .card-front, .card-back {
+    position: absolute; inset: 0; border-radius: var(--radius);
+    backface-visibility: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 12px; text-align: center;
+  }
+  .card-front { background: var(--gold); color: #fff; }
+  .card-front .word { font-size: 17px; font-weight: 700; }
+  .card-front .hint { font-size: 11px; margin-top: 6px; opacity: .8; }
+  .card-back { background: var(--gold-light); border: 2px solid var(--gold); transform: rotateY(180deg); }
+  .card-back .translation { font-size: 15px; font-weight: 700; color: var(--gold-dark); }
+  .card-back .example { font-size: 11px; color: var(--gray); margin-top: 6px; font-style: italic; }
+
+  /* GRAMMAR */
+  .gram-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .gram-pill {
+    background: var(--gold); color: #fff; border: none; border-radius: 20px;
+    padding: 8px 20px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background .2s;
+  }
+  .gram-pill:hover, .gram-pill.active { background: var(--gold-dark); }
+  .gram-panel { display: none; }
+  .gram-panel.active {
+    display: block; background: var(--gold-light);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px; margin-bottom: 20px;
+  }
+  .gram-panel h3 { color: var(--gold-dark); margin-bottom: 8px; }
+  .formula-box {
+    background: var(--gold-dark); color: #fff; border-radius: 6px;
+    padding: 8px 14px; font-family: monospace; font-size: 14px;
+    display: inline-block; margin: 8px 0;
+  }
+  .gram-note {
+    background: #fff; border: 1px solid #ddd; border-radius: 6px;
+    padding: 10px 14px; font-size: 13px; margin-top: 10px; color: var(--gray);
+  }
+  .gram-note strong { color: var(--wrong); }
+  .gram-examples { margin-top: 10px; }
+  .gram-examples li {
+    font-size: 14px; margin-bottom: 5px; list-style: none;
+    padding-left: 16px; position: relative;
+  }
+  .gram-examples li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .es-note { font-size: 12px; color: var(--gray); font-style: italic; margin-top: 3px; }
+  .modal-highlight {
+    background: #FFF3CD; border-radius: 3px; padding: 1px 4px;
+    font-weight: 600; color: #856404;
+  }
+
+  /* DIALOGUES */
+  .dialogue-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .dlg-tab {
+    background: #eee; border: none; border-radius: 6px;
+    padding: 7px 16px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .2s;
+  }
+  .dlg-tab.active { background: var(--gold); color: #fff; }
+  .dlg-panel { display: none; }
+  .dlg-panel.active { display: block; }
+  .dialogue-box {
+    background: #fff; border: 1px solid #e0e0e0;
+    border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+  }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .speaker-tag {
+    background: var(--gold); color: #fff; border-radius: 5px;
+    padding: 2px 9px; font-size: 12px; font-weight: 700;
+    white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+  }
+  .line-text { font-size: 14px; line-height: 1.6; }
+  .comprehension-q {
+    background: var(--gold-light); border-radius: var(--radius); padding: 16px; margin-top: 12px;
+  }
+  .comprehension-q p { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+  .comp-options { display: flex; flex-direction: column; gap: 7px; }
+  .comp-btn {
+    background: #fff; border: 2px solid #ddd; border-radius: 6px;
+    padding: 8px 14px; text-align: left; cursor: pointer; font-size: 13px; transition: all .2s;
+  }
+  .comp-btn:hover { border-color: var(--gold); }
+  .comp-btn.correct { background: #E8F5E9; border-color: var(--correct); color: var(--correct); font-weight: 600; }
+  .comp-btn.wrong { background: #FFEBEE; border-color: var(--wrong); color: var(--wrong); }
+
+  /* QUIZ */
+  .quiz-item {
+    background: #fff; border: 1px solid #e0e0e0;
+    border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
+  }
+  .quiz-item .q-text { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-btn {
+    background: var(--gray-light); border: 2px solid transparent;
+    border-radius: 8px; padding: 10px 16px; text-align: left;
+    cursor: pointer; font-size: 14px; transition: all .2s;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .quiz-btn .opt-label {
+    background: var(--gold); color: #fff; border-radius: 4px;
+    padding: 1px 7px; font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .quiz-btn:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); }
+  .quiz-btn.correct { background: #E8F5E9; border-color: var(--correct); }
+  .quiz-btn.correct .opt-label { background: var(--correct); }
+  .quiz-btn.wrong { background: #FFEBEE; border-color: var(--wrong); }
+  .quiz-btn.wrong .opt-label { background: var(--wrong); }
+  .quiz-btn:disabled { cursor: default; }
+  .feedback-msg { font-size: 13px; margin-top: 10px; font-weight: 600; }
+  .feedback-msg.ok { color: var(--correct); }
+  .feedback-msg.bad { color: var(--wrong); }
+  .quiz-score-bar {
+    background: var(--gold-light); border-radius: var(--radius);
+    padding: 16px 20px; text-align: center; margin-bottom: 20px; display: none;
+  }
+  .quiz-score-bar.visible { display: block; }
+  .quiz-score-bar strong { font-size: 20px; color: var(--gold-dark); }
+
+  /* PRACTICE */
+  .practice-item {
+    background: #fff; border: 1px solid #e0e0e0;
+    border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
+  }
+  .practice-sentence { font-size: 15px; margin-bottom: 12px; line-height: 1.7; }
+  .blank {
+    display: inline-block; min-width: 140px; border-bottom: 2px solid var(--gold);
+    text-align: center; font-weight: 700; color: var(--gold-dark); padding: 0 6px;
+  }
+  .blank.filled-correct { color: var(--correct); border-color: var(--correct); }
+  .blank.filled-wrong { color: var(--wrong); border-color: var(--wrong); }
+  .abc-options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .abc-btn {
+    background: var(--gray-light); border: 2px solid transparent;
+    border-radius: 8px; padding: 8px 16px; cursor: pointer;
+    font-size: 13px; font-weight: 600; transition: all .2s;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .abc-label {
+    background: var(--gold); color: #fff; border-radius: 4px;
+    padding: 1px 6px; font-size: 11px; font-weight: 700;
+  }
+  .abc-btn:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); }
+  .abc-btn.correct { background: #E8F5E9; border-color: var(--correct); }
+  .abc-btn.correct .abc-label { background: var(--correct); }
+  .abc-btn.wrong { background: #FFEBEE; border-color: var(--wrong); }
+  .abc-btn.wrong .abc-label { background: var(--wrong); }
+  .abc-btn:disabled { cursor: default; }
+  .prac-feedback { font-size: 12px; margin-top: 8px; font-weight: 600; }
+  .prac-feedback.ok { color: var(--correct); }
+  .prac-feedback.bad { color: var(--wrong); }
+  .try-again-btn {
+    background: none; border: 2px solid var(--gold); color: var(--gold-dark);
+    border-radius: 6px; padding: 5px 14px; font-size: 13px;
+    cursor: pointer; margin-top: 8px; font-weight: 600;
+  }
+  .try-again-btn:hover { background: var(--gold-light); }
+
+  /* SPEAKING CTA */
+  .speaking-cta { text-align: center; padding: 40px 20px; }
+  .speaking-cta h2 { font-size: 24px; color: var(--gold-dark); margin-bottom: 10px; }
+  .speaking-cta p { color: var(--gray); margin-bottom: 24px; font-size: 15px; }
+  .speaking-cta a {
+    display: inline-block; background: var(--gold); color: #fff;
+    padding: 14px 36px; border-radius: 30px; text-decoration: none;
+    font-size: 18px; font-weight: 700; transition: background .2s;
+  }
+  .speaking-cta a:hover { background: var(--gold-dark); }
+
+  @media (max-width: 600px) {
+    .tab-btn { padding: 11px 14px; font-size: 13px; }
+    .tab-panel { padding: 18px; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+
+  /* CULTURE */
+  .culture-section-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--gray); margin: 28px 0 14px;
+    padding-bottom: 6px; border-bottom: 2px solid var(--gold-light);
+  }
+  .song-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius);
+    padding: 18px; margin-bottom: 14px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .song-emoji {
+    width: 52px; height: 52px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+  .song-info { flex: 1; min-width: 0; }
+  .song-info h3 { font-size: 15px; font-weight: 700; color: var(--dark); }
+  .song-info .artist { font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 2px; }
+  .song-info .why { font-size: 13px; color: var(--gray); margin-top: 6px; line-height: 1.5; }
+  .song-link {
+    display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700;
+    color: var(--gold-dark); text-decoration: none; border: 1.5px solid var(--gold);
+    border-radius: 6px; padding: 4px 12px; transition: all .2s;
+  }
+  .song-link:hover { background: var(--gold-light); }
+
+  .song-activity {
+    background: var(--gold-light); border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0; padding: 12px 14px; margin-top: 10px;
+  }
+  .song-activity p { font-size: 13px; color: var(--gold-dark); font-weight: 600; margin-bottom: 8px; }
+  .song-q { display: flex; flex-direction: column; gap: 6px; }
+  .song-q-btn {
+    background: #fff; border: 2px solid #ddd; border-radius: 6px;
+    padding: 7px 12px; text-align: left; cursor: pointer; font-size: 12.5px; transition: all .2s;
+  }
+  .song-q-btn:hover { border-color: var(--gold); }
+  .song-q-btn.correct { background: #E8F5E9; border-color: var(--correct); color: var(--correct); font-weight: 600; }
+  .song-q-btn.wrong { background: #FFEBEE; border-color: var(--wrong); color: var(--wrong); }
+
+  .show-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius);
+    overflow: hidden; margin-bottom: 14px;
+  }
+  .show-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+  .show-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .show-info { padding: 18px; }
+  .show-info h3 { font-size: 15px; font-weight: 700; color: var(--dark); }
+  .show-info .show-meta { font-size: 12px; color: var(--gold); font-weight: 600; margin-top: 3px; }
+  .show-info .show-desc { font-size: 13px; color: var(--gray); margin-top: 8px; line-height: 1.5; }
+  .discuss-label {
+    font-size: 12px; font-weight: 700; color: var(--gold-dark);
+    text-transform: uppercase; letter-spacing: .5px; margin-top: 14px; margin-bottom: 8px;
+  }
+  .discuss-q {
+    background: var(--gold-light); border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; color: var(--dark); margin-bottom: 6px; line-height: 1.5;
+  }
+  .discuss-q::before { content: "💬 "; }
+
+  /* CULTURE TAB */
+  .culture-label {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .6px; color: var(--gold-dark);
+    margin-bottom: 14px; margin-top: 4px;
+  }
+  .song-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; margin-bottom: 8px; }
+  .song-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius);
+    overflow: hidden; transition: all .2s;
+  }
+  .song-card:hover { border-color: var(--gold); box-shadow: 0 4px 12px rgba(176,125,46,.12); }
+  .song-cover {
+    height: 90px; display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .song-body { padding: 12px 14px; }
+  .song-title { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .song-artist { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .song-why { font-size: 12px; color: var(--gray); margin-top: 6px; font-style: italic; line-height: 1.4; }
+  .song-link {
+    display: inline-block; margin-top: 10px;
+    background: var(--gold); color: #fff;
+    border-radius: 20px; padding: 4px 14px;
+    font-size: 12px; font-weight: 700; text-decoration: none;
+    transition: background .2s;
+  }
+  .song-link:hover { background: var(--gold-dark); }
+  .song-activity {
+    background: var(--gold-light); border-radius: 0 0 var(--radius) var(--radius);
+    padding: 10px 14px; border-top: 1px solid #e8d8b0;
+  }
+  .song-activity-label { font-size: 11px; font-weight: 700; color: var(--gold-dark); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; }
+  .song-q { font-size: 12px; color: var(--dark); margin-bottom: 6px; font-weight: 600; }
+  .song-opts { display: flex; flex-direction: column; gap: 4px; }
+  .song-opt {
+    background: #fff; border: 1.5px solid #ddd; border-radius: 6px;
+    padding: 5px 10px; font-size: 12px; cursor: pointer; text-align: left;
+    transition: all .18s; display: flex; align-items: center; gap: 6px;
+  }
+  .song-opt .sopt-lbl { background: var(--gold); color: #fff; border-radius: 3px; padding: 0 5px; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .song-opt:hover:not(:disabled) { border-color: var(--gold); background: var(--gold-light); }
+  .song-opt.correct { background: #E8F5E9; border-color: var(--correct); }
+  .song-opt.correct .sopt-lbl { background: var(--correct); }
+  .song-opt.wrong { background: #FFEBEE; border-color: var(--wrong); }
+  .song-opt.wrong .sopt-lbl { background: var(--wrong); }
+  .song-opt:disabled { cursor: default; }
+  .song-fb { font-size: 11px; margin-top: 5px; font-weight: 600; }
+  .song-fb.ok { color: var(--correct); }
+  .song-fb.bad { color: var(--wrong); }
+
+  /* SHOW */
+  .show-card { background: #fff; border: 1px solid #e0e0e0; border-radius: var(--radius); overflow: hidden; margin-bottom: 16px; }
+  .show-meta { padding: 18px 20px 14px; }
+  .show-badge { display: inline-block; background: var(--gold-light); color: var(--gold-dark); border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .show-title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .show-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .show-embed { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .show-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .discuss-box { padding: 16px 20px; background: var(--gold-light); border-top: 1px solid #e8d8b0; }
+  .discuss-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--gold-dark); margin-bottom: 10px; }
+  .discuss-q { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; font-size: 13px; color: var(--dark); line-height: 1.5; }
+  .dq-num { background: var(--gold); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* EP VOCAB GRID */
+  .ep-vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .ep-vocab-card {
+    background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 10px 12px; cursor: pointer; transition: all .2s;
+  }
+  .ep-vocab-card:hover { border-color: var(--gold); }
+  .ep-vocab-card.flipped { background: var(--gold-light); border-color: var(--gold); }
+  .ep-word { font-size: 14px; font-weight: 700; color: var(--gold-dark); }
+  .ep-def { font-size: 12px; color: var(--gray); margin-top: 4px; display: none; }
+  .ep-vocab-card.flipped .ep-def { display: block; }
+  .ep-es { font-size: 11px; color: var(--gold-dark); font-style: italic; margin-top: 3px; display: none; }
+  .ep-vocab-card.flipped .ep-es { display: block; }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <a href="../" class="back-link">← All units</a>
+    <h1>Unit 1 – Couples</h1>
+    <div class="subtitle">Professional English · Intermediate 3</div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="vocabulary">Vocabulary</button>
+  <button class="tab-btn" data-tab="grammar">Grammar</button>
+  <button class="tab-btn" data-tab="dialogues">Dialogues</button>
+  <button class="tab-btn" data-tab="quiz">Quiz</button>
+  <button class="tab-btn" data-tab="practice">Practice</button>
+  <button class="tab-btn" data-tab="culture">🎵 Culture</button>
+  <button class="tab-btn" data-tab="speaking">🎤 Speaking</button>
+</nav>
+
+<!-- VOCABULARY -->
+<section class="tab-panel active" id="tab-vocabulary">
+  <h2 class="section-title">Vocabulary – Relationships</h2>
+  <p class="section-desc">Click each card to reveal the Spanish translation and an example sentence. / Haz clic para ver la traducción y un ejemplo.</p>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</section>
+
+<!-- GRAMMAR -->
+<section class="tab-panel" id="tab-grammar">
+  <h2 class="section-title">Grammar – Past Modals</h2>
+  <p class="section-desc">Select a modal to see the rule, formula, and examples. / Selecciona un modal para ver la regla.</p>
+  <div class="gram-pills">
+    <button class="gram-pill active" data-gram="should">should / could have</button>
+    <button class="gram-pill" data-gram="might">might / may have</button>
+    <button class="gram-pill" data-gram="must">must have</button>
+  </div>
+  <div class="gram-panel active" id="gram-should">
+    <h3>should have / could have</h3>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:8px;">
+      <strong>should have</strong> = algo que era la decision correcta en el pasado, pero no ocurrio.<br>
+      <strong>could have</strong> = algo que fue posible en el pasado, pero no sucedio.
+    </p>
+    <div class="formula-box">Subject + should / could + have + past participle</div>
+    <ul class="gram-examples">
+      <li>She <span class="modal-highlight">should have told</span> him the truth earlier.
+        <div class="es-note">Deberia haberle dicho la verdad antes.</div>
+      </li>
+      <li>He <span class="modal-highlight">could have called</span> instead of just disappearing.
+        <div class="es-note">Pudo haberla llamado en vez de desaparecer.</div>
+      </li>
+      <li>They <span class="modal-highlight">should not have broken up</span> over something so small.
+        <div class="es-note">No deberian haberse separado por algo tan pequeno.</div>
+      </li>
+    </ul>
+    <div class="gram-note">
+      <strong>Error comun:</strong> No uses el infinitivo simple despues de have.<br>
+      Incorrecto: She should have <em>tell</em> him. &nbsp; Correcto: She should have <em>told</em> him.
+    </div>
+  </div>
+  <div class="gram-panel" id="gram-might">
+    <h3>might have / may have</h3>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:8px;">
+      Usamos <strong>might have</strong> y <strong>may have</strong> para especular sobre algo que posiblemente ocurrio en el pasado. Expresan posibilidad, no certeza.
+    </p>
+    <div class="formula-box">Subject + might / may + have + past participle</div>
+    <ul class="gram-examples">
+      <li>She <span class="modal-highlight">might have left</span> early because she was upset.
+        <div class="es-note">Es posible que se haya ido temprano porque estaba molesta.</div>
+      </li>
+      <li>He <span class="modal-highlight">may have misunderstood</span> what you said.
+        <div class="es-note">Puede que haya entendido mal lo que dijiste.</div>
+      </li>
+      <li>They <span class="modal-highlight">might not have known</span> about the wedding.
+        <div class="es-note">Es posible que no hayan sabido de la boda.</div>
+      </li>
+    </ul>
+    <div class="gram-note">
+      <strong>Error comun:</strong> might have y may have son intercambiables en este contexto, pero nunca uses might solo para el pasado.<br>
+      Incorrecto: She <em>might knew</em>. &nbsp; Correcto: She <em>might have known</em>.
+    </div>
+  </div>
+  <div class="gram-panel" id="gram-must">
+    <h3>must have</h3>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:8px;">
+      Usamos <strong>must have</strong> para hacer una deduccion logica sobre algo que casi seguro ocurrio. Expresa certeza basada en evidencia.
+    </p>
+    <div class="formula-box">Subject + must + have + past participle</div>
+    <ul class="gram-examples">
+      <li>She <span class="modal-highlight">must have been</span> heartbroken when he left.
+        <div class="es-note">Debe haber tenido el corazon roto cuando el se fue.</div>
+      </li>
+      <li>He <span class="modal-highlight">must have known</span> about the divorce for months.
+        <div class="es-note">Debe haber sabido del divorcio por meses.</div>
+      </li>
+      <li>They <span class="modal-highlight">must have fallen</span> in love very quickly.
+        <div class="es-note">Deben haberse enamorado muy rapido.</div>
+      </li>
+    </ul>
+    <div class="gram-note">
+      <strong>Error comun:</strong> must have expresa deduccion, no obligacion. Para obligacion pasada usa had to.<br>
+      Incorrecto: She <em>must have study</em> hard. &nbsp; Correcto: She <em>must have studied</em> hard.
+    </div>
+  </div>
+</section>
+
+<!-- DIALOGUES -->
+<section class="tab-panel" id="tab-dialogues">
+  <h2 class="section-title">Dialogues – Unit 1</h2>
+  <p class="section-desc">Read the dialogues. Past modals are <span class="modal-highlight">highlighted</span>. Answer the comprehension question after each one.</p>
+  <div class="dialogue-tabs">
+    <button class="dlg-tab active" data-dlg="dlg1">Nick &amp; Emily</button>
+    <button class="dlg-tab" data-dlg="dlg2">Divorced</button>
+    <button class="dlg-tab" data-dlg="dlg3">Soap Opera</button>
+  </div>
+
+  <div class="dlg-panel active" id="dlg1">
+    <div class="dialogue-box">
+      <div class="dialogue-line">
+        <span class="speaker-tag">Nick</span>
+        <span class="line-text">Hey, Emily. I have been meaning to talk to you. Would you like to go out sometime?</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Emily</span>
+        <span class="line-text">Oh! I did not expect that. You <span class="modal-highlight">could have told me</span> sooner, you know. I thought we were just friends.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Nick</span>
+        <span class="line-text">I know. I <span class="modal-highlight">should have said</span> something weeks ago, but I was not sure how you felt.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Emily</span>
+        <span class="line-text">Honestly, Nick, you <span class="modal-highlight">might have missed</span> your chance. I have been seeing someone for a month now.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Nick</span>
+        <span class="line-text">Really? I <span class="modal-highlight">must have been</span> the last person to notice. I guess I waited too long.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Emily</span>
+        <span class="line-text">Do not be too hard on yourself. Things <span class="modal-highlight">might have worked out</span> differently if the timing had been right.</span>
+      </div>
+    </div>
+    <div class="comprehension-q">
+      <p>Why does Emily say Nick might have missed his chance?</p>
+      <div class="comp-options">
+        <button class="comp-btn" data-correct="false" data-dlg="1">A. Because Nick was rude to her.</button>
+        <button class="comp-btn" data-correct="true" data-dlg="1">B. Because she is already dating someone else.</button>
+        <button class="comp-btn" data-correct="false" data-dlg="1">C. Because she does not like him at all.</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dlg-panel" id="dlg2">
+    <div class="dialogue-box">
+      <div class="dialogue-line">
+        <span class="speaker-tag">Laura</span>
+        <span class="line-text">Sandra, I need to tell you something. David and I are getting divorced.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Sandra</span>
+        <span class="line-text">Oh no, Laura. I am so sorry. That <span class="modal-highlight">must have been</span> a really difficult decision.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Laura</span>
+        <span class="line-text">It was. I think we <span class="modal-highlight">should have talked</span> more — communicated better. But we just grew apart.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Sandra</span>
+        <span class="line-text">I had no idea things were so bad. You <span class="modal-highlight">could have called me</span> earlier. I would have been there for you.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Laura</span>
+        <span class="line-text">I know. I <span class="modal-highlight">should have reached out</span> sooner. I just felt ashamed, I suppose.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Sandra</span>
+        <span class="line-text">Please do not feel that way. You <span class="modal-highlight">must have felt</span> so alone. I am here now, okay?</span>
+      </div>
+    </div>
+    <div class="comprehension-q">
+      <p>What does Sandra say she would have done if Laura had called earlier?</p>
+      <div class="comp-options">
+        <button class="comp-btn" data-correct="false" data-dlg="2">A. She would have told David to leave.</button>
+        <button class="comp-btn" data-correct="true" data-dlg="2">B. She would have been there to support her.</button>
+        <button class="comp-btn" data-correct="false" data-dlg="2">C. She would have called the police.</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dlg-panel" id="dlg3">
+    <div class="dialogue-box">
+      <p style="font-size:12px;color:var(--gray);margin-bottom:14px;font-style:italic;">A Stranger From The Past — Final Episode</p>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Victor</span>
+        <span class="line-text">Elena... after all these years. I <span class="modal-highlight">should have found</span> you sooner. I never stopped thinking about you.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Elena</span>
+        <span class="line-text">Victor. You <span class="modal-highlight">must have known</span> I would be here eventually. This town was always our place.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Victor</span>
+        <span class="line-text">I heard you got married. I <span class="modal-highlight">might have come back</span> sooner if I had known it was only temporary.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Elena</span>
+        <span class="line-text">You <span class="modal-highlight">could have written</span>. One letter, Victor. That is all it would have taken.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Victor</span>
+        <span class="line-text">I know. I <span class="modal-highlight">should have been</span> braver. I was afraid of what you might say.</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Elena</span>
+        <span class="line-text">And what do you think I would have said?</span>
+      </div>
+      <div class="dialogue-line">
+        <span class="speaker-tag">Victor</span>
+        <span class="line-text">That you <span class="modal-highlight">may have loved</span> someone else. But maybe you never forgot me either.</span>
+      </div>
+    </div>
+    <div class="comprehension-q">
+      <p>Why did Victor not write to Elena?</p>
+      <div class="comp-options">
+        <button class="comp-btn" data-correct="false" data-dlg="3">A. Because he hated writing letters.</button>
+        <button class="comp-btn" data-correct="true" data-dlg="3">B. Because he was afraid of her response.</button>
+        <button class="comp-btn" data-correct="false" data-dlg="3">C. Because he had completely forgotten her.</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="tab-panel" id="tab-quiz">
+  <h2 class="section-title">Quiz – Unit 1</h2>
+  <p class="section-desc">Choose the best answer. One try per question!</p>
+  <div class="quiz-score-bar" id="quizScoreBar">Score: <strong id="quizScoreText">0 / 6</strong></div>
+  <div id="quizContainer"></div>
+</section>
+
+<!-- PRACTICE -->
+<section class="tab-panel" id="tab-practice">
+  <h2 class="section-title">Practice – Choose the correct option</h2>
+  <p class="section-desc">Select A, B, or C to complete each sentence correctly. / Selecciona la opcion correcta.</p>
+  <div id="practiceContainer"></div>
+</section>
+
+<!-- CULTURE -->
+<section class="tab-panel" id="tab-culture">
+  <h2 class="section-title">&#127925; Music &amp; Shows &mdash; Unit 1</h2>
+  <p class="section-desc">Explore songs and a TV episode connected to the theme of relationships. Listen, watch, and answer!</p>
+
+  <div class="culture-label">&#127911; Songs about relationships</div>
+  <div class="song-grid" id="songGrid"></div>
+
+  <div class="culture-label" style="margin-top:32px;">&#128250; Watch &amp; Discuss &mdash; Friends</div>
+
+  <div class="show-card">
+    <div class="show-meta">
+      <div class="show-badge">Friends &middot; Season 4 &middot; Episode 1</div>
+      <h3 class="show-title">"The One with the Jellyfish"</h3>
+      <p class="show-desc">
+        Ross and Rachel get back together &mdash; but only if Ross accepts all the blame for their breakup.
+        He agrees without reading her 18-page letter. When he finally reads it, they argue again and break up for the second time.
+        The episode is packed with relationship vocabulary:
+        <em>fault, blame, apologize, forgive, ultimatum, get back together, admit, argument, on a break, ex.</em>
+      </p>
+    </div>
+    <div class="show-embed">
+      <iframe
+        src="https://www.youtube.com/embed/ueN_q4VzffA"
+        title="Friends S4E1 - The One with the Jellyfish"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="discuss-box">
+      <div class="discuss-label">&#128172; Discuss with a partner</div>
+      <div class="discuss-q"><span class="dq-num">1</span><span>Ross agreed without reading the letter. What <strong>should he have done</strong> differently?</span></div>
+      <div class="discuss-q"><span class="dq-num">2</span><span>Rachel gave him an ultimatum. Do you think she <strong>could have handled</strong> it better? How?</span></div>
+      <div class="discuss-q"><span class="dq-num">3</span><span>Were they really "on a break"? Who is more at <strong>fault</strong>? Use past modals to explain.</span></div>
+    </div>
+  </div>
+
+  <div class="culture-label" style="margin-top:28px;">&#128216; Vocabulary from the episode</div>
+  <div class="ep-vocab-grid" id="epVocabGrid"></div>
+
+</section>
+
+<!-- SPEAKING -->
+<section class="tab-panel" id="tab-speaking">
+  <div class="speaking-cta">
+    <h2>🎤 Speaking Exercise</h2>
+    <p>Ready to practise your speaking skills?<br>Two fun formats — pairs or individual.</p>
+    <a href="./speaking.html">Go to Speaking Exercise →</a>
+  </div>
+</section>
+
+<script>
+var vocabData = [
+  { word: "acquaintance", pos: "n.", es: "conocido/a", ex: "She is just an acquaintance, not a close friend." },
+  { word: "divorced", pos: "adj.", es: "divorciado/a", ex: "My parents got divorced when I was ten." },
+  { word: "sympathy", pos: "n.", es: "simpatia / compasion", ex: "She expressed her sympathy after hearing the bad news." },
+  { word: "couple", pos: "n.", es: "pareja", ex: "They have been a couple for three years." },
+  { word: "personality trait", pos: "n.", es: "rasgo de personalidad", ex: "Kindness is one of her best personality traits." },
+  { word: "commitment", pos: "n.", es: "compromiso", ex: "A good relationship requires commitment from both sides." },
+  { word: "break up", pos: "v.", es: "terminar / separarse", ex: "They decided to break up after a long argument." },
+  { word: "fall in love", pos: "phr.", es: "enamorarse", ex: "He fell in love with her the moment they met." },
+  { word: "ex", pos: "n.", es: "ex (pareja anterior)", ex: "She ran into her ex at the supermarket." },
+  { word: "date", pos: "n./v.", es: "cita / salir con alguien", ex: "He asked her out on a date last Friday." },
+  { word: "stranger", pos: "n.", es: "extrano / desconocido", ex: "He was a complete stranger before they met at the party." },
+  { word: "relationship", pos: "n.", es: "relacion", ex: "They have a very strong relationship built on trust." }
+];
+
+var vocabGrid = document.getElementById("vocabGrid");
+vocabData.forEach(function(v) {
+  var card = document.createElement("div");
+  card.className = "vocab-card";
+  card.innerHTML =
+    "<div class=\"card-inner\">" +
+      "<div class=\"card-front\">" +
+        "<div class=\"word\">" + v.word + "</div>" +
+        "<div class=\"hint\">" + v.pos + " — click to flip</div>" +
+      "</div>" +
+      "<div class=\"card-back\">" +
+        "<div class=\"translation\">" + v.es + "</div>" +
+        "<div class=\"example\">" + v.ex + "</div>" +
+      "</div>" +
+    "</div>";
+  card.addEventListener("click", function() { this.classList.toggle("flipped"); });
+  vocabGrid.appendChild(card);
+});
+
+var tabBtns = document.querySelectorAll(".tab-btn");
+var tabPanels = document.querySelectorAll(".tab-panel");
+tabBtns.forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var target = this.dataset.tab;
+    if (target === "speaking") { window.location.href = "./speaking.html"; return; }
+    tabBtns.forEach(function(b) { b.classList.remove("active"); });
+    tabPanels.forEach(function(p) { p.classList.remove("active"); });
+    this.classList.add("active");
+    document.getElementById("tab-" + target).classList.add("active");
+  });
+});
+
+var gramPills = document.querySelectorAll(".gram-pill");
+gramPills.forEach(function(pill) {
+  pill.addEventListener("click", function() {
+    gramPills.forEach(function(p) { p.classList.remove("active"); });
+    document.querySelectorAll(".gram-panel").forEach(function(p) { p.classList.remove("active"); });
+    this.classList.add("active");
+    document.getElementById("gram-" + this.dataset.gram).classList.add("active");
+  });
+});
+
+var dlgTabs = document.querySelectorAll(".dlg-tab");
+dlgTabs.forEach(function(tab) {
+  tab.addEventListener("click", function() {
+    dlgTabs.forEach(function(t) { t.classList.remove("active"); });
+    document.querySelectorAll(".dlg-panel").forEach(function(p) { p.classList.remove("active"); });
+    this.classList.add("active");
+    document.getElementById(this.dataset.dlg).classList.add("active");
+  });
+});
+
+document.querySelectorAll(".comp-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var dlgId = this.dataset.dlg;
+    var siblings = document.querySelectorAll(".comp-btn[data-dlg=\"" + dlgId + "\"]");
+    siblings.forEach(function(s) { s.disabled = true; });
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct");
+    } else {
+      this.classList.add("wrong");
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+  });
+});
+
+var quizData = [
+  {
+    q: "In Nick and Emily, why does Emily say Nick might have missed his chance?",
+    opts: [
+      { label: "A", text: "Because he was rude to her.", correct: false },
+      { label: "B", text: "Because she is already dating someone else.", correct: true },
+      { label: "C", text: "Because she moved to another city.", correct: false }
+    ],
+    feedback: "Emily says she has been seeing someone for a month — Nick waited too long!"
+  },
+  {
+    q: "In Divorced, what does Sandra wish Laura had done earlier?",
+    opts: [
+      { label: "A", text: "Left David sooner.", correct: false },
+      { label: "B", text: "Called her for support.", correct: true },
+      { label: "C", text: "Moved to a new city.", correct: false }
+    ],
+    feedback: "Sandra says: You could have called me earlier."
+  },
+  {
+    q: "In the Soap Opera, why did Victor not write to Elena?",
+    opts: [
+      { label: "A", text: "He was afraid of her response.", correct: true },
+      { label: "B", text: "He forgot her address.", correct: false },
+      { label: "C", text: "He was too busy with work.", correct: false }
+    ],
+    feedback: "Victor says he should have been braver — he was scared of what Elena might say."
+  },
+  {
+    q: "Choose the correct sentence: She studied all night, so she _____ the answer.",
+    opts: [
+      { label: "A", text: "must have known", correct: true },
+      { label: "B", text: "must have know", correct: false },
+      { label: "C", text: "should have known", correct: false }
+    ],
+    feedback: "Must have known expresses a logical deduction based on the evidence she studied all night."
+  },
+  {
+    q: "Which sentence expresses REGRET about a past action?",
+    opts: [
+      { label: "A", text: "She might have left early.", correct: false },
+      { label: "B", text: "He must have been tired.", correct: false },
+      { label: "C", text: "I should have called her.", correct: true }
+    ],
+    feedback: "Should have + past participle expresses regret — the right action that did not happen."
+  },
+  {
+    q: "What does BREAK UP mean?",
+    opts: [
+      { label: "A", text: "To fall in love with someone.", correct: false },
+      { label: "B", text: "To end a romantic relationship.", correct: true },
+      { label: "C", text: "To feel sympathy for a friend.", correct: false }
+    ],
+    feedback: "Break up means to end a romantic relationship."
+  }
+];
+
+var quizCorrect = 0;
+var quizContainer = document.getElementById("quizContainer");
+var quizScoreBar = document.getElementById("quizScoreBar");
+var quizScoreText = document.getElementById("quizScoreText");
+
+quizData.forEach(function(item, idx) {
+  var div = document.createElement("div");
+  div.className = "quiz-item";
+  var optsHtml = "";
+  item.opts.forEach(function(opt) {
+    optsHtml += "<button class=\"quiz-btn\" data-qidx=\"" + idx + "\" data-correct=\"" + opt.correct + "\">" +
+      "<span class=\"opt-label\">" + opt.label + "</span>" + opt.text + "</button>";
+  });
+  div.innerHTML = "<div class=\"q-text\">" + (idx + 1) + ". " + item.q + "</div>" +
+    "<div class=\"quiz-options\">" + optsHtml + "</div>" +
+    "<div class=\"feedback-msg\" id=\"qfb-" + idx + "\"></div>";
+  quizContainer.appendChild(div);
+});
+
+document.querySelectorAll(".quiz-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var idx = this.dataset.qidx;
+    var siblings = document.querySelectorAll(".quiz-btn[data-qidx=\"" + idx + "\"]");
+    siblings.forEach(function(s) { s.disabled = true; });
+    var fb = document.getElementById("qfb-" + idx);
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct");
+      fb.className = "feedback-msg ok";
+      fb.textContent = "Correct! " + quizData[idx].feedback;
+      quizCorrect++;
+    } else {
+      this.classList.add("wrong");
+      fb.className = "feedback-msg bad";
+      fb.textContent = "Not quite. " + quizData[idx].feedback;
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+    quizScoreText.textContent = quizCorrect + " / " + quizData.length;
+    quizScoreBar.classList.add("visible");
+  });
+});
+
+var practiceData = [
+  {
+    sentence: "She ___ him the truth. Now everything is ruined.",
+    opts: [
+      { label: "A", text: "should have told", correct: true },
+      { label: "B", text: "must have tell", correct: false },
+      { label: "C", text: "could have tells", correct: false }
+    ]
+  },
+  {
+    sentence: "He looks exhausted. He ___ up all night thinking about the breakup.",
+    opts: [
+      { label: "A", text: "should have stayed", correct: false },
+      { label: "B", text: "must have stayed", correct: true },
+      { label: "C", text: "might have stay", correct: false }
+    ]
+  },
+  {
+    sentence: "I am not sure, but she ___ left already. Her coat is gone.",
+    opts: [
+      { label: "A", text: "must have", correct: false },
+      { label: "B", text: "might have", correct: true },
+      { label: "C", text: "should have", correct: false }
+    ]
+  },
+  {
+    sentence: "He was the perfect partner. She ___ broken up with him.",
+    opts: [
+      { label: "A", text: "could have not", correct: false },
+      { label: "B", text: "must not have", correct: false },
+      { label: "C", text: "should not have", correct: true }
+    ]
+  },
+  {
+    sentence: "A: Why did she not come to the party? B: She ___ forgotten about it.",
+    opts: [
+      { label: "A", text: "may have", correct: true },
+      { label: "B", text: "should have", correct: false },
+      { label: "C", text: "must not have", correct: false }
+    ]
+  },
+  {
+    sentence: "They are such a perfect ___ — everyone can see how much they love each other.",
+    opts: [
+      { label: "A", text: "stranger", correct: false },
+      { label: "B", text: "acquaintance", correct: false },
+      { label: "C", text: "couple", correct: true }
+    ]
+  }
+];
+
+var practiceContainer = document.getElementById("practiceContainer");
+practiceData.forEach(function(item, idx) {
+  var div = document.createElement("div");
+  div.className = "practice-item";
+  var blankId = "blank-" + idx;
+  var optsHtml = "";
+  item.opts.forEach(function(opt) {
+    optsHtml += "<button class=\"abc-btn\" data-pidx=\"" + idx + "\" data-correct=\"" + opt.correct + "\" data-text=\"" + opt.text + "\">" +
+      "<span class=\"abc-label\">" + opt.label + "</span>" + opt.text + "</button>";
+  });
+  div.innerHTML =
+    "<div class=\"practice-sentence\">" + (idx + 1) + ". " +
+      item.sentence.replace("___", "<span class=\"blank\" id=\"" + blankId + "\">____</span>") +
+    "</div>" +
+    "<div class=\"abc-options\">" + optsHtml + "</div>" +
+    "<div class=\"prac-feedback\" id=\"pfb-" + idx + "\"></div>" +
+    "<button class=\"try-again-btn\" id=\"ptry-" + idx + "\" style=\"display:none\">Try again</button>";
+  practiceContainer.appendChild(div);
+});
+
+document.querySelectorAll(".abc-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var idx = this.dataset.pidx;
+    var siblings = document.querySelectorAll(".abc-btn[data-pidx=\"" + idx + "\"]");
+    siblings.forEach(function(s) { s.disabled = true; });
+    var blank = document.getElementById("blank-" + idx);
+    var fb = document.getElementById("pfb-" + idx);
+    var tryBtn = document.getElementById("ptry-" + idx);
+    blank.textContent = this.dataset.text;
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct");
+      blank.classList.add("filled-correct");
+      fb.className = "prac-feedback ok";
+      fb.textContent = "Correct!";
+    } else {
+      this.classList.add("wrong");
+      blank.classList.add("filled-wrong");
+      fb.className = "prac-feedback bad";
+      fb.textContent = "Not quite. Try again!";
+      tryBtn.style.display = "inline-block";
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+    tryBtn.addEventListener("click", function() {
+      siblings.forEach(function(s) { s.disabled = false; s.classList.remove("correct", "wrong"); });
+      blank.textContent = "____";
+      blank.className = "blank";
+      fb.textContent = "";
+      tryBtn.style.display = "none";
+    });
+  });
+});
+
+
+// ── CULTURE TAB ──
+var songData = [
+  {
+    emoji: "🖤",
+    bg: "#1a1a1a",
+    title: "Someone Like You",
+    artist: "Adele",
+    why: "A woman runs into her ex after he has moved on. Pure heartbreak and acceptance.",
+    url: "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+    q: "What past modal best describes how Adele feels?",
+    opts: [
+      { l: "A", text: "She should have forgotten him.", correct: false },
+      { l: "B", text: "She must have loved him deeply.", correct: true },
+      { l: "C", text: "She could have called him.", correct: false }
+    ],
+    fb: "Must have loved — it expresses a strong deduction based on her emotional reaction."
+  },
+  {
+    emoji: "🎄",
+    bg: "#1B5E20",
+    title: "Back to December",
+    artist: "Taylor Swift",
+    why: "Taylor regrets ending a relationship and wishes she could go back. Perfect for should have / could have.",
+    url: "https://www.youtube.com/watch?v=8zlDP9MBUBs",
+    q: "Which line best matches the grammar of this unit?",
+    opts: [
+      { l: "A", text: "I should have been more careful with your heart.", correct: true },
+      { l: "B", text: "I must be more careful next time.", correct: false },
+      { l: "C", text: "I could be a better person.", correct: false }
+    ],
+    fb: "Should have + past participle = regret about a past action. That is exactly what the song is about."
+  },
+  {
+    emoji: "💔",
+    bg: "#880E4F",
+    title: "Too Good at Goodbyes",
+    artist: "Sam Smith",
+    why: "Someone who has been hurt so many times they have built emotional walls. Breakup vocabulary throughout.",
+    url: "https://www.youtube.com/watch?v=J_ub7Etch2A",
+    q: "Sam Smith says he pushes people away. What might explain this?",
+    opts: [
+      { l: "A", text: "He might have been hurt many times before.", correct: true },
+      { l: "B", text: "He should have a new relationship.", correct: false },
+      { l: "C", text: "He must have a new partner already.", correct: false }
+    ],
+    fb: "Might have + past participle expresses a possible past cause we are not 100% sure about."
+  },
+  {
+    emoji: "🕯️",
+    bg: "#37474F",
+    title: "Someone You Loved",
+    artist: "Lewis Capaldi",
+    why: "The pain of losing someone you depended on. Strong vocabulary: rely on, fall apart, get through.",
+    url: "https://www.youtube.com/watch?v=zABZFnzaXQI",
+    q: "The singer says he used to rely on her. What does RELY ON mean?",
+    opts: [
+      { l: "A", text: "To break up with someone.", correct: false },
+      { l: "B", text: "To depend on someone for support.", correct: true },
+      { l: "C", text: "To fall in love quickly.", correct: false }
+    ],
+    fb: "Rely on = depend on someone. It connects to commitment and support in this unit."
+  }
+];
+
+var epVocabData = [
+  { word: "fault", es: "culpa", def: "responsibility for a mistake" },
+  { word: "blame", es: "culpar", def: "to say someone is responsible for something bad" },
+  { word: "apologize", es: "disculparse", def: "to say you are sorry" },
+  { word: "forgive", es: "perdonar", def: "to stop being angry at someone" },
+  { word: "ultimatum", es: "ultimatum", def: "a final demand with consequences" },
+  { word: "get back together", es: "volver", def: "to restart a relationship" },
+  { word: "admit", es: "admitir", def: "to accept that something is true" },
+  { word: "argument", es: "discusion", def: "an angry disagreement" },
+  { word: "on a break", es: "en pausa", def: "temporarily separated from a partner" },
+  { word: "letter", es: "carta", def: "a written message (here: 18 pages!)" },
+  { word: "ex", es: "ex pareja", def: "a former romantic partner" },
+  { word: "furious", es: "furioso/a", def: "extremely angry" }
+];
+
+var songGrid = document.getElementById("songGrid");
+if (songGrid) {
+  songData.forEach(function(s, si) {
+    var optsHtml = "";
+    s.opts.forEach(function(o) {
+      optsHtml += "<button class="song-opt" data-si="" + si + "" data-correct="" + o.correct + "">" +
+        "<span class="sopt-lbl">" + o.l + "</span>" + o.text + "</button>";
+    });
+    var card = document.createElement("div");
+    card.className = "song-card";
+    card.innerHTML =
+      "<div class="song-cover" style="background:" + s.bg + "">" + s.emoji + "</div>" +
+      "<div class="song-body">" +
+        "<div class="song-title">" + s.title + "</div>" +
+        "<div class="song-artist">" + s.artist + "</div>" +
+        "<div class="song-why">" + s.why + "</div>" +
+        "<a class="song-link" href="" + s.url + "" target="_blank">Listen on YouTube</a>" +
+      "</div>" +
+      "<div class="song-activity">" +
+        "<div class="song-activity-label">Activity</div>" +
+        "<div class="song-q">" + s.q + "</div>" +
+        "<div class="song-opts">" + optsHtml + "</div>" +
+        "<div class="song-fb" id="sfb-" + si + ""></div>" +
+      "</div>";
+    songGrid.appendChild(card);
+  });
+
+  document.querySelectorAll(".song-opt").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var si = this.dataset.si;
+      var siblings = document.querySelectorAll(".song-opt[data-si="" + si + ""]");
+      siblings.forEach(function(s) { s.disabled = true; });
+      var fb = document.getElementById("sfb-" + si);
+      if (this.dataset.correct === "true") {
+        this.classList.add("correct");
+        fb.className = "song-fb ok";
+        fb.textContent = "Correct! " + songData[si].fb;
+      } else {
+        this.classList.add("wrong");
+        fb.className = "song-fb bad";
+        fb.textContent = "Not quite. " + songData[si].fb;
+        siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+      }
+    });
+  });
+}
+
+var epVocabGrid = document.getElementById("epVocabGrid");
+if (epVocabGrid) {
+  epVocabData.forEach(function(v) {
+    var card = document.createElement("div");
+    card.className = "ep-vocab-card";
+    card.innerHTML =
+      "<div class="ep-word">" + v.word + "</div>" +
+      "<div class="ep-def">" + v.def + "</div>" +
+      "<div class="ep-es">&#127466;&#127480; " + v.es + "</div>";
+    card.addEventListener("click", function() { this.classList.toggle("flipped"); });
+    epVocabGrid.appendChild(card);
+  });
+}
+
+</script>
+</body>
+</html>
