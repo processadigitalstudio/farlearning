@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Exercise · Unit 2 Away From Home | B1.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C2185B;
+  --accent-dark: #8E0F42;
+  --accent-light: #FCE4EC;
+  --accent-soft: #FDF2F6;
+  --dark: #1A1A2E;
+  --gray: #5A5A6E;
+  --lgray: #9098A8;
+  --bg: #FAFAFC;
+  --white: #FFFFFF;
+  --border: #E8E8EE;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 32px;
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.back-link:hover { color: var(--accent); }
+.header {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 32px 24px;
+}
+.tag {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+h1 {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+h1 .accent { color: var(--accent); }
+.subtitle { color: var(--gray); font-size: 15px; }
+.container { max-width: 1000px; margin: 0 auto; padding: 32px; }
+.picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.opt {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  font-family: inherit;
+}
+.opt:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(194, 24, 91, 0.12); }
+.opt.active { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 32px; margin-bottom: 10px; }
+.opt .kind { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 4px; }
+.opt .title { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+.opt .brief { font-size: 13px; color: var(--gray); line-height: 1.5; }
+.opt .duration {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.exercise { display: none; animation: fadeIn 0.3s ease; }
+.exercise.show { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+.section h3 { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 12px; }
+.section h4 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+.section p { color: var(--dark); font-size: 14px; margin-bottom: 12px; }
+.section p:last-child { margin-bottom: 0; }
+.section ul { padding-left: 20px; margin-bottom: 8px; }
+.section li { padding: 4px 0; color: var(--dark); font-size: 14px; }
+.section li strong { color: var(--accent); }
+.example {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin: 12px 0;
+}
+.example-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.ex-line { display: flex; gap: 10px; margin-bottom: 6px; align-items: flex-start; font-size: 13.5px; }
+.ex-spk { font-weight: 700; color: var(--accent); min-width: 65px; }
+.ex-spk.b { color: var(--dark); }
+.ex-txt { flex: 1; color: var(--dark); }
+.ex-txt em { color: var(--accent); font-style: normal; font-weight: 600; }
+.ex-solo { color: var(--dark); font-size: 13.5px; line-height: 1.7; }
+.ex-solo em { color: var(--accent); font-style: normal; font-weight: 600; }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.prompt-card {
+  background: var(--accent-soft);
+  border: 1px dashed var(--accent);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--dark);
+}
+.prompt-card strong {
+  display: block;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.timer-box {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: var(--white);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.timer-display {
+  font-size: 56px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 12px 0;
+}
+.timer-label { font-size: 12px; opacity: 0.85; letter-spacing: 0.06em; font-weight: 600; }
+.timer-controls { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+.timer-btn {
+  background: var(--white);
+  color: var(--accent);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.2s;
+}
+.timer-btn:hover { transform: translateY(-2px); }
+.timer-btn.ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.6); }
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist input { margin-top: 4px; accent-color: var(--accent); cursor: pointer; width: 16px; height: 16px; }
+.checklist label { cursor: pointer; font-size: 14px; color: var(--dark); flex: 1; }
+.checklist input:checked + label { color: var(--lgray); text-decoration: line-through; }
+.rubric { width: 100%; border-collapse: collapse; margin-top: 12px; }
+.rubric th {
+  background: var(--accent);
+  color: var(--white);
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+}
+.rubric th.center, .rubric td.center { text-align: center; }
+.rubric td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--dark); }
+.rubric tr:last-child td { border-bottom: none; }
+.rubric input[type="number"] {
+  width: 55px;
+  padding: 6px 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  text-align: center;
+}
+.rubric .total-row { background: var(--accent-soft); font-weight: 700; }
+.rubric .total-row td { color: var(--accent-dark); }
+.total-display {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--white);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  min-width: 60px;
+  text-align: center;
+}
+footer {
+  text-align: center;
+  padding: 32px;
+  color: var(--lgray);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+@media (max-width: 640px) {
+  .picker { grid-template-columns: 1fr; }
+  .timer-display { font-size: 44px; }
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="./">← Back to Unit 2</a>
+
+<div class="header">
+  <span class="tag">🎤 SPEAKING EXERCISE · UNIT 02</span>
+  <h1>Culture Shocks &amp; <span class="accent">Package Mysteries</span></h1>
+  <p class="subtitle">Two fun options — one individual, one in pairs. Both practise present perfect progressive and Unit 2 vocabulary.</p>
+</div>
+
+<div class="container">
+
+  <div class="picker">
+    <button class="opt" data-ex="solo" id="soloBtn">
+      <div class="icon">🌍</div>
+      <div class="kind">OPTION A · INDIVIDUAL</div>
+      <div class="title">"Culture Shock Confessional"</div>
+      <div class="brief">Pretend you have been living in a very different country for 3 months. Tell the class what has been shocking, confusing or amazing about it.</div>
+      <span class="duration">⏱ 1 minute · solo</span>
+    </button>
+
+    <button class="opt" data-ex="pair" id="pairBtn">
+      <div class="icon">📦</div>
+      <div class="kind">OPTION B · PAIRS</div>
+      <div class="title">"The Suspicious Package"</div>
+      <div class="brief">One student comes to the post office with a very strange package. The clerk asks awkward questions. Chaos ensues.</div>
+      <span class="duration">⏱ 3–4 minutes · 2 students</span>
+    </button>
+  </div>
+
+  <!-- ================= SOLO EXERCISE ================= -->
+  <div class="exercise" id="soloEx">
+
+    <div class="section">
+      <h3>THE TASK</h3>
+      <h4>🌍 Culture Shock Confessional</h4>
+      <p>Imagine you have been living in a <strong>very different country</strong> for the last 3 months. Stand up and speak to the class for <strong>at least 1 minute</strong> about your experience.</p>
+      <p>You must include:</p>
+      <ul>
+        <li>Which country you have been living in.</li>
+        <li>Three things you <strong>have been doing</strong> or <strong>have been trying</strong> (using present perfect progressive).</li>
+        <li>One thing that has <strong>shocked or confused</strong> you.</li>
+        <li>One thing you <strong>have been enjoying</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>EXAMPLE</h3>
+      <div class="example">
+        <div class="example-label">LUIS — 1 MIN — LIVING IN JAPAN</div>
+        <div class="ex-solo">
+          "Hi everyone! For the last three months I <em>have been living</em> in Tokyo, Japan, and honestly, my mind is exploding every day. So, first, I <em>have been trying</em> to eat with chopsticks and I still drop half my food on the table — it's embarrassing!
+          <br><br>
+          Second, I <em>have been learning</em> Japanese from a phone app, but people talk SO fast that I only understand three words. Third, I <em>have been taking</em> the subway every day, and I still get lost — the maps look like spaghetti.
+          <br><br>
+          What has really shocked me is that people <em>are so quiet</em> on the train — nobody speaks, nobody laughs, everyone just looks at their phone. In Colombia, the bus is like a party!
+          <br><br>
+          But what I <em>have been enjoying</em> the most is the food. I <em>have been eating</em> ramen almost every day, and I never get tired of it. Life is good. 🍜"
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>NEED IDEAS? PICK A WEIRD COUNTRY</h3>
+      <div class="card-grid">
+        <div class="prompt-card"><strong>🇯🇵 JAPAN</strong>Chopsticks, quiet trains, karaoke, ramen, bowing.</div>
+        <div class="prompt-card"><strong>🇮🇸 ICELAND</strong>Cold, geysers, no darkness in summer, fermented shark food.</div>
+        <div class="prompt-card"><strong>🇰🇷 SOUTH KOREA</strong>K-pop, spicy food, working late, taking your shoes off inside.</div>
+        <div class="prompt-card"><strong>🇮🇳 INDIA</strong>Colours, spicy food, traffic, weddings, saris.</div>
+        <div class="prompt-card"><strong>🇫🇮 FINLAND</strong>Saunas, silent people, snow, coffee everywhere.</div>
+        <div class="prompt-card"><strong>🇦🇺 AUSTRALIA</strong>Spiders the size of a plate, beaches, weird slang, kangaroos.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL SENTENCE STARTERS</h3>
+      <ul>
+        <li>"I <strong>have been living</strong> in ______ for three months and…"</li>
+        <li>"I <strong>have been trying</strong> to ______ but it's really hard."</li>
+        <li>"People here <strong>have been</strong> so ______ (kind / strange / quiet)."</li>
+        <li>"I <strong>have been eating</strong> ______ almost every day."</li>
+        <li>"What has really shocked me is ______."</li>
+        <li>"I still <strong>haven't gotten used to</strong> ______."</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>YOUR TIMER</h3>
+      <div class="timer-box">
+        <div class="timer-label">MINIMUM 1 MINUTE</div>
+        <div class="timer-display" id="timerA">01:00</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="startA">▶ Start</button>
+          <button class="timer-btn ghost" id="resetA">↻ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>BEFORE YOU SPEAK — CHECKLIST</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cA1"><label for="cA1">I chose a country I know a little about.</label></li>
+        <li><input type="checkbox" id="cA2"><label for="cA2">I have 3 sentences with present perfect progressive ready.</label></li>
+        <li><input type="checkbox" id="cA3"><label for="cA3">I used at least 3 Unit 2 vocabulary words (culture shock, adjust, homesick…).</label></li>
+        <li><input type="checkbox" id="cA4"><label for="cA4">I can speak for a full minute without reading.</label></li>
+        <li><input type="checkbox" id="cA5"><label for="cA5">I'm ready to make the class laugh a little 😄</label></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>RUBRIC · /20</h3>
+      <table class="rubric">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="center">/5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Present Perfect Progressive</strong> — used correctly (3+ examples)</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Vocabulary</strong> — 3+ Unit 2 words used naturally</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Fluency</strong> — spoke 1 full minute without reading</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Creativity &amp; delivery</strong> — story was interesting and clear</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr class="total-row"><td>TOTAL</td><td class="center"><span class="total-display" id="totalA">0 / 20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ================= PAIR EXERCISE ================= -->
+  <div class="exercise" id="pairEx">
+
+    <div class="section">
+      <h3>THE TASK</h3>
+      <h4>📦 The Suspicious Package</h4>
+      <p>In pairs (2 students only). Role-play a scene at the post office. One student is the <strong>customer</strong> with a very weird package to send. The other is the <strong>postal clerk</strong> asking suspicious questions.</p>
+      <p>The clerk must ask at least <strong>3 questions with present perfect progressive</strong>. The customer must give creative answers (real or invented!) using both present perfect and present perfect progressive.</p>
+      <p><strong>Total time:</strong> 3–4 minutes per pair. Have fun with it! 📦</p>
+    </div>
+
+    <div class="section">
+      <h3>PICK A STRANGE PACKAGE</h3>
+      <div class="card-grid">
+        <div class="prompt-card"><strong>🐢 A LIVE TURTLE</strong>You need to send it to your grandmother. It's her birthday gift.</div>
+        <div class="prompt-card"><strong>🧦 50 PAIRS OF SOCKS</strong>All old. All smelly. All must arrive in Japan by Friday.</div>
+        <div class="prompt-card"><strong>👗 A WEDDING DRESS</strong>For an ex-boyfriend's new wedding. You are "being kind."</div>
+        <div class="prompt-card"><strong>🥔 200 POTATOES</strong>From Boyacá. For a distant cousin who "misses the taste."</div>
+        <div class="prompt-card"><strong>📱 15 BROKEN PHONES</strong>You "have been collecting them" and want to send them to a repair guru.</div>
+        <div class="prompt-card"><strong>🎂 A HALF-EATEN BIRTHDAY CAKE</strong>To your best friend who couldn't come to your party.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>EXAMPLE — A LIVE TURTLE</h3>
+      <div class="example">
+        <div class="example-label">CAMILA (CUSTOMER) &amp; ANDRÉS (CLERK) — 3 MIN</div>
+        <div class="ex-line"><span class="ex-spk b">Andrés:</span><span class="ex-txt">Good morning! How can I help you?</span></div>
+        <div class="ex-line"><span class="ex-spk">Camila:</span><span class="ex-txt">Hi! I'd like to send this package to my grandmother in Barranquilla, please.</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrés:</span><span class="ex-txt">Sure, let me weigh it… wait — it's <em>moving</em>. What <em>have</em> you <em>been putting</em> in this box?</span></div>
+        <div class="ex-line"><span class="ex-spk">Camila:</span><span class="ex-txt">Uhm… well, I <em>have been keeping</em> a turtle at home for two years, and today is my grandmother's birthday. She loves turtles.</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrés:</span><span class="ex-txt">Ma'am, we can't send live animals! <em>Have</em> you <em>been reading</em> the postal regulations?</span></div>
+        <div class="ex-line"><span class="ex-spk">Camila:</span><span class="ex-txt">Uhm… no. But I <em>have been feeding</em> him extra food this week, so he'll be fine for two days.</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrés:</span><span class="ex-txt">Two days?! How long <em>have</em> you <em>been planning</em> this?</span></div>
+        <div class="ex-line"><span class="ex-spk">Camila:</span><span class="ex-txt">Since last week. I <em>have been</em> so excited! My grandmother <em>has been waiting</em> for a turtle since she was ten.</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrés:</span><span class="ex-txt">Ma'am, please take the turtle home. Or… take the bus. But you cannot send it by airmail.</span></div>
+        <div class="ex-line"><span class="ex-spk">Camila:</span><span class="ex-txt">Fine. Can I send this envelope with a photo of the turtle instead?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Andrés:</span><span class="ex-txt">…Yes. That will be $3.50.</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL QUESTIONS FOR THE CLERK</h3>
+      <ul>
+        <li>What <strong>have</strong> you <strong>been putting</strong> in this box?</li>
+        <li>How long <strong>have</strong> you <strong>been keeping</strong> this at home?</li>
+        <li><strong>Have</strong> you <strong>been reading</strong> the postal regulations?</li>
+        <li>Why <strong>have</strong> you <strong>been trying</strong> to send this by airmail?</li>
+        <li>Who <strong>have</strong> you <strong>been sending</strong> packages to lately?</li>
+        <li><strong>Has</strong> anyone else <strong>been helping</strong> you with this?</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL ANSWERS FOR THE CUSTOMER</h3>
+      <ul>
+        <li>I <strong>have been planning</strong> this for weeks.</li>
+        <li>My family <strong>has been waiting</strong> for this package.</li>
+        <li>I <strong>have been trying</strong> to be a good [daughter / friend / cousin].</li>
+        <li>It's <strong>been</strong> a really hard month, I need to send this.</li>
+        <li>I promise it's not dangerous — I <strong>have been checking</strong> everything.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>YOUR TIMER</h3>
+      <div class="timer-box">
+        <div class="timer-label">3–4 MINUTES TOTAL</div>
+        <div class="timer-display" id="timerB">03:00</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="startB">▶ Start</button>
+          <button class="timer-btn ghost" id="resetB">↻ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>BEFORE YOU START — CHECKLIST</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cB1"><label for="cB1">We chose a weird package together.</label></li>
+        <li><input type="checkbox" id="cB2"><label for="cB2">The clerk has 3+ questions ready with present perfect progressive.</label></li>
+        <li><input type="checkbox" id="cB3"><label for="cB3">The customer has creative excuses ready — real or invented!</label></li>
+        <li><input type="checkbox" id="cB4"><label for="cB4">We're using at least 4 Unit 2 vocabulary words (package, weigh, airmail, postage…).</label></li>
+        <li><input type="checkbox" id="cB5"><label for="cB5">We can be dramatic and make the class laugh 😄</label></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>RUBRIC · /20</h3>
+      <table class="rubric">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="center">/5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Present Perfect Progressive</strong> — used correctly in Q &amp; A</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Vocabulary</strong> — 4+ Unit 2 words used naturally</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Interaction</strong> — real back-and-forth, both students engaged</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Creativity &amp; delivery</strong> — funny, clear, in role</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr class="total-row"><td>TOTAL</td><td class="center"><span class="total-display" id="totalB">0 / 20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  Interactive English I · B1.1 · Unit 2: Away From Home · Speaking Exercise · Tweetalig
+</footer>
+
+<script>
+// ============ OPTION PICKER ============
+var soloBtn = document.getElementById('soloBtn');
+var pairBtn = document.getElementById('pairBtn');
+var soloEx = document.getElementById('soloEx');
+var pairEx = document.getElementById('pairEx');
+
+soloBtn.addEventListener('click', function(){
+  soloBtn.classList.add('active');
+  pairBtn.classList.remove('active');
+  soloEx.classList.add('show');
+  pairEx.classList.remove('show');
+  soloEx.scrollIntoView({behavior:'smooth', block:'start'});
+});
+pairBtn.addEventListener('click', function(){
+  pairBtn.classList.add('active');
+  soloBtn.classList.remove('active');
+  pairEx.classList.add('show');
+  soloEx.classList.remove('show');
+  pairEx.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+// ============ TIMER FACTORY ============
+function makeTimer(displayId, startBtnId, resetBtnId, seconds){
+  var display = document.getElementById(displayId);
+  var startBtn = document.getElementById(startBtnId);
+  var resetBtn = document.getElementById(resetBtnId);
+  var initial = seconds;
+  var remaining = seconds;
+  var interval = null;
+  var running = false;
+
+  function fmt(s){
+    var m = Math.floor(s/60);
+    var sec = s % 60;
+    return (m<10?'0':'') + m + ':' + (sec<10?'0':'') + sec;
+  }
+  function render(){ display.textContent = fmt(remaining); }
+  function tick(){
+    if (remaining <= 0) {
+      clearInterval(interval);
+      running = false;
+      startBtn.textContent = '▶ Start';
+      display.style.color = '#FFEB3B';
+      return;
+    }
+    remaining--;
+    render();
+  }
+  startBtn.addEventListener('click', function(){
+    if (running) {
+      clearInterval(interval);
+      running = false;
+      startBtn.textContent = '▶ Resume';
+    } else {
+      if (remaining <= 0) remaining = initial;
+      display.style.color = '';
+      interval = setInterval(tick, 1000);
+      running = true;
+      startBtn.textContent = '⏸ Pause';
+    }
+  });
+  resetBtn.addEventListener('click', function(){
+    clearInterval(interval);
+    running = false;
+    remaining = initial;
+    display.style.color = '';
+    startBtn.textContent = '▶ Start';
+    render();
+  });
+  render();
+}
+makeTimer('timerA', 'startA', 'resetA', 60);
+makeTimer('timerB', 'startB', 'resetB', 180);
+
+// ============ RUBRIC TOTALS ============
+function updateTotal(cls, totalId){
+  var sum = 0;
+  document.querySelectorAll('.' + cls).forEach(function(inp){
+    var v = parseInt(inp.value, 10);
+    if (!isNaN(v)) sum += Math.max(0, Math.min(5, v));
+  });
+  document.getElementById(totalId).textContent = sum + ' / 20';
+}
+document.querySelectorAll('.rA').forEach(function(inp){
+  inp.addEventListener('input', function(){ updateTotal('rA', 'totalA'); });
+});
+document.querySelectorAll('.rB').forEach(function(inp){
+  inp.addEventListener('input', function(){ updateTotal('rB', 'totalB'); });
+});
+</script>
+</body>
+</html>
