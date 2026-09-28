@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking – Unit 2 | Sport and Fitness</title>
+<style>
+  :root {
+    --navy:    #1A2E45;
+    --navy-lt: #2D4A6A;
+    --accent:  #5BC0EB;
+    --acc-lt:  #E6F6FC;
+    --white:   #ffffff;
+    --gray-lt: #f4f6f8;
+    --gray:    #64748B;
+    --dark:    #1a1a18;
+    --ok:      #2E7D32;
+    --bad:     #C0392B;
+    --radius:  12px;
+    --border:  #e0e4ea;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #fafaf8; color: var(--dark); }
+
+  .spk-header { background: var(--navy); color: #fff; padding: 14px 24px; display: flex; align-items: center; gap: 14px; }
+  .spk-header a { color: rgba(255,255,255,.65); text-decoration: none; font-size: 13px; }
+  .spk-header a:hover { color: #fff; }
+  .spk-header h1 { font-size: 18px; font-weight: 700; }
+
+  .screen { display: none; padding: 26px; max-width: 820px; margin: 0 auto; }
+  .screen.active { display: block; }
+
+  .sel-intro { text-align: center; padding: 28px 0 18px; }
+  .sel-intro h2 { font-size: 24px; color: var(--navy); margin-bottom: 6px; }
+  .sel-intro p  { color: var(--gray); font-size: 14px; }
+  .opt-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+  .opt-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); padding: 26px 20px; cursor: pointer; transition: all .2s; text-align: center; }
+  .opt-card:hover { border-color: var(--navy); transform: translateY(-3px); box-shadow: 0 6px 18px rgba(26,46,69,.1); }
+  .opt-card .oc-ico { font-size: 38px; margin-bottom: 10px; }
+  .opt-card h3 { font-size: 16px; color: var(--navy); margin-bottom: 5px; }
+  .opt-card .oc-fmt { font-size: 11px; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  .opt-card p { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  @media (max-width: 520px) { .opt-cards { grid-template-columns: 1fr; } }
+
+  .screen-title { font-size: 20px; color: var(--navy); font-weight: 700; margin-bottom: 4px; }
+  .screen-sub   { font-size: 13px; color: var(--gray); margin-bottom: 20px; }
+  .back-btn { display: inline-block; background: none; border: 2px solid var(--navy); color: var(--navy); border-radius: 8px; padding: 7px 16px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 18px; }
+  .back-btn:hover { background: var(--acc-lt); }
+
+  .rules-box { background: var(--acc-lt); border-left: 4px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 18px; margin-bottom: 20px; }
+  .rules-box h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--navy); margin-bottom: 9px; }
+  .rules-box ul { list-style: none; }
+  .rules-box ul li { font-size: 13px; padding: 3px 0 3px 20px; position: relative; }
+  .rules-box ul li::before { content: "✔"; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
+
+  .ex-box { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 20px; }
+  .ex-box h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--navy); margin-bottom: 10px; }
+  .ex-line { display: flex; gap: 9px; margin-bottom: 9px; align-items: flex-start; }
+  .ex-tag   { background: var(--navy); color: #fff; border-radius: 5px; padding: 2px 7px; font-size: 10px; font-weight: 700; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .ex-tag.b { background: var(--navy-lt); }
+  .ex-line span { font-size: 13px; line-height: 1.55; }
+  .chl { background: #FFF3CD; border-radius: 3px; padding: 1px 4px; font-weight: 600; color: #7d5a00; }
+
+  .sit-area { margin-bottom: 20px; }
+  .sit-area h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+  .sit-card { background: var(--navy); color: #fff; border-radius: var(--radius); padding: 22px; font-size: 15px; font-weight: 600; text-align: center; min-height: 80px; display: flex; align-items: center; justify-content: center; line-height: 1.5; margin-bottom: 9px; }
+  .shuffle-btn { background: none; border: 2px solid var(--navy); color: var(--navy); border-radius: 8px; padding: 6px 16px; font-size: 12px; cursor: pointer; font-weight: 600; }
+  .shuffle-btn:hover { background: var(--acc-lt); }
+
+  .cast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .cast-card { background: #fff; border: 2px solid var(--border); border-radius: var(--radius); padding: 14px; cursor: pointer; transition: all .18s; text-align: center; }
+  .cast-card:hover { border-color: var(--navy); }
+  .cast-card.selected { border-color: var(--navy); background: var(--acc-lt); }
+  .cast-card .c-ico  { font-size: 30px; margin-bottom: 5px; }
+  .cast-card .c-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .cast-card .c-bio  { font-size: 11px; color: var(--gray); margin-top: 4px; line-height: 1.4; }
+
+  .struct-guide { margin-bottom: 20px; }
+  .struct-guide h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+  .step-item { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 7px; }
+  .step-num { background: var(--navy); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .step-info .s-title { font-size: 13px; font-weight: 700; }
+  .step-info .s-time  { font-size: 11px; color: var(--accent); font-weight: 600; }
+  .step-info .s-desc  { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  .timer-sec { text-align: center; margin-bottom: 22px; }
+  .timer-disp { font-size: 60px; font-weight: 700; color: var(--navy); letter-spacing: 2px; }
+  .timer-disp.warn { color: var(--bad); }
+  .timer-disp.done { color: var(--ok); }
+  .timer-lbl { font-size: 12px; color: var(--gray); margin-top: 3px; }
+  .timer-btns { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+  .t-btn { padding: 10px 26px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .18s; }
+  .t-btn.start { background: var(--navy); color: #fff; }
+  .t-btn.start:hover { background: var(--navy-lt); }
+  .t-btn.reset { background: #eee; color: var(--dark); }
+  .t-btn.reset:hover { background: #ddd; }
+
+  .check-sec { margin-bottom: 22px; }
+  .check-sec h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+  .check-item { display: flex; align-items: center; gap: 11px; padding: 9px 13px; background: #fff; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 7px; cursor: pointer; transition: background .18s; font-size: 13px; }
+  .check-item:hover { background: var(--acc-lt); }
+  .check-item.checked { background: #E8F5E9; border-color: var(--ok); color: var(--ok); font-weight: 600; }
+  .check-item input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--navy); cursor: pointer; flex-shrink: 0; }
+
+  .rubric-sec h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 9px; }
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .rubric-table th { background: var(--navy); color: #fff; padding: 8px 11px; text-align: left; font-weight: 700; }
+  .rubric-table td { padding: 8px 11px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .rubric-table tr:nth-child(even) td { background: var(--acc-lt); }
+  .rubric-table td:first-child { font-weight: 700; color: var(--navy); }
+  .score-inp { width: 44px; border: 2px solid var(--navy); border-radius: 5px; padding: 3px 5px; text-align: center; font-weight: 700; color: var(--navy); font-size: 13px; }
+  .total-bar { background: var(--navy); color: #fff; border-radius: 8px; padding: 11px 16px; text-align: center; margin-top: 12px; font-size: 15px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="spk-header">
+  <a href="./">Back to Unit 2</a>
+  <h1>Speaking Exercise — Unit 2: Sport and Fitness</h1>
+</header>
+
+<!-- SELECTOR -->
+<div class="screen active" id="screen-sel">
+  <div class="sel-intro">
+    <h2>Choose your speaking format</h2>
+    <p>Two options — pick the one for today.</p>
+  </div>
+  <div class="opt-cards">
+    <div class="opt-card" id="pickA">
+      <div class="oc-ico">🏋️</div>
+      <h3>The Coach and the Athlete</h3>
+      <div class="oc-fmt">Pairs — 1 to 2 minutes</div>
+      <p>One student is the coach, the other is the athlete after a bad performance. Use past conditionals to analyze what went wrong.</p>
+    </div>
+    <div class="opt-card" id="pickB">
+      <div class="oc-ico">🎙️</div>
+      <h3>The Press Conference</h3>
+      <div class="oc-fmt">Individual — 1 to 2 minutes</div>
+      <p>You are a famous athlete after losing a major competition. Face the media and talk about what happened and what you would have done differently.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN A: PAIRS -->
+<div class="screen" id="screen-A">
+  <button class="back-btn" id="backA">Choose a different option</button>
+  <h2 class="screen-title">The Coach and the Athlete</h2>
+  <p class="screen-sub">Pairs — minimum 1 minute / maximum 2 minutes</p>
+
+  <div class="rules-box">
+    <h4>Rules</h4>
+    <ul>
+      <li>Student A = Coach / Student B = Athlete</li>
+      <li>Athlete picks a Scenario Card — press Shuffle for a random one</li>
+      <li>Coach must use at least 3 past conditionals (If you had... you would have...)</li>
+      <li>Athlete must respond, explain, and use at least 3 sports vocabulary words</li>
+      <li>Both must stay in role — this is a real post-game conversation</li>
+      <li>Timer starts when the coach speaks first — 2 minutes maximum</li>
+    </ul>
+  </div>
+
+  <div class="ex-box">
+    <h4>Example</h4>
+    <div class="ex-line"><span class="ex-tag b">Coach</span><span>So — what happened out there today?</span></div>
+    <div class="ex-line"><span class="ex-tag">Athlete</span><span>I do not know, coach. I just ran out of energy in the final minutes.</span></div>
+    <div class="ex-line"><span class="ex-tag b">Coach</span><span><span class="chl">If you had followed the nutrition plan, you would have had more stamina</span> in the last quarter.</span></div>
+    <div class="ex-line"><span class="ex-tag">Athlete</span><span>You are right. I also think <span class="chl">if we had warmed up properly, I would not have gotten that injury</span> in the second half.</span></div>
+    <div class="ex-line"><span class="ex-tag b">Coach</span><span><span class="chl">If you had pushed through those difficult training sessions last week, you would have been ready for this level of competition.</span> But we learn and move forward.</span></div>
+  </div>
+
+  <div class="sit-area">
+    <h4>Scenario Card — Athlete reads this</h4>
+    <div class="sit-card" id="sitCard">Press Shuffle to reveal a scenario!</div>
+    <button class="shuffle-btn" id="shuffleBtn">Shuffle Scenario</button>
+  </div>
+
+  <div class="timer-sec">
+    <div class="timer-disp" id="timerA">2:00</div>
+    <div class="timer-lbl">minutes remaining</div>
+    <div class="timer-btns">
+      <button class="t-btn start" id="startA">Start</button>
+      <button class="t-btn reset" id="resetA">Reset</button>
+    </div>
+  </div>
+
+  <div class="check-sec">
+    <h4>Self-Check</h4>
+    <label class="check-item"><input type="checkbox"> Used at least 3 past conditionals correctly</label>
+    <label class="check-item"><input type="checkbox"> Used at least 3 sports vocabulary words</label>
+    <label class="check-item"><input type="checkbox"> Spoke for at least 1 minute</label>
+    <label class="check-item"><input type="checkbox"> Stayed in role throughout</label>
+    <label class="check-item"><input type="checkbox"> The conversation felt real — not just a list of sentences</label>
+  </div>
+
+  <div class="rubric-sec">
+    <h4>Assessment Rubric — /20</h4>
+    <table class="rubric-table">
+      <thead><tr><th>Criterion</th><th>4 – Excellent</th><th>3 – Good</th><th>2 – Developing</th><th>1 – Needs Work</th><th>Score</th></tr></thead>
+      <tbody>
+        <tr><td>Fluency and Delivery</td><td>Smooth, 1–2 min, natural</td><td>Some pauses, mostly clear</td><td>Short or choppy</td><td>Under 30 sec</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sA1"></td></tr>
+        <tr><td>Grammar — Past Conditionals</td><td>3+ correct, natural use</td><td>2 correct, minor errors</td><td>1 attempt</td><td>No conditionals used</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sA2"></td></tr>
+        <tr><td>Vocabulary</td><td>4+ unit words accurately</td><td>2–3 unit words</td><td>1 unit word</td><td>No unit vocabulary</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sA3"></td></tr>
+        <tr><td>Structure and Content</td><td>Full scenario, clear analysis</td><td>Partial scenario</td><td>Basic exchange</td><td>No structure</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sA4"></td></tr>
+        <tr><td>Interaction</td><td>Natural back-and-forth</td><td>Mostly natural</td><td>One student dominates</td><td>No real exchange</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sA5"></td></tr>
+      </tbody>
+    </table>
+    <div class="total-bar">Total: <span id="totA">— / 20</span></div>
+  </div>
+</div>
+
+<!-- SCREEN B: INDIVIDUAL -->
+<div class="screen" id="screen-B">
+  <button class="back-btn" id="backB">Choose a different option</button>
+  <h2 class="screen-title">The Press Conference</h2>
+  <p class="screen-sub">Individual — minimum 1 minute / maximum 2 minutes</p>
+
+  <div class="rules-box">
+    <h4>Rules</h4>
+    <ul>
+      <li>Pick ONE athlete from the Cast Board below</li>
+      <li>You are facing the media after a loss or disappointing performance</li>
+      <li>Use at least 3 past conditionals (If we had... we would have...)</li>
+      <li>Use at least 3 sports vocabulary words from the unit</li>
+      <li>Follow the 4-part structure shown on screen</li>
+      <li>Speak confidently — you are a professional athlete, not a student in class</li>
+    </ul>
+  </div>
+
+  <div class="ex-box">
+    <h4>Example — Marcus speaks after losing the championship</h4>
+    <div class="ex-line"><span class="ex-tag">Marcus</span><span>Good evening. I know you all want to talk about today's defeat. And I understand. It was hard for all of us.</span></div>
+    <div class="ex-line"><span class="ex-tag">Marcus</span><span>If I am honest, <span class="chl">if we had performed at our best level, we would not have lost that match.</span> Our stamina in the second half was simply not there.</span></div>
+    <div class="ex-line"><span class="ex-tag">Marcus</span><span><span class="chl">If the team had been more disciplined during training last month, we would have been ready for this level of competition.</span> That is on all of us, including me as captain.</span></div>
+    <div class="ex-line"><span class="ex-tag">Marcus</span><span>But I will tell you this: <span class="chl">if we had given up after every difficult moment this season, we would not have made it this far.</span> We will come back stronger. That is a promise.</span></div>
+  </div>
+
+  <div>
+    <h4 style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:9px;">Cast Board — Choose your athlete</h4>
+    <div class="cast-grid" id="castGrid"></div>
+  </div>
+
+  <div class="struct-guide">
+    <h4>Structure Guide</h4>
+    <div class="step-item"><div class="step-num">1</div><div class="step-info"><div class="s-title">Open the press conference</div><div class="s-time">approx. 15 seconds</div><div class="s-desc">Introduce yourself and acknowledge the result. Stay calm and professional.</div></div></div>
+    <div class="step-item"><div class="step-num">2</div><div class="step-info"><div class="s-title">Analyze what went wrong</div><div class="s-time">approx. 40 seconds</div><div class="s-desc">Use past conditionals. What would have been different if the team had performed better?</div></div></div>
+    <div class="step-item"><div class="step-num">3</div><div class="step-info"><div class="s-title">Take responsibility</div><div class="s-time">approx. 25 seconds</div><div class="s-desc">Use another past conditional. What should you or the team have done differently?</div></div></div>
+    <div class="step-item"><div class="step-num">4</div><div class="step-info"><div class="s-title">Close with confidence</div><div class="s-time">approx. 20 seconds</div><div class="s-desc">End strong. What is next for the team? Show motivation and dedication.</div></div></div>
+  </div>
+
+  <div class="timer-sec">
+    <div class="timer-disp" id="timerB">2:00</div>
+    <div class="timer-lbl">minutes remaining</div>
+    <div class="timer-btns">
+      <button class="t-btn start" id="startB">Start</button>
+      <button class="t-btn reset" id="resetB">Reset</button>
+    </div>
+  </div>
+
+  <div class="check-sec">
+    <h4>Self-Check</h4>
+    <label class="check-item"><input type="checkbox"> Used at least 3 past conditionals correctly</label>
+    <label class="check-item"><input type="checkbox"> Used at least 3 sports vocabulary words</label>
+    <label class="check-item"><input type="checkbox"> Followed the 4-part structure</label>
+    <label class="check-item"><input type="checkbox"> Spoke for at least 1 minute without stopping</label>
+    <label class="check-item"><input type="checkbox"> Sounded like a real athlete — confident and professional</label>
+  </div>
+
+  <div class="rubric-sec">
+    <h4>Assessment Rubric — /20</h4>
+    <table class="rubric-table">
+      <thead><tr><th>Criterion</th><th>4 – Excellent</th><th>3 – Good</th><th>2 – Developing</th><th>1 – Needs Work</th><th>Score</th></tr></thead>
+      <tbody>
+        <tr><td>Fluency and Delivery</td><td>Smooth, 1–2 min, confident</td><td>Some pauses, mostly fluent</td><td>Choppy or too short</td><td>Under 30 sec</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sB1"></td></tr>
+        <tr><td>Grammar — Past Conditionals</td><td>3+ correct, natural use</td><td>2 correct, minor errors</td><td>1 attempt</td><td>No conditionals used</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sB2"></td></tr>
+        <tr><td>Vocabulary</td><td>4+ unit words naturally</td><td>2–3 unit words</td><td>1 unit word</td><td>No unit vocabulary</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sB3"></td></tr>
+        <tr><td>Structure</td><td>All 4 parts clear</td><td>3 of 4 parts present</td><td>2 parts or very brief</td><td>No structure</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sB4"></td></tr>
+        <tr><td>Character and Confidence</td><td>Sounds like a real athlete</td><td>Mostly convincing</td><td>Reads or loses character</td><td>No character</td><td><input class="score-inp" type="number" min="1" max="4" placeholder="—" id="sB5"></td></tr>
+      </tbody>
+    </table>
+    <div class="total-bar">Total: <span id="totB">— / 20</span></div>
+  </div>
+</div>
+
+<script>
+document.getElementById("pickA").addEventListener("click", function() {
+  document.getElementById("screen-sel").classList.remove("active");
+  document.getElementById("screen-A").classList.add("active");
+  window.scrollTo(0, 0);
+});
+document.getElementById("pickB").addEventListener("click", function() {
+  document.getElementById("screen-sel").classList.remove("active");
+  document.getElementById("screen-B").classList.add("active");
+  window.scrollTo(0, 0);
+});
+document.getElementById("backA").addEventListener("click", function() {
+  document.getElementById("screen-A").classList.remove("active");
+  document.getElementById("screen-sel").classList.add("active");
+  window.scrollTo(0, 0);
+});
+document.getElementById("backB").addEventListener("click", function() {
+  document.getElementById("screen-B").classList.remove("active");
+  document.getElementById("screen-sel").classList.add("active");
+  window.scrollTo(0, 0);
+});
+
+var scenarios = [
+  "You lost the final match of the season. You ran out of energy in the last ten minutes and missed two key shots. The coach wants to know what happened.",
+  "You got injured during warm-up and had to leave the game early. The team lost without you. The coach is asking you to reflect on your preparation.",
+  "Your team had the best record all season but lost in the tournament final. Poor teamwork in the last quarter cost you the victory.",
+  "You were the top athlete going into the championship but finished third. You ignored your nutrition plan the week before the competition."
+];
+var sitIdx = -1;
+document.getElementById("shuffleBtn").addEventListener("click", function() {
+  var n;
+  do { n = Math.floor(Math.random() * scenarios.length); } while (n === sitIdx && scenarios.length > 1);
+  sitIdx = n;
+  document.getElementById("sitCard").textContent = scenarios[n];
+});
+
+var castData = [
+  { ico: "⚽", name: "Marcus, 26",   bio: "Football captain who led his team to the final but lost in the last minute." },
+  { ico: "🏊", name: "Sofia, 23",    bio: "Swimmer who missed her personal best by two seconds at the national championships." },
+  { ico: "🏀", name: "Andre, 30",    bio: "Basketball veteran playing his last season — the team did not make the playoffs." },
+  { ico: "🎾", name: "Camila, 19",   bio: "Tennis rising star who lost her first Grand Slam final after leading by two sets." },
+  { ico: "🏋️", name: "Diego, 28",   bio: "Weightlifter who dropped the bar in his final attempt and lost the gold medal." },
+  { ico: "🚴", name: "Natalie, 33",  bio: "Cyclist who got a flat tire in the final stage of the race and finished last." }
+];
+var castGrid = document.getElementById("castGrid");
+castData.forEach(function(c) {
+  var card = document.createElement("div");
+  card.className = "cast-card";
+  card.innerHTML =
+    '<div class="c-ico">'  + c.ico  + '</div>' +
+    '<div class="c-name">' + c.name + '</div>' +
+    '<div class="c-bio">'  + c.bio  + '</div>';
+  card.addEventListener("click", function() {
+    document.querySelectorAll(".cast-card").forEach(function(cc) { cc.classList.remove("selected"); });
+    this.classList.add("selected");
+  });
+  castGrid.appendChild(card);
+});
+
+function makeTimer(dispId, startId, resetId, total) {
+  var rem = total; var iv = null;
+  var disp = document.getElementById(dispId);
+  var startBtn = document.getElementById(startId);
+  var resetBtn = document.getElementById(resetId);
+  function fmt(s) { var m = Math.floor(s / 60); var sc = s % 60; return m + ":" + (sc < 10 ? "0" : "") + sc; }
+  function upd() {
+    disp.textContent = fmt(rem);
+    disp.className = "timer-disp";
+    if (rem <= 30 && rem > 0) { disp.classList.add("warn"); }
+    if (rem === 0) { disp.classList.add("done"); disp.textContent = "Done!"; clearInterval(iv); iv = null; startBtn.textContent = "Start"; }
+  }
+  startBtn.addEventListener("click", function() {
+    if (iv) { clearInterval(iv); iv = null; startBtn.textContent = "Start"; }
+    else { if (rem <= 0) return; startBtn.textContent = "Pause"; iv = setInterval(function() { rem--; upd(); }, 1000); }
+  });
+  resetBtn.addEventListener("click", function() { clearInterval(iv); iv = null; rem = total; startBtn.textContent = "Start"; upd(); });
+  upd();
+}
+makeTimer("timerA", "startA", "resetA", 120);
+makeTimer("timerB", "startB", "resetB", 120);
+
+document.querySelectorAll(".check-item").forEach(function(item) {
+  var cb = item.querySelector("input[type=\"checkbox\"]");
+  cb.addEventListener("change", function() {
+    if (this.checked) { item.classList.add("checked"); } else { item.classList.remove("checked"); }
+  });
+});
+
+function bindRubric(ids, totId) {
+  ids.forEach(function(id) {
+    document.getElementById(id).addEventListener("input", function() {
+      var sum = 0; var ok = true;
+      ids.forEach(function(i) { var v = parseInt(document.getElementById(i).value); if (isNaN(v)) { ok = false; } else { sum += v; } });
+      document.getElementById(totId).textContent = ok ? sum + " / 20" : "— / 20";
+    });
+  });
+}
+bindRubric(["sA1","sA2","sA3","sA4","sA5"], "totA");
+bindRubric(["sB1","sB2","sB3","sB4","sB5"], "totB");
+</script>
+</body>
+</html>
