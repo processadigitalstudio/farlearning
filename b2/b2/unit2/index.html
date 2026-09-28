@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 2 – Sport and Fitness | Professional English B2</title>
+<style>
+  :root {
+    --navy:    #1A2E45;
+    --navy-lt: #2D4A6A;
+    --accent:  #5BC0EB;
+    --acc-lt:  #E6F6FC;
+    --white:   #ffffff;
+    --gray-lt: #f4f6f8;
+    --gray:    #64748B;
+    --dark:    #1a1a18;
+    --ok:      #2E7D32;
+    --bad:     #C0392B;
+    --radius:  10px;
+    --border:  #e0e4ea;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #fafaf8; color: var(--dark); }
+
+  /* HEADER */
+  .site-header {
+    background: var(--navy); color: var(--white);
+    padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .site-header .back-link { color: rgba(255,255,255,.65); text-decoration: none; font-size: 13px; display: block; margin-bottom: 4px; }
+  .site-header .back-link:hover { color: #fff; }
+  .site-header h1 { font-size: 20px; font-weight: 700; }
+  .site-header .sub { font-size: 12px; opacity: .6; margin-top: 2px; }
+
+  /* TABS */
+  .tab-bar { display: flex; background: var(--navy-lt); overflow-x: auto; }
+  .tab-btn {
+    background: none; border: none; color: rgba(255,255,255,.65);
+    padding: 12px 20px; cursor: pointer; font-size: 13px; font-weight: 600;
+    white-space: nowrap; border-bottom: 3px solid transparent; transition: all .18s;
+  }
+  .tab-btn:hover { color: #fff; }
+  .tab-btn.active { color: #fff; border-bottom-color: var(--accent); background: rgba(255,255,255,.07); }
+
+  /* PANELS */
+  .tab-panel { display: none; padding: 26px; max-width: 980px; margin: 0 auto; }
+  .tab-panel.active { display: block; }
+  .section-title { font-size: 19px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+  .section-desc { font-size: 13px; color: var(--gray); margin-bottom: 20px; }
+
+  /* VOCAB */
+  .vocab-group-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .7px; color: var(--navy);
+    border-left: 3px solid var(--accent); padding-left: 8px;
+    margin: 20px 0 10px;
+  }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .vocab-card { height: 115px; perspective: 600px; cursor: pointer; }
+  .card-inner { position: relative; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
+  .vocab-card.flipped .card-inner { transform: rotateY(180deg); }
+  .card-front, .card-back { position: absolute; inset: 0; border-radius: var(--radius); backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; text-align: center; }
+  .card-front { background: var(--navy); color: #fff; }
+  .card-front .word { font-size: 15px; font-weight: 700; }
+  .card-front .pos  { font-size: 10px; opacity: .7; margin-top: 4px; }
+  .card-front .hint { font-size: 10px; opacity: .5; margin-top: 6px; }
+  .card-back { background: var(--acc-lt); border: 2px solid var(--accent); transform: rotateY(180deg); }
+  .card-back .es { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .card-back .ex { font-size: 11px; color: var(--gray); margin-top: 5px; font-style: italic; line-height: 1.4; }
+
+  /* GRAMMAR */
+  .gram-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .gram-pill { background: var(--gray-lt); border: 2px solid var(--border); color: var(--navy); border-radius: 20px; padding: 7px 18px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .18s; }
+  .gram-pill:hover { border-color: var(--navy); }
+  .gram-pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .gram-panel { display: none; }
+  .gram-panel.active { display: block; background: var(--acc-lt); border-left: 4px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: 20px; margin-bottom: 18px; }
+  .gram-panel h3 { color: var(--navy); font-size: 16px; margin-bottom: 6px; }
+  .gram-desc { font-size: 13px; color: var(--gray); margin-bottom: 10px; line-height: 1.55; }
+  .formula-box { background: var(--navy); color: #fff; border-radius: 6px; padding: 8px 14px; font-family: monospace; font-size: 13px; display: inline-block; margin: 6px 0 12px; }
+  .gram-examples { list-style: none; }
+  .gram-examples li { font-size: 13px; padding: 5px 0 5px 18px; position: relative; }
+  .gram-examples li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  .cond-hl { background: #FFF3CD; border-radius: 3px; padding: 1px 4px; font-weight: 600; color: #7d5a00; }
+  .es-note { font-size: 11px; color: var(--gray); font-style: italic; margin-top: 2px; }
+  .gram-note { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 12px; margin-top: 12px; color: var(--gray); line-height: 1.5; }
+  .gram-note strong { color: var(--bad); }
+
+  /* DIALOGUES */
+  .dlg-tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .dlg-tab { background: var(--gray-lt); border: 1.5px solid var(--border); border-radius: 7px; padding: 6px 14px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--navy); transition: all .18s; }
+  .dlg-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .dlg-panel { display: none; }
+  .dlg-panel.active { display: block; }
+  .dialogue-box { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
+  .dlg-note { font-size: 11px; color: var(--gray); font-style: italic; margin-bottom: 12px; }
+  .dialogue-line { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .spk-tag { background: var(--navy); color: #fff; border-radius: 5px; padding: 2px 8px; font-size: 11px; font-weight: 700; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .line-text { font-size: 14px; line-height: 1.6; }
+  .comp-q { background: var(--acc-lt); border-radius: var(--radius); padding: 14px; margin-top: 10px; }
+  .comp-q p { font-size: 13px; font-weight: 600; margin-bottom: 9px; }
+  .comp-opts { display: flex; flex-direction: column; gap: 6px; }
+  .comp-btn { background: #fff; border: 2px solid var(--border); border-radius: 7px; padding: 8px 13px; text-align: left; cursor: pointer; font-size: 13px; transition: all .18s; }
+  .comp-btn:hover:not(:disabled) { border-color: var(--navy); }
+  .comp-btn.correct { background: #E8F5E9; border-color: var(--ok); color: var(--ok); font-weight: 600; }
+  .comp-btn.wrong   { background: #FFEBEE; border-color: var(--bad); color: var(--bad); }
+
+  /* QUIZ */
+  .quiz-score { background: var(--acc-lt); border-radius: var(--radius); padding: 13px 18px; text-align: center; margin-bottom: 18px; display: none; }
+  .quiz-score.visible { display: block; }
+  .quiz-score strong { font-size: 18px; color: var(--navy); }
+  .quiz-item { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+  .quiz-item .q-text { font-size: 14px; font-weight: 600; margin-bottom: 11px; }
+  .quiz-opts { display: flex; flex-direction: column; gap: 7px; }
+  .quiz-btn { background: var(--gray-lt); border: 2px solid transparent; border-radius: 8px; padding: 9px 14px; text-align: left; cursor: pointer; font-size: 13px; transition: all .18s; display: flex; align-items: center; gap: 9px; }
+  .quiz-btn .ql { background: var(--navy); color: #fff; border-radius: 4px; padding: 1px 7px; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .quiz-btn:hover:not(:disabled) { border-color: var(--navy); background: var(--acc-lt); }
+  .quiz-btn.correct { background: #E8F5E9; border-color: var(--ok); }
+  .quiz-btn.correct .ql { background: var(--ok); }
+  .quiz-btn.wrong   { background: #FFEBEE; border-color: var(--bad); }
+  .quiz-btn.wrong .ql { background: var(--bad); }
+  .quiz-btn:disabled { cursor: default; }
+  .q-fb { font-size: 12px; margin-top: 8px; font-weight: 600; }
+  .q-fb.ok  { color: var(--ok); }
+  .q-fb.bad { color: var(--bad); }
+
+  /* PRACTICE */
+  .prac-item { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+  .prac-sentence { font-size: 14px; line-height: 1.7; margin-bottom: 11px; }
+  .blank { display: inline-block; min-width: 160px; border-bottom: 2px solid var(--navy); text-align: center; font-weight: 700; color: var(--navy); padding: 0 5px; }
+  .blank.ok  { color: var(--ok);  border-color: var(--ok); }
+  .blank.bad { color: var(--bad); border-color: var(--bad); }
+  .abc-opts { display: flex; gap: 7px; flex-wrap: wrap; }
+  .abc-btn { background: var(--gray-lt); border: 2px solid transparent; border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .18s; display: flex; align-items: center; gap: 6px; }
+  .abc-lbl { background: var(--navy); color: #fff; border-radius: 4px; padding: 0 6px; font-size: 11px; font-weight: 700; }
+  .abc-btn:hover:not(:disabled) { border-color: var(--navy); background: var(--acc-lt); }
+  .abc-btn.correct { background: #E8F5E9; border-color: var(--ok); }
+  .abc-btn.correct .abc-lbl { background: var(--ok); }
+  .abc-btn.wrong   { background: #FFEBEE; border-color: var(--bad); }
+  .abc-btn.wrong .abc-lbl { background: var(--bad); }
+  .abc-btn:disabled { cursor: default; }
+  .p-fb { font-size: 12px; margin-top: 7px; font-weight: 600; }
+  .p-fb.ok  { color: var(--ok); }
+  .p-fb.bad { color: var(--bad); }
+  .try-btn { background: none; border: 2px solid var(--navy); color: var(--navy); border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; margin-top: 6px; font-weight: 600; }
+  .try-btn:hover { background: var(--acc-lt); }
+
+  /* MEDIA */
+  .media-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--navy); border-left: 3px solid var(--accent); padding-left: 8px; margin: 24px 0 12px; }
+  .song-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 13px; }
+  .song-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all .18s; }
+  .song-card:hover { border-color: var(--navy); box-shadow: 0 4px 12px rgba(26,46,69,.1); }
+  .song-cover { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+  .song-body { padding: 11px 13px; }
+  .song-title  { font-size: 14px; font-weight: 700; }
+  .song-artist { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .song-why    { font-size: 12px; color: var(--gray); margin-top: 5px; font-style: italic; line-height: 1.4; }
+  .song-link { display: inline-block; margin-top: 9px; background: var(--navy); color: #fff; border-radius: 20px; padding: 4px 13px; font-size: 12px; font-weight: 700; text-decoration: none; transition: background .18s; }
+  .song-link:hover { background: var(--navy-lt); }
+  .song-act { background: var(--acc-lt); padding: 10px 13px; border-top: 1px solid #c8e8f5; }
+  .song-act-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--navy); margin-bottom: 5px; }
+  .song-q { font-size: 12px; color: var(--dark); margin-bottom: 6px; font-weight: 600; }
+  .song-opts-wrap { display: flex; flex-direction: column; gap: 4px; }
+  .s-opt { background: #fff; border: 1.5px solid var(--border); border-radius: 6px; padding: 5px 9px; font-size: 12px; cursor: pointer; text-align: left; transition: all .18s; display: flex; align-items: center; gap: 5px; }
+  .s-opt .sl { background: var(--navy); color: #fff; border-radius: 3px; padding: 0 5px; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .s-opt:hover:not(:disabled) { border-color: var(--navy); background: var(--acc-lt); }
+  .s-opt.correct { background: #E8F5E9; border-color: var(--ok); }
+  .s-opt.correct .sl { background: var(--ok); }
+  .s-opt.wrong   { background: #FFEBEE; border-color: var(--bad); }
+  .s-opt.wrong .sl { background: var(--bad); }
+  .s-opt:disabled { cursor: default; }
+  .s-fb { font-size: 11px; margin-top: 5px; font-weight: 600; }
+  .s-fb.ok  { color: var(--ok); }
+  .s-fb.bad { color: var(--bad); }
+
+  /* SHOW */
+  .show-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 14px; }
+  .show-meta { padding: 16px 18px 12px; }
+  .show-badge { display: inline-block; background: var(--acc-lt); color: var(--navy); border-radius: 20px; padding: 3px 11px; font-size: 11px; font-weight: 700; margin-bottom: 7px; }
+  .show-title { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .show-desc  { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .show-embed { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+  .show-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .watch-btn {
+    display: inline-block; margin: 14px 18px;
+    background: var(--navy); color: #fff;
+    border-radius: 8px; padding: 10px 20px;
+    font-size: 13px; font-weight: 700; text-decoration: none; transition: background .18s;
+  }
+  .watch-btn:hover { background: var(--navy-lt); }
+  .discuss-box { padding: 14px 18px; background: var(--acc-lt); border-top: 1px solid #c8e8f5; }
+  .discuss-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--navy); margin-bottom: 9px; }
+  .discuss-q { display: flex; gap: 9px; margin-bottom: 9px; align-items: flex-start; font-size: 13px; color: var(--dark); line-height: 1.5; }
+  .dq-n { background: var(--navy); color: #fff; border-radius: 50%; width: 21px; height: 21px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .ep-vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 9px; }
+  .ep-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; cursor: pointer; transition: all .18s; }
+  .ep-card:hover { border-color: var(--navy); }
+  .ep-card.flipped { background: var(--acc-lt); border-color: var(--accent); }
+  .ep-word { font-size: 13px; font-weight: 700; color: var(--navy); }
+  .ep-def  { font-size: 11px; color: var(--gray); margin-top: 3px; display: none; }
+  .ep-es   { font-size: 11px; color: var(--navy); font-style: italic; margin-top: 2px; display: none; }
+  .ep-card.flipped .ep-def { display: block; }
+  .ep-card.flipped .ep-es  { display: block; }
+
+  /* SPEAKING CTA */
+  .speaking-cta { text-align: center; padding: 44px 20px; }
+  .speaking-cta h2 { font-size: 22px; color: var(--navy); margin-bottom: 9px; }
+  .speaking-cta p  { color: var(--gray); font-size: 14px; margin-bottom: 22px; }
+  .speaking-cta a { display: inline-block; background: var(--navy); color: #fff; padding: 13px 34px; border-radius: 30px; text-decoration: none; font-size: 17px; font-weight: 700; transition: background .18s; }
+  .speaking-cta a:hover { background: var(--navy-lt); }
+
+  @media (max-width: 600px) {
+    .tab-btn { padding: 10px 13px; font-size: 12px; }
+    .tab-panel { padding: 16px; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .song-grid  { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <a href="../" class="back-link">← All units</a>
+    <h1>Unit 2 — Sport and Fitness</h1>
+    <div class="sub">Professional English · B2 · Tweetalig / English Discoveries</div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="vocabulary">Vocabulary</button>
+  <button class="tab-btn" data-tab="grammar">Grammar</button>
+  <button class="tab-btn" data-tab="dialogues">Dialogues</button>
+  <button class="tab-btn" data-tab="quiz">Quiz</button>
+  <button class="tab-btn" data-tab="practice">Practice</button>
+  <button class="tab-btn" data-tab="media">🎬 Media</button>
+  <button class="tab-btn" data-tab="speaking">🎤 Speaking</button>
+</nav>
+
+<!-- VOCABULARY -->
+<section class="tab-panel active" id="tab-vocabulary">
+  <h2 class="section-title">Vocabulary — Sport and Fitness</h2>
+  <p class="section-desc">Click each card to reveal the Spanish translation and an example. / Haz clic para ver la traduccion y el ejemplo.</p>
+  <div id="vocabMount"></div>
+</section>
+
+<!-- GRAMMAR -->
+<section class="tab-panel" id="tab-grammar">
+  <h2 class="section-title">Grammar — Past Conditionals</h2>
+  <p class="section-desc">Select a section to see the rule, formula, and examples. / Selecciona una seccion para ver la regla.</p>
+  <div class="gram-pills">
+    <button class="gram-pill active" data-gram="structure">Structure</button>
+    <button class="gram-pill" data-gram="negative">Negative forms</button>
+    <button class="gram-pill" data-gram="mixed">Mixed examples</button>
+  </div>
+
+  <div class="gram-panel active" id="gram-structure">
+    <h3>Past Conditional — Structure</h3>
+    <p class="gram-desc">
+      El <strong>Past Conditional</strong> (Third Conditional) habla de situaciones hipoteticas en el pasado — cosas que no ocurrieron y su resultado imaginario.
+    </p>
+    <div class="formula-box">If + past perfect → would have + past participle</div>
+    <ul class="gram-examples">
+      <li><span class="cond-hl">If she had trained harder</span>, she <span class="cond-hl">would have won</span> the championship.
+        <div class="es-note">Si hubiera entrenado mas duro, habria ganado el campeonato.</div>
+      </li>
+      <li><span class="cond-hl">If he had followed the diet</span>, he <span class="cond-hl">would have recovered</span> faster.
+        <div class="es-note">Si hubiera seguido la dieta, se habria recuperado mas rapido.</div>
+      </li>
+      <li><span class="cond-hl">If they had worked as a team</span>, they <span class="cond-hl">would have defeated</span> the opponent.
+        <div class="es-note">Si hubieran trabajado en equipo, habrian derrotado al oponente.</div>
+      </li>
+    </ul>
+    <div class="gram-note">
+      <strong>Error comun:</strong> no uses would en la clausula con if.<br>
+      Incorrecto: If she <em>would have trained</em>... &nbsp; Correcto: If she <em>had trained</em>...
+    </div>
+  </div>
+
+  <div class="gram-panel" id="gram-negative">
+    <h3>Past Conditional — Negative Forms</h3>
+    <p class="gram-desc">Puedes negar cualquiera de las dos clausulas o ambas para cambiar el significado.</p>
+    <div class="formula-box">If + had not + past participle → would not have + past participle</div>
+    <ul class="gram-examples">
+      <li><span class="cond-hl">If he had not given up</span>, he <span class="cond-hl">would have achieved</span> his goal.
+        <div class="es-note">Si no hubiera rendido, habria logrado su objetivo.</div>
+      </li>
+      <li><span class="cond-hl">If she had pushed through</span>, she <span class="cond-hl">would not have lost</span> the match.
+        <div class="es-note">Si hubiera perseverado, no habria perdido el partido.</div>
+      </li>
+      <li><span class="cond-hl">If they had not ignored the coach</span>, the team <span class="cond-hl">would not have been defeated</span>.
+        <div class="es-note">Si no hubieran ignorado al entrenador, el equipo no habria sido derrotado.</div>
+      </li>
+    </ul>
+    <div class="gram-note">
+      <strong>Recuerda:</strong> <em>had not</em> se contrae como <em>hadn't</em> y <em>would not</em> como <em>wouldn't have</em> en el habla informal.
+    </div>
+  </div>
+
+  <div class="gram-panel" id="gram-mixed">
+    <h3>Mixed Sports Examples</h3>
+    <p class="gram-desc">Past Conditionals en contextos deportivos reales — practica identificarlos.</p>
+    <div class="formula-box">If + past perfect ... would have / would not have + past participle</div>
+    <ul class="gram-examples">
+      <li><span class="cond-hl">If the athlete had warmed up properly</span>, she <span class="cond-hl">would not have gotten injured</span>.
+        <div class="es-note">Si la atleta se hubiera calentado bien, no se habria lesionado.</div>
+      </li>
+      <li><span class="cond-hl">If the team had had more stamina</span>, they <span class="cond-hl">would have competed</span> in the final.
+        <div class="es-note">Si el equipo hubiera tenido mas resistencia, habria competido en la final.</div>
+      </li>
+      <li><span class="cond-hl">If the coach had changed the strategy</span>, the result <span class="cond-hl">would have been</span> different.
+        <div class="es-note">Si el entrenador hubiera cambiado la estrategia, el resultado habria sido diferente.</div>
+      </li>
+      <li><span class="cond-hl">If she had not improved her nutrition</span>, she <span class="cond-hl">would not have performed</span> at that level.
+        <div class="es-note">Si no hubiera mejorado su nutricion, no habria rendido a ese nivel.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- DIALOGUES -->
+<section class="tab-panel" id="tab-dialogues">
+  <h2 class="section-title">Dialogues — Unit 2</h2>
+  <p class="section-desc">Read each dialogue. Past conditionals are <span class="cond-hl">highlighted</span>. Answer the comprehension question after each one.</p>
+  <div class="dlg-tabs">
+    <button class="dlg-tab active" data-dlg="dlg1">College Sports</button>
+    <button class="dlg-tab" data-dlg="dlg2">Ten Miles</button>
+    <button class="dlg-tab" data-dlg="dlg3">Can I Help?</button>
+  </div>
+
+  <div class="dlg-panel active" id="dlg1">
+    <div class="dialogue-box">
+      <p class="dlg-note">TV interview — host and volleyball coach after losing the championship</p>
+      <div class="dialogue-line"><span class="spk-tag">Host</span><span class="line-text">Coach, your team was expected to win the championship this year. What happened?</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Coach</span><span class="line-text">Honestly, we were not disciplined enough in the final weeks. <span class="cond-hl">If we had trained harder in the last month, we would have been ready for the pressure.</span></span></div>
+      <div class="dialogue-line"><span class="spk-tag">Host</span><span class="line-text">Do you think the injuries played a role?</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Coach</span><span class="line-text">Absolutely. <span class="cond-hl">If our key player had not gotten injured, we would have competed at a much higher level.</span> But we cannot use that as an excuse.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Host</span><span class="line-text">What would you do differently next season?</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Coach</span><span class="line-text"><span class="cond-hl">If we had focused more on stamina and teamwork, the defeat would not have been so devastating.</span> That is exactly what we are going to fix.</span></div>
+    </div>
+    <div class="comp-q">
+      <p>According to the coach, what would have happened if the key player had not gotten injured?</p>
+      <div class="comp-opts">
+        <button class="comp-btn" data-correct="false" data-dlg="c1">A. The team would have won every game that season.</button>
+        <button class="comp-btn" data-correct="true"  data-dlg="c1">B. The team would have competed at a higher level.</button>
+        <button class="comp-btn" data-correct="false" data-dlg="c1">C. The coach would have changed the strategy.</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dlg-panel" id="dlg2">
+    <div class="dialogue-box">
+      <p class="dlg-note">Two friends talking — one advises the other on working out</p>
+      <div class="dialogue-line"><span class="spk-tag">Dan</span><span class="line-text">I ran ten miles yesterday and I can barely walk today. I think I overdid it.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Mike</span><span class="line-text">Ten miles? On your first week back? <span class="cond-hl">If you had warmed up properly, you would not have felt this bad today.</span></span></div>
+      <div class="dialogue-line"><span class="spk-tag">Dan</span><span class="line-text">I know. I was just so motivated. I wanted to get in shape fast.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Mike</span><span class="line-text"><span class="cond-hl">If you had started with shorter distances, you would have built your endurance without the injury risk.</span> You need to be patient with fitness.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Dan</span><span class="line-text">What should I do now?</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Mike</span><span class="line-text">Rest and recover. <span class="cond-hl">If you had listened to your body from the start, you would not have pushed yourself so hard.</span> Next time, set a goal and build up slowly.</span></div>
+    </div>
+    <div class="comp-q">
+      <p>What does Mike say Dan should have done differently?</p>
+      <div class="comp-opts">
+        <button class="comp-btn" data-correct="false" data-dlg="c2">A. He should have run more slowly.</button>
+        <button class="comp-btn" data-correct="true"  data-dlg="c2">B. He should have warmed up and started with shorter distances.</button>
+        <button class="comp-btn" data-correct="false" data-dlg="c2">C. He should have gone to the gym instead of running.</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dlg-panel" id="dlg3">
+    <div class="dialogue-box">
+      <p class="dlg-note">At the gym — a man offers help to a woman lifting weights</p>
+      <div class="dialogue-line"><span class="spk-tag">Mark</span><span class="line-text">Excuse me, are you okay? That looked like a difficult lift.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Sara</span><span class="line-text">I am fine, thank you. I just lost my grip at the end.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Mark</span><span class="line-text"><span class="cond-hl">If you had used wrist straps, you would have had a much better grip.</span> It really helps with heavier weights.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Sara</span><span class="line-text">I did not know that. Do you think I should also adjust my technique?</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Mark</span><span class="line-text">Definitely. <span class="cond-hl">If you had kept your back straighter, you would have performed the lift more safely.</span> Would you like me to show you?</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Sara</span><span class="line-text">That would be great, actually. I want to improve but I do not want to get injured.</span></div>
+      <div class="dialogue-line"><span class="spk-tag">Mark</span><span class="line-text"><span class="cond-hl">If you had had a trainer from the beginning, you would not have developed those habits.</span> But it is never too late to learn the right technique.</span></div>
+    </div>
+    <div class="comp-q">
+      <p>What does Mark say would have helped Sara during the lift?</p>
+      <div class="comp-opts">
+        <button class="comp-btn" data-correct="false" data-dlg="c3">A. Lifting lighter weights and resting more.</button>
+        <button class="comp-btn" data-correct="true"  data-dlg="c3">B. Using wrist straps and keeping her back straighter.</button>
+        <button class="comp-btn" data-correct="false" data-dlg="c3">C. Working out with a partner every session.</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="tab-panel" id="tab-quiz">
+  <h2 class="section-title">Quiz — Unit 2</h2>
+  <p class="section-desc">Choose the best answer. One try per question!</p>
+  <div class="quiz-score" id="quizScore">Score: <strong id="quizScoreTxt">0 / 7</strong></div>
+  <div id="quizMount"></div>
+</section>
+
+<!-- PRACTICE -->
+<section class="tab-panel" id="tab-practice">
+  <h2 class="section-title">Practice — Choose the correct option</h2>
+  <p class="section-desc">Select A, B, or C to complete each sentence. / Selecciona la opcion correcta.</p>
+  <div id="pracMount"></div>
+</section>
+
+<!-- MEDIA -->
+<section class="tab-panel" id="tab-media">
+  <h2 class="section-title">Media — Music and Shows</h2>
+  <p class="section-desc">Songs and a TV episode connected to Sport and Fitness.</p>
+
+  <div class="media-lbl">Songs — Past Conditionals and Sports vocabulary</div>
+  <div class="song-grid" id="songMount"></div>
+
+  <div class="media-lbl" style="margin-top:30px;">Watch and Discuss — Ted Lasso</div>
+  <div class="show-card">
+    <div class="show-meta">
+      <div class="show-badge">Ted Lasso · Season 1 · Episode 4</div>
+      <h3 class="show-title">"For the Children"</h3>
+      <p class="show-desc">Ted organizes a charity event for the team. The episode focuses on teamwork, motivation, and what it means to be a good coach — not just about winning, but about people. Full of vocabulary related to coaching, performance, dedication, and team dynamics.</p>
+    </div>
+    <div class="show-embed">
+      <iframe src="https://www.youtube.com/embed/3u7EIiohs6U" title="Ted Lasso Official Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <a class="watch-btn" href="https://primewire.gy/watch/tv-ted-lasso-3iqknqh9?s=1&e=4&x=2" target="_blank">Watch full episode →</a>
+    <div class="discuss-box">
+      <div class="discuss-lbl">Discuss with a partner</div>
+      <div class="discuss-q"><span class="dq-n">1</span><span><strong>If Ted had not organized the charity event</strong>, do you think the team would have become closer? Why or why not?</span></div>
+      <div class="discuss-q"><span class="dq-n">2</span><span>Ted focuses on motivation over tactics. <strong>If the coach had only focused on winning</strong>, what would have happened to the team's spirit?</span></div>
+      <div class="discuss-q"><span class="dq-n">3</span><span>Think of a real coach or trainer you know or admire. <strong>What would have been different</strong> if they had coached this team?</span></div>
+    </div>
+  </div>
+
+  <div class="media-lbl">Vocabulary from the episode</div>
+  <div class="ep-vocab-grid" id="epVocabMount"></div>
+</section>
+
+<!-- SPEAKING -->
+<section class="tab-panel" id="tab-speaking">
+  <div class="speaking-cta">
+    <h2>🎤 Speaking Exercise</h2>
+    <p>Two formats — pairs or individual. Pick yours and go!</p>
+    <a href="./speaking.html">Go to Speaking Exercise →</a>
+  </div>
+</section>
+
+<script>
+var vocabGroups = [
+  {
+    label: "Sports and competition",
+    words: [
+      { w: "championship", pos: "n.",    es: "campeonato",         ex: "They won the championship after years of hard work." },
+      { w: "opponent",     pos: "n.",    es: "oponente / rival",   ex: "The opponent was faster but less experienced." },
+      { w: "score",        pos: "n./v.", es: "marcador / anotar",  ex: "The score was tied at the end of the first half." },
+      { w: "defeat",       pos: "n./v.", es: "derrota / derrotar", ex: "The defeat was hard to accept after so much training." },
+      { w: "victory",      pos: "n.",    es: "victoria",           ex: "The victory was celebrated by the entire city." },
+      { w: "compete",      pos: "v.",    es: "competir",           ex: "She trained every day to compete at a national level." },
+      { w: "athlete",      pos: "n.",    es: "atleta",             ex: "He became a professional athlete at the age of eighteen." },
+      { w: "tournament",   pos: "n.",    es: "torneo",             ex: "The international tournament attracted teams from twenty countries." },
+      { w: "coach",        pos: "n.",    es: "entrenador/a",       ex: "The coach gave a motivational speech before the game." },
+      { w: "referee",      pos: "n.",    es: "arbitro/a",          ex: "The referee made a controversial decision in the final minutes." }
+    ]
+  },
+  {
+    label: "Health and fitness",
+    words: [
+      { w: "work out",   pos: "phr.v.", es: "ejercitarse / entrenar", ex: "She works out every morning before going to work." },
+      { w: "get in shape",pos: "phr.", es: "ponerse en forma",        ex: "He decided to get in shape before the summer." },
+      { w: "injury",     pos: "n.",    es: "lesion",                  ex: "The injury kept her out of the competition for two months." },
+      { w: "recover",    pos: "v.",    es: "recuperarse",             ex: "It took him six weeks to recover from the knee injury." },
+      { w: "stamina",    pos: "n.",    es: "resistencia / aguante",   ex: "Long-distance running builds incredible stamina." },
+      { w: "diet",       pos: "n.",    es: "dieta / alimentacion",    ex: "A balanced diet is essential for athletic performance." },
+      { w: "nutrition",  pos: "n.",    es: "nutricion",               ex: "Proper nutrition can make a huge difference in training." },
+      { w: "endurance",  pos: "n.",    es: "resistencia / duracion",  ex: "Cycling is a great way to build endurance." },
+      { w: "warm up",    pos: "phr.v.",es: "calentar / entrar en calor", ex: "Always warm up before a workout to avoid injuries." }
+    ]
+  },
+  {
+    label: "Performance and attitude",
+    words: [
+      { w: "dedication",  pos: "n.",    es: "dedicacion",             ex: "Her dedication to the sport inspired the whole team." },
+      { w: "push through",pos: "phr.", es: "perseverar / aguantar",   ex: "He pushed through the pain to finish the race." },
+      { w: "give up",     pos: "phr.v.",es: "rendirse",               ex: "She never gave up even when the situation looked hopeless." },
+      { w: "set a goal",  pos: "phr.", es: "establecer una meta",     ex: "Before training, set a clear goal for what you want to achieve." },
+      { w: "improve",     pos: "v.",    es: "mejorar",                ex: "He improved his personal best by ten seconds this season." },
+      { w: "perform",     pos: "v.",    es: "rendir / actuar",        ex: "She performed at her best when the pressure was highest." },
+      { w: "discipline",  pos: "n.",    es: "disciplina",             ex: "Discipline is more important than motivation in the long run." },
+      { w: "motivation",  pos: "n.",    es: "motivacion",             ex: "Motivation got him started, but discipline kept him going." },
+      { w: "achieve",     pos: "v.",    es: "lograr / alcanzar",      ex: "If you work hard enough, you can achieve anything you set your mind to." }
+    ]
+  }
+];
+
+var quizData = [
+  {
+    q: "In College Sports, what does the coach say would have happened with more stamina and teamwork?",
+    opts: [
+      { l: "A", t: "The defeat would not have been so devastating.", c: true },
+      { l: "B", t: "The team would have won every championship.", c: false },
+      { l: "C", t: "The key player would not have gotten injured.", c: false }
+    ],
+    fb: "The coach says: If we had focused more on stamina and teamwork, the defeat would not have been so devastating."
+  },
+  {
+    q: "In Ten Miles, why does Mike say Dan should have started with shorter distances?",
+    opts: [
+      { l: "A", t: "To lose weight faster.", c: false },
+      { l: "B", t: "To build endurance without the injury risk.", c: true },
+      { l: "C", t: "Because ten miles is too far for anyone.", c: false }
+    ],
+    fb: "Mike says: If you had started with shorter distances, you would have built your endurance without the injury risk."
+  },
+  {
+    q: "In Can I Help?, what does Mark say would have helped Sara perform the lift more safely?",
+    opts: [
+      { l: "A", t: "Using heavier weights and resting more.", c: false },
+      { l: "B", t: "Keeping her back straighter.", c: true },
+      { l: "C", t: "Working with a partner every session.", c: false }
+    ],
+    fb: "Mark says: If you had kept your back straighter, you would have performed the lift more safely."
+  },
+  {
+    q: "Choose the correct Past Conditional: ___ harder, she ___ the championship.",
+    opts: [
+      { l: "A", t: "If she had trained / would have won", c: true },
+      { l: "B", t: "If she would have trained / would win", c: false },
+      { l: "C", t: "If she trained / would have won", c: false }
+    ],
+    fb: "Past Conditional = If + past perfect → would have + past participle. Never use would in the if clause."
+  },
+  {
+    q: "Which sentence is a correct negative Past Conditional?",
+    opts: [
+      { l: "A", t: "If he had not given up, he would achieve his goal.", c: false },
+      { l: "B", t: "If he would not give up, he would have achieved his goal.", c: false },
+      { l: "C", t: "If he had not given up, he would have achieved his goal.", c: true }
+    ],
+    fb: "Negative Past Conditional = If + had not + past participle → would have + past participle."
+  },
+  {
+    q: "What does STAMINA mean?",
+    opts: [
+      { l: "A", t: "The ability to keep going for a long time without getting tired.", c: true },
+      { l: "B", t: "A type of sports injury that affects the knees.", c: false },
+      { l: "C", t: "The score at the end of a competition.", c: false }
+    ],
+    fb: "Stamina = resistencia o aguante. The ability to sustain physical effort over a long period."
+  },
+  {
+    q: "Which phrase means to stop trying because something is too hard?",
+    opts: [
+      { l: "A", t: "push through", c: false },
+      { l: "B", t: "set a goal", c: false },
+      { l: "C", t: "give up", c: true }
+    ],
+    fb: "Give up = rendirse. The opposite of push through, which means to keep going despite difficulty."
+  }
+];
+
+var pracData = [
+  {
+    s: "If she ___ every day, she would have been ready for the tournament.",
+    opts: [
+      { l: "A", t: "had trained",    c: true },
+      { l: "B", t: "would train",    c: false },
+      { l: "C", t: "has trained",    c: false }
+    ]
+  },
+  {
+    s: "If the team had worked together, they ___ the championship.",
+    opts: [
+      { l: "A", t: "would win",          c: false },
+      { l: "B", t: "would have won",     c: true },
+      { l: "C", t: "had won",            c: false }
+    ]
+  },
+  {
+    s: "If he ___ up, he would have finished the race.",
+    opts: [
+      { l: "A", t: "had not given",  c: true },
+      { l: "B", t: "would not give", c: false },
+      { l: "C", t: "did not give",   c: false }
+    ]
+  },
+  {
+    s: "She did not warm up. ___, she would not have gotten injured.",
+    opts: [
+      { l: "A", t: "If she had warmed up",         c: true },
+      { l: "B", t: "If she would have warmed up",  c: false },
+      { l: "C", t: "If she warmed up",             c: false }
+    ]
+  },
+  {
+    s: "The coach had incredible ___. He never stopped believing in the team.",
+    opts: [
+      { l: "A", t: "defeat",      c: false },
+      { l: "B", t: "injury",      c: false },
+      { l: "C", t: "motivation",  c: true }
+    ]
+  },
+  {
+    s: "She runs marathons and never gets tired. She has amazing ___.",
+    opts: [
+      { l: "A", t: "stamina",    c: true },
+      { l: "B", t: "referee",    c: false },
+      { l: "C", t: "score",      c: false }
+    ]
+  },
+  {
+    s: "He trained six hours a day. His ___ was unmatched by any other athlete.",
+    opts: [
+      { l: "A", t: "tournament",  c: false },
+      { l: "B", t: "discipline",  c: true },
+      { l: "C", t: "opponent",    c: false }
+    ]
+  }
+];
+
+var songData = [
+  {
+    emoji: "🐯", bg: "#7B1E1E",
+    title: "Eye of the Tiger",
+    artist: "Survivor",
+    why: "The classic training anthem. If you had heard this in a gym, you would have felt unstoppable. Push through, compete, survive.",
+    url: "https://www.youtube.com/watch?v=btPJPFnesV4",
+    q: "Which past conditional fits the song's message?",
+    opts: [
+      { l: "A", t: "If he had given up, he would have survived.", c: false },
+      { l: "B", t: "If he had not pushed through, he would not have become the champion.", c: true },
+      { l: "C", t: "If he had trained less, he would have won faster.", c: false }
+    ],
+    fb: "The song is about perseverance. Not giving up = achieving the goal. Classic past conditional logic."
+  },
+  {
+    emoji: "🏆", bg: "#1B4332",
+    title: "Hall of Fame",
+    artist: "The Script ft. will.i.am",
+    why: "If you had believed in yourself, you could have been a champion. Dedication, achievement, and setting goals throughout.",
+    url: "https://www.youtube.com/watch?v=mk48xRzuNvA",
+    q: "The song says you can be a champion. What vocabulary word best describes what the song asks for?",
+    opts: [
+      { l: "A", t: "defeat", c: false },
+      { l: "B", t: "dedication", c: true },
+      { l: "C", t: "injury", c: false }
+    ],
+    fb: "Dedication = dedicacion. The whole song is about committing fully to your goal and never quitting."
+  },
+  {
+    emoji: "🏅", bg: "#1A3A5C",
+    title: "The Champion",
+    artist: "Carrie Underwood ft. Ludacris",
+    why: "If they had not fought through every obstacle, they would never have become champions. Victory, perform, push through.",
+    url: "https://www.youtube.com/watch?v=HgknAaKNaMM",
+    q: "Which unit vocabulary word appears most in the themes of this song?",
+    opts: [
+      { l: "A", t: "referee", c: false },
+      { l: "B", t: "nutrition", c: false },
+      { l: "C", t: "victory", c: true }
+    ],
+    fb: "Victory = victoria. The whole song celebrates winning after overcoming obstacles and never giving up."
+  }
+];
+
+var epVocabData = [
+  { w: "charity",      es: "caridad",              def: "help given to people in need, often money or events" },
+  { w: "teamwork",     es: "trabajo en equipo",    def: "working together as a group to achieve a goal" },
+  { w: "morale",       es: "moral / animo",        def: "the confidence and spirit of a group" },
+  { w: "tactics",      es: "tacticas",             def: "planned methods used to achieve a goal in sport" },
+  { w: "mentor",       es: "mentor/a",             def: "an experienced person who guides someone less experienced" },
+  { w: "underdog",     es: "el menos favorito",    def: "a competitor not expected to win" },
+  { w: "captain",      es: "capitan/a",            def: "the leader of a sports team" },
+  { w: "locker room",  es: "vestuario",            def: "the room where athletes change and prepare" },
+  { w: "half-time",    es: "medio tiempo",         def: "the break in the middle of a sports match" },
+  { w: "lineup",       es: "alineacion",           def: "the list of players chosen to play in a match" },
+  { w: "substitute",   es: "suplente",             def: "a player who replaces another during a game" },
+  { w: "pressure",     es: "presion",              def: "the stress of needing to perform well in a difficult situation" }
+];
+
+// BUILD VOCAB
+var vocabMount = document.getElementById("vocabMount");
+vocabGroups.forEach(function(group) {
+  var lbl = document.createElement("div");
+  lbl.className = "vocab-group-label";
+  lbl.textContent = group.label;
+  vocabMount.appendChild(lbl);
+  var grid = document.createElement("div");
+  grid.className = "vocab-grid";
+  group.words.forEach(function(v) {
+    var card = document.createElement("div");
+    card.className = "vocab-card";
+    card.innerHTML =
+      '<div class="card-inner">' +
+        '<div class="card-front">' +
+          '<div class="word">' + v.w + '</div>' +
+          '<div class="pos">'  + v.pos + '</div>' +
+          '<div class="hint">click to flip</div>' +
+        '</div>' +
+        '<div class="card-back">' +
+          '<div class="es">' + v.es + '</div>' +
+          '<div class="ex">' + v.ex + '</div>' +
+        '</div>' +
+      '</div>';
+    card.addEventListener("click", function() { this.classList.toggle("flipped"); });
+    grid.appendChild(card);
+  });
+  vocabMount.appendChild(grid);
+});
+
+// TABS
+var tabBtns   = document.querySelectorAll(".tab-btn");
+var tabPanels = document.querySelectorAll(".tab-panel");
+tabBtns.forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var target = this.dataset.tab;
+    if (target === "speaking") { window.location.href = "./speaking.html"; return; }
+    tabBtns.forEach(function(b)   { b.classList.remove("active"); });
+    tabPanels.forEach(function(p) { p.classList.remove("active"); });
+    this.classList.add("active");
+    document.getElementById("tab-" + target).classList.add("active");
+  });
+});
+
+// GRAMMAR PILLS
+var gramPills = document.querySelectorAll(".gram-pill");
+gramPills.forEach(function(pill) {
+  pill.addEventListener("click", function() {
+    gramPills.forEach(function(p) { p.classList.remove("active"); });
+    document.querySelectorAll(".gram-panel").forEach(function(p) { p.classList.remove("active"); });
+    this.classList.add("active");
+    document.getElementById("gram-" + this.dataset.gram).classList.add("active");
+  });
+});
+
+// DIALOGUE TABS
+var dlgTabs = document.querySelectorAll(".dlg-tab");
+dlgTabs.forEach(function(tab) {
+  tab.addEventListener("click", function() {
+    dlgTabs.forEach(function(t)  { t.classList.remove("active"); });
+    document.querySelectorAll(".dlg-panel").forEach(function(p) { p.classList.remove("active"); });
+    this.classList.add("active");
+    document.getElementById(this.dataset.dlg).classList.add("active");
+  });
+});
+
+// COMPREHENSION
+document.querySelectorAll(".comp-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var id = this.dataset.dlg;
+    var siblings = document.querySelectorAll('.comp-btn[data-dlg="' + id + '"]');
+    siblings.forEach(function(s) { s.disabled = true; });
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct");
+    } else {
+      this.classList.add("wrong");
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+  });
+});
+
+// BUILD QUIZ
+var quizCorrect = 0;
+var quizMount   = document.getElementById("quizMount");
+var quizScore   = document.getElementById("quizScore");
+var quizScoreTxt = document.getElementById("quizScoreTxt");
+quizData.forEach(function(item, idx) {
+  var div = document.createElement("div");
+  div.className = "quiz-item";
+  var optsHtml = "";
+  item.opts.forEach(function(o) {
+    optsHtml += '<button class="quiz-btn" data-qidx="' + idx + '" data-correct="' + o.c + '">' +
+      '<span class="ql">' + o.l + '</span>' + o.t + '</button>';
+  });
+  div.innerHTML = '<div class="q-text">' + (idx + 1) + ". " + item.q + "</div>" +
+    '<div class="quiz-opts">' + optsHtml + "</div>" +
+    '<div class="q-fb" id="qfb' + idx + '"></div>';
+  quizMount.appendChild(div);
+});
+document.querySelectorAll(".quiz-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var idx = this.dataset.qidx;
+    var siblings = document.querySelectorAll('.quiz-btn[data-qidx="' + idx + '"]');
+    siblings.forEach(function(s) { s.disabled = true; });
+    var fb = document.getElementById("qfb" + idx);
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct");
+      fb.className = "q-fb ok";
+      fb.textContent = "Correct! " + quizData[idx].fb;
+      quizCorrect++;
+    } else {
+      this.classList.add("wrong");
+      fb.className = "q-fb bad";
+      fb.textContent = "Not quite. " + quizData[idx].fb;
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+    quizScoreTxt.textContent = quizCorrect + " / " + quizData.length;
+    quizScore.classList.add("visible");
+  });
+});
+
+// BUILD PRACTICE
+var pracMount = document.getElementById("pracMount");
+pracData.forEach(function(item, idx) {
+  var div = document.createElement("div");
+  div.className = "prac-item";
+  var blankId = "blank" + idx;
+  var optsHtml = "";
+  item.opts.forEach(function(o) {
+    optsHtml += '<button class="abc-btn" data-pidx="' + idx + '" data-correct="' + o.c + '" data-text="' + o.t + '">' +
+      '<span class="abc-lbl">' + o.l + '</span>' + o.t + '</button>';
+  });
+  div.innerHTML = '<div class="prac-sentence">' + (idx + 1) + ". " +
+    item.s.replace("___", '<span class="blank" id="' + blankId + '">____</span>') + "</div>" +
+    '<div class="abc-opts">' + optsHtml + "</div>" +
+    '<div class="p-fb" id="pfb' + idx + '"></div>' +
+    '<button class="try-btn" id="ptry' + idx + '" style="display:none">Try again</button>';
+  pracMount.appendChild(div);
+});
+document.querySelectorAll(".abc-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var idx  = this.dataset.pidx;
+    var siblings = document.querySelectorAll('.abc-btn[data-pidx="' + idx + '"]');
+    siblings.forEach(function(s) { s.disabled = true; });
+    var blank  = document.getElementById("blank"  + idx);
+    var fb     = document.getElementById("pfb"    + idx);
+    var tryBtn = document.getElementById("ptry"   + idx);
+    blank.textContent = this.dataset.text;
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct"); blank.classList.add("ok");
+      fb.className = "p-fb ok"; fb.textContent = "Correct!";
+    } else {
+      this.classList.add("wrong"); blank.classList.add("bad");
+      fb.className = "p-fb bad"; fb.textContent = "Not quite. Try again!";
+      tryBtn.style.display = "inline-block";
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+    tryBtn.addEventListener("click", function() {
+      siblings.forEach(function(s) { s.disabled = false; s.classList.remove("correct", "wrong"); });
+      blank.textContent = "____"; blank.className = "blank";
+      fb.textContent = ""; tryBtn.style.display = "none";
+    });
+  });
+});
+
+// BUILD SONGS
+var songMount = document.getElementById("songMount");
+songData.forEach(function(s, si) {
+  var optsHtml = "";
+  s.opts.forEach(function(o) {
+    optsHtml += '<button class="s-opt" data-si="' + si + '" data-correct="' + o.c + '">' +
+      '<span class="sl">' + o.l + '</span>' + o.t + '</button>';
+  });
+  var card = document.createElement("div");
+  card.className = "song-card";
+  card.innerHTML =
+    '<div class="song-cover" style="background:' + s.bg + '">' + s.emoji + '</div>' +
+    '<div class="song-body">' +
+      '<div class="song-title">'  + s.title  + '</div>' +
+      '<div class="song-artist">' + s.artist + '</div>' +
+      '<div class="song-why">'    + s.why    + '</div>' +
+      '<a class="song-link" href="' + s.url + '" target="_blank">Listen on YouTube</a>' +
+    '</div>' +
+    '<div class="song-act">' +
+      '<div class="song-act-lbl">Activity</div>' +
+      '<div class="song-q">' + s.q + '</div>' +
+      '<div class="song-opts-wrap">' + optsHtml + '</div>' +
+      '<div class="s-fb" id="sfb' + si + '"></div>' +
+    '</div>';
+  songMount.appendChild(card);
+});
+document.querySelectorAll(".s-opt").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var si = this.dataset.si;
+    var siblings = document.querySelectorAll('.s-opt[data-si="' + si + '"]');
+    siblings.forEach(function(s) { s.disabled = true; });
+    var fb = document.getElementById("sfb" + si);
+    if (this.dataset.correct === "true") {
+      this.classList.add("correct");
+      fb.className = "s-fb ok";
+      fb.textContent = "Correct! " + songData[si].fb;
+    } else {
+      this.classList.add("wrong");
+      fb.className = "s-fb bad";
+      fb.textContent = "Not quite. " + songData[si].fb;
+      siblings.forEach(function(s) { if (s.dataset.correct === "true") { s.classList.add("correct"); } });
+    }
+  });
+});
+
+// BUILD EP VOCAB
+var epVocabMount = document.getElementById("epVocabMount");
+epVocabData.forEach(function(v) {
+  var card = document.createElement("div");
+  card.className = "ep-card";
+  card.innerHTML =
+    '<div class="ep-word">' + v.w   + '</div>' +
+    '<div class="ep-def">'  + v.def + '</div>' +
+    '<div class="ep-es">'   + v.es  + '</div>';
+  card.addEventListener("click", function() { this.classList.toggle("flipped"); });
+  epVocabMount.appendChild(card);
+});
+</script>
+</body>
+</html>
