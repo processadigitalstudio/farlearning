@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Exercise — Unit 3 | B2 Professional English</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fafaf8; color: #1a1a18; min-height: 100vh; }
+
+header {
+  background: #1A2E45;
+  color: white;
+  padding: 1.25rem 2rem 1.5rem;
+}
+header .back-link {
+  display: inline-block;
+  color: rgba(255,255,255,.65);
+  font-size: 0.82rem;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color .15s;
+}
+header .back-link:hover { color: white; }
+header h1 { font-size: 1.3rem; font-weight: 700; }
+header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
+
+.main { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+
+/* Option selector */
+.option-bar {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.opt-btn {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.8rem 1rem;
+  background: white;
+  border: 2px solid #e0e0dc;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #6b6b68;
+  transition: all .15s;
+  text-align: center;
+}
+.opt-btn:hover { border-color: #1A2E45; color: #1A2E45; }
+.opt-btn.active { background: #1A2E45; border-color: #1A2E45; color: white; }
+
+.option-panel { display: none; }
+.option-panel.active { display: block; }
+
+/* Section headings */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: #6b6b68;
+  margin-bottom: 0.6rem;
+  margin-top: 1.75rem;
+}
+.section-label:first-child { margin-top: 0; }
+
+/* Info box */
+.info-box {
+  background: #EBF2F9;
+  border-left: 4px solid #1A2E45;
+  border-radius: 0 10px 10px 0;
+  padding: 0.85rem 1.1rem;
+  margin-bottom: 1rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.info-box strong { color: #1A2E45; }
+
+/* Scenario cards */
+.scenario-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 0.8rem;
+}
+.scenario-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.6rem;
+}
+.scenario-num {
+  width: 32px; height: 32px;
+  background: #1A2E45;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.scenario-title { font-size: 0.95rem; font-weight: 700; }
+.scenario-roles { font-size: 0.78rem; color: #6b6b68; margin-top: 2px; }
+.scenario-body { font-size: 0.85rem; line-height: 1.55; color: #333; margin-bottom: 0.75rem; }
+.scenario-prompts { font-size: 0.8rem; color: #444; }
+.scenario-prompts li { margin-bottom: 0.25rem; padding-left: 0.3rem; }
+.scenario-prompts ul { padding-left: 1.1rem; }
+.nrc-example {
+  background: #EBF2F9;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.78rem;
+  color: #1A2E45;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* ── OPTION B ── */
+.ob-intro {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.ob-intro h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.ob-intro p { font-size: 0.85rem; line-height: 1.6; color: #444; margin-bottom: 0.4rem; }
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.cast-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.cast-card:hover { border-color: #1A2E45; }
+.cast-card.selected { background: #EBF2F9; border-color: #1A2E45; }
+.cast-name { font-size: 0.92rem; font-weight: 700; }
+.cast-role { font-size: 0.75rem; color: #6b6b68; margin-top: 2px; }
+.cast-detail {
+  font-size: 0.78rem;
+  color: #333;
+  margin-top: 6px;
+  line-height: 1.45;
+  display: none;
+}
+.cast-card.selected .cast-detail { display: block; }
+
+/* Structure guide */
+.structure-grid {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+.step-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+.step-num {
+  background: #1A2E45;
+  color: white;
+  border-radius: 6px;
+  width: 28px; height: 28px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.step-body { font-size: 0.84rem; line-height: 1.5; color: #333; }
+.step-body strong { color: #1A2E45; display: block; margin-bottom: 2px; }
+.step-hint { font-size: 0.75rem; color: #6b6b68; font-style: italic; margin-top: 3px; }
+
+/* Language bank */
+.lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1.25rem; }
+.lang-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+}
+.lang-card h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1A2E45; margin-bottom: 0.4rem; }
+.lang-card li { font-size: 0.78rem; color: #444; line-height: 1.5; margin-bottom: 0.2rem; }
+.lang-card ul { padding-left: 0.9rem; }
+
+/* Rubric */
+.rubric-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem; }
+.rubric-table th { background: #1A2E45; color: white; padding: 0.5rem 0.75rem; text-align: left; }
+.rubric-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e0e0dc; vertical-align: top; }
+.rubric-table tr:last-child td { border-bottom: none; }
+.rubric-table tr:nth-child(even) td { background: #f7f7f5; }
+.rubric-pts { font-weight: 700; color: #1A2E45; white-space: nowrap; }
+.rubric-total {
+  background: #1A2E45;
+  color: white;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Self-check */
+.check-list { list-style: none; padding: 0; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #e0e0dc;
+  font-size: 0.85rem;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+.check-item:last-child { border-bottom: none; }
+.check-box {
+  width: 20px; height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.check-item.checked .check-box { background: #1A2E45; border-color: #1A2E45; }
+.check-item.checked .check-box::after { content: '✓'; color: white; font-size: 0.78rem; font-weight: 700; }
+.check-item.checked span { color: #999; text-decoration: line-through; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="./" class="back-link">← Back to Unit 3</a>
+  <h1>&#127908; Speaking Exercise</h1>
+  <p>Unit 3: Problems at Work &nbsp;·&nbsp; Non-Restrictive Relative Clauses</p>
+</header>
+
+<div class="main">
+
+  <div class="option-bar">
+    <button class="opt-btn active" data-opt="a">&#128101; Option A — Pairs</button>
+    <button class="opt-btn" data-opt="b">&#129489; Option B — Individual</button>
+  </div>
+
+  <!-- ══════════════ OPTION A — PAIRS ══════════════ -->
+  <div class="option-panel active" id="opt-a">
+
+    <div class="info-box">
+      <strong>Instructions for Option A</strong><br>
+      Work in pairs. Choose one scenario. Each person takes one role. Discuss the workplace problem for 3–5 minutes. Try to use <strong>non-restrictive relative clauses</strong> (who / which / where / whose + commas) and at least 4 vocabulary words from the unit.
+    </div>
+
+    <div class="section-label">Choose a Scenario</div>
+
+    <div class="scenario-card">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div>
+          <div class="scenario-title">The Unfair Layoff</div>
+          <div class="scenario-roles">Employee A: Worker at risk &nbsp;·&nbsp; Employee B: Union representative</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        The company has announced twenty redundancies. Employee A believes the selection process was unfair and wants to file a grievance. Employee B is the union rep who will listen, advise, and explain the options (arbitration, legal action, negotiation).
+      </div>
+      <div class="scenario-prompts">
+        <ul>
+          <li>What happened and why does A feel it was unfair?</li>
+          <li>What does the union advise? What are the steps?</li>
+          <li>What is A's main concern — money, reputation, or staying at the company?</li>
+        </ul>
+      </div>
+      <div class="nrc-example">Try using: "My manager, who has always favored certain people, chose who to lay off."</div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div>
+          <div class="scenario-title">Burnout at the Office</div>
+          <div class="scenario-roles">Employee A: Exhausted team member &nbsp;·&nbsp; Employee B: Team leader / Manager</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        The team has been understaffed for three months. Employee A is overworked and burned out, missing deadlines. They need to tell their manager, who must listen and decide how to delegate work differently without losing productivity.
+      </div>
+      <div class="scenario-prompts">
+        <ul>
+          <li>How does A describe the situation? What evidence do they give?</li>
+          <li>What solutions can B offer? (hire temp staff, delegate, reduce scope)</li>
+          <li>Do they reach an agreement by the end?</li>
+        </ul>
+      </div>
+      <div class="nrc-example">Try using: "The project, which has three times more tasks than usual, is destroying the team's morale."</div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div>
+          <div class="scenario-title">The Whistleblower Dilemma</div>
+          <div class="scenario-roles">Employee A: Employee who discovered misconduct &nbsp;·&nbsp; Employee B: Trusted colleague</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        Employee A has discovered that a manager is falsifying expense reports. They are afraid of retaliation but feel it is wrong to stay silent. Employee B must advise — should A report it to HR? Who can protect them? What are the risks?
+      </div>
+      <div class="scenario-prompts">
+        <ul>
+          <li>What exactly did A discover, and how?</li>
+          <li>What are the risks of speaking up vs. staying silent?</li>
+          <li>Does A decide to report it in the end?</li>
+        </ul>
+      </div>
+      <div class="nrc-example">Try using: "The HR department, where all complaints are supposed to be confidential, might not protect me."</div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div>
+          <div class="scenario-title">The Strike Decision</div>
+          <div class="scenario-roles">Employee A: Union member in favor of striking &nbsp;·&nbsp; Employee B: Union member against striking</div>
+        </div>
+      </div>
+      <div class="scenario-body">
+        The union is voting on whether to go on strike. Management, which has offered a 2% pay rise, is calling it fair. The union, whose members are divided, must decide. A wants to strike; B wants to keep negotiating. Debate the decision.
+      </div>
+      <div class="scenario-prompts">
+        <ul>
+          <li>What are A's strongest arguments for striking?</li>
+          <li>What are B's strongest arguments for continuing to negotiate?</li>
+          <li>What would make each person change their mind?</li>
+        </ul>
+      </div>
+      <div class="nrc-example">Try using: "The offer, which amounts to a pay cut in real terms, is not acceptable."</div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════ OPTION B — INDIVIDUAL ══════════════ -->
+  <div class="option-panel" id="opt-b">
+
+    <div class="ob-intro">
+      <h3>HR Formal Complaint — Individual Speaking Task</h3>
+      <p>You are attending a formal HR meeting to present a workplace complaint. You will speak for <strong>1.5 to 2 minutes</strong>, describing the problem, the people involved, and what you are asking the company to do.</p>
+      <p>Choose your character below. Each character has a different complaint. Use <strong>non-restrictive relative clauses</strong> and at least <strong>5 vocabulary words</strong> from the unit in your presentation.</p>
+    </div>
+
+    <div class="section-label">Step 1 — Choose Your Character (tap to see your situation)</div>
+
+    <div class="cast-grid">
+
+      <div class="cast-card" id="char-alex">
+        <div class="cast-name">Alex Merritt</div>
+        <div class="cast-role">Senior Analyst, Finance Dept.</div>
+        <div class="cast-detail">
+          Your workload tripled after three colleagues were laid off. You have been overworked for six months and are now experiencing burnout. Your manager, who promised to hire replacements, has done nothing. You want the company to hire two new analysts or reduce your caseload immediately.
+        </div>
+      </div>
+
+      <div class="cast-card" id="char-diana">
+        <div class="cast-name">Diana Fuentes</div>
+        <div class="cast-role">Project Coordinator, Marketing</div>
+        <div class="cast-detail">
+          Your supervisor has been making dismissive comments about your work in front of colleagues for months. You filed a grievance three weeks ago, which was never acknowledged. You believe this is a form of workplace harassment. You are asking HR to investigate and issue a formal reprimand.
+        </div>
+      </div>
+
+      <div class="cast-card" id="char-james">
+        <div class="cast-name">James Okonkwo</div>
+        <div class="cast-role">Software Developer, IT</div>
+        <div class="cast-detail">
+          You discovered that your department head has been approving fake invoices. You are a whistleblower, which puts you in a vulnerable position. You are asking HR to confirm your legal protection before you give a formal statement. You also need to know about severance pay in case you are retaliated against.
+        </div>
+      </div>
+
+      <div class="cast-card" id="char-laura">
+        <div class="cast-name">Laura Svensson</div>
+        <div class="cast-role">Customer Service Lead</div>
+        <div class="cast-detail">
+          You were passed over for a promotion — the role went to someone less qualified, whose friendship with the regional director seems to have been the deciding factor. You have three years of excellent performance reviews, which should have qualified you automatically. You are demanding a transparent process.
+        </div>
+      </div>
+
+      <div class="cast-card" id="char-miguel">
+        <div class="cast-name">Miguel Rios</div>
+        <div class="cast-role">Warehouse Supervisor</div>
+        <div class="cast-detail">
+          The warehouse, where your team works, has serious safety violations that you have reported twice. Management, which has ignored your reports, is now pressuring you to sign off on inspections you did not carry out. You are refusing and asking HR to escalate the matter to the regional director immediately.
+        </div>
+      </div>
+
+      <div class="cast-card" id="char-nina">
+        <div class="cast-name">Nina Hartmann</div>
+        <div class="cast-role">HR Coordinator, People Ops</div>
+        <div class="cast-detail">
+          You are resigning due to a toxic work culture, but before leaving you want to document a pattern of misconduct by the department VP. You have gathered written evidence, which you will submit today. You are asking the company to launch a formal investigation and protect your identity as a source.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-label">Step 2 — Structure Your Presentation (1.5 – 2 minutes)</div>
+
+    <div class="structure-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Introduce yourself and the purpose (15 sec)</strong>
+          State your name, your role, and why you requested this HR meeting.
+          <div class="step-hint">"My name is [character], and I am here today to formally report..."</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Describe the problem with detail (40 sec)</strong>
+          Explain what happened, who was involved, and for how long. Use non-restrictive relative clauses to add context about people and events.
+          <div class="step-hint">"My manager, who has been with the company for eight years, began..."</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Explain the impact on you (25 sec)</strong>
+          How has this affected your work, health, or professional reputation? Use emotional and professional language.
+          <div class="step-hint">"This situation, which has lasted for over three months, has led to..."</div>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>State your request clearly (20 sec)</strong>
+          What do you want HR to do? Be specific — investigation, reprimand, compensation, policy change?
+          <div class="step-hint">"I am formally requesting that the company... within the next two weeks."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Language Bank — Useful Phrases</div>
+
+    <div class="lang-grid">
+      <div class="lang-card">
+        <h4>Opening</h4>
+        <ul>
+          <li>I am here today to formally report…</li>
+          <li>I would like to bring to your attention…</li>
+          <li>This meeting concerns a serious matter…</li>
+        </ul>
+      </div>
+      <div class="lang-card">
+        <h4>Describing the problem</h4>
+        <ul>
+          <li>This situation, which began in…, has…</li>
+          <li>My colleague, who is responsible for…</li>
+          <li>The department, where I work daily…</li>
+        </ul>
+      </div>
+      <div class="lang-card">
+        <h4>Explaining impact</h4>
+        <ul>
+          <li>As a result of this, I have been unable to…</li>
+          <li>This has had a significant effect on…</li>
+          <li>I have documented instances, which show…</li>
+        </ul>
+      </div>
+      <div class="lang-card">
+        <h4>Making a request</h4>
+        <ul>
+          <li>I am formally requesting a full investigation.</li>
+          <li>I expect a written response within…</li>
+          <li>I am also asking for confirmation of…</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Self-Check Before You Speak</div>
+
+    <div class="ob-intro" style="padding: 0.75rem 1rem;">
+      <ul class="check-list" id="checkList">
+        <li class="check-item" data-idx="0">
+          <div class="check-box"></div>
+          <span>I know my character's name, job, and complaint.</span>
+        </li>
+        <li class="check-item" data-idx="1">
+          <div class="check-box"></div>
+          <span>I have planned at least 2 non-restrictive relative clauses (with commas).</span>
+        </li>
+        <li class="check-item" data-idx="2">
+          <div class="check-box"></div>
+          <span>I will use at least 5 vocabulary words from Unit 3.</span>
+        </li>
+        <li class="check-item" data-idx="3">
+          <div class="check-box"></div>
+          <span>I know what I am asking HR to do (my request).</span>
+        </li>
+        <li class="check-item" data-idx="4">
+          <div class="check-box"></div>
+          <span>I will speak for 1.5 to 2 minutes (not read from notes).</span>
+        </li>
+        <li class="check-item" data-idx="5">
+          <div class="check-box"></div>
+          <span>I will stay in character and use formal, professional language.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section-label">Evaluation Rubric</div>
+
+    <div class="ob-intro" style="padding:0; overflow:hidden; border-radius:12px;">
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>Points</th>
+            <th>What we look for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Non-Restrictive Clauses</strong></td>
+            <td class="rubric-pts">/ 6</td>
+            <td>Uses who / which / where / whose correctly with commas (2 pts each, up to 3 examples).</td>
+          </tr>
+          <tr>
+            <td><strong>Vocabulary</strong></td>
+            <td class="rubric-pts">/ 5</td>
+            <td>Correctly uses 5 unit words in context (1 pt each).</td>
+          </tr>
+          <tr>
+            <td><strong>Fluency &amp; Length</strong></td>
+            <td class="rubric-pts">/ 4</td>
+            <td>Speaks 1.5–2 minutes with minimal pausing and no reading.</td>
+          </tr>
+          <tr>
+            <td><strong>Structure</strong></td>
+            <td class="rubric-pts">/ 3</td>
+            <td>Clear intro, problem description, and specific request.</td>
+          </tr>
+          <tr>
+            <td><strong>Professional Register</strong></td>
+            <td class="rubric-pts">/ 2</td>
+            <td>Formal, appropriate language throughout. Stays in character.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="rubric-total">Total: &nbsp;&nbsp; / 20</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  // Option A / B toggle
+  var optBtns = document.querySelectorAll('.opt-btn');
+  var optPanels = document.querySelectorAll('.option-panel');
+
+  optBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = btn.getAttribute('data-opt');
+      optBtns.forEach(function(b) { b.classList.remove('active'); });
+      optPanels.forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('opt-' + target).classList.add('active');
+    });
+  });
+
+  // Cast card reveal
+  var castCards = document.querySelectorAll('.cast-card');
+  castCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('selected');
+    });
+  });
+
+  // Self-check list
+  var checkItems = document.querySelectorAll('.check-item');
+  checkItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      item.classList.toggle('checked');
+    });
+  });
+})();
+</script>
+</body>
+</html>

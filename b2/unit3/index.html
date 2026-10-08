@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3: Problems at Work | B2 Professional English</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fafaf8; color: #1a1a18; min-height: 100vh; }
+
+header {
+  background: #1A2E45;
+  color: white;
+  padding: 1.25rem 2rem 1.5rem;
+}
+header .back-link {
+  display: inline-block;
+  color: rgba(255,255,255,.65);
+  font-size: 0.82rem;
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color .15s;
+}
+header .back-link:hover { color: white; }
+header h1 { font-size: 1.4rem; font-weight: 700; }
+header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
+
+.tab-bar {
+  background: white;
+  border-bottom: 2px solid #e0e0dc;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  padding: 0.75rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b6b68;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+  margin-bottom: -2px;
+}
+.tab-btn:hover { color: #1A2E45; }
+.tab-btn.active { color: #1A2E45; border-bottom-color: #1A2E45; }
+
+.tab-panel { display: none; max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+.tab-panel.active { display: block; }
+
+/* ── VOCABULARY ── */
+.vocab-group { margin-bottom: 2rem; }
+.vocab-group-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: #6b6b68;
+  margin-bottom: 0.75rem;
+}
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.55rem;
+}
+.vocab-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.vocab-card:hover { border-color: #1A2E45; }
+.vocab-card.revealed { background: #EBF2F9; border-color: #1A2E45; }
+.vocab-word { font-size: 0.95rem; font-weight: 600; }
+.vocab-def { font-size: 0.78rem; color: #444; margin-top: 4px; display: none; }
+.vocab-card.revealed .vocab-def { display: block; }
+.vocab-hint { font-size: 0.7rem; color: #999; margin-top: 2px; }
+.vocab-card.revealed .vocab-hint { display: none; }
+
+/* ── GRAMMAR ── */
+.grammar-section { margin-bottom: 1.75rem; }
+.grammar-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A2E45;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid #EBF2F9;
+}
+.grammar-section p, .grammar-section li { font-size: 0.88rem; line-height: 1.6; color: #333; }
+.grammar-section ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+.grammar-section li { margin-bottom: 0.3rem; }
+.grammar-box {
+  background: #EBF2F9;
+  border-left: 4px solid #1A2E45;
+  border-radius: 0 8px 8px 0;
+  padding: 0.9rem 1.1rem;
+  margin: 0.75rem 0;
+  font-size: 0.87rem;
+  line-height: 1.65;
+}
+.grammar-box em { font-style: italic; color: #1A2E45; font-weight: 600; }
+.grammar-table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.83rem; }
+.grammar-table th { background: #1A2E45; color: white; padding: 0.5rem 0.75rem; text-align: left; }
+.grammar-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e0e0dc; }
+.grammar-table tr:last-child td { border-bottom: none; }
+.grammar-table tr:nth-child(even) td { background: #f7f7f5; }
+.highlight { background: #FEF9C3; padding: 0 3px; border-radius: 3px; }
+.correct { color: #1B5E20; font-weight: 600; }
+.wrong { color: #B71C1C; text-decoration: line-through; }
+
+/* ── DIALOGUES ── */
+.dialogue-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #6b6b68;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+.dialogue-title:first-child { margin-top: 0; }
+.dialogue-box {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.dialogue-line { display: flex; gap: 0.65rem; margin-bottom: 0.6rem; font-size: 0.87rem; line-height: 1.5; }
+.dialogue-line:last-child { margin-bottom: 0; }
+.speaker { font-weight: 700; color: #1A2E45; min-width: 68px; flex-shrink: 0; }
+.dlg-nrc { color: #1A2E45; font-weight: 600; }
+
+/* ── QUIZ ── */
+.quiz-q {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.9rem;
+}
+.quiz-q p { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; line-height: 1.45; }
+.quiz-options { display: flex; flex-direction: column; gap: 0.4rem; }
+.quiz-btn {
+  text-align: left;
+  background: #f7f7f5;
+  border: 1px solid #e0e0dc;
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all .15s;
+}
+.quiz-btn:hover:not([disabled]) { background: #EBF2F9; border-color: #1A2E45; }
+.quiz-btn.correct-ans { background: #E8F5E9; border-color: #1B5E20; color: #1B5E20; font-weight: 600; }
+.quiz-btn.wrong-ans { background: #FFEBEE; border-color: #C62828; color: #C62828; }
+.quiz-feedback { font-size: 0.78rem; margin-top: 0.5rem; padding: 0.4rem 0.6rem; border-radius: 6px; }
+.quiz-feedback.ok { background: #E8F5E9; color: #1B5E20; }
+.quiz-feedback.no { background: #FFEBEE; color: #C62828; }
+.quiz-score {
+  background: #1A2E45;
+  color: white;
+  border-radius: 12px;
+  padding: 1.1rem 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: none;
+}
+
+/* ── PRACTICE ── */
+.practice-q {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.9rem;
+}
+.practice-q p { font-size: 0.88rem; margin-bottom: 0.6rem; line-height: 1.5; color: #333; }
+.practice-choices { display: flex; flex-direction: column; gap: 0.4rem; }
+.prac-btn {
+  text-align: left;
+  background: #f7f7f5;
+  border: 1px solid #e0e0dc;
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.83rem;
+  cursor: pointer;
+  transition: all .15s;
+}
+.prac-btn:hover:not([disabled]) { background: #EBF2F9; border-color: #1A2E45; }
+.prac-btn.ok { background: #E8F5E9; border-color: #1B5E20; color: #1B5E20; font-weight: 600; }
+.prac-btn.no { background: #FFEBEE; border-color: #C62828; color: #C62828; }
+.prac-explain { font-size: 0.77rem; color: #555; margin-top: 0.45rem; padding: 0.35rem 0.6rem; background: #f0f0ee; border-radius: 6px; display: none; }
+.prac-explain.show { display: block; }
+
+/* ── MEDIA ── */
+.media-section { margin-bottom: 2rem; }
+.media-section h3 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: #6b6b68;
+  margin-bottom: 0.75rem;
+}
+.song-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.7rem;
+}
+.song-card h4 { font-size: 0.95rem; font-weight: 700; }
+.song-card .artist { font-size: 0.82rem; color: #6b6b68; margin-top: 2px; }
+.song-card .reason { font-size: 0.82rem; color: #444; margin-top: 8px; line-height: 1.5; }
+.song-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #EBF2F9;
+  color: #1A2E45;
+  margin-top: 6px;
+}
+.movie-card {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 0.7rem;
+}
+.movie-card h4 { font-size: 1rem; font-weight: 700; }
+.movie-card .meta { font-size: 0.8rem; color: #6b6b68; margin-top: 2px; }
+.movie-card .synopsis { font-size: 0.83rem; color: #444; margin-top: 8px; line-height: 1.55; }
+.movie-vocab { margin-top: 1rem; }
+.movie-vocab-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6b6b68; margin-bottom: 0.5rem; }
+.movie-vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.45rem; }
+.mv-chip {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.7rem;
+  background: #EBF2F9;
+  border-radius: 8px;
+  color: #1A2E45;
+}
+.mv-chip span { display: block; font-size: 0.7rem; color: #555; margin-top: 2px; }
+
+/* ── SPEAKING CTA ── */
+.speaking-cta {
+  background: white;
+  border: 1px solid #e0e0dc;
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem;
+  text-align: center;
+}
+.speaking-cta .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.speaking-cta h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+.speaking-cta p { font-size: 0.85rem; color: #6b6b68; margin-bottom: 1.1rem; line-height: 1.5; }
+.speaking-link {
+  display: inline-block;
+  background: #1A2E45;
+  color: white;
+  text-decoration: none;
+  padding: 0.7rem 1.75rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background .15s;
+}
+.speaking-link:hover { background: #243f5e; }
+.option-pills { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #EBF2F9;
+  color: #1A2E45;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../" class="back-link">← Back to B2 Course</a>
+  <h1>Unit 3: Problems at Work</h1>
+  <p>Non-Restrictive Relative Clauses &nbsp;·&nbsp; Labor relations vocabulary</p>
+</header>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="vocab">Vocabulary</button>
+  <button class="tab-btn" data-tab="grammar">Grammar</button>
+  <button class="tab-btn" data-tab="dialogues">Dialogues</button>
+  <button class="tab-btn" data-tab="quiz">Quiz</button>
+  <button class="tab-btn" data-tab="practice">Practice</button>
+  <button class="tab-btn" data-tab="media">&#127916; Media</button>
+  <button class="tab-btn" data-tab="speaking">&#127908; Speaking</button>
+</div>
+
+<!-- ═══════════════════════════════ VOCABULARY ═══════════════════════════════ -->
+<div class="tab-panel active" id="panel-vocab">
+
+  <div class="vocab-group">
+    <div class="vocab-group-title">Group 1 — Workplace Problems</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="grievance" data-def="A formal complaint made by an employee about unfair treatment." data-hint="Tap to reveal">
+        <div class="vocab-word">grievance</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A formal complaint made by an employee about unfair treatment.</div>
+      </div>
+      <div class="vocab-card" data-word="harassment" data-def="Unwanted aggressive or hostile behavior toward a colleague." data-hint="Tap to reveal">
+        <div class="vocab-word">harassment</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Unwanted aggressive or hostile behavior toward a colleague.</div>
+      </div>
+      <div class="vocab-card" data-word="misconduct" data-def="Unacceptable or improper behavior by an employee or manager." data-hint="Tap to reveal">
+        <div class="vocab-word">misconduct</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Unacceptable or improper behavior by an employee or manager.</div>
+      </div>
+      <div class="vocab-card" data-word="layoff" data-def="When a company dismisses workers, usually for financial reasons." data-hint="Tap to reveal">
+        <div class="vocab-word">layoff</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">When a company dismisses workers, usually for financial reasons.</div>
+      </div>
+      <div class="vocab-card" data-word="redundancy" data-def="The state of being dismissed because your job is no longer needed." data-hint="Tap to reveal">
+        <div class="vocab-word">redundancy</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">The state of being dismissed because your job is no longer needed.</div>
+      </div>
+      <div class="vocab-card" data-word="burnout" data-def="Extreme physical and mental exhaustion caused by overwork." data-hint="Tap to reveal">
+        <div class="vocab-word">burnout</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Extreme physical and mental exhaustion caused by overwork.</div>
+      </div>
+      <div class="vocab-card" data-word="whistleblower" data-def="Someone who reports illegal or unethical behavior within an organization." data-hint="Tap to reveal">
+        <div class="vocab-word">whistleblower</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Someone who reports illegal or unethical behavior within an organization.</div>
+      </div>
+      <div class="vocab-card" data-word="understaffed" data-def="Having fewer workers than are needed to do the work properly." data-hint="Tap to reveal">
+        <div class="vocab-word">understaffed</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Having fewer workers than are needed to do the work properly.</div>
+      </div>
+      <div class="vocab-card" data-word="overworked" data-def="Made to work too hard or for too many hours." data-hint="Tap to reveal">
+        <div class="vocab-word">overworked</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Made to work too hard or for too many hours.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vocab-group">
+    <div class="vocab-group-title">Group 2 — Labor Relations</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="trade union" data-def="An organized group of workers who act together to protect their rights." data-hint="Tap to reveal">
+        <div class="vocab-word">trade union</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">An organized group of workers who act together to protect their rights.</div>
+      </div>
+      <div class="vocab-card" data-word="strike" data-def="When workers stop working to protest their conditions or pay." data-hint="Tap to reveal">
+        <div class="vocab-word">strike</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">When workers stop working to protest their conditions or pay.</div>
+      </div>
+      <div class="vocab-card" data-word="collective bargaining" data-def="Negotiations between employers and unions about pay and conditions." data-hint="Tap to reveal">
+        <div class="vocab-word">collective bargaining</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Negotiations between employers and unions about pay and conditions.</div>
+      </div>
+      <div class="vocab-card" data-word="severance pay" data-def="Money given to an employee when they are dismissed from their job." data-hint="Tap to reveal">
+        <div class="vocab-word">severance pay</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Money given to an employee when they are dismissed from their job.</div>
+      </div>
+      <div class="vocab-card" data-word="arbitration" data-def="A method of resolving disputes outside court, using a neutral third party." data-hint="Tap to reveal">
+        <div class="vocab-word">arbitration</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A method of resolving disputes outside court, using a neutral third party.</div>
+      </div>
+      <div class="vocab-card" data-word="negotiate" data-def="To discuss and reach an agreement with another party." data-hint="Tap to reveal">
+        <div class="vocab-word">negotiate</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">To discuss and reach an agreement with another party.</div>
+      </div>
+      <div class="vocab-card" data-word="mediator" data-def="A neutral person who helps two parties resolve a conflict." data-hint="Tap to reveal">
+        <div class="vocab-word">mediator</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A neutral person who helps two parties resolve a conflict.</div>
+      </div>
+      <div class="vocab-card" data-word="compensation" data-def="Money paid to an employee for work or for suffering a loss." data-hint="Tap to reveal">
+        <div class="vocab-word">compensation</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">Money paid to an employee for work or for suffering a loss.</div>
+      </div>
+      <div class="vocab-card" data-word="resign" data-def="To voluntarily leave a job or position." data-hint="Tap to reveal">
+        <div class="vocab-word">resign</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">To voluntarily leave a job or position.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vocab-group">
+    <div class="vocab-group-title">Group 3 — HR &amp; Workplace Communication</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="appraisal" data-def="A formal assessment of an employee's performance." data-hint="Tap to reveal">
+        <div class="vocab-word">appraisal</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A formal assessment of an employee's performance.</div>
+      </div>
+      <div class="vocab-card" data-word="probation" data-def="A trial period at the start of employment to assess suitability." data-hint="Tap to reveal">
+        <div class="vocab-word">probation</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A trial period at the start of employment to assess suitability.</div>
+      </div>
+      <div class="vocab-card" data-word="reprimand" data-def="An official warning given to an employee about their behavior." data-hint="Tap to reveal">
+        <div class="vocab-word">reprimand</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">An official warning given to an employee about their behavior.</div>
+      </div>
+      <div class="vocab-card" data-word="agenda" data-def="A list of topics to be discussed at a meeting." data-hint="Tap to reveal">
+        <div class="vocab-word">agenda</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A list of topics to be discussed at a meeting.</div>
+      </div>
+      <div class="vocab-card" data-word="escalate" data-def="To make a problem more serious, or to involve higher management." data-hint="Tap to reveal">
+        <div class="vocab-word">escalate</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">To make a problem more serious, or to involve higher management.</div>
+      </div>
+      <div class="vocab-card" data-word="deadline" data-def="The latest time by which something must be completed." data-hint="Tap to reveal">
+        <div class="vocab-word">deadline</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">The latest time by which something must be completed.</div>
+      </div>
+      <div class="vocab-card" data-word="workload" data-def="The total amount of work a person has to do." data-hint="Tap to reveal">
+        <div class="vocab-word">workload</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">The total amount of work a person has to do.</div>
+      </div>
+      <div class="vocab-card" data-word="performance review" data-def="A regular meeting to evaluate an employee's progress and goals." data-hint="Tap to reveal">
+        <div class="vocab-word">performance review</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">A regular meeting to evaluate an employee's progress and goals.</div>
+      </div>
+      <div class="vocab-card" data-word="delegate" data-def="To give part of your work or authority to someone else." data-hint="Tap to reveal">
+        <div class="vocab-word">delegate</div>
+        <div class="vocab-hint">Tap to reveal</div>
+        <div class="vocab-def">To give part of your work or authority to someone else.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ GRAMMAR ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-grammar">
+
+  <div class="grammar-section">
+    <h3>What Are Non-Restrictive Relative Clauses?</h3>
+    <p>A <strong>non-restrictive relative clause</strong> adds extra information about a noun — but the sentence still makes complete sense without it. These clauses are always separated by <strong>commas</strong>.</p>
+    <div class="grammar-box">
+      My manager, <em>who has worked here for twenty years</em>, is retiring next month.<br>
+      (We already know which manager — the clause just adds extra information.)
+    </div>
+    <p>Compare this with a <strong>restrictive clause</strong> (no commas), which identifies which person or thing we mean:</p>
+    <div class="grammar-box" style="border-left-color:#999; background:#f7f7f5;">
+      The manager <em>who hired me</em> is retiring next month.<br>
+      (Without the clause, we don't know which manager.)
+    </div>
+  </div>
+
+  <div class="grammar-section">
+    <h3>Relative Pronouns in Non-Restrictive Clauses</h3>
+    <table class="grammar-table">
+      <thead>
+        <tr><th>Pronoun</th><th>Refers to</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>who</strong></td>
+          <td>people</td>
+          <td>My colleague, <span class="highlight">who sits next to me</span>, got promoted.</td>
+        </tr>
+        <tr>
+          <td><strong>which</strong></td>
+          <td>things / ideas</td>
+          <td>The report, <span class="highlight">which took three weeks</span>, was rejected.</td>
+        </tr>
+        <tr>
+          <td><strong>where</strong></td>
+          <td>places</td>
+          <td>The conference room, <span class="highlight">where we always meet</span>, is being renovated.</td>
+        </tr>
+        <tr>
+          <td><strong>whose</strong></td>
+          <td>possession (people/things)</td>
+          <td>The HR director, <span class="highlight">whose office is on the 5th floor</span>, called me in.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:0.5rem;"><strong>Note:</strong> In non-restrictive clauses, <em>that</em> is NOT used. You must use <em>who</em> or <em>which</em>.</p>
+    <div class="grammar-box">
+      <span class="wrong">The meeting, that was scheduled for Monday, was cancelled.</span><br>
+      <span class="correct">&#10003; The meeting, which was scheduled for Monday, was cancelled.</span>
+    </div>
+  </div>
+
+  <div class="grammar-section">
+    <h3>Comma Rules</h3>
+    <ul>
+      <li>Always use a comma <strong>before</strong> the relative pronoun.</li>
+      <li>If the clause is in the <strong>middle</strong> of the sentence, use commas on both sides.</li>
+      <li>If the clause is at the <strong>end</strong>, only one comma before it is needed.</li>
+    </ul>
+    <div class="grammar-box">
+      <strong>Middle:</strong> The CEO<em>,</em> <em>who resigned last week,</em> was very popular.<br>
+      <strong>End:</strong> We filed the complaint with HR<em>,</em> <em>which took two weeks to respond.</em>
+    </div>
+  </div>
+
+  <div class="grammar-section">
+    <h3>Non-Restrictive vs Restrictive — Key Test</h3>
+    <p>Ask yourself: <em>"Can I remove this clause and still know exactly what the sentence is about?"</em></p>
+    <ul>
+      <li><strong>Yes → Non-Restrictive</strong> → use commas</li>
+      <li><strong>No → Restrictive</strong> → no commas</li>
+    </ul>
+    <div class="grammar-box">
+      <span class="correct">&#10003; My supervisor, who always arrives late, never checks our work.</span><br>
+      <small style="color:#555;">(One supervisor — the clause is just extra information)</small><br><br>
+      <span class="correct">&#10003; The supervisor who always arrives late never checks our work.</span><br>
+      <small style="color:#555;">(Multiple supervisors — the clause tells us which one)</small>
+    </div>
+  </div>
+
+  <div class="grammar-section">
+    <h3>Common Uses at Work</h3>
+    <ul>
+      <li>Adding background on a person: <em>Our union rep, <span class="highlight">who has 15 years of experience</span>, advised us to file a grievance.</em></li>
+      <li>Adding context about an event: <em>The layoff announcement, <span class="highlight">which shocked everyone</span>, came on a Friday.</em></li>
+      <li>Describing a place: <em>The break room, <span class="highlight">where we held our meeting</span>, was too small.</em></li>
+      <li>Showing possession: <em>The colleague, <span class="highlight">whose contract was not renewed</span>, is taking the company to arbitration.</em></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ DIALOGUES ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-dialogues">
+
+  <div class="dialogue-title">Dialogue 1 — The News (Layoffs Announced)</div>
+  <div class="dialogue-box">
+    <div class="dialogue-line">
+      <span class="speaker">Elena:</span>
+      <span>Did you hear? The management, <span class="dlg-nrc">who met all weekend</span>, just announced thirty layoffs.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Paul:</span>
+      <span>Thirty? The company, <span class="dlg-nrc">which posted record profits last year</span>, is laying people off?</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Elena:</span>
+      <span>That's what HR said. Our department, <span class="dlg-nrc">where the most junior staff work</span>, is affected.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Paul:</span>
+      <span>I'm calling the union. Our rep, <span class="dlg-nrc">whose number I have</span>, needs to know immediately.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Elena:</span>
+      <span>Good idea. The workers, <span class="dlg-nrc">who were given no warning</span>, have a right to representation.</span>
+    </div>
+  </div>
+
+  <div class="dialogue-title">Dialogue 2 — Fifty Days and Counting (Strike Talk)</div>
+  <div class="dialogue-box">
+    <div class="dialogue-line">
+      <span class="speaker">Marco:</span>
+      <span>The strike, <span class="dlg-nrc">which started fifty days ago</span>, shows no sign of ending.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Diane:</span>
+      <span>The workers, <span class="dlg-nrc">who have been without pay for weeks</span>, are under enormous pressure.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Marco:</span>
+      <span>Management offered a settlement, <span class="dlg-nrc">which the union rejected last Thursday</span>.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Diane:</span>
+      <span>The mediator, <span class="dlg-nrc">whose proposal seemed fair to both sides</span>, is coming back tomorrow.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Marco:</span>
+      <span>Let's hope so. Collective bargaining, <span class="dlg-nrc">which is a legal right</span>, must be respected.</span>
+    </div>
+  </div>
+
+  <div class="dialogue-title">Dialogue 3 — Quitting (Workplace Complaint)</div>
+  <div class="dialogue-box">
+    <div class="dialogue-line">
+      <span class="speaker">Sofia:</span>
+      <span>I've decided to resign. My manager, <span class="dlg-nrc">who has been harassing me for months</span>, crossed a line.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">HR:</span>
+      <span>That's very serious. The HR office, <span class="dlg-nrc">where all complaints are handled confidentially</span>, is here to help.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Sofia:</span>
+      <span>I already filed a grievance, <span class="dlg-nrc">which was ignored for three weeks</span>. Nothing changed.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">HR:</span>
+      <span>I understand. The process, <span class="dlg-nrc">which can feel slow</span>, does protect you legally. Please don't resign yet.</span>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">Sofia:</span>
+      <span>The company, <span class="dlg-nrc">whose reputation I care about</span>, needs to do better. I'll give it one more week.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ QUIZ ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-quiz">
+
+  <div class="quiz-q" id="qq1">
+    <p>1. Which sentence uses a non-restrictive clause correctly?</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq1" data-val="a">A) The employee who was fired had worked there for ten years.</button>
+      <button class="quiz-btn" data-q="qq1" data-val="b">B) My boss, who was fired, had worked there for ten years.</button>
+      <button class="quiz-btn" data-q="qq1" data-val="c">C) My boss who was fired, had worked there for ten years.</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq1"></div>
+  </div>
+
+  <div class="quiz-q" id="qq2">
+    <p>2. Choose the correct relative pronoun: "The report, ___ took three weeks to complete, was rejected."</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq2" data-val="a">A) that</button>
+      <button class="quiz-btn" data-q="qq2" data-val="b">B) which</button>
+      <button class="quiz-btn" data-q="qq2" data-val="c">C) who</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq2"></div>
+  </div>
+
+  <div class="quiz-q" id="qq3">
+    <p>3. What does a "grievance" mean in a workplace context?</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq3" data-val="a">A) A bonus given to high-performing workers.</button>
+      <button class="quiz-btn" data-q="qq3" data-val="b">B) A formal complaint made by an employee.</button>
+      <button class="quiz-btn" data-q="qq3" data-val="c">C) A type of employment contract.</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq3"></div>
+  </div>
+
+  <div class="quiz-q" id="qq4">
+    <p>4. Which sentence is correct?</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq4" data-val="a">A) The HR director whose office is on the 5th floor, called me in.</button>
+      <button class="quiz-btn" data-q="qq4" data-val="b">B) The HR director, whose office is on the 5th floor, called me in.</button>
+      <button class="quiz-btn" data-q="qq4" data-val="c">C) The HR director, that office is on the 5th floor, called me in.</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq4"></div>
+  </div>
+
+  <div class="quiz-q" id="qq5">
+    <p>5. "Collective bargaining" means:</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq5" data-val="a">A) Workers buying products together at a discount.</button>
+      <button class="quiz-btn" data-q="qq5" data-val="b">B) An agreement to hire workers from a union.</button>
+      <button class="quiz-btn" data-q="qq5" data-val="c">C) Negotiations between employers and unions about pay and conditions.</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq5"></div>
+  </div>
+
+  <div class="quiz-q" id="qq6">
+    <p>6. Can the pronoun "that" be used in a non-restrictive relative clause?</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq6" data-val="a">A) Yes, it is interchangeable with "which".</button>
+      <button class="quiz-btn" data-q="qq6" data-val="b">B) No, "that" cannot be used in non-restrictive clauses.</button>
+      <button class="quiz-btn" data-q="qq6" data-val="c">C) Only when referring to places.</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq6"></div>
+  </div>
+
+  <div class="quiz-q" id="qq7">
+    <p>7. What does a "mediator" do in a labor dispute?</p>
+    <div class="quiz-options">
+      <button class="quiz-btn" data-q="qq7" data-val="a">A) Decides the outcome and enforces a ruling.</button>
+      <button class="quiz-btn" data-q="qq7" data-val="b">B) Represents the workers in a strike.</button>
+      <button class="quiz-btn" data-q="qq7" data-val="c">C) Acts as a neutral third party to help both sides reach an agreement.</button>
+    </div>
+    <div class="quiz-feedback" id="fb-qq7"></div>
+  </div>
+
+  <div class="quiz-score" id="quizScore"></div>
+</div>
+
+<!-- ═══════════════════════════════ PRACTICE ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-practice">
+
+  <div class="practice-q" id="pq1">
+    <p>1. Which sentence uses commas correctly for a non-restrictive clause?</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq1" data-val="a">A) The union rep who spoke at the meeting is very experienced.</button>
+      <button class="prac-btn" data-q="pq1" data-val="b">B) The union rep, who spoke at the meeting, is very experienced.</button>
+      <button class="prac-btn" data-q="pq1" data-val="c">C) The union rep, who spoke at the meeting is very experienced.</button>
+    </div>
+    <div class="prac-explain" id="pe-pq1">Option B is correct. In a non-restrictive clause, commas appear before and after the clause when it is in the middle of the sentence. Option A (no commas) is restrictive. Option C is missing the closing comma.</div>
+  </div>
+
+  <div class="practice-q" id="pq2">
+    <p>2. Choose the correct word: "The conference room, ___ we hold all our meetings, is being repainted."</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq2" data-val="a">A) which</button>
+      <button class="prac-btn" data-q="pq2" data-val="b">B) where</button>
+      <button class="prac-btn" data-q="pq2" data-val="c">C) who</button>
+    </div>
+    <div class="prac-explain" id="pe-pq2">"Where" is used for places. The conference room is a place, so "where" is correct. "Which" is for things (not for location), and "who" is for people.</div>
+  </div>
+
+  <div class="practice-q" id="pq3">
+    <p>3. An employee who reports illegal behavior inside a company is called a…</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq3" data-val="a">A) mediator</button>
+      <button class="prac-btn" data-q="pq3" data-val="b">B) whistleblower</button>
+      <button class="prac-btn" data-q="pq3" data-val="c">C) arbitrator</button>
+    </div>
+    <div class="prac-explain" id="pe-pq3">A "whistleblower" exposes wrongdoing inside an organization. A "mediator" helps resolve disputes. An "arbitrator" makes binding decisions in disputes.</div>
+  </div>
+
+  <div class="practice-q" id="pq4">
+    <p>4. Identify the non-restrictive clause in this sentence: "The layoff announcement, which shocked everyone, came on a Friday."</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq4" data-val="a">A) "The layoff announcement"</button>
+      <button class="prac-btn" data-q="pq4" data-val="b">B) "which shocked everyone"</button>
+      <button class="prac-btn" data-q="pq4" data-val="c">C) "came on a Friday"</button>
+    </div>
+    <div class="prac-explain" id="pe-pq4">"which shocked everyone" is the non-restrictive relative clause — it is separated by commas and adds extra information about the announcement. Remove it and the main sentence "The layoff announcement came on a Friday" still works perfectly.</div>
+  </div>
+
+  <div class="practice-q" id="pq5">
+    <p>5. Money paid to a worker when they are dismissed for no fault of their own is called…</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq5" data-val="a">A) probation</button>
+      <button class="prac-btn" data-q="pq5" data-val="b">B) arbitration</button>
+      <button class="prac-btn" data-q="pq5" data-val="c">C) severance pay</button>
+    </div>
+    <div class="prac-explain" id="pe-pq5">"Severance pay" is financial compensation given to a worker when they lose their job through no fault of their own, such as in a layoff.</div>
+  </div>
+
+  <div class="practice-q" id="pq6">
+    <p>6. Which is a restrictive clause (no commas needed)?</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq6" data-val="a">A) My manager, who is always stressed, came to the meeting.</button>
+      <button class="prac-btn" data-q="pq6" data-val="b">B) The manager who approved my vacation request called in sick.</button>
+      <button class="prac-btn" data-q="pq6" data-val="c">C) The HR report, which took two months, was published yesterday.</button>
+    </div>
+    <div class="prac-explain" id="pe-pq6">Option B is restrictive — we don't know which manager until the clause "who approved my vacation request" identifies them. Options A and C are non-restrictive and correctly use commas.</div>
+  </div>
+
+  <div class="practice-q" id="pq7">
+    <p>7. "To delegate" means…</p>
+    <div class="practice-choices">
+      <button class="prac-btn" data-q="pq7" data-val="a">A) To refuse a task given by a supervisor.</button>
+      <button class="prac-btn" data-q="pq7" data-val="b">B) To give part of your work or authority to someone else.</button>
+      <button class="prac-btn" data-q="pq7" data-val="c">C) To submit a formal complaint to HR.</button>
+    </div>
+    <div class="prac-explain" id="pe-pq7">To "delegate" is to assign tasks or authority to another person, usually someone below you in a hierarchy. It is a key management skill.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════ MEDIA ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-media">
+
+  <div class="media-section">
+    <h3>Songs about Work &amp; Professional Life</h3>
+
+    <div class="song-card">
+      <h4>"9 to 5"</h4>
+      <div class="artist">Dolly Parton — 1980</div>
+      <div class="reason">A classic anthem about the frustrations of office life — working hard without recognition, bossy supervisors, and dreams of a better deal. Perfect for discussing labor relations and workplace grievances.</div>
+      <span class="song-tag">Working conditions</span>
+      <span class="song-tag">Labor relations</span>
+    </div>
+
+    <div class="song-card">
+      <h4>"Take This Job and Shove It"</h4>
+      <div class="artist">Johnny Paycheck — 1977</div>
+      <div class="reason">The ultimate song about quitting — a worker who has had enough of his employer and wants out. Great for discussing the vocabulary of resignation and workplace frustration.</div>
+      <span class="song-tag">Resigning</span>
+      <span class="song-tag">Workplace conflict</span>
+    </div>
+
+    <div class="song-card">
+      <h4>"Workin' for a Livin'"</h4>
+      <div class="artist">Huey Lewis and the News — 1982</div>
+      <div class="reason">A high-energy track about the daily grind of employment — long hours, financial pressure, and the universal feeling of being overworked and underpaid. Rich in everyday work vocabulary.</div>
+      <span class="song-tag">Burnout</span>
+      <span class="song-tag">Overworked</span>
+    </div>
+  </div>
+
+  <div class="media-section">
+    <h3>Featured Film</h3>
+
+    <div class="movie-card">
+      <h4>Office Space</h4>
+      <div class="meta">1999 &nbsp;·&nbsp; Comedy &nbsp;·&nbsp; Dir. Mike Judge &nbsp;·&nbsp; 89 min</div>
+      <div class="synopsis">Peter Gibbons, a bored software engineer at Initech, hates his job, his micromanaging boss, and the meaningless corporate culture around him. After a hypnotherapy session goes wrong, he stops caring — and ironically becomes more successful. The film is a sharp satire of American corporate office life: performance reviews, meaningless memos, TPS reports, and the soul-crushing repetition of the daily grind.</div>
+
+      <div class="movie-vocab">
+        <div class="movie-vocab-title">Key Vocabulary from the Film</div>
+        <div class="movie-vocab-grid">
+          <div class="mv-chip">TPS report <span>a pointless internal form — symbol of corporate busywork</span></div>
+          <div class="mv-chip">downsizing <span>reducing the number of employees</span></div>
+          <div class="mv-chip">consultant <span>external expert hired to evaluate the company</span></div>
+          <div class="mv-chip">cubicle <span>a small, partitioned workspace in an open office</span></div>
+          <div class="mv-chip">micromanage <span>to control every small detail of an employee's work</span></div>
+          <div class="mv-chip">mandatory <span>required, compulsory — not optional</span></div>
+          <div class="mv-chip">attitude <span>a person's general approach or feeling about work</span></div>
+          <div class="mv-chip">motivate <span>to give someone a reason to work harder</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════ SPEAKING ═══════════════════════════════ -->
+<div class="tab-panel" id="panel-speaking">
+  <div class="speaking-cta">
+    <div class="icon">&#127908;</div>
+    <h3>Speaking Exercise — Problems at Work</h3>
+    <p>Practice speaking about workplace conflicts, labor relations, and professional challenges. Use non-restrictive relative clauses and unit vocabulary naturally.</p>
+    <div class="option-pills">
+      <span class="pill">&#128101; Option A: Pairs</span>
+      <span class="pill">&#129489; Option B: Individual (HR Complaint)</span>
+    </div>
+    <a class="speaking-link" href="./speaking.html">Go to Speaking Exercise &rarr;</a>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── TAB SWITCHING ──
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanels = document.querySelectorAll('.tab-panel');
+
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var target = btn.getAttribute('data-tab');
+      tabBtns.forEach(function(b) { b.classList.remove('active'); });
+      tabPanels.forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('panel-' + target).classList.add('active');
+    });
+  });
+
+  // ── VOCABULARY FLIP ──
+  var vocabCards = document.querySelectorAll('.vocab-card');
+  vocabCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('revealed');
+    });
+  });
+
+  // ── QUIZ ──
+  var quizAnswers = { qq1: 'b', qq2: 'b', qq3: 'b', qq4: 'b', qq5: 'c', qq6: 'b', qq7: 'c' };
+  var quizFeedbacks = {
+    qq1: { b: 'Correct! "My boss, who was fired," uses commas to add extra information — it is non-restrictive.', a: 'Not quite. No commas means this is restrictive — it identifies which employee.', c: 'Almost — but the closing comma after "meeting" is missing.' },
+    qq2: { b: 'Correct! "Which" is used for things in non-restrictive clauses.', a: '"That" is never used in non-restrictive relative clauses.', c: '"Who" is only for people, not reports.' },
+    qq3: { b: 'Correct! A grievance is a formal complaint made by an employee about unfair treatment.', a: 'Incorrect — a bonus is a reward, not a complaint.', c: 'Incorrect — a grievance is not a type of contract.' },
+    qq4: { b: 'Correct! The clause is set off by commas on both sides, and "whose" is used correctly.', a: 'A comma is missing before "whose".', c: '"That" cannot be used in a non-restrictive clause.' },
+    qq5: { c: 'Correct! Collective bargaining is the negotiation process between unions and employers.', a: 'Incorrect — this is not a shopping arrangement.', b: 'Incorrect — this does not describe bargaining.' },
+    qq6: { b: 'Correct! "That" is never used in non-restrictive relative clauses — only "who" or "which".', a: 'Incorrect — "that" cannot replace "which" in non-restrictive clauses.', c: 'Incorrect — "where" is used for places, but "that" is still not used.' },
+    qq7: { c: 'Correct! A mediator is a neutral third party who helps both sides reach an agreement.', a: 'That describes an arbitrator, who makes a binding decision.', b: 'That is closer to a union representative.' }
+  };
+  var quizDone = {};
+  var quizTotal = Object.keys(quizAnswers).length;
+
+  var quizBtns = document.querySelectorAll('.quiz-btn');
+  quizBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var qid = btn.getAttribute('data-q');
+      var val = btn.getAttribute('data-val');
+      if (quizDone[qid]) return;
+      quizDone[qid] = true;
+      var correct = quizAnswers[qid];
+      var fbEl = document.getElementById('fb-' + qid);
+      var allBtns = document.querySelectorAll('.quiz-btn[data-q="' + qid + '"]');
+      allBtns.forEach(function(b) { b.disabled = true; });
+      if (val === correct) {
+        btn.classList.add('correct-ans');
+        fbEl.textContent = quizFeedbacks[qid][val];
+        fbEl.className = 'quiz-feedback ok';
+      } else {
+        btn.classList.add('wrong-ans');
+        fbEl.textContent = quizFeedbacks[qid][val];
+        fbEl.className = 'quiz-feedback no';
+        allBtns.forEach(function(b) {
+          if (b.getAttribute('data-val') === correct) {
+            b.classList.add('correct-ans');
+          }
+        });
+      }
+      if (Object.keys(quizDone).length === quizTotal) {
+        var score = 0;
+        Object.keys(quizDone).forEach(function(q) {
+          if (quizAnswers[q]) score++;
+        });
+        var correctCount = 0;
+        Object.keys(quizAnswers).forEach(function(q) {
+          if (quizDone[q]) {
+            var chosen = document.querySelector('.quiz-btn[data-q="' + q + '"].correct-ans');
+            if (chosen) correctCount++;
+          }
+        });
+        var scoreEl = document.getElementById('quizScore');
+        scoreEl.textContent = 'Quiz complete! You got ' + correctCount + ' out of ' + quizTotal + ' correct.';
+        scoreEl.style.display = 'block';
+      }
+    });
+  });
+
+  // ── PRACTICE ──
+  var pracAnswers = { pq1: 'b', pq2: 'b', pq3: 'b', pq4: 'b', pq5: 'c', pq6: 'b', pq7: 'b' };
+  var pracDone = {};
+
+  var pracBtns = document.querySelectorAll('.prac-btn');
+  pracBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var qid = btn.getAttribute('data-q');
+      var val = btn.getAttribute('data-val');
+      if (pracDone[qid]) return;
+      pracDone[qid] = true;
+      var correct = pracAnswers[qid];
+      var allBtns = document.querySelectorAll('.prac-btn[data-q="' + qid + '"]');
+      var explainEl = document.getElementById('pe-' + qid);
+      allBtns.forEach(function(b) { b.disabled = true; });
+      if (val === correct) {
+        btn.classList.add('ok');
+      } else {
+        btn.classList.add('no');
+        allBtns.forEach(function(b) {
+          if (b.getAttribute('data-val') === correct) { b.classList.add('ok'); }
+        });
+      }
+      if (explainEl) { explainEl.classList.add('show'); }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
