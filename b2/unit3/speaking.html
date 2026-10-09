@@ -77,6 +77,7 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
   line-height: 1.6;
 }
 .info-box strong { color: #1A2E45; }
+.es { color: #5a5a5a; font-size: 0.78rem; font-style: italic; display: block; margin-top: 2px; }
 
 /* Scenario cards */
 .scenario-card {
@@ -103,22 +104,23 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
   flex-shrink: 0;
 }
 .scenario-title { font-size: 0.95rem; font-weight: 700; }
-.scenario-roles { font-size: 0.78rem; color: #6b6b68; margin-top: 2px; }
+.scenario-subtitle { font-size: 0.78rem; color: #888; font-style: italic; margin-top: 1px; }
+.scenario-roles { font-size: 0.78rem; color: #6b6b68; margin-top: 3px; }
 .scenario-body { font-size: 0.85rem; line-height: 1.55; color: #333; margin-bottom: 0.75rem; }
 .scenario-prompts { font-size: 0.8rem; color: #444; }
-.scenario-prompts li { margin-bottom: 0.25rem; padding-left: 0.3rem; }
+.scenario-prompts li { margin-bottom: 0.3rem; padding-left: 0.3rem; }
 .scenario-prompts ul { padding-left: 1.1rem; }
 .nrc-example {
   background: #EBF2F9;
   border-radius: 8px;
-  padding: 0.4rem 0.7rem;
+  padding: 0.45rem 0.75rem;
   font-size: 0.78rem;
   color: #1A2E45;
   margin-top: 0.5rem;
   font-style: italic;
 }
 
-/* ── OPTION B ── */
+/* ── SHARED: check-list, structure, language bank, rubric ── */
 .ob-intro {
   background: white;
   border: 1px solid #e0e0dc;
@@ -152,7 +154,7 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
   font-size: 0.78rem;
   color: #333;
   margin-top: 6px;
-  line-height: 1.45;
+  line-height: 1.5;
   display: none;
 }
 .cast-card.selected .cast-detail { display: block; }
@@ -196,8 +198,9 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
   padding: 0.75rem 0.9rem;
 }
 .lang-card h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #1A2E45; margin-bottom: 0.4rem; }
-.lang-card li { font-size: 0.78rem; color: #444; line-height: 1.5; margin-bottom: 0.2rem; }
+.lang-card li { font-size: 0.78rem; color: #444; line-height: 1.5; margin-bottom: 0.25rem; }
 .lang-card ul { padding-left: 0.9rem; }
+.lang-card .es-note { font-size: 0.7rem; color: #888; font-style: italic; }
 
 /* Rubric */
 .rubric-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-bottom: 1rem; }
@@ -222,10 +225,8 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
   display: flex;
   align-items: flex-start;
   gap: 0.7rem;
-  padding: 0.55rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid #e0e0dc;
-  font-size: 0.85rem;
-  color: #333;
   cursor: pointer;
   user-select: none;
 }
@@ -235,13 +236,15 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
   border: 2px solid #ccc;
   border-radius: 5px;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
   display: flex; align-items: center; justify-content: center;
   transition: all .15s;
 }
 .check-item.checked .check-box { background: #1A2E45; border-color: #1A2E45; }
-.check-item.checked .check-box::after { content: '✓'; color: white; font-size: 0.78rem; font-weight: 700; }
-.check-item.checked span { color: #999; text-decoration: line-through; }
+.check-item.checked .check-box::after { content: '\2713'; color: white; font-size: 0.78rem; font-weight: 700; }
+.check-text { font-size: 0.85rem; color: #333; line-height: 1.45; }
+.check-text .es { margin-top: 1px; }
+.check-item.checked .check-text { color: #999; text-decoration: line-through; }
 </style>
 </head>
 <body>
@@ -259,306 +262,453 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
     <button class="opt-btn" data-opt="b">&#129489; Option B — Individual</button>
   </div>
 
-  <!-- ══════════════ OPTION A — PAIRS ══════════════ -->
+  <!-- ══════════════════════════════ OPTION A — PAIRS ══════════════════════════════ -->
   <div class="option-panel active" id="opt-a">
 
     <div class="info-box">
-      <strong>Instructions for Option A</strong><br>
-      Work in pairs. Choose one scenario. Each person takes one role. Discuss the workplace problem for 3–5 minutes. Try to use <strong>non-restrictive relative clauses</strong> (who / which / where / whose + commas) and at least 4 vocabulary words from the unit.
+      <strong>Instructions for Option A / Instrucciones</strong><br>
+      Work in pairs. Choose one scenario. Each person takes one role. Discuss the workplace problem for <strong>3–5 minutes</strong>. Use <strong>non-restrictive relative clauses</strong> (who / which / where / whose + commas) and at least <strong>4 vocabulary words</strong> from the unit.
+      <span class="es">Trabajen en parejas. Elijan un escenario. Cada persona toma un rol. Discutan el problema laboral durante 3–5 minutos. Usen cláusulas de relativo no restrictivas y al menos 4 palabras de vocabulario de la unidad.</span>
     </div>
 
-    <div class="section-label">Choose a Scenario</div>
+    <div class="section-label">Choose a Scenario / Elige un escenario</div>
 
+    <!-- Scenario 1 -->
     <div class="scenario-card">
       <div class="scenario-header">
         <div class="scenario-num">1</div>
         <div>
           <div class="scenario-title">The Unfair Layoff</div>
-          <div class="scenario-roles">Employee A: Worker at risk &nbsp;·&nbsp; Employee B: Union representative</div>
+          <div class="scenario-subtitle">El despido injusto</div>
+          <div class="scenario-roles">
+            <strong>A:</strong> Worker at risk &mdash; <em>Empleado en riesgo</em> &nbsp;·&nbsp;
+            <strong>B:</strong> Union representative &mdash; <em>Representante sindical</em>
+          </div>
         </div>
       </div>
       <div class="scenario-body">
         The company has announced twenty redundancies. Employee A believes the selection process was unfair and wants to file a grievance. Employee B is the union rep who will listen, advise, and explain the options (arbitration, legal action, negotiation).
+        <span class="es">La empresa anunció veinte despidos. A cree que el proceso fue injusto y quiere presentar una queja formal. B es el representante sindical que escucha, asesora y explica las opciones disponibles.</span>
       </div>
       <div class="scenario-prompts">
         <ul>
-          <li>What happened and why does A feel it was unfair?</li>
-          <li>What does the union advise? What are the steps?</li>
-          <li>What is A's main concern — money, reputation, or staying at the company?</li>
+          <li>What happened and why does A feel it was unfair? <span class="es">¿Qué pasó y por qué A siente que fue injusto?</span></li>
+          <li>What does the union advise? What are the steps? <span class="es">¿Qué recomienda el sindicato? ¿Cuáles son los pasos?</span></li>
+          <li>What is A's main concern — money, reputation, or staying? <span class="es">¿Cuál es la mayor preocupación de A — dinero, reputación o quedarse?</span></li>
         </ul>
       </div>
-      <div class="nrc-example">Try using: "My manager, who has always favored certain people, chose who to lay off."</div>
+      <div class="nrc-example">Try using / Intenta usar: "My manager, who has always favored certain people, chose who to lay off."</div>
     </div>
 
+    <!-- Scenario 2 -->
     <div class="scenario-card">
       <div class="scenario-header">
         <div class="scenario-num">2</div>
         <div>
           <div class="scenario-title">Burnout at the Office</div>
-          <div class="scenario-roles">Employee A: Exhausted team member &nbsp;·&nbsp; Employee B: Team leader / Manager</div>
+          <div class="scenario-subtitle">Agotamiento en el trabajo</div>
+          <div class="scenario-roles">
+            <strong>A:</strong> Exhausted team member &mdash; <em>Miembro del equipo agotado</em> &nbsp;·&nbsp;
+            <strong>B:</strong> Team leader / Manager &mdash; <em>Líder del equipo / Jefe</em>
+          </div>
         </div>
       </div>
       <div class="scenario-body">
         The team has been understaffed for three months. Employee A is overworked and burned out, missing deadlines. They need to tell their manager, who must listen and decide how to delegate work differently without losing productivity.
+        <span class="es">El equipo lleva tres meses con falta de personal. A está sobrecargado y agotado, perdiendo plazos. Necesita hablar con su jefe, quien debe escuchar y decidir cómo delegar mejor sin perder productividad.</span>
       </div>
       <div class="scenario-prompts">
         <ul>
-          <li>How does A describe the situation? What evidence do they give?</li>
-          <li>What solutions can B offer? (hire temp staff, delegate, reduce scope)</li>
-          <li>Do they reach an agreement by the end?</li>
+          <li>How does A describe the situation? What evidence? <span class="es">¿Cómo describe A la situación? ¿Qué evidencia da?</span></li>
+          <li>What solutions can B offer? (temp staff, delegate, reduce scope) <span class="es">¿Qué soluciones puede ofrecer B?</span></li>
+          <li>Do they reach an agreement by the end? <span class="es">¿Llegan a un acuerdo al final?</span></li>
         </ul>
       </div>
-      <div class="nrc-example">Try using: "The project, which has three times more tasks than usual, is destroying the team's morale."</div>
+      <div class="nrc-example">Try using / Intenta usar: "The project, which has three times more tasks than usual, is destroying the team's morale."</div>
     </div>
 
+    <!-- Scenario 3 -->
     <div class="scenario-card">
       <div class="scenario-header">
         <div class="scenario-num">3</div>
         <div>
           <div class="scenario-title">The Whistleblower Dilemma</div>
-          <div class="scenario-roles">Employee A: Employee who discovered misconduct &nbsp;·&nbsp; Employee B: Trusted colleague</div>
+          <div class="scenario-subtitle">El dilema del denunciante</div>
+          <div class="scenario-roles">
+            <strong>A:</strong> Employee who discovered misconduct &mdash; <em>Empleado que descubrió una irregularidad</em> &nbsp;·&nbsp;
+            <strong>B:</strong> Trusted colleague &mdash; <em>Colega de confianza</em>
+          </div>
         </div>
       </div>
       <div class="scenario-body">
-        Employee A has discovered that a manager is falsifying expense reports. They are afraid of retaliation but feel it is wrong to stay silent. Employee B must advise — should A report it to HR? Who can protect them? What are the risks?
+        Employee A discovered that a manager is falsifying expense reports. They are afraid of retaliation but feel it is wrong to stay silent. Employee B must advise — should A report it to HR? Who can protect them? What are the risks?
+        <span class="es">A descubrió que un jefe está falsificando gastos. Tiene miedo de represalias pero no puede guardar silencio. B debe aconsejar: ¿debe reportarlo a RR.HH.? ¿Quién puede protegerlo? ¿Cuáles son los riesgos?</span>
       </div>
       <div class="scenario-prompts">
         <ul>
-          <li>What exactly did A discover, and how?</li>
-          <li>What are the risks of speaking up vs. staying silent?</li>
-          <li>Does A decide to report it in the end?</li>
+          <li>What exactly did A discover, and how? <span class="es">¿Qué descubrió exactamente A, y cómo?</span></li>
+          <li>Risks of speaking up vs. staying silent? <span class="es">¿Riesgos de hablar vs. quedarse callado?</span></li>
+          <li>Does A decide to report it in the end? <span class="es">¿Decide A reportarlo al final?</span></li>
         </ul>
       </div>
-      <div class="nrc-example">Try using: "The HR department, where all complaints are supposed to be confidential, might not protect me."</div>
+      <div class="nrc-example">Try using / Intenta usar: "The HR department, where all complaints are supposed to be confidential, might not protect me."</div>
     </div>
 
+    <!-- Scenario 4 -->
     <div class="scenario-card">
       <div class="scenario-header">
         <div class="scenario-num">4</div>
         <div>
           <div class="scenario-title">The Strike Decision</div>
-          <div class="scenario-roles">Employee A: Union member in favor of striking &nbsp;·&nbsp; Employee B: Union member against striking</div>
+          <div class="scenario-subtitle">La decisión de la huelga</div>
+          <div class="scenario-roles">
+            <strong>A:</strong> Union member — pro-strike &mdash; <em>Miembro sindical a favor de la huelga</em> &nbsp;·&nbsp;
+            <strong>B:</strong> Union member — against striking &mdash; <em>Miembro sindical en contra</em>
+          </div>
         </div>
       </div>
       <div class="scenario-body">
-        The union is voting on whether to go on strike. Management, which has offered a 2% pay rise, is calling it fair. The union, whose members are divided, must decide. A wants to strike; B wants to keep negotiating. Debate the decision.
+        The union is voting on whether to go on strike. Management, which has offered a 2% pay rise, calls it fair. The union, whose members are divided, must decide. A wants to strike; B wants to keep negotiating. Debate the decision.
+        <span class="es">El sindicato vota si hacer huelga. La empresa ofrece un 2% de aumento. A quiere hacer huelga; B quiere seguir negociando. Debatan la decisión.</span>
       </div>
       <div class="scenario-prompts">
         <ul>
-          <li>What are A's strongest arguments for striking?</li>
-          <li>What are B's strongest arguments for continuing to negotiate?</li>
-          <li>What would make each person change their mind?</li>
+          <li>What are A's strongest arguments for striking? <span class="es">¿Cuáles son los argumentos más fuertes de A para la huelga?</span></li>
+          <li>What are B's strongest arguments against? <span class="es">¿Cuáles son los argumentos más fuertes de B en contra?</span></li>
+          <li>What would make each person change their mind? <span class="es">¿Qué haría que cada uno cambiara de opinión?</span></li>
         </ul>
       </div>
-      <div class="nrc-example">Try using: "The offer, which amounts to a pay cut in real terms, is not acceptable."</div>
+      <div class="nrc-example">Try using / Intenta usar: "The offer, which amounts to a pay cut in real terms, is not acceptable."</div>
+    </div>
+
+    <!-- ── SELF-CHECK OPTION A ── -->
+    <div class="section-label">Self-Check Before You Speak / Lista de verificación</div>
+
+    <div class="ob-intro" style="padding: 0.75rem 1rem;">
+      <ul class="check-list" id="checkListA">
+        <li class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            I know my role and the situation of my scenario.
+            <span class="es">Conozco mi rol y la situación del escenario elegido.</span>
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            I have planned at least 2 non-restrictive relative clauses (with commas).
+            <span class="es">Planifiqué al menos 2 cláusulas de relativo no restrictivas (con comas).</span>
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            I will use at least 4 vocabulary words from Unit 3.
+            <span class="es">Usaré al menos 4 palabras de vocabulario de la Unidad 3.</span>
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            I know the 3 discussion questions for my scenario.
+            <span class="es">Conozco las 3 preguntas guía de mi escenario.</span>
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            My pair and I will speak for 3–5 minutes total.
+            <span class="es">Mi pareja y yo hablaremos durante 3–5 minutos en total.</span>
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="check-box"></div>
+          <div class="check-text">
+            I will respond to what my partner says, not just read a script.
+            <span class="es">Responderé a lo que dice mi pareja, no solo leeré un guión.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── RUBRIC OPTION A ── -->
+    <div class="section-label">Evaluation Rubric / Rúbrica de evaluación</div>
+
+    <div class="ob-intro" style="padding:0; overflow:hidden; border-radius:12px;">
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>Criterion / Criterio</th>
+            <th>Pts</th>
+            <th>What we look for / Qué evaluamos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Non-Restrictive Clauses</strong><br><span style="font-size:0.75rem;color:#666;">Cláusulas no restrictivas</span></td>
+            <td class="rubric-pts">/ 6</td>
+            <td>Uses who / which / where / whose correctly with commas — up to 3 examples (2 pts each).<br><span style="font-size:0.75rem;color:#666;">Usa correctamente who/which/where/whose con comas — hasta 3 ejemplos.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Vocabulary</strong><br><span style="font-size:0.75rem;color:#666;">Vocabulario</span></td>
+            <td class="rubric-pts">/ 4</td>
+            <td>Correctly uses 4 unit words in context (1 pt each).<br><span style="font-size:0.75rem;color:#666;">Usa 4 palabras de la unidad en contexto correcto.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Interaction &amp; Response</strong><br><span style="font-size:0.75rem;color:#666;">Interacción y respuesta</span></td>
+            <td class="rubric-pts">/ 4</td>
+            <td>Actively responds to partner, builds on ideas, keeps conversation going.<br><span style="font-size:0.75rem;color:#666;">Responde activamente a la pareja y mantiene la conversación.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Fluency &amp; Length</strong><br><span style="font-size:0.75rem;color:#666;">Fluidez y duración</span></td>
+            <td class="rubric-pts">/ 4</td>
+            <td>Speaks 3–5 minutes with minimal pausing and no reading.<br><span style="font-size:0.75rem;color:#666;">Habla 3–5 minutos con pocas pausas y sin leer.</span></td>
+          </tr>
+          <tr>
+            <td><strong>Register &amp; Clarity</strong><br><span style="font-size:0.75rem;color:#666;">Registro y claridad</span></td>
+            <td class="rubric-pts">/ 2</td>
+            <td>Appropriate professional tone, clear pronunciation.<br><span style="font-size:0.75rem;color:#666;">Tono profesional adecuado, pronunciación clara.</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="rubric-total">Total: &nbsp;&nbsp; / 20</div>
     </div>
 
   </div>
 
-  <!-- ══════════════ OPTION B — INDIVIDUAL ══════════════ -->
+  <!-- ══════════════════════════════ OPTION B — INDIVIDUAL ══════════════════════════════ -->
   <div class="option-panel" id="opt-b">
 
     <div class="ob-intro">
       <h3>HR Formal Complaint — Individual Speaking Task</h3>
-      <p>You are attending a formal HR meeting to present a workplace complaint. You will speak for <strong>1.5 to 2 minutes</strong>, describing the problem, the people involved, and what you are asking the company to do.</p>
-      <p>Choose your character below. Each character has a different complaint. Use <strong>non-restrictive relative clauses</strong> and at least <strong>5 vocabulary words</strong> from the unit in your presentation.</p>
+      <p>You are attending a formal HR meeting to present a workplace complaint. Speak for <strong>1.5 to 2 minutes</strong>, describing the problem, the people involved, and what you are asking the company to do.</p>
+      <p>Choose your character below. Use <strong>non-restrictive relative clauses</strong> and at least <strong>5 vocabulary words</strong> from the unit.</p>
+      <p class="es">Asistes a una reunión formal de RR.HH. para presentar una queja laboral. Habla durante 1,5 a 2 minutos. Describe el problema, las personas involucradas y qué le pides a la empresa. Usa cláusulas de relativo no restrictivas y al menos 5 palabras de vocabulario de la unidad.</p>
     </div>
 
-    <div class="section-label">Step 1 — Choose Your Character (tap to see your situation)</div>
+    <div class="section-label">Step 1 — Choose Your Character / Elige tu personaje (tap to reveal)</div>
 
     <div class="cast-grid">
 
-      <div class="cast-card" id="char-alex">
+      <div class="cast-card">
         <div class="cast-name">Alex Merritt</div>
         <div class="cast-role">Senior Analyst, Finance Dept.</div>
         <div class="cast-detail">
           Your workload tripled after three colleagues were laid off. You have been overworked for six months and are now experiencing burnout. Your manager, who promised to hire replacements, has done nothing. You want the company to hire two new analysts or reduce your caseload immediately.
+          <span class="es">Tu carga de trabajo se triplicó. Llevas seis meses sobrecargado con burnout. Tu jefe no cumplió la promesa de contratar reemplazos. Pides dos analistas nuevos o reducción inmediata de tu carga.</span>
         </div>
       </div>
 
-      <div class="cast-card" id="char-diana">
+      <div class="cast-card">
         <div class="cast-name">Diana Fuentes</div>
         <div class="cast-role">Project Coordinator, Marketing</div>
         <div class="cast-detail">
-          Your supervisor has been making dismissive comments about your work in front of colleagues for months. You filed a grievance three weeks ago, which was never acknowledged. You believe this is a form of workplace harassment. You are asking HR to investigate and issue a formal reprimand.
+          Your supervisor has been making dismissive comments about your work in front of colleagues for months. You filed a grievance three weeks ago, which was never acknowledged. You believe this is workplace harassment. You are asking HR to investigate and issue a formal reprimand.
+          <span class="es">Tu supervisor lleva meses haciendo comentarios despectivos frente a colegas. Presentaste una queja hace tres semanas que nunca fue atendida. Pides una investigación y un amonestamiento formal.</span>
         </div>
       </div>
 
-      <div class="cast-card" id="char-james">
+      <div class="cast-card">
         <div class="cast-name">James Okonkwo</div>
         <div class="cast-role">Software Developer, IT</div>
         <div class="cast-detail">
-          You discovered that your department head has been approving fake invoices. You are a whistleblower, which puts you in a vulnerable position. You are asking HR to confirm your legal protection before you give a formal statement. You also need to know about severance pay in case you are retaliated against.
+          You discovered that your department head has been approving fake invoices. You are a whistleblower, which puts you in a vulnerable position. You are asking HR to confirm your legal protection before giving a formal statement, and want to know about severance pay in case of retaliation.
+          <span class="es">Descubriste que tu jefe aprueba facturas falsas. Eres un denunciante en posición vulnerable. Pides confirmación de protección legal antes de dar declaración formal, y preguntas por indemnización en caso de represalias.</span>
         </div>
       </div>
 
-      <div class="cast-card" id="char-laura">
+      <div class="cast-card">
         <div class="cast-name">Laura Svensson</div>
         <div class="cast-role">Customer Service Lead</div>
         <div class="cast-detail">
-          You were passed over for a promotion — the role went to someone less qualified, whose friendship with the regional director seems to have been the deciding factor. You have three years of excellent performance reviews, which should have qualified you automatically. You are demanding a transparent process.
+          You were passed over for a promotion — the role went to someone less qualified, whose friendship with the regional director seems to have been the deciding factor. You have three years of excellent performance reviews, which should have qualified you automatically. You demand a transparent process.
+          <span class="es">Te ignoraron para un ascenso que fue a alguien menos calificado, cuya amistad con el director parece haber sido decisiva. Tienes tres años de excelentes evaluaciones. Exiges un proceso transparente.</span>
         </div>
       </div>
 
-      <div class="cast-card" id="char-miguel">
+      <div class="cast-card">
         <div class="cast-name">Miguel Rios</div>
         <div class="cast-role">Warehouse Supervisor</div>
         <div class="cast-detail">
-          The warehouse, where your team works, has serious safety violations that you have reported twice. Management, which has ignored your reports, is now pressuring you to sign off on inspections you did not carry out. You are refusing and asking HR to escalate the matter to the regional director immediately.
+          The warehouse, where your team works, has serious safety violations you have reported twice. Management, which has ignored your reports, is now pressuring you to sign off on inspections you did not carry out. You are refusing and asking HR to escalate to the regional director immediately.
+          <span class="es">La bodega donde trabaja tu equipo tiene violaciones graves de seguridad que reportaste dos veces. La gerencia las ignoró y ahora te presiona a firmar inspecciones que no hiciste. Pides escalar al director regional.</span>
         </div>
       </div>
 
-      <div class="cast-card" id="char-nina">
+      <div class="cast-card">
         <div class="cast-name">Nina Hartmann</div>
         <div class="cast-role">HR Coordinator, People Ops</div>
         <div class="cast-detail">
-          You are resigning due to a toxic work culture, but before leaving you want to document a pattern of misconduct by the department VP. You have gathered written evidence, which you will submit today. You are asking the company to launch a formal investigation and protect your identity as a source.
+          You are resigning due to a toxic work culture, but before leaving you want to document a pattern of misconduct by the department VP. You have gathered written evidence, which you will submit today. You are asking the company to launch a formal investigation and protect your identity.
+          <span class="es">Te vas por cultura tóxica, pero antes quieres documentar un patrón de conducta indebida del VP. Tienes evidencia escrita que presentas hoy. Pides una investigación formal y protección de tu identidad como fuente.</span>
         </div>
       </div>
 
     </div>
 
-    <div class="section-label">Step 2 — Structure Your Presentation (1.5 – 2 minutes)</div>
+    <div class="section-label">Step 2 — Structure Your Presentation / Estructura tu presentación (1.5 – 2 min)</div>
 
     <div class="structure-grid">
       <div class="step-card">
         <div class="step-num">1</div>
         <div class="step-body">
-          <strong>Introduce yourself and the purpose (15 sec)</strong>
+          <strong>Introduce yourself and the purpose (15 sec) / Preséntate y di el motivo</strong>
           State your name, your role, and why you requested this HR meeting.
+          <span class="es">Di tu nombre, tu cargo y por qué pediste esta reunión con RR.HH.</span>
           <div class="step-hint">"My name is [character], and I am here today to formally report..."</div>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
         <div class="step-body">
-          <strong>Describe the problem with detail (40 sec)</strong>
-          Explain what happened, who was involved, and for how long. Use non-restrictive relative clauses to add context about people and events.
+          <strong>Describe the problem with detail (40 sec) / Describe el problema</strong>
+          Explain what happened, who was involved, and for how long. Use non-restrictive relative clauses to add context.
+          <span class="es">Explica qué pasó, quién estuvo involucrado y por cuánto tiempo. Usa cláusulas de relativo no restrictivas para añadir contexto.</span>
           <div class="step-hint">"My manager, who has been with the company for eight years, began..."</div>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <div class="step-body">
-          <strong>Explain the impact on you (25 sec)</strong>
-          How has this affected your work, health, or professional reputation? Use emotional and professional language.
+          <strong>Explain the impact on you (25 sec) / Explica el impacto</strong>
+          How has this affected your work, health, or professional reputation?
+          <span class="es">¿Cómo ha afectado esto tu trabajo, tu salud o tu reputación profesional?</span>
           <div class="step-hint">"This situation, which has lasted for over three months, has led to..."</div>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">4</div>
         <div class="step-body">
-          <strong>State your request clearly (20 sec)</strong>
+          <strong>State your request clearly (20 sec) / Haz tu solicitud</strong>
           What do you want HR to do? Be specific — investigation, reprimand, compensation, policy change?
+          <span class="es">¿Qué le pides a RR.HH. que haga? Sé específico: ¿investigación, amonestamiento, compensación, cambio de política?</span>
           <div class="step-hint">"I am formally requesting that the company... within the next two weeks."</div>
         </div>
       </div>
     </div>
 
-    <div class="section-label">Language Bank — Useful Phrases</div>
+    <div class="section-label">Language Bank / Banco de frases útiles</div>
 
     <div class="lang-grid">
       <div class="lang-card">
-        <h4>Opening</h4>
+        <h4>Opening / Para empezar</h4>
         <ul>
-          <li>I am here today to formally report…</li>
-          <li>I would like to bring to your attention…</li>
-          <li>This meeting concerns a serious matter…</li>
+          <li>I am here today to formally report… <span class="es-note">(Estoy aquí para reportar formalmente…)</span></li>
+          <li>I would like to bring to your attention… <span class="es-note">(Me gustaría llamar su atención sobre…)</span></li>
+          <li>This meeting concerns a serious matter… <span class="es-note">(Esta reunión trata un asunto serio…)</span></li>
         </ul>
       </div>
       <div class="lang-card">
-        <h4>Describing the problem</h4>
+        <h4>Describing / Para describir</h4>
         <ul>
-          <li>This situation, which began in…, has…</li>
-          <li>My colleague, who is responsible for…</li>
-          <li>The department, where I work daily…</li>
+          <li>This situation, which began in…, has… <span class="es-note">(Esta situación, que comenzó en…, ha…)</span></li>
+          <li>My colleague, who is responsible for… <span class="es-note">(Mi colega, quien es responsable de…)</span></li>
+          <li>The department, where I work daily… <span class="es-note">(El departamento, donde trabajo a diario…)</span></li>
         </ul>
       </div>
       <div class="lang-card">
-        <h4>Explaining impact</h4>
+        <h4>Impact / Para explicar el impacto</h4>
         <ul>
-          <li>As a result of this, I have been unable to…</li>
-          <li>This has had a significant effect on…</li>
-          <li>I have documented instances, which show…</li>
+          <li>As a result, I have been unable to… <span class="es-note">(Como resultado, no he podido…)</span></li>
+          <li>This has had a significant effect on… <span class="es-note">(Esto ha afectado significativamente…)</span></li>
+          <li>I have documented instances, which show… <span class="es-note">(He documentado casos que demuestran…)</span></li>
         </ul>
       </div>
       <div class="lang-card">
-        <h4>Making a request</h4>
+        <h4>Request / Para pedir acción</h4>
         <ul>
-          <li>I am formally requesting a full investigation.</li>
-          <li>I expect a written response within…</li>
-          <li>I am also asking for confirmation of…</li>
+          <li>I am formally requesting an investigation. <span class="es-note">(Solicito formalmente una investigación.)</span></li>
+          <li>I expect a written response within… <span class="es-note">(Espero una respuesta escrita en…)</span></li>
+          <li>I am also asking for confirmation of… <span class="es-note">(También solicito confirmación de…)</span></li>
         </ul>
       </div>
     </div>
 
-    <div class="section-label">Self-Check Before You Speak</div>
+    <div class="section-label">Self-Check Before You Speak / Lista de verificación</div>
 
     <div class="ob-intro" style="padding: 0.75rem 1rem;">
-      <ul class="check-list" id="checkList">
-        <li class="check-item" data-idx="0">
+      <ul class="check-list" id="checkListB">
+        <li class="check-item">
           <div class="check-box"></div>
-          <span>I know my character's name, job, and complaint.</span>
+          <div class="check-text">
+            I know my character's name, job, and complaint.
+            <span class="es">Conozco el nombre, cargo y queja de mi personaje.</span>
+          </div>
         </li>
-        <li class="check-item" data-idx="1">
+        <li class="check-item">
           <div class="check-box"></div>
-          <span>I have planned at least 2 non-restrictive relative clauses (with commas).</span>
+          <div class="check-text">
+            I have planned at least 2 non-restrictive relative clauses (with commas).
+            <span class="es">Planifiqué al menos 2 cláusulas de relativo no restrictivas (con comas).</span>
+          </div>
         </li>
-        <li class="check-item" data-idx="2">
+        <li class="check-item">
           <div class="check-box"></div>
-          <span>I will use at least 5 vocabulary words from Unit 3.</span>
+          <div class="check-text">
+            I will use at least 5 vocabulary words from Unit 3.
+            <span class="es">Usaré al menos 5 palabras de vocabulario de la Unidad 3.</span>
+          </div>
         </li>
-        <li class="check-item" data-idx="3">
+        <li class="check-item">
           <div class="check-box"></div>
-          <span>I know what I am asking HR to do (my request).</span>
+          <div class="check-text">
+            I know what I am asking HR to do (my specific request).
+            <span class="es">Sé exactamente qué le voy a pedir a RR.HH.</span>
+          </div>
         </li>
-        <li class="check-item" data-idx="4">
+        <li class="check-item">
           <div class="check-box"></div>
-          <span>I will speak for 1.5 to 2 minutes (not read from notes).</span>
+          <div class="check-text">
+            I will speak for 1.5 to 2 minutes without reading from notes.
+            <span class="es">Hablaré entre 1,5 y 2 minutos sin leer mis notas.</span>
+          </div>
         </li>
-        <li class="check-item" data-idx="5">
+        <li class="check-item">
           <div class="check-box"></div>
-          <span>I will stay in character and use formal, professional language.</span>
+          <div class="check-text">
+            I will stay in character and use formal, professional language.
+            <span class="es">Mantendré el personaje y usaré lenguaje formal y profesional.</span>
+          </div>
         </li>
       </ul>
     </div>
 
-    <div class="section-label">Evaluation Rubric</div>
+    <div class="section-label">Evaluation Rubric / Rúbrica de evaluación</div>
 
     <div class="ob-intro" style="padding:0; overflow:hidden; border-radius:12px;">
       <table class="rubric-table">
         <thead>
           <tr>
-            <th>Criterion</th>
-            <th>Points</th>
-            <th>What we look for</th>
+            <th>Criterion / Criterio</th>
+            <th>Pts</th>
+            <th>What we look for / Qué evaluamos</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Non-Restrictive Clauses</strong></td>
+            <td><strong>Non-Restrictive Clauses</strong><br><span style="font-size:0.75rem;color:#666;">Cláusulas no restrictivas</span></td>
             <td class="rubric-pts">/ 6</td>
-            <td>Uses who / which / where / whose correctly with commas (2 pts each, up to 3 examples).</td>
+            <td>Uses who / which / where / whose correctly with commas (2 pts each, up to 3 examples).<br><span style="font-size:0.75rem;color:#666;">Usa correctamente who/which/where/whose con comas — hasta 3 ejemplos.</span></td>
           </tr>
           <tr>
-            <td><strong>Vocabulary</strong></td>
+            <td><strong>Vocabulary</strong><br><span style="font-size:0.75rem;color:#666;">Vocabulario</span></td>
             <td class="rubric-pts">/ 5</td>
-            <td>Correctly uses 5 unit words in context (1 pt each).</td>
+            <td>Correctly uses 5 unit words in context (1 pt each).<br><span style="font-size:0.75rem;color:#666;">Usa 5 palabras de la unidad en contexto correcto.</span></td>
           </tr>
           <tr>
-            <td><strong>Fluency &amp; Length</strong></td>
+            <td><strong>Fluency &amp; Length</strong><br><span style="font-size:0.75rem;color:#666;">Fluidez y duración</span></td>
             <td class="rubric-pts">/ 4</td>
-            <td>Speaks 1.5–2 minutes with minimal pausing and no reading.</td>
+            <td>Speaks 1.5–2 minutes with minimal pausing and no reading.<br><span style="font-size:0.75rem;color:#666;">Habla 1,5–2 min con pocas pausas y sin leer.</span></td>
           </tr>
           <tr>
-            <td><strong>Structure</strong></td>
+            <td><strong>Structure</strong><br><span style="font-size:0.75rem;color:#666;">Estructura</span></td>
             <td class="rubric-pts">/ 3</td>
-            <td>Clear intro, problem description, and specific request.</td>
+            <td>Clear intro, problem description, and specific request.<br><span style="font-size:0.75rem;color:#666;">Intro clara, descripción del problema y solicitud específica.</span></td>
           </tr>
           <tr>
-            <td><strong>Professional Register</strong></td>
+            <td><strong>Professional Register</strong><br><span style="font-size:0.75rem;color:#666;">Registro profesional</span></td>
             <td class="rubric-pts">/ 2</td>
-            <td>Formal, appropriate language throughout. Stays in character.</td>
+            <td>Formal, appropriate language throughout. Stays in character.<br><span style="font-size:0.75rem;color:#666;">Lenguaje formal y apropiado en todo momento. Mantiene el personaje.</span></td>
           </tr>
         </tbody>
       </table>
@@ -592,7 +742,7 @@ header p { font-size: 0.82rem; opacity: 0.65; margin-top: 4px; }
     });
   });
 
-  // Self-check list
+  // Self-check lists (A and B)
   var checkItems = document.querySelectorAll('.check-item');
   checkItems.forEach(function(item) {
     item.addEventListener('click', function() {
