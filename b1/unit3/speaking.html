@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Exercise · Unit 3 Celebrations | B1.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C2185B;
+  --accent-dark: #8E0F42;
+  --accent-light: #FCE4EC;
+  --accent-soft: #FDF2F6;
+  --dark: #1A1A2E;
+  --gray: #5A5A6E;
+  --lgray: #9098A8;
+  --bg: #FAFAFC;
+  --white: #FFFFFF;
+  --border: #E8E8EE;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.6; min-height: 100vh; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; padding: 20px 32px; color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 500; }
+.back-link:hover { color: var(--accent); }
+.header { max-width: 1000px; margin: 0 auto; padding: 0 32px 24px; }
+.tag { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 12px; }
+h1 { font-size: clamp(28px, 4vw, 38px); font-weight: 800; line-height: 1.1; margin-bottom: 8px; letter-spacing: -0.02em; }
+h1 .accent { color: var(--accent); }
+.subtitle { color: var(--gray); font-size: 15px; }
+.container { max-width: 1000px; margin: 0 auto; padding: 32px; }
+.picker { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 32px; }
+.opt { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.25s; text-align: left; font-family: inherit; }
+.opt:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(194, 24, 91, 0.12); }
+.opt.active { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 32px; margin-bottom: 10px; }
+.opt .kind { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 4px; }
+.opt .title { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+.opt .brief { font-size: 13px; color: var(--gray); line-height: 1.5; }
+.opt .duration { display: inline-block; margin-top: 10px; background: var(--accent-light); color: var(--accent-dark); padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.exercise { display: none; animation: fadeIn 0.3s ease; }
+.exercise.show { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.section { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
+.section h3 { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 12px; }
+.section h4 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+.section p { color: var(--dark); font-size: 14px; margin-bottom: 12px; }
+.section p:last-child { margin-bottom: 0; }
+.section ul { padding-left: 20px; margin-bottom: 8px; }
+.section li { padding: 4px 0; color: var(--dark); font-size: 14px; }
+.section li strong { color: var(--accent); }
+.example { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 18px; margin: 12px 0; }
+.example-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 8px; }
+.ex-line { display: flex; gap: 10px; margin-bottom: 6px; align-items: flex-start; font-size: 13.5px; }
+.ex-spk { font-weight: 700; color: var(--accent); min-width: 85px; }
+.ex-spk.b { color: var(--dark); }
+.ex-txt { flex: 1; color: var(--dark); }
+.ex-txt em { color: var(--accent); font-style: normal; font-weight: 600; }
+.ex-solo { color: var(--dark); font-size: 13.5px; line-height: 1.7; }
+.ex-solo em { color: var(--accent); font-style: normal; font-weight: 600; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+.prompt-card { background: var(--accent-soft); border: 1px dashed var(--accent); border-radius: 10px; padding: 14px; font-size: 13px; color: var(--dark); }
+.prompt-card strong { display: block; color: var(--accent); font-size: 11px; letter-spacing: 0.06em; margin-bottom: 6px; }
+.timer-box { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); color: var(--white); border-radius: 14px; padding: 24px; text-align: center; margin-bottom: 18px; }
+.timer-display { font-size: 56px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1; margin: 12px 0; }
+.timer-label { font-size: 12px; opacity: 0.85; letter-spacing: 0.06em; font-weight: 600; }
+.timer-controls { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+.timer-btn { background: var(--white); color: var(--accent); border: none; padding: 10px 20px; border-radius: 24px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit; transition: transform 0.2s; }
+.timer-btn:hover { transform: translateY(-2px); }
+.timer-btn.ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.6); }
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.checklist li:last-child { border-bottom: none; }
+.checklist input { margin-top: 4px; accent-color: var(--accent); cursor: pointer; width: 16px; height: 16px; }
+.checklist label { cursor: pointer; font-size: 14px; color: var(--dark); flex: 1; }
+.checklist input:checked + label { color: var(--lgray); text-decoration: line-through; }
+.rubric { width: 100%; border-collapse: collapse; margin-top: 12px; }
+.rubric th { background: var(--accent); color: var(--white); padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; }
+.rubric th.center, .rubric td.center { text-align: center; }
+.rubric td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--dark); }
+.rubric tr:last-child td { border-bottom: none; }
+.rubric input[type="number"] { width: 55px; padding: 6px 8px; border: 1.5px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 13px; text-align: center; }
+.rubric .total-row { background: var(--accent-soft); font-weight: 700; }
+.rubric .total-row td { color: var(--accent-dark); }
+.total-display { display: inline-block; background: var(--accent); color: var(--white); padding: 4px 14px; border-radius: 20px; font-weight: 700; min-width: 60px; text-align: center; }
+footer { text-align: center; padding: 32px; color: var(--lgray); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
+@media (max-width: 640px) { .picker { grid-template-columns: 1fr; } .timer-display { font-size: 44px; } }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="./">← Back to Unit 3</a>
+
+<div class="header">
+  <span class="tag">🎤 SPEAKING EXERCISE · UNIT 03</span>
+  <h1>Celebration <span class="accent">Reporters</span></h1>
+  <p class="subtitle">Two fun options — one individual (be a reporter!), one in pairs (invent a wild celebration). Both practise passive voice.</p>
+</div>
+
+<div class="container">
+
+  <div class="picker">
+    <button class="opt" data-ex="solo" id="soloBtn">
+      <div class="icon">📺</div>
+      <div class="kind">OPTION A · INDIVIDUAL</div>
+      <div class="title">"My Country's Weirdest Celebration"</div>
+      <div class="brief">Pretend you are an international reporter explaining a Colombian celebration to the world. Make it sound exotic!</div>
+      <span class="duration">⏱ 1 minute · solo</span>
+    </button>
+
+    <button class="opt" data-ex="pair" id="pairBtn">
+      <div class="icon">🕵️</div>
+      <div class="kind">OPTION B · PAIRS</div>
+      <div class="title">"The Mystery Celebration"</div>
+      <div class="brief">One student invents a totally fake celebration from a made-up country. The other is a journalist asking suspicious questions.</div>
+      <span class="duration">⏱ 3–4 minutes · 2 students</span>
+    </button>
+  </div>
+
+  <!-- SOLO -->
+  <div class="exercise" id="soloEx">
+
+    <div class="section">
+      <h3>THE TASK</h3>
+      <h4>📺 My Country's Weirdest Celebration</h4>
+      <p>You are an <strong>international TV reporter</strong>. Your job is to describe a Colombian celebration to foreigners who have never heard of it — making it sound as exotic and interesting as possible.</p>
+      <p>Speak for <strong>at least 1 minute</strong>. Use passive voice to describe:</p>
+      <ul>
+        <li>Where and <strong>when it is celebrated</strong>.</li>
+        <li>What <strong>is eaten</strong> or <strong>drunk</strong>.</li>
+        <li>What <strong>is worn</strong> or how people <strong>are dressed</strong>.</li>
+        <li>What <strong>is done</strong> during the celebration (music, dancing, parades).</li>
+        <li>Why it <strong>is loved</strong> by Colombians.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>EXAMPLE</h3>
+      <div class="example">
+        <div class="example-label">LAURA — 1 MIN — NOCHE DE LAS VELITAS</div>
+        <div class="ex-solo">
+          "Good evening, viewers around the world! Tonight I am in Colombia for one of its most beautiful traditions: <strong>Noche de las Velitas</strong>, or 'Night of the Little Candles'.
+          <br><br>
+          This magical night <em>is celebrated</em> every year on <strong>December 7th</strong>, and it marks the beginning of Christmas season. Thousands of candles and paper lanterns <em>are lit</em> in the streets, on balconies, and in parks. Entire neighborhoods <em>are transformed</em> into golden rivers of light.
+          <br><br>
+          Traditional food <em>is shared</em> with neighbors — <strong>buñuelos</strong>, <strong>natilla</strong>, and hot chocolate <em>are enjoyed</em> by everyone. In cities like Medellín, massive light displays <em>are installed</em> along the river, and parades <em>are held</em> all week.
+          <br><br>
+          This celebration <em>is loved</em> because it brings families and neighbors together before Christmas. Trust me — if you have never seen Colombia on December 7th, you have not seen the real Colombia. Back to you in the studio!"
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>PICK A COLOMBIAN CELEBRATION</h3>
+      <div class="card-grid">
+        <div class="prompt-card"><strong>🕯️ NOCHE DE LAS VELITAS</strong>December 7th — candles everywhere, start of Christmas.</div>
+        <div class="prompt-card"><strong>🎭 CARNAVAL DE BARRANQUILLA</strong>February/March — the biggest party in Colombia.</div>
+        <div class="prompt-card"><strong>🎆 AÑO VIEJO</strong>Dec 31st — burning the "old year" doll, 12 grapes, yellow underwear.</div>
+        <div class="prompt-card"><strong>🌸 FERIA DE LAS FLORES</strong>August in Medellín — flower parades and silleteros.</div>
+        <div class="prompt-card"><strong>🙏 SEMANA SANTA</strong>Holy Week in Popayán — processions, no meat, deep tradition.</div>
+        <div class="prompt-card"><strong>👑 REINADO DE BELLEZA</strong>Beauty pageants in Cartagena — contests and parties everywhere.</div>
+        <div class="prompt-card"><strong>⚽ COPA AMÉRICA</strong>Soccer celebrations — yellow jerseys, honking cars, flags.</div>
+        <div class="prompt-card"><strong>🎊 FESTIVAL VALLENATO</strong>April in Valledupar — accordion music, dancing, legends.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL SENTENCE STARTERS</h3>
+      <ul>
+        <li>"This celebration <strong>is held</strong> every year on ______."</li>
+        <li>"Traditional food like ______ <strong>is served</strong>."</li>
+        <li>"People <strong>are dressed</strong> in ______."</li>
+        <li>"Fireworks <strong>are launched</strong> at midnight."</li>
+        <li>"Music <strong>is played</strong> in every street."</li>
+        <li>"This tradition <strong>has been celebrated</strong> for over 100 years."</li>
+        <li>"It <strong>is loved</strong> by Colombians because ______."</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>YOUR TIMER</h3>
+      <div class="timer-box">
+        <div class="timer-label">MINIMUM 1 MINUTE</div>
+        <div class="timer-display" id="timerA">01:00</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="startA">▶ Start</button>
+          <button class="timer-btn ghost" id="resetA">↻ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>BEFORE YOU SPEAK — CHECKLIST</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cA1"><label for="cA1">I chose a celebration I know well.</label></li>
+        <li><input type="checkbox" id="cA2"><label for="cA2">I have 5+ passive voice sentences ready.</label></li>
+        <li><input type="checkbox" id="cA3"><label for="cA3">I used at least 4 Unit 3 vocabulary words (parade, tradition, decorations, fireworks…).</label></li>
+        <li><input type="checkbox" id="cA4"><label for="cA4">I can speak for 1 full minute without reading.</label></li>
+        <li><input type="checkbox" id="cA5"><label for="cA5">I sound like a real reporter — expressive and proud! 🎙️</label></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>RUBRIC · /20</h3>
+      <table class="rubric">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="center">/5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Passive Voice</strong> — used correctly (5+ examples)</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Vocabulary</strong> — 4+ Unit 3 words used naturally</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Fluency</strong> — spoke 1 full minute without reading</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr><td><strong>Reporter delivery</strong> — expressive, clear, convincing</td><td class="center"><input type="number" min="0" max="5" class="rA" data-r="a"></td></tr>
+          <tr class="total-row"><td>TOTAL</td><td class="center"><span class="total-display" id="totalA">0 / 20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- PAIR -->
+  <div class="exercise" id="pairEx">
+
+    <div class="section">
+      <h3>THE TASK</h3>
+      <h4>🕵️ The Mystery Celebration</h4>
+      <p>In pairs (2 students only). One student is a <strong>local</strong> from a totally invented country, inventing a totally fake celebration. The other is a <strong>skeptical journalist</strong> trying to figure out if the celebration is real or made up.</p>
+      <p>The journalist must ask at least <strong>5 questions using passive voice</strong>. The local must give creative, detailed answers using passive voice too — and never break character!</p>
+      <p><strong>Total time:</strong> 3–4 minutes per pair. The crazier, the better! 🎉</p>
+    </div>
+
+    <div class="section">
+      <h3>PICK YOUR FAKE COUNTRY</h3>
+      <div class="card-grid">
+        <div class="prompt-card"><strong>🧦 SOCKONIA</strong>Famous for its "Festival of the Lost Socks". People wear mismatched socks on their heads.</div>
+        <div class="prompt-card"><strong>🥔 POTATOLAND</strong>Celebrates "National Potato Appreciation Day" with potato thrones.</div>
+        <div class="prompt-card"><strong>🐸 FROGISTAN</strong>"The Great Frog Race" — amphibians are decorated and raced through town.</div>
+        <div class="prompt-card"><strong>☕ COFFEEBEANIA</strong>"Caffeine Festival" — people stay awake for 3 days drinking coffee.</div>
+        <div class="prompt-card"><strong>🧢 HATOVIA</strong>Everyone must wear a different hat every hour of the celebration.</div>
+        <div class="prompt-card"><strong>🥒 PICKLELAND</strong>"Pickle Parade" — floats made entirely of giant pickles.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>EXAMPLE — SOCKONIA / FESTIVAL OF THE LOST SOCKS</h3>
+      <div class="example">
+        <div class="example-label">DANIELA (JOURNALIST) &amp; SEBASTIÁN (LOCAL) — 3 MIN</div>
+        <div class="ex-line"><span class="ex-spk">Daniela:</span><span class="ex-txt">Good evening, Sebastián. I've heard your country has a very unusual celebration. Can you tell our viewers more?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Sebastián:</span><span class="ex-txt">Of course! Welcome to Sockonia. Every July, our great "Festival of the Lost Socks" <em>is celebrated</em> here.</em></span></div>
+        <div class="ex-line"><span class="ex-spk">Daniela:</span><span class="ex-txt">The festival of what? When exactly <em>is it held</em>?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Sebastián:</span><span class="ex-txt">It <em>is held</em> every July 23rd. It began 200 years ago when our king lost his favorite sock in a lake. The sock <em>was never found</em>, so we honor it every year.</span></div>
+        <div class="ex-line"><span class="ex-spk">Daniela:</span><span class="ex-txt">That's… interesting. And what <em>is worn</em> by people during the festival?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Sebastián:</span><span class="ex-txt">Mismatched socks <em>are worn</em> on our heads — one blue, one red. It's considered bad luck if both socks <em>are matched</em>.</span></div>
+        <div class="ex-line"><span class="ex-spk">Daniela:</span><span class="ex-txt">And what <em>is eaten</em> during this festival?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Sebastián:</span><span class="ex-txt">Sock-shaped bread <em>is baked</em> by every family. And sock-shaped cookies <em>are given</em> to children. The traditional drink <em>is called</em> "sockijuice".</span></div>
+        <div class="ex-line"><span class="ex-spk">Daniela:</span><span class="ex-txt">Sockijuice?! What <em>is</em> that <em>made</em> of?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Sebastián:</span><span class="ex-txt">That's a secret. Only our grandmothers know. The recipe <em>has been passed</em> from generation to generation for 200 years.</span></div>
+        <div class="ex-line"><span class="ex-spk">Daniela:</span><span class="ex-txt">And finally — is this real or are you making it all up?</span></div>
+        <div class="ex-line"><span class="ex-spk b">Sebastián:</span><span class="ex-txt">Everything I have said <em>can be verified</em> at the Sockonia National Museum. Come visit us this July!</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL QUESTIONS FOR THE JOURNALIST</h3>
+      <ul>
+        <li>When <strong>is</strong> this celebration <strong>held</strong>?</li>
+        <li>What <strong>is eaten</strong> / <strong>drunk</strong> during the festival?</li>
+        <li>What <strong>is worn</strong> by people?</li>
+        <li>How <strong>are</strong> people <strong>dressed</strong>?</li>
+        <li>Why <strong>is</strong> this tradition <strong>celebrated</strong>?</li>
+        <li>Where <strong>was</strong> this festival <strong>started</strong>?</li>
+        <li>How long <strong>has</strong> this tradition <strong>been celebrated</strong>?</li>
+        <li>What <strong>must be done</strong> / <strong>can't be done</strong> during the festival?</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>USEFUL ANSWERS FOR THE LOCAL</h3>
+      <ul>
+        <li>"This celebration <strong>is held</strong> every ______."</li>
+        <li>"______ <strong>is eaten</strong> only during this festival."</li>
+        <li>"Our clothes <strong>are made</strong> from ______."</li>
+        <li>"The tradition <strong>was started</strong> in the year ______."</li>
+        <li>"Dances <strong>are performed</strong> at midnight."</li>
+        <li>"It <strong>is believed</strong> that ______ brings good luck."</li>
+        <li>"This custom <strong>has been passed down</strong> for generations."</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>YOUR TIMER</h3>
+      <div class="timer-box">
+        <div class="timer-label">3–4 MINUTES TOTAL</div>
+        <div class="timer-display" id="timerB">03:00</div>
+        <div class="timer-controls">
+          <button class="timer-btn" id="startB">▶ Start</button>
+          <button class="timer-btn ghost" id="resetB">↻ Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>BEFORE YOU START — CHECKLIST</h3>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cB1"><label for="cB1">We chose a fake country and celebration together.</label></li>
+        <li><input type="checkbox" id="cB2"><label for="cB2">The journalist has 5+ passive voice questions ready.</label></li>
+        <li><input type="checkbox" id="cB3"><label for="cB3">The local has creative, detailed answers prepared.</label></li>
+        <li><input type="checkbox" id="cB4"><label for="cB4">We're using at least 4 Unit 3 vocabulary words.</label></li>
+        <li><input type="checkbox" id="cB5"><label for="cB5">We can commit to the character and make the class laugh! 🤣</label></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>RUBRIC · /20</h3>
+      <table class="rubric">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th class="center">/5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Passive Voice</strong> — used correctly in Q &amp; A (5+ examples)</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Vocabulary</strong> — 4+ Unit 3 words used naturally</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Interaction</strong> — real back-and-forth, both students engaged</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr><td><strong>Creativity &amp; delivery</strong> — committed to the character, funny, clear</td><td class="center"><input type="number" min="0" max="5" class="rB" data-r="b"></td></tr>
+          <tr class="total-row"><td>TOTAL</td><td class="center"><span class="total-display" id="totalB">0 / 20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  Interactive English I · B1.1 · Unit 3: Celebrations · Speaking Exercise · Tweetalig
+</footer>
+
+<script>
+var soloBtn = document.getElementById('soloBtn');
+var pairBtn = document.getElementById('pairBtn');
+var soloEx = document.getElementById('soloEx');
+var pairEx = document.getElementById('pairEx');
+
+soloBtn.addEventListener('click', function(){
+  soloBtn.classList.add('active');
+  pairBtn.classList.remove('active');
+  soloEx.classList.add('show');
+  pairEx.classList.remove('show');
+  soloEx.scrollIntoView({behavior:'smooth', block:'start'});
+});
+pairBtn.addEventListener('click', function(){
+  pairBtn.classList.add('active');
+  soloBtn.classList.remove('active');
+  pairEx.classList.add('show');
+  soloEx.classList.remove('show');
+  pairEx.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+function makeTimer(displayId, startBtnId, resetBtnId, seconds){
+  var display = document.getElementById(displayId);
+  var startBtn = document.getElementById(startBtnId);
+  var resetBtn = document.getElementById(resetBtnId);
+  var initial = seconds;
+  var remaining = seconds;
+  var interval = null;
+  var running = false;
+
+  function fmt(s){
+    var m = Math.floor(s/60);
+    var sec = s % 60;
+    return (m<10?'0':'') + m + ':' + (sec<10?'0':'') + sec;
+  }
+  function render(){ display.textContent = fmt(remaining); }
+  function tick(){
+    if (remaining <= 0) {
+      clearInterval(interval);
+      running = false;
+      startBtn.textContent = '▶ Start';
+      display.style.color = '#FFEB3B';
+      return;
+    }
+    remaining--;
+    render();
+  }
+  startBtn.addEventListener('click', function(){
+    if (running) {
+      clearInterval(interval);
+      running = false;
+      startBtn.textContent = '▶ Resume';
+    } else {
+      if (remaining <= 0) remaining = initial;
+      display.style.color = '';
+      interval = setInterval(tick, 1000);
+      running = true;
+      startBtn.textContent = '⏸ Pause';
+    }
+  });
+  resetBtn.addEventListener('click', function(){
+    clearInterval(interval);
+    running = false;
+    remaining = initial;
+    display.style.color = '';
+    startBtn.textContent = '▶ Start';
+    render();
+  });
+  render();
+}
+makeTimer('timerA', 'startA', 'resetA', 60);
+makeTimer('timerB', 'startB', 'resetB', 180);
+
+function updateTotal(cls, totalId){
+  var sum = 0;
+  document.querySelectorAll('.' + cls).forEach(function(inp){
+    var v = parseInt(inp.value, 10);
+    if (!isNaN(v)) sum += Math.max(0, Math.min(5, v));
+  });
+  document.getElementById(totalId).textContent = sum + ' / 20';
+}
+document.querySelectorAll('.rA').forEach(function(inp){
+  inp.addEventListener('input', function(){ updateTotal('rA', 'totalA'); });
+});
+document.querySelectorAll('.rB').forEach(function(inp){
+  inp.addEventListener('input', function(){ updateTotal('rB', 'totalB'); });
+});
+</script>
+</body>
+</html>

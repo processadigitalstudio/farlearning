@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3: Celebrations | B1.1 | Tweetalig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #C2185B;
+  --accent-dark: #8E0F42;
+  --accent-light: #FCE4EC;
+  --accent-soft: #FDF2F6;
+  --dark: #1A1A2E;
+  --gray: #5A5A6E;
+  --lgray: #9098A8;
+  --bg: #FAFAFC;
+  --white: #FFFFFF;
+  --border: #E8E8EE;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+  --error: #C0392B;
+  --error-light: #FDECEA;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); line-height: 1.6; min-height: 100vh; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; padding: 20px 32px; color: var(--gray); text-decoration: none; font-size: 14px; font-weight: 500; }
+.back-link:hover { color: var(--accent); }
+.header { max-width: 1100px; margin: 0 auto; padding: 0 32px 24px; }
+.unit-num { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 12px; }
+h1 { font-size: clamp(30px, 4vw, 42px); font-weight: 800; line-height: 1.1; margin-bottom: 8px; letter-spacing: -0.02em; }
+.subtitle { color: var(--gray); font-size: 15px; }
+.tabs-wrap { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
+.tabs { max-width: 1100px; margin: 0 auto; display: flex; gap: 4px; padding: 0 32px; min-width: max-content; }
+.tab { background: none; border: none; padding: 16px 18px; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--gray); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.tab:hover { color: var(--accent); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px; }
+.panel { display: none; animation: fadeIn 0.3s ease; }
+.panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.panel-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.panel-lead { color: var(--gray); margin-bottom: 28px; font-size: 15px; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.flip-card { perspective: 1000px; height: 140px; cursor: pointer; }
+.flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back { position: absolute; inset: 0; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 1px solid var(--border); }
+.flip-front { background: var(--white); color: var(--dark); }
+.flip-front .word { font-size: 17px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.flip-front .pos { font-size: 11px; color: var(--lgray); font-style: italic; }
+.flip-front .hint { position: absolute; bottom: 10px; right: 12px; font-size: 10px; color: var(--lgray); letter-spacing: 0.06em; }
+.flip-back { background: var(--accent); color: var(--white); transform: rotateY(180deg); }
+.flip-back .def { font-size: 13px; line-height: 1.4; margin-bottom: 6px; }
+.flip-back .es { font-size: 12px; opacity: 0.85; font-style: italic; border-top: 1px solid rgba(255,255,255,0.25); padding-top: 6px; margin-top: 6px; }
+.grammar-block { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 18px; }
+.grammar-block h3 { color: var(--accent); font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.02em; }
+.formula { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 12px 16px; margin: 14px 0; border-radius: 6px; font-size: 15px; }
+.formula code { background: var(--white); padding: 2px 8px; border-radius: 4px; color: var(--accent-dark); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; }
+.examples { list-style: none; margin-top: 12px; }
+.examples li { padding: 8px 0; border-bottom: 1px solid var(--border); color: var(--dark); font-size: 14px; }
+.examples li:last-child { border-bottom: none; }
+.examples li strong { color: var(--accent); }
+.examples li em { color: var(--gray); font-size: 13px; font-style: italic; display: block; margin-top: 2px; }
+.dialogue { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 18px; }
+.dialogue-title { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.dialogue-context { font-size: 13px; color: var(--gray); font-style: italic; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.line { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+.speaker { font-weight: 700; color: var(--accent); min-width: 90px; font-size: 14px; }
+.speaker.b { color: var(--dark); }
+.utter { flex: 1; color: var(--dark); font-size: 14px; }
+.utter strong { color: var(--accent); font-weight: 700; }
+.quiz-item { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+.q-num { font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+.q-text { font-size: 15px; font-weight: 500; margin-bottom: 12px; color: var(--dark); }
+.q-opts { display: grid; gap: 8px; }
+.q-btn { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; text-align: left; cursor: pointer; font-family: inherit; font-size: 14px; color: var(--dark); transition: all 0.2s; }
+.q-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.q-btn.correct { background: var(--success-light); border-color: var(--success); color: var(--success); font-weight: 600; }
+.q-btn.wrong { background: var(--error-light); border-color: var(--error); color: var(--error); }
+.q-btn:disabled { cursor: not-allowed; }
+.q-feedback { margin-top: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; }
+.q-feedback.show { display: block; }
+.q-feedback.ok { background: var(--success-light); color: var(--success); }
+.q-feedback.no { background: var(--error-light); color: var(--error); }
+.score-box { background: var(--accent); color: var(--white); border-radius: 12px; padding: 20px; text-align: center; margin-top: 20px; display: none; }
+.score-box.show { display: block; }
+.score-box .num { font-size: 36px; font-weight: 800; }
+.score-box .msg { font-size: 14px; margin-top: 4px; opacity: 0.95; }
+.practice-item { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+.p-num { font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+.p-text { font-size: 15px; margin-bottom: 12px; color: var(--dark); line-height: 1.7; }
+.p-select { padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 14px; background: var(--white); color: var(--dark); min-width: 200px; cursor: pointer; }
+.p-select.correct { background: var(--success-light); border-color: var(--success); color: var(--success); font-weight: 600; }
+.p-select.wrong { background: var(--error-light); border-color: var(--error); color: var(--error); }
+.p-hint { font-size: 12px; color: var(--lgray); font-style: italic; margin-top: 8px; }
+.media-block { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 20px; }
+.media-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.media-badge { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; background: var(--accent-light); padding: 4px 12px; border-radius: 20px; }
+.media-title { font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+.media-subtitle { font-size: 13px; color: var(--gray); font-style: italic; margin-bottom: 16px; }
+.video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-bottom: 16px; background: var(--dark); }
+.video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+.song-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.song-tab { background: var(--bg); border: 1.5px solid var(--border); border-radius: 24px; padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--gray); transition: all 0.2s; font-family: inherit; }
+.song-tab.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
+.song-tab:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+.song-content { display: none; }
+.song-content.active { display: block; animation: fadeIn 0.3s ease; }
+.watch-tips { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+.watch-tips h5 { font-size: 12px; font-weight: 700; color: #92400E; letter-spacing: 0.06em; margin-bottom: 8px; }
+.watch-tips ul { margin: 0; padding-left: 20px; }
+.watch-tips li { font-size: 13px; color: #78350F; margin-bottom: 4px; }
+.lyric-box { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 14px 0; font-size: 14px; line-height: 1.8; color: var(--dark); }
+.lyric-box .verse { margin-bottom: 12px; }
+.lyric-box .verse:last-child { margin-bottom: 0; }
+.lyric-box strong { color: var(--accent); font-weight: 700; }
+.lyric-box .label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; display: block; margin-bottom: 6px; }
+.discussion-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 12px; }
+.discussion-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.discussion-num { display: inline-block; background: var(--accent); color: var(--white); width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+.discussion-q { font-size: 13.5px; color: var(--dark); line-height: 1.5; }
+.tv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+.tv-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: all 0.2s; }
+.tv-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.tv-emoji { font-size: 28px; margin-bottom: 8px; }
+.tv-name { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.tv-year { font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; }
+.tv-plot { font-size: 12.5px; color: var(--gray); line-height: 1.5; margin-bottom: 10px; }
+.tv-why { font-size: 12px; background: var(--accent-soft); border-left: 2px solid var(--accent); padding: 6px 10px; border-radius: 0 6px 6px 0; color: var(--dark); }
+.tv-why strong { color: var(--accent); }
+.tv-where { display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 600; background: var(--accent); color: var(--white); padding: 3px 10px; border-radius: 12px; letter-spacing: 0.03em; }
+.speaking-cta { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); color: var(--white); border-radius: 16px; padding: 40px; text-align: center; cursor: pointer; transition: transform 0.25s; border: none; width: 100%; font-family: inherit; }
+.speaking-cta:hover { transform: translateY(-3px); }
+.speaking-cta h2 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+.speaking-cta p { font-size: 14px; opacity: 0.95; margin-bottom: 20px; }
+.speaking-cta .go { display: inline-block; background: var(--white); color: var(--accent); padding: 10px 24px; border-radius: 24px; font-weight: 700; font-size: 14px; }
+footer { text-align: center; padding: 32px; color: var(--lgray); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="../">← Back to B1.1 units</a>
+
+<div class="header">
+  <span class="unit-num">UNIT 03 · B1.1</span>
+  <h1>Celebrations</h1>
+  <p class="subtitle">Holidays, parties and traditions — using the passive voice to describe what is done, when and how.</p>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" data-panel="vocab">Vocabulary</button>
+    <button class="tab" data-panel="grammar">Grammar</button>
+    <button class="tab" data-panel="dialogues">Dialogues</button>
+    <button class="tab" data-panel="quiz">Quiz</button>
+    <button class="tab" data-panel="practice">Practice</button>
+    <button class="tab" data-panel="media">🎬 Media</button>
+    <button class="tab" data-panel="speaking">🎤 Speaking Exercise</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- VOCABULARY -->
+  <div class="panel active" id="vocab">
+    <h2 class="panel-title">Vocabulary</h2>
+    <p class="panel-lead">Click each card to see the meaning. 14 key words from Unit 3 — celebrations &amp; traditions.</p>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+
+  <!-- GRAMMAR -->
+  <div class="panel" id="grammar">
+    <h2 class="panel-title">Grammar: Passive Voice</h2>
+    <p class="panel-lead">Used when the action matters more than who does it — perfect for traditions and celebrations.</p>
+
+    <div class="grammar-block">
+      <h3>1. Form — Passive Voice</h3>
+      <div class="formula">Subject + <code>be</code> (any tense) + past participle (+ <code>by</code> + agent)</div>
+      <ul class="examples">
+        <li>The turkey <strong>is cooked</strong> by my grandmother every year. <em>(present)</em></li>
+        <li>The parade <strong>was held</strong> on December 7th. <em>(past)</em></li>
+        <li>The decorations <strong>will be put up</strong> tomorrow. <em>(future)</em></li>
+        <li>The invitations <strong>have been sent</strong>. <em>(present perfect)</em></li>
+      </ul>
+    </div>
+
+    <div class="grammar-block">
+      <h3>2. With or Without Agent</h3>
+      <ul class="examples">
+        <li><strong>With agent:</strong> The cake was made <strong>by my mom</strong>. <em>Use "by" when the doer is important.</em></li>
+        <li><strong>Without agent:</strong> The cake was made yesterday. <em>Skip "by" when the doer is unknown or obvious.</em></li>
+        <li>The streets <strong>are decorated</strong> every December. <em>(Who? Everyone, it's not important.)</em></li>
+      </ul>
+    </div>
+
+    <div class="grammar-block">
+      <h3>3. Passive Modals</h3>
+      <div class="formula">Subject + <code>modal</code> + <code>be</code> + past participle</div>
+      <ul class="examples">
+        <li>The food <strong>must be prepared</strong> early. <em>(obligation)</em></li>
+        <li>Decorations <strong>should be taken down</strong> after January 6th. <em>(advice)</em></li>
+        <li>Invitations <strong>can be sent</strong> by email. <em>(possibility)</em></li>
+        <li>The music <strong>has to be loud</strong>! <em>(necessity)</em></li>
+      </ul>
+    </div>
+
+    <div class="grammar-block">
+      <h3>4. When to Use Passive</h3>
+      <ul class="examples">
+        <li>The doer is <strong>unknown</strong>: <em>"My wallet was stolen."</em></li>
+        <li>The doer is <strong>obvious</strong>: <em>"The criminal was arrested." (by the police, obviously)</em></li>
+        <li>The doer is <strong>unimportant</strong>: <em>"Buñuelos are made during Christmas."</em></li>
+        <li>You want to <strong>focus on the action</strong>, not who did it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DIALOGUES -->
+  <div class="panel" id="dialogues">
+    <h2 class="panel-title">Dialogues</h2>
+    <p class="panel-lead">From the English Discoveries platform — Unit 3 lessons.</p>
+
+    <div class="dialogue">
+      <div class="dialogue-title">Dialogue 1 — The First Thanksgiving</div>
+      <div class="dialogue-context">Andrew describes the American holiday Thanksgiving to his friend Kenji.</div>
+      <div class="line"><span class="speaker">Kenji:</span><span class="utter">So Andrew, what exactly is Thanksgiving?</span></div>
+      <div class="line"><span class="speaker b">Andrew:</span><span class="utter">It's a holiday that <strong>is celebrated</strong> on the fourth Thursday of November. Families get together to eat.</span></div>
+      <div class="line"><span class="speaker">Kenji:</span><span class="utter">What <strong>is eaten</strong> at Thanksgiving?</span></div>
+      <div class="line"><span class="speaker b">Andrew:</span><span class="utter">Turkey, mostly! It <strong>is served</strong> with mashed potatoes, stuffing, cranberry sauce, and pumpkin pie for dessert.</span></div>
+      <div class="line"><span class="speaker">Kenji:</span><span class="utter">And where <strong>was</strong> the first Thanksgiving <strong>held</strong>?</span></div>
+      <div class="line"><span class="speaker b">Andrew:</span><span class="utter">It <strong>was celebrated</strong> in 1621 by the Pilgrims and Native Americans. A big parade <strong>is also organized</strong> every year in New York City.</span></div>
+    </div>
+
+    <div class="dialogue">
+      <div class="dialogue-title">Dialogue 2 — Sorry I'm Late</div>
+      <div class="dialogue-context">A man at a party is apologizing to a woman for being late.</div>
+      <div class="line"><span class="speaker">Mark:</span><span class="utter">Lisa, I'm so sorry I'm late!</span></div>
+      <div class="line"><span class="speaker b">Lisa:</span><span class="utter">It's okay, Mark. What happened?</span></div>
+      <div class="line"><span class="speaker">Mark:</span><span class="utter">My car <strong>was blocked</strong> in the parking lot. And then the main street <strong>was closed</strong> because of a parade.</span></div>
+      <div class="line"><span class="speaker b">Lisa:</span><span class="utter">Oh no! Well, don't worry — the food <strong>hasn't been served</strong> yet.</span></div>
+      <div class="line"><span class="speaker">Mark:</span><span class="utter">Great! And look, I brought this — it <strong>was made</strong> by my mother. A traditional cake.</span></div>
+      <div class="line"><span class="speaker b">Lisa:</span><span class="utter">That's so sweet! It <strong>will be enjoyed</strong> by everyone, I'm sure.</span></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="panel" id="quiz">
+    <h2 class="panel-title">Quiz</h2>
+    <p class="panel-lead">5 multiple-choice questions. Click your answer.</p>
+    <div id="quizContainer"></div>
+    <div class="score-box" id="scoreBox">
+      <div class="num" id="scoreNum">0 / 5</div>
+      <div class="msg" id="scoreMsg"></div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="panel" id="practice">
+    <h2 class="panel-title">Practice</h2>
+    <p class="panel-lead">Choose the correct passive form for each sentence.</p>
+    <div id="practiceContainer"></div>
+  </div>
+
+  <!-- MEDIA -->
+  <div class="panel" id="media">
+    <h2 class="panel-title">🎬 Media</h2>
+    <p class="panel-lead">Three party songs — pick your favourite! Plus TV recommendations about celebrations and holidays.</p>
+
+    <div class="media-block">
+      <div class="media-header">
+        <span class="media-badge">🎵 PARTY SONGS</span>
+      </div>
+      <div class="media-title">Songs about celebrations</div>
+      <div class="media-subtitle">Three classics — all perfect for the party vibe of Unit 3. Click a tab to switch songs.</div>
+
+      <div class="song-tabs">
+        <button class="song-tab active" data-song="s1">🎉 Celebration · Kool &amp; The Gang</button>
+        <button class="song-tab" data-song="s2">💃 I Gotta Feeling · Black Eyed Peas</button>
+        <button class="song-tab" data-song="s3">💖 We Found Love · Rihanna</button>
+      </div>
+
+      <!-- SONG 1 -->
+      <div class="song-content active" id="s1">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/3GwjfUFyY6M" title="Celebration — Kool &amp; The Gang" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="watch-tips">
+          <h5>🎧 LISTEN FOR</h5>
+          <ul>
+            <li>"Celebrate good times, come on!" — the ultimate party invitation in English.</li>
+            <li>"There's a party going on right here" — present progressive for ongoing events.</li>
+            <li>This song is played at almost every birthday, wedding and graduation in English-speaking countries.</li>
+          </ul>
+        </div>
+        <div class="lyric-box">
+          <span class="label">SAMPLE LYRICS</span>
+          <div class="verse">
+            Yahoo! It's a celebration.<br>
+            Celebrate good times, come on!<br>
+            Let's celebrate!
+          </div>
+          <div class="verse">
+            There's a party goin' on right here,<br>
+            A celebration to last throughout the years.<br>
+            So bring your good times and your laughter too,<br>
+            We gonna celebrate your party with you.
+          </div>
+        </div>
+      </div>
+
+      <!-- SONG 2 -->
+      <div class="song-content" id="s2">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/uSD4vsh1zDA" title="I Gotta Feeling — Black Eyed Peas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="watch-tips">
+          <h5>🎧 LISTEN FOR</h5>
+          <ul>
+            <li>"I gotta feeling that tonight's gonna be a good night" — expecting a great party.</li>
+            <li>Days of the week (Monday → Sunday) — perfect vocabulary review.</li>
+            <li>"Let's live it up" / "Let's paint the town" — classic party expressions.</li>
+          </ul>
+        </div>
+        <div class="lyric-box">
+          <span class="label">SAMPLE LYRICS</span>
+          <div class="verse">
+            I gotta feeling<br>
+            That tonight's gonna be a good night,<br>
+            That tonight's gonna be a good night,<br>
+            That tonight's gonna be a good, good night.
+          </div>
+          <div class="verse">
+            Tonight's the night, let's live it up.<br>
+            I got my money, let's spend it up.<br>
+            Go out and smash it, like oh my God.<br>
+            Jump off that sofa, let's get, get off.
+          </div>
+        </div>
+      </div>
+
+      <!-- SONG 3 -->
+      <div class="song-content" id="s3">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/tg00YEETFzg" title="We Found Love — Rihanna" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="watch-tips">
+          <h5>🎧 LISTEN FOR</h5>
+          <ul>
+            <li>"We found love in a hopeless place" — the main hook, super simple but powerful.</li>
+            <li>Great for talking about celebrating love and relationships.</li>
+            <li>The video is a modern love story — perfect for discussion.</li>
+          </ul>
+        </div>
+        <div class="lyric-box">
+          <span class="label">SAMPLE LYRICS</span>
+          <div class="verse">
+            Yellow diamonds in the light,<br>
+            And we're standing side by side.<br>
+            As your shadow crosses mine,<br>
+            What it takes to come alive.
+          </div>
+          <div class="verse">
+            We found love in a hopeless place,<br>
+            We found love in a hopeless place,<br>
+            We found love in a hopeless place,<br>
+            We found love in a hopeless place.
+          </div>
+        </div>
+      </div>
+
+      <div class="media-title" style="font-size:15px; margin-top:20px;">Discussion Questions</div>
+      <div class="discussion-grid">
+        <div class="discussion-card">
+          <span class="discussion-num">1</span>
+          <div class="discussion-q">Which song is played the most at parties in Colombia?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">2</span>
+          <div class="discussion-q">What was the best celebration you have ever been to? What was served? What was played?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">3</span>
+          <div class="discussion-q">Do you have a feeling that something good is going to happen soon? What is it?</div>
+        </div>
+        <div class="discussion-card">
+          <span class="discussion-num">4</span>
+          <div class="discussion-q">Where have you found love — a person, a place, a hobby? Tell us about it.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TV -->
+    <div class="media-block">
+      <div class="media-header">
+        <span class="media-badge">📺 TV RECOMMENDATIONS</span>
+      </div>
+      <div class="media-title">Watch at home — shows about parties, holidays and traditions</div>
+      <div class="media-subtitle">Six shows to practise passive voice and celebration vocabulary. Watch with English subtitles!</div>
+
+      <div class="tv-grid">
+        <div class="tv-card">
+          <div class="tv-emoji">🦃</div>
+          <div class="tv-name">Friends — The One with the Rumor</div>
+          <div class="tv-year">S8E9 · Thanksgiving episode · Netflix / Max</div>
+          <div class="tv-plot">The classic Friends Thanksgiving episode — featuring Brad Pitt as a special guest. Monica cooks the big meal.</div>
+          <div class="tv-why"><strong>Why watch:</strong> Perfect example of Thanksgiving traditions in action. "The turkey was cooked by Monica", "The invitations were sent last week."</div>
+          <span class="tv-where">Netflix / Max</span>
+        </div>
+
+        <div class="tv-card">
+          <div class="tv-emoji">🎄</div>
+          <div class="tv-name">The Office — Christmas Party</div>
+          <div class="tv-year">S2E10 · Peacock / Netflix</div>
+          <div class="tv-plot">Michael ruins the Secret Santa by buying a $400 gift. Chaos and laughter ensue at the office Christmas party.</div>
+          <div class="tv-why"><strong>Why watch:</strong> Great for office party vocabulary. "The gifts were exchanged", "The decorations were put up."</div>
+          <span class="tv-where">Peacock / Netflix</span>
+        </div>
+
+        <div class="tv-card">
+          <div class="tv-emoji">💍</div>
+          <div class="tv-name">Modern Family — The Wedding</div>
+          <div class="tv-year">S5E23–24 · Disney+</div>
+          <div class="tv-plot">Mitchell and Cameron's wedding — a two-part episode full of chaos, family drama, and heartwarming moments.</div>
+          <div class="tv-why"><strong>Why watch:</strong> Wedding vocabulary galore. "The venue was booked", "The vows were written", "The cake was ordered."</div>
+          <span class="tv-where">Disney+</span>
+        </div>
+
+        <div class="tv-card">
+          <div class="tv-emoji">🎂</div>
+          <div class="tv-name">New Girl — Birthday episodes</div>
+          <div class="tv-year">Multiple seasons · Netflix / Disney+</div>
+          <div class="tv-plot">Jess and her roommates throw birthday parties that go hilariously wrong. Every season has a classic birthday episode.</div>
+          <div class="tv-why"><strong>Why watch:</strong> Birthday party vocabulary + modern casual English — perfect for B1 listening practice.</div>
+          <span class="tv-where">Netflix / Disney+</span>
+        </div>
+
+        <div class="tv-card">
+          <div class="tv-emoji">🪔</div>
+          <div class="tv-name">Never Have I Ever — Ganesh Puja</div>
+          <div class="tv-year">S1E4 · Netflix</div>
+          <div class="tv-plot">Devi and her family attend a Hindu Ganesh Puja celebration. Shows how Indian traditions are celebrated in America.</div>
+          <div class="tv-why"><strong>Why watch:</strong> Culture-rich episode about religious celebrations. Great for discussing your own traditions.</div>
+          <span class="tv-where">Netflix</span>
+        </div>
+
+        <div class="tv-card">
+          <div class="tv-emoji">💀</div>
+          <div class="tv-name">Coco (Pixar Movie)</div>
+          <div class="tv-year">2017 · Disney+</div>
+          <div class="tv-plot">A young Mexican boy travels to the Land of the Dead during Día de los Muertos. All about family traditions and remembering.</div>
+          <div class="tv-why"><strong>Why watch:</strong> Beautiful celebration of Mexican traditions. "Offerings are placed on the altar", "Marigolds are used to guide the spirits."</div>
+          <span class="tv-where">Disney+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOMEWORK -->
+    <div class="media-block">
+      <div class="media-header">
+        <span class="media-badge">📝 HOMEWORK</span>
+      </div>
+      <div class="media-title">Choose one — song or show</div>
+      <div class="media-subtitle">Before next class, do ONE of these tasks:</div>
+      <ul class="examples">
+        <li><strong>Option 1 (song):</strong> Pick your favourite song from the three above. Write 5 passive-voice sentences describing a celebration (e.g., "A cake is served", "Music is played loudly").</li>
+        <li><strong>Option 2 (show):</strong> Watch 1 episode. Write 3 passive-voice sentences describing what you saw. ("The dinner was prepared by...", "Gifts were exchanged.")</li>
+      </ul>
+      <p style="font-size:13px; color:var(--gray); margin-top:12px; font-style:italic;">Bring your notes — you'll share one out loud!</p>
+    </div>
+  </div>
+
+  <!-- SPEAKING -->
+  <div class="panel" id="speaking">
+    <button class="speaking-cta" id="speakingBtn">
+      <h2>🎤 Speaking Exercise</h2>
+      <p>Choose between an individual challenge (describing a Colombian celebration) or a fun pair activity (invented celebration + journalist).<br>Timer + rubric + checklist included.</p>
+      <span class="go">Open Speaking Exercise →</span>
+    </button>
+  </div>
+
+</div>
+
+<footer>
+  Interactive English I · B1.1 · Unit 3: Celebrations · Tweetalig
+</footer>
+
+<script>
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+document.getElementById('speakingBtn').addEventListener('click', function(){
+  window.location.href = './speaking.html';
+});
+
+var vocab = [
+  { w: 'to celebrate',    pos: 'verb', def: 'To do something special for a happy event.',             es: 'celebrar' },
+  { w: 'parade',          pos: 'noun', def: 'A public procession of people, floats and music.',       es: 'desfile' },
+  { w: 'tradition',       pos: 'noun', def: 'A custom passed down from generation to generation.',    es: 'tradición' },
+  { w: 'decorations',     pos: 'noun', def: 'Things used to make a place look festive.',              es: 'decoraciones' },
+  { w: 'host / hostess',  pos: 'noun', def: 'The person who gives a party or event.',                 es: 'anfitrión / anfitriona' },
+  { w: 'guest',           pos: 'noun', def: 'A person invited to an event.',                          es: 'invitado/a' },
+  { w: 'invitation',      pos: 'noun', def: 'A written or spoken request to attend an event.',        es: 'invitación' },
+  { w: 'costume',         pos: 'noun', def: 'Special clothes worn for a celebration or character.',   es: 'disfraz' },
+  { w: 'fireworks',       pos: 'noun', def: 'Explosive devices used for colourful night displays.',   es: 'fuegos artificiales' },
+  { w: 'feast',           pos: 'noun', def: 'A large, special meal — often for a celebration.',       es: 'banquete / festín' },
+  { w: 'anniversary',     pos: 'noun', def: 'The date each year when a special event is remembered.', es: 'aniversario' },
+  { w: 'to apologize',    pos: 'verb', def: 'To say sorry for something you did wrong.',              es: 'disculparse' },
+  { w: 'to be held',      pos: 'verb', def: 'To take place (passive — for events).',                  es: 'realizarse / celebrarse' },
+  { w: 'to make up for',  pos: 'verb', def: 'To do something good to compensate a mistake.',          es: 'compensar' }
+];
+var grid = document.getElementById('vocabGrid');
+vocab.forEach(function(v){
+  var card = document.createElement('div');
+  card.className = 'flip-card';
+  card.innerHTML =
+    '<div class="flip-inner">' +
+      '<div class="flip-front">' +
+        '<div class="word">' + v.w + '</div>' +
+        '<div class="pos">' + v.pos + '</div>' +
+        '<div class="hint">TAP →</div>' +
+      '</div>' +
+      '<div class="flip-back">' +
+        '<div class="def">' + v.def + '</div>' +
+        '<div class="es">' + v.es + '</div>' +
+      '</div>' +
+    '</div>';
+  card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+  grid.appendChild(card);
+});
+
+var quiz = [
+  {
+    q: 'Which sentence is in the passive voice?',
+    opts: [
+      "My mom cooks the turkey every year.",
+      "The turkey is cooked by my mom every year.",
+      "My mom is cooking the turkey.",
+      "My mom has cooked the turkey."
+    ],
+    ans: 1,
+    fb: 'Passive = subject + be + past participle. "Is cooked" is the passive form.'
+  },
+  {
+    q: 'Complete: "The parade ______ every December 7th in Colombia."',
+    opts: [
+      "is held",
+      "holds",
+      "is holding",
+      "has held"
+    ],
+    ans: 0,
+    fb: 'For a recurring event where the "doer" is not important → passive: "is held".'
+  },
+  {
+    q: 'Which uses a passive modal correctly?',
+    opts: [
+      "The decorations must take down after the party.",
+      "The decorations must be take down.",
+      "The decorations must be taken down.",
+      "The decorations must to be taken down."
+    ],
+    ans: 2,
+    fb: 'Passive modal: modal + be + past participle. "Must be taken down".'
+  },
+  {
+    q: 'Complete: "The invitations ______ last week by the hostess."',
+    opts: [
+      "sent",
+      "were sent",
+      "have sent",
+      "are sending"
+    ],
+    ans: 1,
+    fb: 'Past passive: "were sent" (plural subject) + "by + agent".'
+  },
+  {
+    q: 'When should you AVOID using "by + agent"?',
+    opts: [
+      "When the doer is important.",
+      "When the doer is unknown or unimportant.",
+      "Always include the agent.",
+      "Never use passive without the agent."
+    ],
+    ans: 1,
+    fb: 'Skip "by + agent" when the doer is unknown or unimportant. "Buñuelos are made during Christmas" — we don\'t need to say who.'
+  }
+];
+var quizC = document.getElementById('quizContainer');
+var answered = 0;
+var correct = 0;
+quiz.forEach(function(item, i){
+  var div = document.createElement('div');
+  div.className = 'quiz-item';
+  var optsHtml = '';
+  item.opts.forEach(function(opt, oi){
+    optsHtml += '<button class="q-btn" data-q="' + i + '" data-ans="' + oi + '">' + opt + '</button>';
+  });
+  div.innerHTML =
+    '<div class="q-num">QUESTION ' + (i+1) + ' / 5</div>' +
+    '<div class="q-text">' + item.q + '</div>' +
+    '<div class="q-opts">' + optsHtml + '</div>' +
+    '<div class="q-feedback" id="fb-' + i + '"></div>';
+  quizC.appendChild(div);
+});
+function handleQuiz(e){
+  var btn = e.currentTarget;
+  var qi = parseInt(btn.dataset.q, 10);
+  var ai = parseInt(btn.dataset.ans, 10);
+  var item = quiz[qi];
+  var parent = btn.parentElement;
+  if (parent.dataset.done === '1') return;
+  parent.dataset.done = '1';
+  var siblings = parent.querySelectorAll('.q-btn');
+  siblings.forEach(function(s){ s.disabled = true; });
+  var fb = document.getElementById('fb-' + qi);
+  if (ai === item.ans) {
+    btn.classList.add('correct');
+    fb.textContent = '✓ Correct. ' + item.fb;
+    fb.className = 'q-feedback ok show';
+    correct++;
+  } else {
+    btn.classList.add('wrong');
+    siblings[item.ans].classList.add('correct');
+    fb.textContent = '✗ Not quite. ' + item.fb;
+    fb.className = 'q-feedback no show';
+  }
+  answered++;
+  if (answered === quiz.length) {
+    var box = document.getElementById('scoreBox');
+    document.getElementById('scoreNum').textContent = correct + ' / ' + quiz.length;
+    var msg;
+    if (correct === 5) msg = 'Perfect! You know your passive voice!';
+    else if (correct >= 3) msg = 'Good job — review the ones you missed.';
+    else msg = 'Keep practising — go back to the Grammar tab and try again.';
+    document.getElementById('scoreMsg').textContent = msg;
+    box.classList.add('show');
+    box.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+}
+document.querySelectorAll('.q-btn').forEach(function(b){
+  b.addEventListener('click', handleQuiz);
+});
+
+var practice = [
+  {
+    before: 'In Colombia, Noche de las Velitas ',
+    opts: ['celebrates', 'is celebrated', 'has celebrated'],
+    ans: 'is celebrated',
+    after: ' on December 7th.',
+    hint: 'Recurring tradition, doer is "everyone" → passive present.'
+  },
+  {
+    before: 'The cake ',
+    opts: ['was baked', 'baked', 'is baking'],
+    ans: 'was baked',
+    after: ' by my grandmother yesterday.',
+    hint: 'Past action + agent ("by") → past passive.'
+  },
+  {
+    before: 'The invitations ',
+    opts: ['must send', 'must be sent', 'must sent'],
+    ans: 'must be sent',
+    after: ' at least two weeks before the wedding.',
+    hint: 'Passive modal: modal + be + past participle.'
+  },
+  {
+    before: 'The Christmas tree ',
+    opts: ['has decorated', 'has been decorated', 'is decorating'],
+    ans: 'has been decorated',
+    after: ' already — it looks beautiful!',
+    hint: 'Present perfect passive: has/have + been + past participle.'
+  },
+  {
+    before: 'Fireworks ',
+    opts: ['will be launched', 'will launch', 'will be launching'],
+    ans: 'will be launched',
+    after: ' at midnight on New Year\'s Eve.',
+    hint: 'Future passive: will + be + past participle.'
+  },
+  {
+    before: 'The guests ',
+    opts: ['should greet', 'should be greeted', 'should greeting'],
+    ans: 'should be greeted',
+    after: ' at the door by the host.',
+    hint: 'Passive modal with "by + agent".'
+  }
+];
+var pC = document.getElementById('practiceContainer');
+practice.forEach(function(p, i){
+  var optsHtml = '<option value="">— choose —</option>';
+  p.opts.forEach(function(o){
+    optsHtml += '<option value="' + o + '">' + o + '</option>';
+  });
+  var div = document.createElement('div');
+  div.className = 'practice-item';
+  div.innerHTML =
+    '<div class="p-num">SENTENCE ' + (i+1) + '</div>' +
+    '<div class="p-text">' + p.before +
+      '<select class="p-select" data-answer="' + p.ans + '" data-hint="' + p.hint + '" data-i="' + i + '">' +
+        optsHtml +
+      '</select>' +
+      p.after + '</div>' +
+    '<div class="p-hint" id="hint-' + i + '" style="display:none;"></div>';
+  pC.appendChild(div);
+});
+document.querySelectorAll('.p-select').forEach(function(sel){
+  sel.addEventListener('change', function(){
+    var val = sel.value;
+    var ans = sel.dataset.answer;
+    var hint = sel.dataset.hint;
+    var i = sel.dataset.i;
+    var hintEl = document.getElementById('hint-' + i);
+    sel.classList.remove('correct', 'wrong');
+    if (val === '') { hintEl.style.display = 'none'; return; }
+    if (val === ans) {
+      sel.classList.add('correct');
+      hintEl.textContent = '✓ Correct. ' + hint;
+      hintEl.style.color = '#2E7D32';
+    } else {
+      sel.classList.add('wrong');
+      hintEl.textContent = '✗ Try again. Hint: ' + hint;
+      hintEl.style.color = '#C0392B';
+    }
+    hintEl.style.display = 'block';
+  });
+});
+
+document.querySelectorAll('.song-tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    document.querySelectorAll('.song-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.song-content').forEach(function(c){ c.classList.remove('active'); });
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.song).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
