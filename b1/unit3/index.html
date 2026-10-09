@@ -166,7 +166,7 @@ footer { text-align: center; padding: 32px; color: var(--lgray); font-size: 12px
   <!-- VOCABULARY -->
   <div class="panel active" id="vocab">
     <h2 class="panel-title">Vocabulary</h2>
-    <p class="panel-lead">Click each card to see the meaning. 14 key words from Unit 3 — celebrations &amp; traditions.</p>
+    <p class="panel-lead">Click each card to see the meaning. 24 key words from Unit 3 — celebrations, traditions &amp; apologies.</p>
     <div class="vocab-grid" id="vocabGrid"></div>
   </div>
 
@@ -502,20 +502,30 @@ document.getElementById('speakingBtn').addEventListener('click', function(){
 });
 
 var vocab = [
-  { w: 'to celebrate',    pos: 'verb', def: 'To do something special for a happy event.',             es: 'celebrar' },
-  { w: 'parade',          pos: 'noun', def: 'A public procession of people, floats and music.',       es: 'desfile' },
-  { w: 'tradition',       pos: 'noun', def: 'A custom passed down from generation to generation.',    es: 'tradición' },
-  { w: 'decorations',     pos: 'noun', def: 'Things used to make a place look festive.',              es: 'decoraciones' },
-  { w: 'host / hostess',  pos: 'noun', def: 'The person who gives a party or event.',                 es: 'anfitrión / anfitriona' },
-  { w: 'guest',           pos: 'noun', def: 'A person invited to an event.',                          es: 'invitado/a' },
-  { w: 'invitation',      pos: 'noun', def: 'A written or spoken request to attend an event.',        es: 'invitación' },
-  { w: 'costume',         pos: 'noun', def: 'Special clothes worn for a celebration or character.',   es: 'disfraz' },
-  { w: 'fireworks',       pos: 'noun', def: 'Explosive devices used for colourful night displays.',   es: 'fuegos artificiales' },
-  { w: 'feast',           pos: 'noun', def: 'A large, special meal — often for a celebration.',       es: 'banquete / festín' },
-  { w: 'anniversary',     pos: 'noun', def: 'The date each year when a special event is remembered.', es: 'aniversario' },
-  { w: 'to apologize',    pos: 'verb', def: 'To say sorry for something you did wrong.',              es: 'disculparse' },
-  { w: 'to be held',      pos: 'verb', def: 'To take place (passive — for events).',                  es: 'realizarse / celebrarse' },
-  { w: 'to make up for',  pos: 'verb', def: 'To do something good to compensate a mistake.',          es: 'compensar' }
+  { w: 'to celebrate',       pos: 'verb', def: 'To do something special for a happy event.',                 es: 'celebrar' },
+  { w: 'celebration',        pos: 'noun', def: 'A happy event or party for something special.',              es: 'celebración' },
+  { w: 'festival',           pos: 'noun', def: 'A series of events celebrating something specific.',         es: 'festival' },
+  { w: 'parade',             pos: 'noun', def: 'A public procession of people, floats and music.',           es: 'desfile' },
+  { w: 'tradition',          pos: 'noun', def: 'A custom passed down from generation to generation.',        es: 'tradición' },
+  { w: 'traditional',        pos: 'adj',  def: 'Based on long-established customs.',                         es: 'tradicional' },
+  { w: 'annual',             pos: 'adj',  def: 'Happening once every year.',                                 es: 'anual' },
+  { w: 'spectacular',        pos: 'adj',  def: 'Very impressive or amazing to look at.',                     es: 'espectacular' },
+  { w: 'decorations',        pos: 'noun', def: 'Things used to make a place look festive.',                  es: 'decoraciones' },
+  { w: 'host / hostess',     pos: 'noun', def: 'The person who gives a party or event.',                     es: 'anfitrión / anfitriona' },
+  { w: 'guest',              pos: 'noun', def: 'A person invited to an event.',                              es: 'invitado/a' },
+  { w: 'invitation',         pos: 'noun', def: 'A written or spoken request to attend an event.',            es: 'invitación' },
+  { w: 'costume',            pos: 'noun', def: 'Special clothes worn for a celebration or character.',       es: 'disfraz' },
+  { w: 'fireworks display',  pos: 'noun', def: 'A show of colourful explosives in the night sky.',           es: 'espectáculo de fuegos artificiales' },
+  { w: 'feast',              pos: 'noun', def: 'A large, special meal — often for a celebration.',           es: 'banquete / festín' },
+  { w: 'anniversary',        pos: 'noun', def: 'The date each year when a special event is remembered.',     es: 'aniversario' },
+  { w: 'to honor',           pos: 'verb', def: 'To show great respect for someone or something.',            es: 'honrar' },
+  { w: 'to symbolize',       pos: 'verb', def: 'To represent an idea or quality.',                           es: 'simbolizar' },
+  { w: 'to apologize',       pos: 'verb', def: 'To say sorry for something you did wrong.',                  es: 'disculparse' },
+  { w: 'to be held',         pos: 'verb', def: 'To take place (passive — for events).',                      es: 'realizarse / celebrarse' },
+  { w: 'to make up for',     pos: 'verb', def: 'To do something good to compensate a mistake.',              es: 'compensar' },
+  { w: 'bake sale',          pos: 'noun', def: 'A fundraising event where homemade baked goods are sold.',   es: 'venta de pasteles' },
+  { w: 'to oversleep',       pos: 'verb', def: 'To sleep later than you planned to.',                        es: 'quedarse dormido' },
+  { w: 'to mark (an event)', pos: 'verb', def: 'To celebrate or commemorate something important.',           es: 'conmemorar' }
 ];
 var grid = document.getElementById('vocabGrid');
 vocab.forEach(function(v){
